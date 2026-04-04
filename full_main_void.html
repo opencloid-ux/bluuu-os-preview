@@ -218,42 +218,57 @@ footer { background: #fff; border-top: 1px solid #f0f0f0; padding: 64px 0 0; }
 
 
 /* GOPRO */
-.s-gopro { padding: 80px 0; }
-.gopro-inner { text-align: center; }
+.s-gopro { padding: 90px 0; }
+.gopro-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
 .gopro-badge { display: inline-block; background: var(--blue); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 6px 16px; border-radius: 50px; margin-bottom: 24px; }
-.s-gopro h2 { font-size: clamp(28px,4vw,48px); font-weight: 900; color: #fff; margin-bottom: 16px; }
-.gopro-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 24px; margin-top: 48px; text-align: left; }
-.gp-item { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: 16px; padding: 28px; }
-.gp-icon { font-size: 32px; margin-bottom: 12px; }
-.gp-item h4 { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 8px; }
-.gp-item p { font-size: 14px; color: rgba(255,255,255,.55); line-height: 1.6; }
+.gopro-title { font-size: clamp(26px,3.5vw,44px); font-weight: 900; color: #fff; margin-bottom: 16px; line-height: 1.15; }
+.gopro-sub { font-size: 15px; color: rgba(255,255,255,.6); line-height: 1.7; margin-bottom: 28px; }
+.gopro-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.gpill { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-radius: 50px; padding: 6px 14px; font-size: 12px; color: rgba(255,255,255,.7); font-weight: 600; }
+.gopro-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.gp-card { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.09); border-radius: 16px; padding: 20px; display: flex; gap: 14px; align-items: flex-start; }
+.gp-icon-wrap { font-size: 28px; flex-shrink: 0; margin-top: 2px; }
+.gp-card-title { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+.gp-card-text { font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.55; }
 
 /* FREE PICKUP */
-.s-pickup { padding: 80px 0; background: #fff; }
-.pickup-steps { display: flex; align-items: flex-start; gap: 0; margin-top: 48px; flex-wrap: wrap; justify-content: center; }
-.ps { flex: 1; min-width: 180px; max-width: 240px; text-align: center; padding: 0 16px; }
-.ps-num { font-size: 48px; font-weight: 900; color: var(--blue); opacity: .15; line-height: 1; margin-bottom: 12px; }
-.ps h4 { font-size: 16px; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
-.ps p { font-size: 13px; color: #666; line-height: 1.6; }
-.ps-arrow { font-size: 24px; color: var(--blue); opacity: .3; padding-top: 20px; flex-shrink: 0; }
+.s-pickup { padding: 90px 0; background: #fff; }
+.pickup-flow { display: flex; align-items: flex-start; gap: 0; margin-top: 52px; justify-content: center; }
+.pf-step { flex: 1; min-width: 160px; max-width: 220px; text-align: center; padding: 0 12px; }
+.pf-icon { font-size: 30px; margin-bottom: 10px; }
+.pf-num { font-size: 11px; font-weight: 800; letter-spacing: .12em; color: var(--blue); text-transform: uppercase; margin-bottom: 8px; }
+.pf-title { font-size: 15px; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
+.pf-desc { font-size: 13px; color: #777; line-height: 1.55; }
+.pf-connector { display: flex; align-items: center; padding-top: 24px; flex-shrink: 0; }
+.pf-line { width: 40px; height: 2px; background: linear-gradient(90deg, var(--blue), rgba(37,99,235,.3)); border-radius: 2px; }
 
 /* ELITE */
-.s-elite { padding: 80px 0; }
-.elite-inner { display: grid; grid-template-columns: 1fr 380px; gap: 60px; align-items: center; }
-.elite-badge { display: inline-block; background: rgba(251,191,36,.15); color: #fbbf24; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 6px 16px; border-radius: 50px; margin-bottom: 20px; border: 1px solid rgba(251,191,36,.3); }
-.s-elite h2 { font-size: clamp(26px,3.5vw,44px); font-weight: 900; color: #fff; margin-bottom: 16px; }
-.s-elite p { color: rgba(255,255,255,.6); font-size: 15px; line-height: 1.7; margin-bottom: 28px; }
+.s-elite { padding: 90px 0; }
+.elite-inner { display: grid; grid-template-columns: 1fr 360px; gap: 64px; align-items: center; }
+.elite-badge { display: inline-block; background: rgba(251,191,36,.12); color: #fbbf24; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 6px 16px; border-radius: 50px; margin-bottom: 20px; border: 1px solid rgba(251,191,36,.25); }
+.elite-title { font-size: clamp(26px,3.5vw,44px); font-weight: 900; color: #fff; margin-bottom: 16px; line-height: 1.15; }
+.elite-p { color: rgba(255,255,255,.58); font-size: 15px; line-height: 1.7; margin-bottom: 28px; }
 .elite-list { list-style: none; padding: 0; margin: 0 0 32px; display: flex; flex-direction: column; gap: 10px; }
 .elite-list li { display: flex; align-items: center; gap: 10px; font-size: 14px; color: rgba(255,255,255,.75); }
-.elite-card { background: rgba(255,255,255,.05); border: 1px solid rgba(251,191,36,.2); border-radius: 24px; padding: 36px; text-align: center; }
-.elite-price-label { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #fbbf24; margin-bottom: 12px; }
-.elite-price { font-size: 14px; color: rgba(255,255,255,.5); }
-.elite-price span { font-size: 48px; font-weight: 900; color: #fff; }
-.elite-price-sub { font-size: 13px; color: rgba(255,255,255,.4); margin-top: 4px; }
-.elite-divider { height: 1px; background: rgba(255,255,255,.1); margin: 24px 0; }
-.elite-stat { display: flex; align-items: center; gap: 12px; font-size: 14px; color: rgba(255,255,255,.6); padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,.06); }
-.elite-stat span { font-weight: 900; font-size: 18px; color: #fff; min-width: 40px; }
-@media(max-width:768px){ .elite-inner{grid-template-columns:1fr;} .pickup-steps{flex-direction:column;align-items:center;} .ps-arrow{transform:rotate(90deg);padding:8px 0;} }
+.echk { color: #fbbf24; font-weight: 900; font-size: 14px; flex-shrink: 0; }
+.elite-card { background: rgba(255,255,255,.04); border: 1px solid rgba(251,191,36,.2); border-radius: 24px; padding: 32px; }
+.ec-top-label { font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #fbbf24; margin-bottom: 16px; }
+.ec-price-row { font-size: 15px; color: rgba(255,255,255,.45); margin-bottom: 4px; }
+.ec-price-row strong { font-size: 52px; font-weight: 900; color: #fff; display: block; line-height: 1.05; }
+.ec-price-sub { font-size: 13px; color: rgba(255,255,255,.35); margin-bottom: 24px; }
+.ec-divider { height: 1px; background: rgba(255,255,255,.08); margin: 20px 0; }
+.ec-stat-row { display: flex; align-items: center; gap: 14px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,.05); }
+.ec-stat-num { font-size: 22px; font-weight: 900; color: #fff; min-width: 44px; }
+.ec-stat-lbl { font-size: 13px; color: rgba(255,255,255,.5); }
+.ec-note { font-size: 12px; color: rgba(255,255,255,.4); line-height: 1.5; padding-top: 4px; }
+
+@media(max-width:768px){
+  .elite-inner { grid-template-columns: 1fr; }
+  .gopro-wrap { grid-template-columns: 1fr; }
+  .gopro-cards { grid-template-columns: 1fr; }
+  .pickup-flow { flex-direction: column; align-items: center; gap: 8px; }
+  .pf-connector { transform: rotate(90deg); padding: 0; }
+}
 
 </style>
 </head>
@@ -368,15 +383,47 @@ footer { background: #fff; border-top: 1px solid #f0f0f0; padding: 64px 0 0; }
 <!-- GOPRO -->
 <section class="s-gopro s-dark">
   <div class="container">
-    <div class="gopro-inner anim">
-      <div class="gopro-badge">FREE with every tour</div>
-      <h2>Your memories, <span class="it">4K underwater</span></h2>
-      <p class="s-sub">Every tour includes a professional GoPro operator who follows you into the water. Your full underwater footage — delivered to Google Drive within 3 days. No extra charge, ever.</p>
-      <div class="gopro-grid">
-        <div class="gp-item"><div class="gp-icon">🎬</div><h4>4K Underwater Video</h4><p>Full footage of your snorkel session — mantas, turtles, reef fish, all of it.</p></div>
-        <div class="gp-item"><div class="gp-icon">📲</div><h4>Google Drive Delivery</h4><p>Link sent to your email within 72 hours of your tour. Download and share instantly.</p></div>
-        <div class="gp-item"><div class="gp-icon">💰</div><h4>Completely Free</h4><p>No hidden fees, no upsell. GoPro footage is included in every single tour tier.</p></div>
-        <div class="gp-item"><div class="gp-icon">🌊</div><h4>Professional Operator</h4><p>Trained crew member handles the camera so you focus on the experience.</p></div>
+    <div class="gopro-wrap">
+      <div class="gopro-text-side anim">
+        <div class="gopro-badge">FREE with every tour</div>
+        <h2 class="gopro-title">Your day, <span class="it">4K underwater</span></h2>
+        <p class="gopro-sub">Every tour includes a GoPro operator who follows you into the water. Your full footage — delivered to Google Drive within 3 days. No extra charge, ever.</p>
+        <div class="gopro-pills">
+          <div class="gpill">4K resolution</div>
+          <div class="gpill">Google Drive delivery</div>
+          <div class="gpill">Within 3 days</div>
+          <div class="gpill">No extra cost</div>
+        </div>
+      </div>
+      <div class="gopro-cards anim" style="animation-delay:.15s">
+        <div class="gp-card">
+          <div class="gp-icon-wrap">🎬</div>
+          <div class="gp-card-body">
+            <div class="gp-card-title">4K Underwater Video</div>
+            <div class="gp-card-text">Full footage of your snorkel — mantas, turtles, reef fish, all captured.</div>
+          </div>
+        </div>
+        <div class="gp-card">
+          <div class="gp-icon-wrap">📲</div>
+          <div class="gp-card-body">
+            <div class="gp-card-title">Google Drive Delivery</div>
+            <div class="gp-card-text">Link sent to your email within 72 hours. Download and share instantly.</div>
+          </div>
+        </div>
+        <div class="gp-card">
+          <div class="gp-icon-wrap">💰</div>
+          <div class="gp-card-body">
+            <div class="gp-card-title">Completely Free</div>
+            <div class="gp-card-text">No upsell, no hidden fees. Included in every tier — Essential to Elite.</div>
+          </div>
+        </div>
+        <div class="gp-card">
+          <div class="gp-icon-wrap">🌊</div>
+          <div class="gp-card-body">
+            <div class="gp-card-title">Pro Operator</div>
+            <div class="gp-card-text">Trained crew member runs the camera so you focus on the ocean.</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -460,16 +507,36 @@ footer { background: #fff; border-top: 1px solid #f0f0f0; padding: 64px 0 0; }
     <div class="sec-head anim">
       <div class="s-label">Door to Door</div>
       <h2 class="s-title">Free hotel <span class="it">pickup included</span></h2>
-      <p class="s-sub">No taxis, no stress. Your air-conditioned vehicle arrives at your hotel — and brings you back at the end of the day.</p>
+      <p class="s-sub">No taxis, no stress. Your air-conditioned Toyota arrives at your hotel — and takes you back at day's end.</p>
     </div>
-    <div class="pickup-steps">
-      <div class="ps anim"><div class="ps-num">01</div><h4>We Contact You</h4><p>WhatsApp confirmation the evening before your tour with exact pickup time and driver details.</p></div>
-      <div class="ps-arrow">→</div>
-      <div class="ps anim" style="animation-delay:.1s"><div class="ps-num">02</div><h4>Driver Arrives</h4><p>Toyota Avanza or APV picks you up at your hotel lobby. Comfortable AC, up to 5 guests per vehicle.</p></div>
-      <div class="ps-arrow">→</div>
-      <div class="ps anim" style="animation-delay:.2s"><div class="ps-num">03</div><h4>Board the Boat</h4><p>Arrive at Serangan Harbor, meet your guide, and board your Bluuu vessel. Tour begins immediately.</p></div>
-      <div class="ps-arrow">→</div>
-      <div class="ps anim" style="animation-delay:.3s"><div class="ps-num">04</div><h4>Return Home</h4><p>After the tour, your driver takes you straight back to your hotel. No arrangements needed.</p></div>
+    <div class="pickup-flow anim">
+      <div class="pf-step">
+        <div class="pf-icon">💬</div>
+        <div class="pf-num">01</div>
+        <div class="pf-title">We Contact You</div>
+        <div class="pf-desc">WhatsApp confirmation the evening before — exact pickup time and driver details.</div>
+      </div>
+      <div class="pf-connector"><div class="pf-line"></div></div>
+      <div class="pf-step">
+        <div class="pf-icon">🚗</div>
+        <div class="pf-num">02</div>
+        <div class="pf-title">Driver Arrives</div>
+        <div class="pf-desc">Toyota Avanza or APV at your hotel lobby. AC, comfortable seats, up to 5 guests.</div>
+      </div>
+      <div class="pf-connector"><div class="pf-line"></div></div>
+      <div class="pf-step">
+        <div class="pf-icon">🛥️</div>
+        <div class="pf-num">03</div>
+        <div class="pf-title">Board the Boat</div>
+        <div class="pf-desc">Serangan Harbor — meet your guide, gear up, and push off. The day begins.</div>
+      </div>
+      <div class="pf-connector"><div class="pf-line"></div></div>
+      <div class="pf-step">
+        <div class="pf-icon">🏠</div>
+        <div class="pf-num">04</div>
+        <div class="pf-title">Return Home</div>
+        <div class="pf-desc">After the tour, your driver takes you straight back. No extra arrangements needed.</div>
+      </div>
     </div>
   </div>
 </section>
@@ -481,27 +548,29 @@ footer { background: #fff; border-top: 1px solid #f0f0f0; padding: 64px 0 0; }
     <div class="elite-inner">
       <div class="elite-left anim">
         <div class="elite-badge">⭐ Elite Experience</div>
-        <h2>The entire boat, <span class="it">just for you</span></h2>
-        <p>Private charter means complete freedom — choose your spots, set your pace, bring your group. Drone footage, alcohol, custom routing, and prosecco on the return cruise.</p>
+        <h2 class="elite-title">The entire boat, <span class="it">just for you</span></h2>
+        <p class="elite-p">Private charter means complete freedom — choose your spots, set your pace, bring your crew. Drone footage, alcohol onboard, custom routing, and prosecco on the return cruise.</p>
         <ul class="elite-list">
-          <li><span class="chk">✓</span>Full private boat for 2–45 guests</li>
-          <li><span class="chk">✓</span>Drone aerial photography & video</li>
-          <li><span class="chk">✓</span>Custom itinerary & timing</li>
-          <li><span class="chk">✓</span>Professional photographer on board</li>
-          <li><span class="chk">✓</span>Alcohol & prosecco permitted</li>
-          <li><span class="chk">✓</span>Priority access to all snorkel spots</li>
+          <li><span class="echk">✓</span><span>Full private boat for 2–45 guests</span></li>
+          <li><span class="echk">✓</span><span>Drone aerial photography & video</span></li>
+          <li><span class="echk">✓</span><span>Custom itinerary & departure time</span></li>
+          <li><span class="echk">✓</span><span>Professional photographer on board</span></li>
+          <li><span class="echk">✓</span><span>Alcohol & prosecco permitted</span></li>
+          <li><span class="echk">✓</span><span>Priority access to all snorkel spots</span></li>
         </ul>
-        <a href="https://bluuu.tours" class="btn-primary">Enquire About Private Charter</a>
+        <a href="https://bluuu.tours" class="btn-primary" style="display:inline-block;margin-top:8px;">Enquire About Private Charter →</a>
       </div>
       <div class="elite-right anim" style="animation-delay:.15s">
         <div class="elite-card">
-          <div class="elite-price-label">Private Charter</div>
-          <div class="elite-price">from <span>$858</span></div>
-          <div class="elite-price-sub">entire boat · 2–45 guests</div>
-          <div class="elite-divider"></div>
-          <div class="elite-stat"><span>5+</span> luxury boats available</div>
-          <div class="elite-stat"><span>9+</span> years experience</div>
-          <div class="elite-stat"><span>24h</span> response guarantee</div>
+          <div class="ec-top-label">Private Charter</div>
+          <div class="ec-price-row">from <strong>$858</strong></div>
+          <div class="ec-price-sub">entire boat · 2–45 guests</div>
+          <div class="ec-divider"></div>
+          <div class="ec-stat-row"><div class="ec-stat-num">5+</div><div class="ec-stat-lbl">luxury boats available</div></div>
+          <div class="ec-stat-row"><div class="ec-stat-num">9</div><div class="ec-stat-lbl">years in business</div></div>
+          <div class="ec-stat-row"><div class="ec-stat-num">24h</div><div class="ec-stat-lbl">response guarantee</div></div>
+          <div class="ec-divider"></div>
+          <div class="ec-note">🥂 Prosecco on return cruise included for all Elite guests</div>
         </div>
       </div>
     </div>
