@@ -202,7 +202,7 @@ footer { background: #fff; border-top: 1px solid #f0f0f0; padding: 64px 0 0; }
 .footer-bar { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #e5e7eb; padding: 20px 52px; font-size: 13px; color: var(--muted); }
 @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:none; } }
 .anim { opacity:1; }
-.anim.ready { opacity:0; }
+.anim.ready { opacity:1; }
 .anim.ready.visible { animation: fadeUp .6s ease forwards; }
 @media (max-width: 960px) {
   #nav { padding: 14px 24px; }
@@ -938,7 +938,7 @@ const io = new IntersectionObserver((entries) => {
     }
   });
 }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
-document.querySelectorAll('.anim').forEach(el => { el.classList.add('ready'); io.observe(el); });
+document.querySelectorAll('.anim').forEach(el => { io.observe(el); });
 
 // FAQ accordion
 document.querySelectorAll('.faq-q').forEach(btn => {
