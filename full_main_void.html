@@ -454,19 +454,19 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
 /* Tour card enhancements */
 .tc-highlights { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 10px; }
 .tc-pill { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.18); border-radius: 50px; padding: 4px 10px; font-size: 11px; color: rgba(255,255,255,0.85); }
-.tc-pill-gold { background: rgba(212,160,23,0.18); border-color: rgba(212,160,23,0.4); color: #F7CE68; }
+.tc-pill-gold { background: rgba(59,130,246,0.12); border-color: rgba(59,130,246,0.3); color: rgba(255,255,255,0.9); }
 .tc-rating-row { display: flex; align-items: center; font-size: 13px; color: #fff; margin-bottom: 4px; }
-.tc-btn { display: block; margin-top: 14px; padding: 11px 0; text-align: center; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); border-radius: 8px; color: #fff; font-size: 13px; font-weight: 600; text-decoration: none; transition: background .2s; }
-.tc-btn:hover { background: rgba(255,255,255,0.25); }
-.tc-btn-gold { background: linear-gradient(135deg,#D4A017,#F7CE68); border-color: transparent; color: #1a1a1a; font-weight: 700; }
-.tc-btn-gold:hover { background: linear-gradient(135deg,#B8860B,#E6B840); }
+.tc-btn { display: block; margin-top: 16px; padding: 12px 0; text-align: center; background: transparent; border: 1.5px solid rgba(255,255,255,0.3); border-radius: 50px; color: rgba(255,255,255,0.9); font-size: 13px; font-weight: 600; text-decoration: none; transition: all .2s; letter-spacing: .02em; }
+.tc-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.5); color: #fff; }
+.tc-btn-gold { background: var(--blue); border-color: var(--blue); color: #fff; }
+.tc-btn-gold:hover { background: #2563eb; border-color: #2563eb; }
 
 /* Private Charter premium treatment */
-.tc-premium { border: 1.5px solid rgba(212,160,23,0.5); box-shadow: 0 0 50px rgba(212,160,23,0.15), 0 12px 40px rgba(0,0,0,0.5); }
-.tc-premium-glow { position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(180deg, rgba(212,160,23,0.08) 0%, transparent 50%); pointer-events: none; z-index: 1; }
-.tc-grad-gold { background: linear-gradient(to top, rgba(20,14,4,0.95) 0%, rgba(40,28,8,0.7) 50%, transparent 100%); }
-.tc-badge-gold { background: linear-gradient(135deg,#D4A017,#F7CE68) !important; color: #1a1a1a !important; font-weight: 800 !important; }
-.tc-price-gold { color: #F7CE68; }
+.tc-premium { border: 1.5px solid rgba(255,255,255,0.18); box-shadow: 0 8px 48px rgba(0,0,0,0.55); }
+.tc-premium-glow { display: none; }
+.tc-grad-gold { background: linear-gradient(to top, rgba(7,16,32,0.97) 0%, rgba(15,32,64,0.75) 50%, transparent 100%); }
+.tc-badge-gold { background: var(--blue) !important; color: #fff !important; font-weight: 700 !important; }
+.tc-price-gold { color: #fff; }
 
 </style>
 </head>
@@ -527,13 +527,13 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
         <div class="tc-bg" style="background-image: url('https://bluuu.tours/storage/app/media/image-30-1.jpg');"></div>
         <div class="tc-grad"></div>
         <div class="tc-body">
-          <div class="tc-badge">✓ Best Value</div>
+          <div class="tc-badge">Best Value</div>
           <h3>Shared Tour</h3>
           <p>Explore Nusa Penida with other travellers on a guided full-day trip. Affordable, social, and smooth from pickup to drop-off.</p>
           <div class="tc-highlights">
-            <span class="tc-pill">⏱ 8–9 hours</span>
-            <span class="tc-pill">🤿 Manta rays</span>
-            <span class="tc-pill">🍱 Lunch included</span>
+            <span class="tc-pill">8–9 hours</span>
+            <span class="tc-pill">Manta rays</span>
+            <span class="tc-pill">Lunch included</span>
           </div>
           <div class="tc-rating-row">
             <span style="color:#F59E0B;">★★★★★</span>
@@ -548,7 +548,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
             </div>
             <div class="tc-price">from $77<span class="sm">/ person</span></div>
           </div>
-          <a href="#packages" class="tc-btn">See packages →</a>
+          <a href="#packages" class="tc-btn">See packages</a>
         </div>
       </div>
       <!-- Private Charter — PREMIUM -->
@@ -557,17 +557,17 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
         <div class="tc-grad tc-grad-gold"></div>
         <div class="tc-premium-glow"></div>
         <div class="tc-body">
-          <div class="tc-badge tc-badge-gold">✦ Most Exclusive</div>
+          <div class="tc-badge tc-badge-gold">Private Charter</div>
           <h3>Private Charter</h3>
           <p>The entire boat is yours. Choose the timing, adjust the stops, and set the pace for your group or family.</p>
           <div class="tc-highlights">
-            <span class="tc-pill tc-pill-gold">⏱ Full day, your schedule</span>
-            <span class="tc-pill tc-pill-gold">🛥 Private yacht</span>
-            <span class="tc-pill tc-pill-gold">📸 Drone footage</span>
+            <span class="tc-pill tc-pill-gold">Full day, your schedule</span>
+            <span class="tc-pill tc-pill-gold">Private yacht</span>
+            <span class="tc-pill tc-pill-gold">Drone footage</span>
           </div>
           <div class="tc-rating-row">
-            <span style="color:#F7CE68;">★★★★★</span>
-            <span style="font-weight:700;margin-left:4px;color:#F7CE68;">5.0</span>
+            <span style="color:#F59E0B;">★★★★★</span>
+            <span style="font-weight:700;margin-left:4px;">5.0</span>
             <span style="opacity:.7;font-size:12px;margin-left:4px;">(386 reviews)</span>
           </div>
           <div class="tc-divider"></div>
@@ -578,7 +578,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
             </div>
             <div class="tc-price tc-price-gold">from $858<span class="sm">/boat</span></div>
           </div>
-          <a href="#elite" class="tc-btn tc-btn-gold">Book Private Charter →</a>
+          <a href="#elite" class="tc-btn tc-btn-gold">Book Private Charter</a>
         </div>
       </div>
     </div>
@@ -1643,13 +1643,13 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
         <div class="tc-bg" style="background-image: url('https://bluuu.tours/storage/app/media/image-30-1.jpg');"></div>
         <div class="tc-grad"></div>
         <div class="tc-body">
-          <div class="tc-badge">✓ Best Value</div>
+          <div class="tc-badge">Best Value</div>
           <h3>Shared Tour</h3>
           <p>Explore Nusa Penida with other travellers on a guided full-day trip. Affordable, social, and smooth from pickup to drop-off.</p>
           <div class="tc-highlights">
-            <span class="tc-pill">⏱ 8–9 hours</span>
-            <span class="tc-pill">🤿 Manta rays</span>
-            <span class="tc-pill">🍱 Lunch included</span>
+            <span class="tc-pill">8–9 hours</span>
+            <span class="tc-pill">Manta rays</span>
+            <span class="tc-pill">Lunch included</span>
           </div>
           <div class="tc-rating-row">
             <span style="color:#F59E0B;">★★★★★</span>
@@ -1664,7 +1664,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
             </div>
             <div class="tc-price">from $77<span class="sm">/ person</span></div>
           </div>
-          <a href="#packages" class="tc-btn">See packages →</a>
+          <a href="#packages" class="tc-btn">See packages</a>
         </div>
       </div>
       <!-- Private Charter — PREMIUM -->
@@ -1673,17 +1673,17 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
         <div class="tc-grad tc-grad-gold"></div>
         <div class="tc-premium-glow"></div>
         <div class="tc-body">
-          <div class="tc-badge tc-badge-gold">✦ Most Exclusive</div>
+          <div class="tc-badge tc-badge-gold">Private Charter</div>
           <h3>Private Charter</h3>
           <p>The entire boat is yours. Choose the timing, adjust the stops, and set the pace for your group or family.</p>
           <div class="tc-highlights">
-            <span class="tc-pill tc-pill-gold">⏱ Full day, your schedule</span>
-            <span class="tc-pill tc-pill-gold">🛥 Private yacht</span>
-            <span class="tc-pill tc-pill-gold">📸 Drone footage</span>
+            <span class="tc-pill tc-pill-gold">Full day, your schedule</span>
+            <span class="tc-pill tc-pill-gold">Private yacht</span>
+            <span class="tc-pill tc-pill-gold">Drone footage</span>
           </div>
           <div class="tc-rating-row">
-            <span style="color:#F7CE68;">★★★★★</span>
-            <span style="font-weight:700;margin-left:4px;color:#F7CE68;">5.0</span>
+            <span style="color:#F59E0B;">★★★★★</span>
+            <span style="font-weight:700;margin-left:4px;">5.0</span>
             <span style="opacity:.7;font-size:12px;margin-left:4px;">(386 reviews)</span>
           </div>
           <div class="tc-divider"></div>
@@ -1694,7 +1694,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
             </div>
             <div class="tc-price tc-price-gold">from $858<span class="sm">/boat</span></div>
           </div>
-          <a href="#elite" class="tc-btn tc-btn-gold">Book Private Charter →</a>
+          <a href="#elite" class="tc-btn tc-btn-gold">Book Private Charter</a>
         </div>
       </div>
     </div>
