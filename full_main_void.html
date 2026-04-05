@@ -52,6 +52,7 @@ body { font-family: 'PetrovSans', -apple-system, sans-serif; background: #fff; c
 .r-label { font-size: 10px; color: rgba(255,255,255,0.45); letter-spacing: 0.14em; text-transform: uppercase; margin-top: 4px; display: block; }
 .hero-explore { text-align: center; padding: 12px 0 22px; color: rgba(255,255,255,0.4); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; }
 .hero-explore::before { content: ''; display: block; width: 1px; height: 28px; background: rgba(255,255,255,0.2); margin: 0 auto 10px; }
+.hero-ta-badge { display: inline-flex; align-items: center; gap: 7px; background: rgba(52,224,161,0.15); border: 1px solid rgba(52,224,161,0.35); border-radius: 50px; padding: 7px 18px; margin-bottom: 20px; color: #fff; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; backdrop-filter: blur(12px); }
 .s-label { font-size: 11px; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; color: var(--blue); margin-bottom: 14px; }
 .s-title { font-size: clamp(28px,3.5vw,44px); font-weight: 800; line-height: 1.12; letter-spacing: -0.022em; margin-bottom: 14px; }
 .it { font-style: italic; font-weight: 400; color: var(--blue-it); display: inline-block; transform: skewX(-10deg); }
@@ -207,6 +208,7 @@ footer { background: #fff; border-top: 1px solid #f0f0f0; padding: 64px 0 0; }
 @media (max-width: 960px) {
   #nav { padding: 14px 24px; }
   #nav ul { display: none; }
+  .nav-tab { font-size: 11px; padding: 8px 14px; letter-spacing: .04em; }
   .container { padding: 0 24px; }
   section { padding: 64px 0; }
   .tour-grid, .inc-grid, .pkg-grid, .why-grid, .rev-grid, .footer-grid { grid-template-columns: 1fr; }
@@ -214,7 +216,27 @@ footer { background: #fff; border-top: 1px solid #f0f0f0; padding: 64px 0 0; }
   .gallery-mosaic { grid-template-columns: 1fr 1fr; grid-template-rows: 180px 180px; }
   .g-cell.p1 { grid-row: 1/span 2; }
   .rev-top-row { flex-direction: column; gap: 20px; }
-  .hero-ratings { gap: 24px; flex-wrap: wrap; padding: 20px; }
+  .hero-ratings { gap: 16px; flex-wrap: wrap; padding: 16px 16px 8px; }
+  .hero { min-height: 100svh; }
+  .hero-content { padding: 0 20px; }
+  .hero h1 { font-size: clamp(38px, 10vw, 64px); margin-bottom: 14px; }
+  .hero p { font-size: 15px; margin-bottom: 28px; }
+  .hero-btns { flex-direction: column; align-items: center; gap: 10px; width: 100%; }
+  .btn-primary, .btn-secondary { width: 100%; max-width: 320px; justify-content: center; padding: 15px 24px; font-size: 15px; }
+  .r-big { font-size: 32px; }
+  .r-score { font-size: 22px; }
+  .r-divider { height: 36px; }
+  .hero-bottom { position: relative; margin-top: 24px; }
+  .hero { flex-direction: column; justify-content: space-between; padding-top: 90px; padding-bottom: 0; height: auto; min-height: 100svh; }
+  .hero-explore { display: none; }
+}
+@media (max-width: 480px) {
+  .hero-ratings { flex-wrap: wrap; gap: 12px; justify-content: center; }
+  .r-divider { display: none; }
+  .r-item { min-width: 60px; }
+  .hero h1 { font-size: clamp(34px, 9vw, 52px); }
+  .hero-ta-badge { font-size: 11px; padding: 5px 14px; }
+  .nav-tab { font-size: 10px; padding: 7px 12px; }
 }
 
 
@@ -330,6 +352,7 @@ footer { background: #fff; border-top: 1px solid #f0f0f0; padding: 64px 0 0; }
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <div class="hero-badge"><div class="badge-dot"></div>Award-Winning Tours · Bali</div>
+    <div class="hero-ta-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="12" fill="#34E0A1"/><path d="M12 5.5c-1.3 0-2.4.4-3.4 1.1l-.9-.9H6v1.7l.8.8C6.3 9.2 6 10.3 6 11.5c0 3.3 2.7 6 6 6s6-2.7 6-6-2.7-6-6-6Zm-3 6a3 3 0 1 1 6 0 3 3 0 0 1-6 0Zm3 1.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z" fill="#fff"/></svg><span>#1 on TripAdvisor · Bali</span></div>
     <h1>Discover <span class="ib">Nusa Penida</span></h1>
     <p>Manta rays, snorkeling, diving, and a land tour — all in one unforgettable day from Bali. 10,000+ five-star reviews.</p>
     <div class="hero-btns">
@@ -338,7 +361,7 @@ footer { background: #fff; border-top: 1px solid #f0f0f0; padding: 64px 0 0; }
     </div>
   </div>
   <div class="hero-bottom">
-    <div class="hero-ratings"><div class="r-item ta-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="12" fill="#34E0A1"/><path d="M12 5.5c-1.3 0-2.4.4-3.4 1.1l-.9-.9H6v1.7l.8.8C6.3 9.2 6 10.3 6 11.5c0 3.3 2.7 6 6 6s6-2.7 6-6-2.7-6-6-6Zm-3 6a3 3 0 1 1 6 0 3 3 0 0 1-6 0Zm3 1.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z" fill="#fff"/></svg><span>#1 TripAdvisor · Bali</span></div>
+    <div class="hero-ratings">
       <div class="r-item"><div class="r-score">4.9</div><div class="r-stars">★★★★★</div><div class="r-platform">Google</div></div>
       <div class="r-item"><div class="r-score">4.9</div><div class="r-stars">★★★★★</div><div class="r-platform">Tripadvisor</div></div>
       <div class="r-item"><div class="r-score">4.9</div><div class="r-stars">★★★★★</div><div class="r-platform">Airbnb</div></div>
