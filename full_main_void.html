@@ -157,11 +157,11 @@ section { padding: 80px 0; }
 .gallery-mosaic { display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 280px 280px; gap: 6px; border-radius: 28px; overflow: hidden; }
 .g-cell { overflow: hidden; position: relative; cursor: pointer; transition: transform .4s; }
 .g-cell:hover { transform: scale(1.02); }
-.g-cell.p1 { grid-column: 1; grid-row: 1/span 2; background: url('https://bluuu.tours/storage/app/uploads/public/689/100/4eb/6891004eb5ab4353781057.webp') center/cover no-repeat; }
-.g-cell.p2 { background: url('https://bluuu.tours/storage/app/media/image-30-1.jpg') center/cover no-repeat; }
-.g-cell.p3 { background: url('https://bluuu.tours/storage/app/uploads/public/689/100/4eb/6891004eb5ab4353781057.webp') center 40%/cover no-repeat; filter: brightness(.88) saturate(1.1); }
-.g-cell.p4 { background: url('https://bluuu.tours/storage/app/media/image-30-1.jpg') center 55%/cover no-repeat; filter: brightness(.84); }
-.g-cell.p5 { background: url('https://bluuu.tours/storage/app/uploads/public/689/100/4eb/6891004eb5ab4353781057.webp') 35% center/cover no-repeat; filter: brightness(.9); }
+.g-cell.p1 { grid-column: 1; grid-row: 1/span 2; background: url('img/private-charter.webp') center/cover no-repeat; }
+.g-cell.p2 { background: url('img/shared-tour.jpg') center/cover no-repeat; }
+.g-cell.p3 { background: url('img/private-charter.webp') center 40%/cover no-repeat; filter: brightness(.88) saturate(1.1); }
+.g-cell.p4 { background: url('img/shared-tour.jpg') center 55%/cover no-repeat; filter: brightness(.84); }
+.g-cell.p5 { background: url('img/private-charter.webp') 35% center/cover no-repeat; filter: brightness(.9); }
 .gal-btn { position: absolute; bottom: 20px; right: 20px; z-index: 10; background: rgba(255,255,255,.15); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,.35); border-radius: 50px; padding: 10px 22px; font-size: 13px; font-weight: 500; color: #fff; cursor: pointer; transition: all .25s; }
 .gal-btn:hover { background: rgba(255,255,255,.28); transform: translateY(-2px); }
 .s-rev { background: #fff; }
@@ -490,7 +490,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
-  <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="https://bluuu.tours/storage/app/media/image-30-1.jpg">
+  <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="img/shared-tour.jpg">
     <source src="https://bluuu.tours/storage/app/media/video-xl.mp4" type="video/mp4">
     <source src="https://bluuu.tours/storage/app/media/video-xl.webm" type="video/webm">
   </video>
@@ -528,7 +528,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
     <div class="tour-grid">
       <!-- Shared Tour -->
       <div class="tc anim">
-        <div class="tc-bg" style="background-image: url('https://bluuu.tours/storage/app/media/image-30-1.jpg');"></div>
+        <div class="tc-bg" style="background-image: url('img/shared-tour.jpg');"></div>
         <div class="tc-grad"></div>
         <div class="tc-body">
           <div class="tc-badge">Best Value</div>
@@ -557,7 +557,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
       </div>
       <!-- Private Charter — PREMIUM -->
       <div class="tc tc-premium anim" style="animation-delay:.1s">
-        <div class="tc-bg" style="background-image: url('https://bluuu.tours/storage/app/uploads/public/689/100/4eb/6891004eb5ab4353781057.webp');"></div>
+        <div class="tc-bg" style="background-image: url('img/private-charter.webp');"></div>
         <div class="tc-grad tc-grad-gold"></div>
         <div class="tc-premium-glow"></div>
         <div class="tc-body">
@@ -1380,11 +1380,11 @@ section { padding: 80px 0; }
 .gallery-mosaic { display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 280px 280px; gap: 6px; border-radius: 28px; overflow: hidden; }
 .g-cell { overflow: hidden; position: relative; cursor: pointer; transition: transform .4s; }
 .g-cell:hover { transform: scale(1.02); }
-.g-cell.p1 { grid-column: 1; grid-row: 1/span 2; background: url('https://bluuu.tours/storage/app/uploads/public/689/100/4eb/6891004eb5ab4353781057.webp') center/cover no-repeat; }
-.g-cell.p2 { background: url('https://bluuu.tours/storage/app/media/image-30-1.jpg') center/cover no-repeat; }
-.g-cell.p3 { background: url('https://bluuu.tours/storage/app/uploads/public/689/100/4eb/6891004eb5ab4353781057.webp') center 40%/cover no-repeat; filter: brightness(.88) saturate(1.1); }
-.g-cell.p4 { background: url('https://bluuu.tours/storage/app/media/image-30-1.jpg') center 55%/cover no-repeat; filter: brightness(.84); }
-.g-cell.p5 { background: url('https://bluuu.tours/storage/app/uploads/public/689/100/4eb/6891004eb5ab4353781057.webp') 35% center/cover no-repeat; filter: brightness(.9); }
+.g-cell.p1 { grid-column: 1; grid-row: 1/span 2; background: url('img/private-charter.webp') center/cover no-repeat; }
+.g-cell.p2 { background: url('img/shared-tour.jpg') center/cover no-repeat; }
+.g-cell.p3 { background: url('img/private-charter.webp') center 40%/cover no-repeat; filter: brightness(.88) saturate(1.1); }
+.g-cell.p4 { background: url('img/shared-tour.jpg') center 55%/cover no-repeat; filter: brightness(.84); }
+.g-cell.p5 { background: url('img/private-charter.webp') 35% center/cover no-repeat; filter: brightness(.9); }
 .gal-btn { position: absolute; bottom: 20px; right: 20px; z-index: 10; background: rgba(255,255,255,.15); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,.35); border-radius: 50px; padding: 10px 22px; font-size: 13px; font-weight: 500; color: #fff; cursor: pointer; transition: all .25s; }
 .gal-btn:hover { background: rgba(255,255,255,.28); transform: translateY(-2px); }
 .s-rev { background: #fff; }
@@ -1609,7 +1609,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
-  <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="https://bluuu.tours/storage/app/media/image-30-1.jpg">
+  <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="img/shared-tour.jpg">
     <source src="https://bluuu.tours/storage/app/media/video-xl.mp4" type="video/mp4">
     <source src="https://bluuu.tours/storage/app/media/video-xl.webm" type="video/webm">
   </video>
@@ -1647,7 +1647,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
     <div class="tour-grid">
       <!-- Shared Tour -->
       <div class="tc anim">
-        <div class="tc-bg" style="background-image: url('https://bluuu.tours/storage/app/media/image-30-1.jpg');"></div>
+        <div class="tc-bg" style="background-image: url('img/shared-tour.jpg');"></div>
         <div class="tc-grad"></div>
         <div class="tc-body">
           <div class="tc-badge">Best Value</div>
@@ -1676,7 +1676,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
       </div>
       <!-- Private Charter — PREMIUM -->
       <div class="tc tc-premium anim" style="animation-delay:.1s">
-        <div class="tc-bg" style="background-image: url('https://bluuu.tours/storage/app/uploads/public/689/100/4eb/6891004eb5ab4353781057.webp');"></div>
+        <div class="tc-bg" style="background-image: url('img/private-charter.webp');"></div>
         <div class="tc-grad tc-grad-gold"></div>
         <div class="tc-premium-glow"></div>
         <div class="tc-body">
