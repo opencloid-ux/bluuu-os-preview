@@ -433,10 +433,13 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
 .nav-mobile-menu.open { display: block; }
 
 @media (max-width: 960px) {
-  #nav { padding: 0 20px; height: 64px; }
-  .nav-tabs { display: none !important; }
-  .nav-hamburger { display: flex; }
-  #nav svg { height: 20px; }
+  #nav { padding: 0 16px; height: 56px; gap: 0; }
+  .nav-tabs { display: flex; gap: 4px; }
+  .nav-tab { font-size: 10px; padding: 6px 8px; letter-spacing: 0; white-space: nowrap; opacity: 0.8; }
+  .nav-hamburger { display: none; }
+}
+@media (max-width: 400px) {
+  .nav-tab { font-size: 9px; padding: 5px 6px; }
 }
 
 </style>
@@ -451,14 +454,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
     <a href="#elite" class="nav-tab" onclick="closeMenu()">Private Tours</a>
     <a href="#faq" class="nav-tab" onclick="closeMenu()">FAQ</a>
   </div>
-  <button class="nav-hamburger" id="navHamburger" aria-label="Menu" type="button">
-    <span></span><span></span><span></span>
-  </button>
-  <div class="nav-mobile-menu" id="navMobileMenu">
-    <a href="#packages" class="nav-mobile-link" onclick="closeMenu()">Group Tours</a>
-    <a href="#elite" class="nav-mobile-link" onclick="closeMenu()">Private Tours</a>
-    <a href="#faq" class="nav-mobile-link" onclick="closeMenu()">FAQ</a>
-  </div>
+
 </nav>
 
 <!-- HERO -->
@@ -1549,14 +1545,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
     <a href="#elite" class="nav-tab" onclick="closeMenu()">Private Tours</a>
     <a href="#faq" class="nav-tab" onclick="closeMenu()">FAQ</a>
   </div>
-  <button class="nav-hamburger" id="navHamburger" aria-label="Menu" type="button">
-    <span></span><span></span><span></span>
-  </button>
-  <div class="nav-mobile-menu" id="navMobileMenu">
-    <a href="#packages" class="nav-mobile-link" onclick="closeMenu()">Group Tours</a>
-    <a href="#elite" class="nav-mobile-link" onclick="closeMenu()">Private Tours</a>
-    <a href="#faq" class="nav-mobile-link" onclick="closeMenu()">FAQ</a>
-  </div>
+
 </nav>
 
 <!-- HERO -->
