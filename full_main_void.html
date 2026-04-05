@@ -226,9 +226,9 @@ footer { background: #fff; border-top: 1px solid #f0f0f0; padding: 64px 0 0; }
   .r-big { font-size: 32px; }
   .r-score { font-size: 22px; }
   .r-divider { height: 36px; }
-  .hero { flex-direction: column; justify-content: flex-start; padding-top: 100px; padding-bottom: 0; height: 100svh; min-height: 600px; }
-  .hero-content { flex: 1; display: flex; flex-direction: column; justify-content: center; padding-bottom: 20px; }
-  .hero-bottom { position: relative; flex-shrink: 0; background: linear-gradient(0deg, rgba(5,12,28,0.85) 0%, transparent 100%); }
+  .hero { flex-direction: column; justify-content: space-between; padding-top: 88px; padding-bottom: 0; height: 100svh; min-height: 580px; }
+  .hero-content { flex-shrink: 0; padding-bottom: 0; }
+  .hero-bottom { position: relative; flex-shrink: 0; background: linear-gradient(0deg, rgba(5,12,28,0.9) 0%, rgba(5,12,28,0) 100%); width: 100%; }
   .hero-explore { display: none; }
 }
 @media (max-width: 480px) {
@@ -306,7 +306,7 @@ footer { background: #fff; border-top: 1px solid #f0f0f0; padding: 64px 0 0; }
 .wa-float:hover { transform: scale(1.05); box-shadow: 0 6px 28px rgba(37,211,102,.5); }
 .wa-float svg { flex-shrink: 0; }
 @keyframes wa-pulse { 0%,100%{box-shadow:0 4px 20px rgba(37,211,102,.4)} 50%{box-shadow:0 4px 20px rgba(37,211,102,.4),0 0 0 8px rgba(37,211,102,.08)} }
-@media(max-width:600px){ .wa-float .wa-label { display: none; } .wa-float { padding: 14px; border-radius: 50%; } }
+@media(max-width:600px){ .wa-float .wa-label { display: none; } .wa-float { padding: 14px; border-radius: 50%; bottom: 80px; right: 16px; } }
 
 
 /* BEST PRICE SEAL */
