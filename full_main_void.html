@@ -128,12 +128,41 @@ section { padding: 80px 0; }
 .wi { font-size: 36px; margin-bottom: 16px; display: flex; align-items: center; justify-content: center; width: 56px; height: 56px; margin: 0 auto 18px; background: rgba(59,130,246,0.12); border-radius: 14px; } .wi svg { stroke: #7dd3fc; }
 .wc h4 { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 8px; }
 .wc p { font-size: 13px; color: rgba(255,255,255,.55); line-height: 1.6; }
-.s-timeline { background: #fff; }
-.timeline-vert { max-width: 680px; margin: 0 auto; }
-.tl-item { display: grid; grid-template-columns: 40px 1fr; gap: 0 24px; margin-bottom: 56px; position: relative; }
-.tl-item:last-child { margin-bottom: 0; }
-.tl-item:not(:last-child)::after { content: ''; position: absolute; left: 19px; top: 32px; bottom: -48px; width: 1px; background: #e5e7eb; }
-.tl-dot { width: 14px; height: 14px; border-radius: 50%; margin-top: 4px; margin-left: 13px; position: relative; z-index: 1; }
+.s-timeline { background: #f8fafc; }
+/* NEW TIMELINE — card grid */
+.tl-grid { display: flex; flex-direction: column; gap: 20px; }
+.tl-card { display: grid; grid-template-columns: 280px 1fr; border-radius: 24px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,.07); background: #fff; }
+.tl-card.reverse { direction: rtl; }
+.tl-card.reverse > * { direction: ltr; }
+.tl-visual { min-height: 220px; display: flex; align-items: center; justify-content: center; font-size: 72px; position: relative; flex-shrink: 0; }
+.tl-visual.v-blue  { background: linear-gradient(135deg,#1e3a5f,#3b82f6); }
+.tl-visual.v-teal  { background: linear-gradient(135deg,#0f4c5c,#06b6d4); }
+.tl-visual.v-green { background: linear-gradient(135deg,#14532d,#22c55e); }
+.tl-visual.v-gold  { background: linear-gradient(135deg,#78350f,#f59e0b); }
+.tl-visual.v-ocean { background: linear-gradient(135deg,#1e3a5f,#0ea5e9); }
+.tl-visual.v-sunset{ background: linear-gradient(135deg,#7c2d12,#f97316); }
+.tl-visual.v-night { background: linear-gradient(135deg,#0b1120,#1e3a5f); }
+.tl-visual-step { position: absolute; top: 16px; left: 16px; width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,.18); color: #fff; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.tl-body { padding: 28px 32px; display: flex; flex-direction: column; justify-content: center; }
+.tl-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+.tl-time-badge { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: 4px 10px; border-radius: 50px; }
+.tl-time-badge.morning  { background: #eff6ff; color: #2563eb; }
+.tl-time-badge.midday   { background: #fefce8; color: #ca8a04; }
+.tl-time-badge.afternoon{ background: #fff7ed; color: #ea580c; }
+.tl-time-badge.sunset   { background: #fef3c7; color: #d97706; }
+.tl-premium-badge { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 4px 10px; border-radius: 50px; background: linear-gradient(90deg,#f59e0b,#f97316); color: #fff; }
+.tl-title-new { font-size: 22px; font-weight: 800; color: #0b1120; margin-bottom: 10px; line-height: 1.25; }
+.tl-desc-new { font-size: 14px; color: #6b7280; line-height: 1.65; margin-bottom: 14px; }
+.tl-perks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.tl-perks li { font-size: 13px; color: #374151; display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
+.tl-perks li::before { content: '✓'; color: #22c55e; font-weight: 700; flex-shrink: 0; }
+.tl-perks li.perk-no::before { content: '✗'; color: #ef4444; }
+@media (max-width: 768px) {
+  .tl-card { grid-template-columns: 1fr; }
+  .tl-card.reverse { direction: ltr; }
+  .tl-visual { min-height: 160px; }
+}
+/* legacy dot classes kept for safety */
 .dot-blue { background: rgba(59,130,246,.2); border: 2px solid var(--blue); }
 .dot-sm { background: #d1d5db; width: 8px; height: 8px; margin-top: 7px; margin-left: 16px; }
 .dot-orange { background: rgba(249,115,22,.2); border: 2px solid var(--orange); }
@@ -1133,55 +1162,152 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
       <h2 class="s-title">What your day <span class="it">looks like</span></h2>
       <p class="s-sub">A smooth full-day flow — snorkeling, lunch, land highlights, and manta time.</p>
     </div>
-    <div class="timeline-vert">
-      <div class="tl-item anim">
-        <div class="tl-dot dot-blue"></div>
-        <div>
-          <div class="tl-time c-morning">Morning</div>
-          <div class="tl-title">Hotel Pickup & Cruise</div>
-          <div class="tl-desc">Your driver arrives at the hotel. Board the yacht at Serangan Harbor and cruise to Nusa Penida with your expert guide.</div>
+    <div class="tl-grid">
+
+      <!-- 1. Lounge -->
+      <div class="tl-card">
+        <div class="tl-visual v-blue">
+          ☕
+          <div class="tl-visual-step">1</div>
+        </div>
+        <div class="tl-body">
+          <div class="tl-meta">
+            <span class="tl-time-badge morning">Early Morning</span>
+          </div>
+          <div class="tl-title-new">Bluuu Lounge — before you even board</div>
+          <div class="tl-desc-new">Start your day at our private lounge in Serangan. Relax, grab a coffee, and meet your guide before the boat departs.</div>
+          <ul class="tl-perks">
+            <li>Coffee, tea & fresh orange juice</li>
+            <li>Fresh bakery</li>
+            <li>Safety briefing in the lounge — calm, not rushed</li>
+          </ul>
         </div>
       </div>
-      <div class="tl-item anim" style="animation-delay:.1s">
-        <div class="tl-dot dot-blue"></div>
-        <div>
-          <div class="tl-time c-morning">Morning</div>
-          <div class="tl-title">Cruise & Snorkel</div>
-          <div class="tl-desc">Visit curated snorkel spots with calm, crystal-clear waters. Your crew guides you to the best reefs and marine life.</div>
+
+      <!-- 2. Pier boarding -->
+      <div class="tl-card reverse">
+        <div class="tl-visual v-teal">
+          🚢
+          <div class="tl-visual-step">2</div>
+        </div>
+        <div class="tl-body">
+          <div class="tl-meta">
+            <span class="tl-time-badge morning">Morning</span>
+          </div>
+          <div class="tl-title-new">Board from our private pier</div>
+          <div class="tl-desc-new">No beach walk, no dinghy, no low-tide odyssey. Our dedicated pier in Serangan lets you walk directly onto the boat — dry, easy, and dignified.</div>
+          <ul class="tl-perks">
+            <li class="perk-no">No 300–500 m ocean walk at low tide</li>
+            <li class="perk-no">No shuttle dinghy to reach your boat</li>
+            <li>Safer for kids, families & seniors</li>
+          </ul>
         </div>
       </div>
-      <div class="tl-item anim" style="animation-delay:.15s">
-        <div class="tl-dot dot-sm"></div>
-        <div>
-          <div class="tl-time c-midday">Midday</div>
-          <div class="tl-title">Lunch & Relax</div>
-          <div class="tl-desc">Lunch with panoramic ocean views and time to refresh. Recharge before the second half of the day.</div>
+
+      <!-- 3. Snorkel -->
+      <div class="tl-card">
+        <div class="tl-visual v-ocean">
+          🤿
+          <div class="tl-visual-step">3</div>
+        </div>
+        <div class="tl-body">
+          <div class="tl-meta">
+            <span class="tl-time-badge morning">Morning</span>
+          </div>
+          <div class="tl-title-new">Into the water — first snorkel</div>
+          <div class="tl-desc-new">Crystal-clear protected reefs. Your guide enters with you. Sea turtles, colourful coral, and the first rush of "wait, is that a manta?" energy.</div>
+          <ul class="tl-perks">
+            <li>Full snorkel gear included</li>
+            <li>Guide in water with every group</li>
+            <li>Sea turtles seen on most dives</li>
+          </ul>
         </div>
       </div>
-      <div class="tl-item anim" style="animation-delay:.2s">
-        <div class="tl-dot dot-orange"></div>
-        <div>
-          <div class="tl-time c-afternoon">Afternoon</div>
-          <div class="tl-title">Land Highlights</div>
-          <div class="tl-desc">Short land stops for iconic viewpoints — Kelingking Cliff, Crystal Bay, and photo moments at every turn.</div>
+
+      <!-- 4. Lunch -->
+      <div class="tl-card reverse">
+        <div class="tl-visual v-green">
+          🍽️
+          <div class="tl-visual-step">4</div>
+        </div>
+        <div class="tl-body">
+          <div class="tl-meta">
+            <span class="tl-time-badge midday">Midday</span>
+            <span class="tl-premium-badge">★ Premium & Private</span>
+          </div>
+          <div class="tl-title-new">Lunch at La Rossa Beach Club</div>
+          <div class="tl-desc-new">Premium and Private guests eat at La Rossa — a beachfront restaurant with ocean views, ice-cold drinks, and real food. Not a buffet on the boat.</div>
+          <ul class="tl-perks">
+            <li>Beachfront table with ocean view</li>
+            <li>Full menu — not a set meal</li>
+            <li>Vegetarian options available</li>
+            <li>Standard guests: catered lunch onboard</li>
+          </ul>
         </div>
       </div>
-      <div class="tl-item anim" style="animation-delay:.25s">
-        <div class="tl-dot dot-blue"></div>
-        <div>
-          <div class="tl-time c-late">Late Afternoon</div>
-          <div class="tl-title">Swim with Mantas</div>
-          <div class="tl-desc">Manta ray swim (conditions permitting), guided by the crew in one of the world's best manta spots.</div>
+
+      <!-- 5. Mantas -->
+      <div class="tl-card">
+        <div class="tl-visual v-blue">
+          🦈
+          <div class="tl-visual-step">5</div>
+        </div>
+        <div class="tl-body">
+          <div class="tl-meta">
+            <span class="tl-time-badge afternoon">Afternoon</span>
+          </div>
+          <div class="tl-title-new">Manta Bay — the main event</div>
+          <div class="tl-desc-new">We time our arrival at Manta Bay in the afternoon when fewer boats are out and conditions are calmer. ~90% sighting rate. Wingspans up to 5 metres.</div>
+          <ul class="tl-perks">
+            <li>~90% sighting rate on our tours</li>
+            <li>Afternoon slot — fewer crowds</li>
+            <li>If no mantas: Crystal Bay reef + $15 credit/person</li>
+          </ul>
         </div>
       </div>
-      <div class="tl-item anim" style="animation-delay:.3s">
-        <div class="tl-dot dot-orange"></div>
-        <div>
-          <div class="tl-time c-sunset">Sunset</div>
-          <div class="tl-title">Back to Bali</div>
-          <div class="tl-desc">Return crossing with sunset views. Elite guests enjoy prosecco on the cruise back. Hotel drop-off included.</div>
+
+      <!-- 6. Prosecco / sunset -->
+      <div class="tl-card reverse">
+        <div class="tl-visual v-sunset">
+          🥂
+          <div class="tl-visual-step">6</div>
+        </div>
+        <div class="tl-body">
+          <div class="tl-meta">
+            <span class="tl-time-badge sunset">Sunset</span>
+            <span class="tl-premium-badge">★ Premium & Private</span>
+          </div>
+          <div class="tl-title-new">Secret spot — golden hour & Prosecco</div>
+          <div class="tl-desc-new">Our Premium and Private guests end the day at a hidden spot. Chilled Prosecco, golden light, and that feeling you can't quite describe to people back home.</div>
+          <ul class="tl-perks">
+            <li>Secret location — not on maps</li>
+            <li>Chilled Prosecco served onboard</li>
+            <li>Best photo moment of the whole trip</li>
+            <li>Standard guests: sunset views on cruise back</li>
+          </ul>
         </div>
       </div>
+
+      <!-- 7. Drop-off -->
+      <div class="tl-card">
+        <div class="tl-visual v-night">
+          🌙
+          <div class="tl-visual-step">7</div>
+        </div>
+        <div class="tl-body">
+          <div class="tl-meta">
+            <span class="tl-time-badge sunset">Evening</span>
+          </div>
+          <div class="tl-title-new">Hotel drop-off — door to door</div>
+          <div class="tl-desc-new">Back at Serangan pier, your driver takes you straight to your hotel. No taxis, no haggling, no figuring it out after a full day.</div>
+          <ul class="tl-perks">
+            <li>Private driver, same car as pickup</li>
+            <li>Drop-off directly at your hotel</li>
+            <li>Typical return: 17:30–18:30</li>
+          </ul>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
