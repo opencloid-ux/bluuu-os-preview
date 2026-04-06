@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLUUU Guest Relations — SOP Architecture v2</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F3F4F6; color: #111827; }
+.now-tag { background: #FEE2E2; color: #991B1B; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+.future-tag { background: #D1FAE5; color: #065F46; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+.human-tag { background: #DBEAFE; color: #1E40AF; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+.ai-tag { background: #EDE9FE; color: #5B21B6; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+.bot-tag { background: #FEF3C7; color: #92400E; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+
+
+:root {
+  --bg:#080e14; --sf:#0d1520; --sf2:#111d2c;
+  --bdr:rgba(255,255,255,.06); --bdr2:rgba(255,255,255,.1);
+  --p:#14b8c8; --pd:#0e8a97; --p-glow:rgba(20,184,200,.15);
+  --ok:#10d984; --ok-bg:rgba(16,217,132,.1);
+  --warn:#f6c244; --warn-bg:rgba(246,194,68,.1);
+  --err:#f24a4a; --err-bg:rgba(242,74,74,.1);
+  --txt:#e8f0f8; --txt2:#6b8094; --txt3:#3d5166;
+  --glass:rgba(255,255,255,.03); --glass-bdr:rgba(255,255,255,.07);
+  --shadow:0 4px 24px rgba(0,0,0,.4),0 1px 0 rgba(255,255,255,.04) inset;
+}
+/* ── SIDEBAR ── */
+.sidebar{position:fixed;top:0;left:0;height:100vh;width:220px;background:var(--sf);border-right:1px solid var(--bdr);z-index:200;display:flex;flex-direction:column;transition:width .25s ease;overflow:hidden;}
+body.sb-collapsed .sidebar{width:56px;}
+.sb-logo{display:flex;align-items:center;height:52px;padding:0 16px;border-bottom:1px solid var(--bdr);flex-shrink:0;gap:10px;overflow:hidden;}
+.sb-logo-icon{width:24px;height:24px;background:linear-gradient(135deg,var(--p),var(--pd));border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;color:#fff;flex-shrink:0;}
+.sb-logo-text{font-weight:800;font-size:14px;color:var(--p);white-space:nowrap;letter-spacing:-.3px;overflow:hidden;transition:opacity .2s;}
+body.sb-collapsed .sb-logo-text{opacity:0;width:0;}
+.sb-toggle{position:absolute;top:14px;right:-12px;width:24px;height:24px;background:var(--sf);border:1px solid var(--bdr);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:201;transition:transform .25s ease;box-shadow:var(--shadow);}
+body.sb-collapsed .sb-toggle{transform:rotate(180deg);}
+.sb-toggle svg{width:12px;height:12px;color:var(--txt2);}
+.sb-nav{flex:1;overflow-y:auto;overflow-x:hidden;padding:8px 0;scrollbar-width:none;}
+.sb-nav::-webkit-scrollbar{display:none;}
+.sb-item{display:flex;align-items:center;gap:12px;padding:9px 16px;font-size:13px;font-weight:500;color:var(--txt2);text-decoration:none;white-space:nowrap;transition:all .15s;position:relative;overflow:hidden;border-radius:0;}
+.sb-item:hover{color:var(--txt);background:var(--glass);}
+.sb-item.active{color:var(--p);background:var(--p-glow);font-weight:600;}
+.sb-item.active::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--p);border-radius:0 2px 2px 0;}
+.sb-item svg{width:18px;height:18px;flex-shrink:0;}
+.sb-item-label{overflow:hidden;transition:opacity .2s,width .25s;}
+body.sb-collapsed .sb-item-label{opacity:0;width:0;}
+.sb-tooltip{display:none;}
+body.sb-collapsed .sb-item:hover .sb-tooltip{display:block;position:fixed;left:64px;background:var(--sf);border:1px solid var(--bdr);padding:4px 10px;border-radius:6px;font-size:12px;color:var(--txt);white-space:nowrap;pointer-events:none;z-index:300;box-shadow:var(--shadow);}
+.sb-footer{padding:8px 16px;border-top:1px solid var(--bdr);flex-shrink:0;display:flex;align-items:center;gap:8px;overflow:hidden;}
+.sb-footer-content{display:flex;align-items:center;gap:8px;flex:1;overflow:hidden;}
+.sb-footer-label{font-size:11px;color:var(--txt3);font-family:'Roboto Mono',monospace;white-space:nowrap;overflow:hidden;transition:opacity .2s;}
+body.sb-collapsed .sb-footer-label{opacity:0;width:0;}
+/* ── BACKDROP (mobile) ── */
+.sb-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:199;}
+@media(max-width:767px){
+  .sidebar{width:56px;}
+  body.sb-open .sidebar{width:220px;}
+  body.sb-open .sb-backdrop{display:block;}
+  body.sb-open .sb-item-label{opacity:1;width:auto;}
+  body.sb-open .sb-logo-text{opacity:1;width:auto;}
+  body.sb-open .sb-footer-label{opacity:1;}
+  body.sb-open .sb-collapsed .sidebar{width:220px;}
+  .page{margin-left:56px!important;}
+}
+/* ── PAGE LAYOUT ── */
+.page{padding:16px 24px 48px;max-width:1440px;margin-left:220px;transition:margin-left .25s ease;}
+body.sb-collapsed .page{margin-left:56px;}
+</style>
+</head>
+<body>
+<aside class="sidebar" id="sidebar"><div class="sb-logo"><div class="sb-logo-icon">B</div><span class="sb-logo-text">BLUUU OS</span></div><div class="sb-toggle" id="sb-toggle" title="Toggle sidebar"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5"/></svg></div><nav class="sb-nav">
+    <a class="sb-item" href="index.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg><span class="sb-item-label">Alex CEO</span><span class="sb-tooltip">Alex CEO</span></a>
+    <a class="sb-item" href="karim.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0M12 12.75h.008v.008H12v-.008Z"/></svg><span class="sb-item-label">Карим</span><span class="sb-tooltip">Карим</span></a>
+    <a class="sb-item" href="widia.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21"/></svg><span class="sb-item-label">Widia</span><span class="sb-tooltip">Widia</span></a>
+    <a class="sb-item" href="dima.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 0 1 1.037-.443 48.282 48.282 0 0 0 5.68-.494c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z"/></svg><span class="sb-item-label">Дима</span><span class="sb-tooltip">Дима</span></a>
+    <a class="sb-item" href="geebran.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"/></svg><span class="sb-item-label">Geebran</span><span class="sb-tooltip">Geebran</span></a>
+    <a class="sb-item" href="david.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437 1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008Z"/></svg><span class="sb-item-label">David</span><span class="sb-tooltip">David</span></a>
+    <a class="sb-item" href="finance.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/></svg><span class="sb-item-label">Finance</span><span class="sb-tooltip">Finance</span></a>
+    <a class="sb-item" href="booking.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg><span class="sb-item-label">Booking</span><span class="sb-tooltip">Booking</span></a>
+    <a class="sb-item" href="guide.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.158.69-.158 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z"/></svg><span class="sb-item-label">Гид</span><span class="sb-tooltip">Гид</span></a>
+    <a class="sb-item" href="driver.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 0 0-10.026 0 1.106 1.106 0 0 0-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/></svg><span class="sb-item-label">Водитель</span><span class="sb-tooltip">Водитель</span></a>
+    <a class="sb-item" href="drivers-manager.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"/></svg><span class="sb-item-label">Диспетчер</span><span class="sb-tooltip">Диспетчер</span></a>
+  </nav></aside><div class="sb-backdrop" id="sb-backdrop"></div>
+<div id="root" style="margin-left:220px;transition:margin-left .25s ease;"></div>
+<script type="text/babel">
+const { useState } = React;
+
+const PROCESSES = [
+  {
+    id: "new-lead",
+    name: "1. Обработка нового лида",
+    frequency: "50-100/день",
+    steps: [
+      {
+        step: "Лид поступает в систему",
+        now: { actor: "Kommo (авто)", desc: "Kommo создаёт карточку. Источник: Viator, Klook, Airbnb, GYG, np.one, WhatsApp, email" },
+        future: { actor: "BLUUU OS", desc: "То же самое + AI сразу парсит данные: имя, дата, кол-во гостей, тип запроса. Обогащает карточку автоматически", saved: "Уже автоматизировано" },
+        decision: null
+      },
+      {
+        step: "Квалификация лида",
+        now: { actor: "Менеджер", desc: "Вручную открывает карточку, проверяет: дата, кол-во гостей, тип тура, контакт рабочий. Тратит 3-5 мин на лид" },
+        future: { actor: "AI (автоматически)", desc: "AI валидирует номер телефона (убирает лишний 0 после кода), проверяет дубли, определяет сегмент (пара/семья/группа). Менеджер НЕ участвует", saved: "~4 часа/день" },
+        decision: { question: "Лид валидный?", yes: "Перейти к шагу 3", no: "Пометить Closed-Lost (невалидный контакт / спам / дубль)" }
+      },
+      {
+        step: "Проверка дубликата",
+        now: { actor: "Менеджер", desc: "Ручной поиск в Kommo по номеру телефона и email. Часто пропускают дубли — отсюда двойные бронирования" },
+        future: { actor: "AI (автоматически)", desc: "Автоматический fuzzy-match по телефону, email, имени. Авто-мерж если уверенность >90%. Алерт менеджеру если сомнительный", saved: "~1 час/день + 0 дублей" },
+        decision: { question: "Дубликат найден?", yes: "Объединить карточки, продолжить в существующей сделке", no: "Продолжить как новый лид" }
+      },
+      {
+        step: "Первый контакт с гостем",
+        now: { actor: "Менеджер", desc: "Пишет в WhatsApp вручную в течение 15 мин. Использует шаблон приветствия. Уточняет дату и предпочтения" },
+        future: { actor: "WhatsApp-бот", desc: "Бот отправляет персонализированное приветствие через 30 сек. Задаёт уточняющие вопросы (дата, кол-во, бюджет). Если бот не справляется → передаёт менеджеру", saved: "~3 часа/день" },
+        decision: null
+      },
+      {
+        step: "Подбор продукта",
+        now: { actor: "Менеджер", desc: "На основе размера группы и бюджета подбирает тур. Часто забывают предложить upgrade или yacht" },
+        future: { actor: "AI Рекомендация", desc: "AI анализирует: размер группы, бюджет, дата (загрузка), сегмент → автоматически предлагает лучший тур + upsell. Менеджер только подтверждает", saved: "+15-20% upsell" },
+        decision: { question: "Группа 12+ человек?", yes: "Обязательно предложить Private или Yacht опцию", no: "Предложить Shared (standard/premium) или Private" }
+      },
+      {
+        step: "Отправка предложения",
+        now: { actor: "Менеджер", desc: "Вручную компонует: описание тура, цену, фото/видео, ссылку на оплату. Отправляет через WhatsApp" },
+        future: { actor: "WhatsApp-бот", desc: "Бот генерирует красивое предложение с фото, ценой, кнопкой оплаты. Автоматически на языке гостя (EN/RU/CN/KR)", saved: "~2 часа/день" },
+        decision: null
+      },
+      {
+        step: "Follow-up",
+        now: { actor: "Бот (частично)", desc: "Авто-напоминание через 48ч. Но менеджер всё равно вручную проверяет и дожимает" },
+        future: { actor: "AI-бот (полностью)", desc: "Умный follow-up: через 48ч, 5 дней, 10 дней. AI адаптирует тон и предложение. Через 10 дней → Closed-Lost автоматически", saved: "~1 час/день" },
+        decision: null
+      }
+    ],
+    rules: [
+      "Время ответа: макс 15 мин (сейчас) → 30 сек (BLUUU OS)",
+      "Шаблоны приветствия: отдельные для каждой платформы",
+      "Никогда не давать скидки на первом контакте",
+      "Группы 12+ → всегда предлагать upgrade до Private/Yacht",
+      "Индийские группы → требовать полную предоплату"
+    ],
+    metrics: ["Время первого ответа (сейчас ~15мин → target 30 сек)", "Conversion rate лид→бронирование", "% потерянных лидов по причинам"],
+    totalSavedHours: "~11 часов/день"
+  },
+  {
+    id: "booking",
+    name: "2. Бронирование и подтверждение",
+    frequency: "30-60/день",
+    steps: [
+      {
+        step: "Проверка доступности лодок",
+        now: { actor: "Менеджер / Aline", desc: "Ручная проверка: спрашивает в чате или смотрит в Notion/Kommo. Часто ошибается с загрузкой — отсюда overbooking" },
+        future: { actor: "AI (автоматически)", desc: "Дашборд реального времени: AI видит все лодки, загрузку, ТО, погоду. Бот сразу говорит гостю 'Доступно' или предлагает альтернативу", saved: "~2 часа/день + 0 overbooking" },
+        decision: { question: "Есть свободная лодка?", yes: "Продолжить бронирование", no: "Предложить альтернативную дату или waitlist" }
+      },
+      {
+        step: "Создание бронирования в CRM",
+        now: { actor: "Менеджер", desc: "Вручную заполняет Kommo: имена, контакт, дата, тип тура, доп.услуги. Ошибки в данных — частая проблема" },
+        future: { actor: "AI (автоматически)", desc: "Бот создаёт бронирование из разговора. Все данные из чата → автозаполнение в CRM. Менеджер только проверяет", saved: "~2 часа/день" },
+        decision: null
+      },
+      {
+        step: "Формирование цены",
+        now: { actor: "Менеджер → Карим", desc: "Стандартная цена — ок. Нестандартная → вопрос в чат Кариму → ждут ответа. 759 эскалаций по скидкам" },
+        future: { actor: "Pricing Engine", desc: "AI применяет правила: стандарт из прайса, автоматические скидки (повторный клиент -10%, группа 20+ по таблице). Эскалация к Кариму только для VIP/корпоратив", saved: "~80% эскалаций убрано" },
+        decision: { question: "Цена стандартная?", yes: "Применить из прайса", no: "AI проверяет правила → если подходит, применяет сам → если нет, ЭСКАЛАЦИЯ → Карим" }
+      },
+      {
+        step: "Отправка инвойса и платёжной ссылки",
+        now: { actor: "Менеджер", desc: "Вручную генерирует ссылку Xendit, отправляет через WhatsApp. Платёжные ссылки иногда не работают" },
+        future: { actor: "Система (автоматически)", desc: "Бот автоматически генерирует Xendit-ссылку и отправляет. Если не работает → fallback на другой метод оплаты", saved: "~30 мин/день" },
+        decision: null
+      },
+      {
+        step: "Получение и подтверждение оплаты",
+        now: { actor: "Менеджер", desc: "Xendit уведомляет, но менеджер вручную проверяет и меняет статус. EDC-платежи — отдельная боль (зависают)" },
+        future: { actor: "Система (автоматически)", desc: "Xendit webhook → статус в CRM обновляется мгновенно. Авто-подтверждение гостю. Follow-up через 24/72ч если не оплатил", saved: "~1 час/день" },
+        decision: { question: "Оплата получена?", yes: "Авто-статус Invoice Paid → авто-подтверждение гостю", no: "Авто-напоминание через 24ч → 72ч → предупреждение об отмене" }
+      },
+      {
+        step: "Отправка подтверждения",
+        now: { actor: "Менеджер", desc: "Вручную отправляет: детали тура, время пикапа, место встречи, что взять" },
+        future: { actor: "WhatsApp-бот", desc: "Авто-сообщение после оплаты: все детали + Google Maps + чек-лист что взять. На языке гостя", saved: "~1 час/день" },
+        decision: null
+      },
+      {
+        step: "Координация доп.услуг",
+        now: { actor: "Менеджер", desc: "Вручную связывается с фотографом, DJ и т.д. Пересчитывает сумму, добавляет в манифест" },
+        future: { actor: "Менеджер (с AI-помощником)", desc: "AI предлагает доп.услуги при бронировании (upsell). Автоматически уведомляет подрядчиков и пересчитывает сумму. Менеджер только утверждает нестандартные", saved: "~30 мин/день + upsell рост" },
+        decision: { question: "Есть доп.услуги?", yes: "AI уведомляет подрядчика, добавляет в манифест, пересчитывает", no: "Завершить бронирование" }
+      }
+    ],
+    rules: [
+      "Shared tours: полная оплата при бронировании",
+      "Private tours: минимум депозит $100",
+      "Никаких скидок в праздничные дни (жёсткая)",
+      "Комиссия: стандарт 20%, Klook 25%",
+      "Бонус менеджеру: 50K IDR за shared booking",
+      "Дети на shared Viator: запрещены (жалобы)",
+      "Макс: 14 pax premium shared, 13 standard"
+    ],
+    metrics: ["Conversion предложение→оплата", "Время от согласия до оплаты", "Upsell rate (доп.услуги)"],
+    totalSavedHours: "~7 часов/день"
+  },
+  {
+    id: "ota",
+    name: "3. Управление OTA-слотами",
+    frequency: "Несколько раз/день",
+    steps: [
+      {
+        step: "Мониторинг загрузки лодок",
+        now: { actor: "Aline", desc: "Вручную проверяет загрузку в Kommo/Notion на ближайшие 7 дней. Считает свободные места" },
+        future: { actor: "AI (автоматически)", desc: "Дашборд реального времени. AI видит загрузку всех лодок, автоматически считает свободные слоты по датам", saved: "~1 час/день" },
+        decision: null
+      },
+      {
+        step: "Решение: открыть или закрыть слоты",
+        now: { actor: "Aline", desc: "Сама решает сколько мест открыть на каждой платформе. Субъективно — зависит от опыта" },
+        future: { actor: "AI (автоматически)", desc: "AI применяет правила: >80% загрузки → закрыть shared. Приоритет по марже: np.one > Direct > Airbnb > GYG > Viator > Klook. Flash-sale по команде Карима", saved: "Нулевой риск overbooking" },
+        decision: { question: "Лодки загружены >80%?", yes: "Закрыть shared на OTA, оставить private", no: "Открыть слоты по приоритету маржи" }
+      },
+      {
+        step: "Обновление на платформах",
+        now: { actor: "Aline", desc: "ВРУЧНУЮ заходит на каждую платформу (5-6 штук) и обновляет availability. Занимает 15-30 мин за раз" },
+        future: { actor: "API-интеграция", desc: "Одно изменение в BLUUU OS → автоматически синхронизируется на все платформы через API", saved: "~2 часа/день" },
+        decision: null
+      },
+      {
+        step: "Блокировка при ТО или погоде",
+        now: { actor: "Aline + David", desc: "David сообщает о ТО/погоде в чат → Aline закрывает слоты вручную. Задержка может быть 1-2 часа" },
+        future: { actor: "AI (автоматически)", desc: "Погодный мониторинг (Windy API) → авто-блокировка при опасных условиях. ТО из Odoo → авто-закрытие. Менеджерам → авто-алерт на контакт с забронированными гостями", saved: "Реакция: 2ч → 5 мин" },
+        decision: { question: "Полная отмена дня?", yes: "Авто-закрытие ВСЕХ слотов + авто-алерт менеджерам", no: "Авто-корректировка доступных мест" }
+      }
+    ],
+    rules: [
+      "НИКОГДА не допускать overbooking",
+      "Приоритет маржи: np.one (0%) > Direct > Airbnb > GYG > Viator (20%) > Klook (25%)",
+      "Погодная отмена → закрыть в течение 30 мин (сейчас) → 5 мин (OS)",
+      "Flash-sales: только по команде Карима"
+    ],
+    metrics: ["% загрузки по платформам", "Случаи overbooking (target: 0)", "Упущенные бронирования"],
+    totalSavedHours: "~3 часа/день"
+  },
+  {
+    id: "pretour",
+    name: "4. Pre-tour коммуникация",
+    frequency: "30-60/день",
+    steps: [
+      {
+        step: "Напоминание T-24 часа",
+        now: { actor: "Менеджер", desc: "Вручную отправляет каждому гостю: подтверждение, время пикапа, место встречи, Google Maps, что взять" },
+        future: { actor: "WhatsApp-бот", desc: "Авто-отправка в T-24ч: персонализированное сообщение на языке гостя с кнопкой подтверждения. Без участия менеджера", saved: "~2 часа/день" },
+        decision: null
+      },
+      {
+        step: "Получение подтверждения от гостя",
+        now: { actor: "Менеджер", desc: "Ждёт ответа. Если нет — звонит. Если всё равно нет — помечает как риск no-show" },
+        future: { actor: "AI-бот + Менеджер", desc: "Бот отслеживает ответы. Нет ответа через 4ч → авто-повтор. Нет через 8ч → звонок менеджера (AI ставит задачу). No-show прогноз на основе паттернов", saved: "~1 час/день" },
+        decision: { question: "Гость подтвердил?", yes: "Авто-добавление в манифест", no: "Авто-повтор → звонок менеджера → пометить риск" }
+      },
+      {
+        step: "Назначение трансфера",
+        now: { actor: "Менеджер", desc: "Вручную считает время пикапа от отеля. Назначает водителя. Отправляет детали гостю и водителю отдельно" },
+        future: { actor: "AI (автоматически)", desc: "AI знает зону отеля → авто-расчёт времени. Авто-назначение водителя по зоне и загрузке. Авто-уведомление и гостю, и водителю одновременно", saved: "~2 часа/день" },
+        decision: { question: "Трансфер нужен?", yes: "AI: расчёт времени → назначение водителя → уведомление обоих", no: "Авто-отправка self-drive инструкций до Серангана" }
+      },
+      {
+        step: "Утреннее подтверждение",
+        now: { actor: "Водитель", desc: "Водитель звонит гостю в 6:00-6:30. Подтверждает пикап" },
+        future: { actor: "Водитель (без изменений)", desc: "Живой звонок остаётся — это человеческий контакт, который ценен. AI только напоминает водителю позвонить", saved: "Без изменений (и не нужно)" },
+        decision: null
+      },
+      {
+        step: "Передача в Operations",
+        now: { actor: "Менеджер", desc: "Вручную компилирует финальный список и отправляет Widya и Gee к 18:00 накануне" },
+        future: { actor: "Система (автоматически)", desc: "Манифест формируется автоматически из CRM. Widya и Gee видят в дашборде. Обновляется в реальном времени при изменениях", saved: "~30 мин/день" },
+        decision: null
+      }
+    ],
+    rules: [
+      "Место встречи: СЕРАНГАН (НЕ Sanur Bay!)",
+      "Google Maps ссылка ОБЯЗАТЕЛЬНА каждому гостю",
+      "Трансфер: от отеля + 30 мин запаса",
+      "Стандарт: 200K IDR (до 6 pax). Canggu 300K, Ubud 400K, Amed 600K",
+      "Финальный манифест: крайний срок 18:00 накануне"
+    ],
+    metrics: ["% подтвердивших T-24 (target: 90%)", "% no-shows (target: <3%)", "Задержки пикапов"],
+    totalSavedHours: "~5.5 часов/день"
+  },
+  {
+    id: "cancellations",
+    name: "5. Отмены и возвраты",
+    frequency: "5-15/день",
+    steps: [
+      {
+        step: "Запрос на отмену от гостя",
+        now: { actor: "Менеджер", desc: "Получает запрос в WhatsApp. Фиксирует причину. Каждый раз спрашивает Карима — что делать" },
+        future: { actor: "WhatsApp-бот + AI", desc: "Бот принимает запрос, автоматически классифицирует причину, подтягивает данные бронирования. Предлагает менеджеру готовое решение по decision tree", saved: "~30 мин/день" },
+        decision: null
+      },
+      {
+        step: "Классификация и решение",
+        now: { actor: "Менеджер → Карим", desc: "КАЖДЫЙ случай эскалируется к Кариму. 3,592 упоминания в чате. Карим отвечает когда может — гость ждёт" },
+        future: { actor: "AI Decision Engine", desc: "AI применяет decision tree автоматически. 80% кейсов решаются без человека. Менеджер только утверждает. К Кариму → только VIP, >$500, угроза отзывом", saved: "~80% эскалаций убрано" },
+        decision: { question: "Причина отмены?", yes: "ПОГОДА → 3A\nБОЛЕЗНЬ → 3B\nПЛАНЫ → 3C\nНЕДОВОЛЬСТВО → 3D", no: null }
+      },
+      {
+        step: "3A: Погодная отмена (наша вина)",
+        now: { actor: "Менеджер → Карим", desc: "Спрашивает Карима. Карим говорит 'полный возврат или перенос'. Каждый раз одно и то же" },
+        future: { actor: "AI (автоматически)", desc: "AI сразу предлагает гостю: бесплатный перенос ИЛИ полный возврат. Без участия Карима — правило железное", saved: "100% этих кейсов без эскалации" },
+        decision: { question: "Гость может перенести?", yes: "Бесплатный перенос (приоритет при размещении)", no: "Полный возврат 100% через Xendit (3-5 рабочих дней)" }
+      },
+      {
+        step: "3B: Болезнь гостя",
+        now: { actor: "Менеджер → Карим", desc: "Спрашивает Карима. Решение зависит от настроения и загрузки" },
+        future: { actor: "AI Decision Engine", desc: "AI проверяет: есть мед.справка? >24ч до тура? → авто-решение по правилам. Менеджер только подтверждает", saved: "90% без эскалации" },
+        decision: { question: "Мед.справка + >24ч до тура?", yes: "Бесплатный перенос. Если невозможно → возврат 100%", no: "Предложить перенос. Отказ → возврат 50%" }
+      },
+      {
+        step: "3C: Планы изменились",
+        now: { actor: "Менеджер → Карим", desc: "Гость торгуется. Менеджер не знает границ. Спрашивает Карима" },
+        future: { actor: "AI (автоматически)", desc: "AI чётко по правилам: >14д = 100%, 7-14д = 50%, <7д = 0 (только перенос), <24ч = ничего. Менеджер не обсуждает — показывает политику", saved: "100% без эскалации" },
+        decision: { question: "За сколько дней до тура?", yes: ">14 дней → возврат 100%\n7-14 дней → возврат 50%\n<7 дней → без возврата (только перенос)\n<24ч → без возврата и переноса", no: null }
+      },
+      {
+        step: "3D: Недовольство сервисом",
+        now: { actor: "Дима → Карим", desc: "Единственный кейс, который реально требует эскалации. Но тонет среди сотен рутинных вопросов" },
+        future: { actor: "Дима → Карим (без изменений)", desc: "Остаётся эскалация — тут нужно человеческое решение. Но теперь Карим видит ТОЛЬКО эти кейсы, а не 3,592 вопроса", saved: "Карим фокусируется на важном" },
+        decision: { question: "Уровень проблемы?", yes: "Мелкая → скидка 15-20% на след. тур\nСерьёзная → возврат 30% + скидка 50%\nКритическая → полный возврат + страховой кейс", no: null }
+      },
+      {
+        step: "Обработка возврата",
+        now: { actor: "Shenny", desc: "Вручную оформляет возврат через Xendit или платформу OTA. Обновляет статус в Kommo" },
+        future: { actor: "Система (автоматически)", desc: "AI инициирует возврат через Xendit API. Авто-обновление CRM. Если OTA → ставит задачу менеджеру (платформы не дают API для возвратов)", saved: "~30 мин/день" },
+        decision: null
+      },
+      {
+        step: "Post-cancel follow-up",
+        now: { actor: "Менеджер (редко)", desc: "Обычно забывают. Гость уходит без follow-up" },
+        future: { actor: "WhatsApp-бот", desc: "Авто-сообщение через 24ч: сожаление + скидка 10% на будущее бронирование. Трекинг повторных визитов", saved: "Новый revenue stream" },
+        decision: null
+      }
+    ],
+    rules: [
+      "DECISION TREE ПОКРЫВАЕТ 80% КЕЙСОВ — менеджер решает сам",
+      "Эскалация к Кариму ТОЛЬКО: недовольство, >$500, VIP, угроза отзывом",
+      "Погодные отмены = ВСЕГДА 100% возврат или бесплатный перенос",
+      "Политика 14 дней — жёсткая, не обсуждается",
+      "Каждая отмена → запись причины в CRM для аналитики"
+    ],
+    metrics: ["% отмен от бронирований", "Время обработки", "% без эскалации (target: 80%)"],
+    totalSavedHours: "~3 часа/день + 80% разгрузка Карима"
+  },
+  {
+    id: "pricing",
+    name: "6. Ценообразование и скидки",
+    frequency: "10-20/день",
+    steps: [
+      {
+        step: "Гость просит скидку или нестандартная цена",
+        now: { actor: "Менеджер", desc: "Менеджер не знает, можно ли дать скидку. Каждый раз пишет Кариму: 'What price for...?' — 2,842 таких вопроса" },
+        future: { actor: "Pricing Engine", desc: "AI знает все правила и сразу подсказывает менеджеру: 'Стандартная цена $XX' или 'Повторный клиент → скидка 10% = $XX'. Менеджер видит ответ мгновенно", saved: "~70% эскалаций убрано" },
+        decision: { question: "Цена есть в прайсе?", yes: "Применить. Скидки НЕ давать", no: "AI проверяет правила → шаг 2" }
+      },
+      {
+        step: "Проверка по правилам скидок",
+        now: { actor: "Менеджер → Карим", desc: "Менеджер не имеет полномочий. Пишет Кариму → ждёт. Карим отвечает когда может. Гость ждёт" },
+        future: { actor: "AI Pricing Engine", desc: "AI автоматически: повторный клиент → -10%. Группа 20+ → по таблице. Flash-sale → цены Карима. Агент → 20%. Всё остальное → эскалация к Кариму с готовым предложением", saved: "Ответ: часы → секунды" },
+        decision: { question: "Кейс подходит под правила?", yes: "Повторный → -10%\nГруппа 20+ → по таблице\nFlash-sale → таблица Карима\nАгент → комиссия 20%", no: "ЭСКАЛАЦИЯ → Карим (с данными + предложение AI)" }
+      },
+      {
+        step: "Финальное согласование",
+        now: { actor: "Карим", desc: "Карим отвечает в чат. Менеджер передаёт гостю. Цепочка из 3 человек" },
+        future: { actor: "Карим (только нестандартные)", desc: "Карим видит только кейсы, которые AI не смог решить. С контекстом и предложением AI. Решает в 1 клик", saved: "Карим: 20 решений/день → 5" },
+        decision: null
+      }
+    ],
+    rules: [
+      "НИКАКИХ скидок без основания",
+      "Праздничные дни: фиксированная цена",
+      "Первый контакт: никогда не предлагать скидку первым",
+      "Менеджер МОЖЕТ сам: стандарт, повторный -10%, агент 20%",
+      "Менеджер НЕ МОЖЕТ: индивидуальные скидки, корпоратив, бартер"
+    ],
+    metrics: ["Средний размер скидки", "% со скидкой", "% без эскалации (target: 70%)"],
+    totalSavedHours: "~2 часа/день + разгрузка Карима"
+  },
+  {
+    id: "reviews",
+    name: "7. Управление отзывами",
+    frequency: "840+ отзывов/мес",
+    steps: [
+      {
+        step: "Сбор отзывов с платформ",
+        now: { actor: "Aline", desc: "Вручную проверяет 6 платформ (TA, Viator, Klook, GYG, Airbnb, Google). Может пропустить отзыв" },
+        future: { actor: "AI Review Engine", desc: "Trustindex/API собирает автоматически каждые 4-6ч. Все отзывы → Supabase. Ничего не пропущено", saved: "~1 час/день + 100% покрытие" },
+        decision: null
+      },
+      {
+        step: "Парсинг и классификация",
+        now: { actor: "Aline", desc: "Вручную читает каждый отзыв. Определяет имя гида, рейтинг, проблему. 840 отзывов/мес = огромная нагрузка" },
+        future: { actor: "AI (автоматически)", desc: "AI парсит: имя гида, рейтинг, sentiment, ключевые темы. Нет имени → привязка по дате из манифеста. Мгновенно", saved: "~3 часа/день" },
+        decision: { question: "Рейтинг?", yes: "5★ → авто-благодарность\n4★ → авто-благодарность + анализ\n3★ → алерт Диме\n1-2★ → КРИТИЧЕСКИЙ алерт", no: null }
+      },
+      {
+        step: "Ответ на позитивные (4-5★)",
+        now: { actor: "Менеджер", desc: "Вручную пишет ответ. Иногда шаблонный, иногда забывает. Задержка дни" },
+        future: { actor: "AI (автоматически)", desc: "AI генерирует персонализированный ответ (упоминает имя гостя, конкретный комплимент). Публикует автоматически. Менеджер не участвует", saved: "~2 часа/день" },
+        decision: null
+      },
+      {
+        step: "Отработка среднего (3★)",
+        now: { actor: "Дима", desc: "Дима связывается с гостём. Предлагает скидку 15-20%. Вручную" },
+        future: { actor: "AI + Дима", desc: "AI сразу алертит Диму с контекстом: что не так, контакт гостя, предложенная компенсация. Дима только подтверждает и звонит", saved: "~30 мин на кейс" },
+        decision: null
+      },
+      {
+        step: "Отработка критического (1-2★)",
+        now: { actor: "Дима → Карим", desc: "Срочный контакт. Компенсация. Заявка на удаление. Стресс" },
+        future: { actor: "AI алерт → Дима → Карим", desc: "МОМЕНТАЛЬНЫЙ алерт (4ч → 5 мин). AI подготовил: контекст, контакт, предложение компенсации, черновик ответа. Дима и Карим только утверждают", saved: "Реакция: 4ч → 5 мин" },
+        decision: null
+      },
+      {
+        step: "Обновление Guide Race",
+        now: { actor: "Aline", desc: "Вручную начисляет очки гидам. Сверяет с манифестами. Ошибки в привязке" },
+        future: { actor: "AI (автоматически)", desc: "Очки начисляются мгновенно при парсинге отзыва. 5★+имя = +10. 4★+имя = +5. <2★ = -15. Всё в реальном времени в дашборде Guide Race", saved: "~1 час/день + точность 100%" },
+        decision: null
+      },
+      {
+        step: "Еженедельный дайджест",
+        now: { actor: "Aline", desc: "Вручную компилирует сводку. Долго и скучно" },
+        future: { actor: "AI (автоматически)", desc: "Авто-генерация каждый понедельник: кол-во, средний рейтинг, топ-гиды, проблемные паттерны, тренды vs прошлая неделя. Рассылка в чат", saved: "~2 часа/неделю" },
+        decision: null
+      }
+    ],
+    rules: [
+      "Ответ на ВСЕ отзывы в течение 48ч (сейчас) → 4ч (OS)",
+      "Негатив ≤3★ → контакт с гостём в 4ч",
+      "Airbnb удаление: +622150940269",
+      "Никогда не спорить в публичном ответе",
+      "Гид с негативом → 3 дня только в паре"
+    ],
+    metrics: ["Средний рейтинг (target: 4.9)", "Время ответа на негатив", "% удалённых негативов", "5★/месяц"],
+    totalSavedHours: "~7 часов/день"
+  },
+  {
+    id: "posttour",
+    name: "8. Post-tour follow-up",
+    frequency: "30-60/день",
+    steps: [
+      {
+        step: "Сбор GoPro видео от гидов",
+        now: { actor: "Гиды", desc: "Должны загрузить видео на Google Drive в день тура. Часто забывают или задерживают" },
+        future: { actor: "Гиды + AI-напоминание", desc: "AI отслеживает: загрузил ли гид видео до 20:00? Нет → авто-напоминание. Нет до 22:00 → алерт Gee. Штраф Guide Race за просрочку", saved: "~80% задержек убрано" },
+        decision: null
+      },
+      {
+        step: "Обработка и отправка видео гостю",
+        now: { actor: "Контент-менеджер → Менеджер", desc: "Контент проверяет, менеджер вручную отправляет ссылку T+2-3 дня. Часто задерживают" },
+        future: { actor: "Система (автоматически)", desc: "AI видит что видео загружено → авто-генерирует ссылку → авто-отправляет гостю через WhatsApp в T+2 дня. Без участия людей", saved: "~1.5 часа/день" },
+        decision: { question: "Видео готово в срок?", yes: "Авто-отправка + благодарность", no: "Авто-уведомление гостю о задержке + эскалация → Gee" }
+      },
+      {
+        step: "Запрос отзыва",
+        now: { actor: "Менеджер", desc: "Вручную отправляет ссылку. Иногда не на ту платформу. Иногда забывает" },
+        future: { actor: "WhatsApp-бот", desc: "T+3 дня: авто-отправка ссылки на ПРАВИЛЬНУЮ платформу (Viator гость → Viator, Klook → Klook, Direct → TA/Google). 100% покрытие", saved: "+30-50% отзывов" },
+        decision: null
+      },
+      {
+        step: "Upsell повторного тура",
+        now: { actor: "Никто", desc: "Сейчас не делается системно. Огромная упущенная выручка" },
+        future: { actor: "WhatsApp-бот", desc: "T+5 дней: персонализированное предложение. Был shared → предложить private/yacht. Скидка 10% для повторных. AI адаптирует под сегмент гостя", saved: "Новый revenue stream" },
+        decision: null
+      }
+    ],
+    rules: [
+      "GoPro видео: крайний срок загрузки — день тура 20:00",
+      "Отправка гостю: макс T+3 дня",
+      "Запрос отзыва → на правильную платформу",
+      "Email для видео: daytripbaligopro@gmail.com"
+    ],
+    metrics: ["Время доставки видео (target: T+2)", "% оставивших отзыв", "Repeat booking rate"],
+    totalSavedHours: "~1.5 часа/день + новая выручка"
+  },
+  {
+    id: "transfers",
+    name: "9. Координация трансферов",
+    frequency: "20-40/день",
+    steps: [
+      {
+        step: "Расчёт времени пикапа",
+        now: { actor: "Менеджер", desc: "Вручную считает время от отеля до Серангана. Нужно знать зоны. Новички ошибаются" },
+        future: { actor: "AI (автоматически)", desc: "AI знает все зоны и время: Seminyak 6:00, Sanur 6:45, Canggu 5:30, Ubud 5:00, Nusa Dua 6:30. Авто-расчёт с учётом трафика", saved: "~30 мин/день + 0 ошибок" },
+        decision: null
+      },
+      {
+        step: "Назначение водителя",
+        now: { actor: "Менеджер / David", desc: "Вручную подбирает водителя по зоне и загрузке. Не оптимизировано" },
+        future: { actor: "AI (автоматически)", desc: "AI назначает: ближайший свободный водитель, оптимальный маршрут если несколько пикапов. Авто-уведомление водителю", saved: "~30 мин/день + оптимизация" },
+        decision: null
+      },
+      {
+        step: "Уведомление гостя и водителя",
+        now: { actor: "Менеджер", desc: "Два отдельных сообщения: гостю (имя водителя, время) и водителю (имя гостя, отель). Вручную" },
+        future: { actor: "WhatsApp-бот", desc: "Одно действие → два авто-сообщения: гостю (имя, номер, время, как узнать) и водителю (имя, отель, номер, кол-во). Одновременно", saved: "~1 час/день" },
+        decision: null
+      },
+      {
+        step: "Утренний контроль",
+        now: { actor: "Водитель", desc: "Звонит гостю в 6:00-6:30. Если не ответил — сам решает что делать" },
+        future: { actor: "Водитель + AI-fallback", desc: "Водитель звонит (человеческий контакт). Если гость не отвечает 15 мин → AI алертит менеджера автоматически", saved: "~15 мин/день" },
+        decision: { question: "Гость на месте?", yes: "Забрать и ехать", no: "Повтор. 15 мин нет ответа → авто-алерт менеджеру" }
+      }
+    ],
+    rules: [
+      "СЕРАНГАН, НЕ Sanur Bay!",
+      "Стандарт 200K (до 6 pax), Canggu 300K, Ubud 400K, Amed 600K",
+      "Grab/Gojek ЗАПРЕЩЕНЫ для гостей",
+      "Макс 6 человек в машину",
+      "Водитель в фирменной одежде Bluuu"
+    ],
+    metrics: ["% пикапов вовремя (target: 95%)", "Жалобы на трансфер", "Средняя загрузка машин"],
+    totalSavedHours: "~2 часа/день"
+  }
+];
+
+function StepRow({ s, i }) {
+  return React.createElement("div", { style: { marginBottom: 2 } },
+    React.createElement("div", { style: { display: "grid", gridTemplateColumns: "40px 1fr 1fr", gap: 0, background: i % 2 === 0 ? "#FAFAFA" : "#fff", borderRadius: 8, border: "1px solid #E5E7EB", overflow: "hidden" } },
+      React.createElement("div", { style: { display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-start", paddingTop: 14, background: s.decision ? "#EEF2FF" : "#F9FAFB", borderRight: "1px solid #E5E7EB" } },
+        React.createElement("div", { style: { width: 28, height: 28, borderRadius: "50%", background: s.decision ? "#818CF8" : "#D1D5DB", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700 } }, i + 1)
+      ),
+      // NOW column
+      React.createElement("div", { style: { padding: "12px 14px", borderRight: "1px solid #E5E7EB" } },
+        React.createElement("div", { style: { display: "flex", alignItems: "center", gap: 6, marginBottom: 6, flexWrap: "wrap" } },
+          React.createElement("span", { style: { fontWeight: 700, fontSize: 13 } }, s.step),
+          React.createElement("span", { className: "now-tag" }, "Сейчас")
+        ),
+        React.createElement("div", { style: { display: "flex", gap: 4, marginBottom: 4 } },
+          React.createElement("span", { className: "human-tag" }, s.now.actor)
+        ),
+        React.createElement("p", { style: { fontSize: 12, color: "#4B5563", lineHeight: 1.5, margin: 0 } }, s.now.desc)
+      ),
+      // FUTURE column
+      React.createElement("div", { style: { padding: "12px 14px", background: "#F0FDF410" } },
+        React.createElement("div", { style: { display: "flex", alignItems: "center", gap: 6, marginBottom: 6, flexWrap: "wrap" } },
+          React.createElement("span", { style: { fontWeight: 700, fontSize: 13 } }, s.step),
+          React.createElement("span", { className: "future-tag" }, "BLUUU OS")
+        ),
+        React.createElement("div", { style: { display: "flex", gap: 4, marginBottom: 4 } },
+          React.createElement("span", { className: s.future.actor.includes("AI") || s.future.actor.includes("Engine") || s.future.actor.includes("Система") ? "ai-tag" : s.future.actor.includes("бот") || s.future.actor.includes("Бот") ? "bot-tag" : "human-tag" }, s.future.actor)
+        ),
+        React.createElement("p", { style: { fontSize: 12, color: "#065F46", lineHeight: 1.5, margin: 0 } }, s.future.desc),
+        s.future.saved && React.createElement("div", { style: { marginTop: 6, fontSize: 11, fontWeight: 600, color: "#059669", background: "#ECFDF5", padding: "2px 8px", borderRadius: 4, display: "inline-block" } }, "⏱ " + s.future.saved)
+      )
+    ),
+    s.decision && React.createElement("div", { style: { margin: "4px 0 4px 40px", background: "#EEF2FF", borderRadius: 6, padding: "8px 14px", border: "1px solid #C7D2FE" } },
+      React.createElement("div", { style: { fontSize: 12, fontWeight: 700, color: "#4338CA", marginBottom: 4 } }, s.decision.question),
+      s.decision.yes && React.createElement("div", { style: { fontSize: 12, color: "#065F46", whiteSpace: "pre-line" } }, "→ " + s.decision.yes),
+      s.decision.no && React.createElement("div", { style: { fontSize: 12, color: "#991B1B", whiteSpace: "pre-line", marginTop: 2 } }, "✗ " + s.decision.no)
+    )
+  );
+}
+
+function ProcessSection({ process, isOpen, toggle }) {
+  return React.createElement("div", { style: { border: "1px solid #E5E7EB", borderRadius: 12, overflow: "hidden", marginBottom: 12, background: "#fff", boxShadow: isOpen ? "0 4px 12px rgba(0,0,0,0.08)" : "none" } },
+    React.createElement("div", { onClick: toggle, style: { padding: "14px 20px", cursor: "pointer", background: isOpen ? "#F9FAFB" : "#fff", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8, flexWrap: "wrap" } },
+      React.createElement("span", { style: { fontWeight: 700, fontSize: 15, flex: 1, minWidth: 200 } }, process.name),
+      React.createElement("div", { style: { display: "flex", gap: 6, alignItems: "center", flexWrap: "wrap" } },
+        React.createElement("span", { style: { background: "#FEF3C7", color: "#92400E", padding: "2px 8px", borderRadius: 10, fontSize: 11, fontWeight: 600 } }, process.frequency),
+        process.totalSavedHours && React.createElement("span", { style: { background: "#D1FAE5", color: "#065F46", padding: "2px 8px", borderRadius: 10, fontSize: 11, fontWeight: 600 } }, "Экономия: " + process.totalSavedHours),
+        React.createElement("span", { style: { fontSize: 18, color: "#9CA3AF" } }, isOpen ? "−" : "+")
+      )
+    ),
+    isOpen && React.createElement("div", { style: { padding: "0 12px 16px" } },
+      // Column headers
+      React.createElement("div", { style: { display: "grid", gridTemplateColumns: "40px 1fr 1fr", gap: 0, marginBottom: 8, padding: "8px 0" } },
+        React.createElement("div", null),
+        React.createElement("div", { style: { textAlign: "center", fontWeight: 700, fontSize: 13, color: "#991B1B", background: "#FEF2F2", padding: "6px 12px", borderRadius: "6px 0 0 6px" } }, "КАК СЕЙЧАС (ручная работа)"),
+        React.createElement("div", { style: { textAlign: "center", fontWeight: 700, fontSize: 13, color: "#065F46", background: "#ECFDF5", padding: "6px 12px", borderRadius: "0 6px 6px 0" } }, "ПОСЛЕ BLUUU OS (AI)")
+      ),
+      // Steps
+      process.steps.map((s, i) => React.createElement(StepRow, { key: i, s, i })),
+      // Rules
+      React.createElement("div", { style: { marginTop: 16 } },
+        React.createElement("h4", { style: { margin: "0 0 8px", fontSize: 14, color: "#DC2626" } }, "Жёсткие правила"),
+        React.createElement("div", { style: { display: "flex", flexDirection: "column", gap: 4 } },
+          process.rules.map((r, i) => React.createElement("div", { key: i, style: { background: "#FEF2F2", border: "1px solid #FECACA", borderRadius: 6, padding: "6px 12px", fontSize: 12, color: "#991B1B" } }, r))
+        )
+      ),
+      // Metrics
+      React.createElement("div", { style: { marginTop: 12 } },
+        React.createElement("h4", { style: { margin: "0 0 8px", fontSize: 14, color: "#065F46" } }, "KPI"),
+        React.createElement("div", { style: { display: "flex", flexWrap: "wrap", gap: 6 } },
+          process.metrics.map((m, i) => React.createElement("span", { key: i, style: { background: "#D1FAE5", color: "#065F46", padding: "4px 10px", borderRadius: 6, fontSize: 12 } }, m))
+        )
+      )
+    )
+  );
+}
+
+function App() {
+  const [openProcesses, setOpenProcesses] = useState(new Set(["new-lead"]));
+
+  const toggle = (id) => {
+    setOpenProcesses(prev => {
+      const next = new Set(prev);
+      next.has(id) ? next.delete(id) : next.add(id);
+      return next;
+    });
+  };
+
+  const expandAll = () => setOpenProcesses(new Set(PROCESSES.map(p => p.id)));
+  const collapseAll = () => setOpenProcesses(new Set());
+
+  const totalSteps = PROCESSES.reduce((s, p) => s + p.steps.length, 0);
+  const totalDecisions = PROCESSES.reduce((s, p) => s + p.steps.filter(st => st.decision).length, 0);
+
+  return React.createElement("div", { style: { maxWidth: 1100, margin: "0 auto", padding: 20 } },
+    // Header
+    React.createElement("div", { style: { marginBottom: 24 } },
+      React.createElement("div", { style: { display: "flex", alignItems: "center", gap: 8, marginBottom: 8 } },
+        React.createElement("div", { style: { background: "#2563EB", color: "#fff", padding: "4px 12px", borderRadius: 6, fontSize: 12, fontWeight: 700 } }, "ПРИОРИТЕТ #1"),
+        React.createElement("span", { style: { color: "#6B7280", fontSize: 13 } }, "Отдел Димы · Guest Relations")
+      ),
+      React.createElement("h1", { style: { fontSize: 26, fontWeight: 800, color: "#111827", margin: "0 0 4px" } }, "Guest Relations — Сейчас vs BLUUU OS"),
+      React.createElement("p", { style: { color: "#6B7280", margin: 0, fontSize: 14 } }, "Для каждого шага: кто делает сейчас → кто будет делать после автоматизации")
+    ),
+    // Legend
+    React.createElement("div", { style: { display: "flex", gap: 12, marginBottom: 20, flexWrap: "wrap", alignItems: "center" } },
+      React.createElement("span", { style: { fontSize: 12, color: "#6B7280" } }, "Теги:"),
+      React.createElement("span", { className: "human-tag" }, "Человек"),
+      React.createElement("span", { className: "ai-tag" }, "AI / Система"),
+      React.createElement("span", { className: "bot-tag" }, "WhatsApp-бот"),
+      React.createElement("span", { className: "now-tag" }, "Сейчас"),
+      React.createElement("span", { className: "future-tag" }, "BLUUU OS")
+    ),
+    // Stats
+    React.createElement("div", { style: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 10, marginBottom: 16 } },
+      [
+        { label: "Процессов", value: "9", color: "#2563EB" },
+        { label: "Шагов", value: totalSteps, color: "#111827" },
+        { label: "Decision points", value: totalDecisions, color: "#7C3AED" },
+        { label: "Общая экономия", value: "~42ч/д", color: "#059669" },
+      ].map((s, i) => React.createElement("div", { key: i, style: { background: "#fff", borderRadius: 8, padding: "12px 16px", textAlign: "center", boxShadow: "0 1px 3px rgba(0,0,0,0.08)" } },
+        React.createElement("div", { style: { fontSize: 24, fontWeight: 800, color: s.color } }, s.value),
+        React.createElement("div", { style: { fontSize: 11, color: "#6B7280" } }, s.label)
+      ))
+    ),
+    // Controls
+    React.createElement("div", { style: { display: "flex", gap: 6, marginBottom: 16 } },
+      React.createElement("button", { onClick: expandAll, style: { padding: "6px 14px", borderRadius: 6, border: "1px solid #D1D5DB", background: "#fff", fontSize: 12, cursor: "pointer", color: "#374151" } }, "Раскрыть все"),
+      React.createElement("button", { onClick: collapseAll, style: { padding: "6px 14px", borderRadius: 6, border: "1px solid #D1D5DB", background: "#fff", fontSize: 12, cursor: "pointer", color: "#374151" } }, "Свернуть")
+    ),
+    // Processes
+    PROCESSES.map(p => React.createElement(ProcessSection, { key: p.id, process: p, isOpen: openProcesses.has(p.id), toggle: () => toggle(p.id) })),
+    // Footer
+    React.createElement("div", { style: { background: "#EFF6FF", border: "1px solid #BFDBFE", borderRadius: 12, padding: 20, marginTop: 8 } },
+      React.createElement("h3", { style: { margin: "0 0 8px", fontSize: 16, color: "#1E40AF" } }, "Итого: что даёт BLUUU OS для Guest Relations"),
+      React.createElement("div", { style: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 12 } },
+        [
+          { label: "Экономия времени команды", value: "~42 часа/день", detail: "Это ~5 менеджеров полного дня" },
+          { label: "Разгрузка Карима", value: "~80%", detail: "С 6,000 эскалаций/мес до ~1,200" },
+          { label: "Скорость ответа", value: "15 мин → 30 сек", detail: "Первый контакт с гостем" },
+          { label: "Upsell потенциал", value: "+15-20%", detail: "AI рекомендации + post-tour follow-up" }
+        ].map((s, i) => React.createElement("div", { key: i, style: { background: "#fff", borderRadius: 8, padding: 12 } },
+          React.createElement("div", { style: { fontSize: 20, fontWeight: 800, color: "#1E40AF" } }, s.value),
+          React.createElement("div", { style: { fontSize: 13, fontWeight: 600, color: "#111827" } }, s.label),
+          React.createElement("div", { style: { fontSize: 11, color: "#6B7280", marginTop: 2 } }, s.detail)
+        ))
+      )
+    ),
+    React.createElement("div", { style: { textAlign: "center", marginTop: 24, padding: 12, color: "#9CA3AF", fontSize: 12 } }, "BLUUU TOURS © 2026 · BLUUU OS Standardization Phase 1")
+  );
+}
+
+ReactDOM.render(React.createElement(App), document.getElementById("root"));
+</script>
+
+// Sidebar toggle
+(function(){
+  var sb=document.getElementById('sidebar'),
+      toggle=document.getElementById('sb-toggle'),
+      backdrop=document.getElementById('sb-backdrop');
+  var isMobile=window.innerWidth<768;
+  var collapsed=localStorage.getItem('sidebar_collapsed');
+  if(isMobile){
+    document.body.classList.remove('sb-collapsed');
+  } else {
+    if(collapsed==='1') document.body.classList.add('sb-collapsed');
+  }
+  function doToggle(){
+    if(isMobile){
+      document.body.classList.toggle('sb-open');
+    } else {
+      var c=document.body.classList.toggle('sb-collapsed');
+      localStorage.setItem('sidebar_collapsed',c?'1':'0');
+    }
+  }
+  if(toggle) toggle.addEventListener('click',doToggle);
+  if(backdrop) backdrop.addEventListener('click',function(){document.body.classList.remove('sb-open');});
+  window.addEventListener('resize',function(){
+    isMobile=window.innerWidth<768;
+    if(isMobile){document.body.classList.remove('sb-collapsed');}
+    else{document.body.classList.remove('sb-open');}
+  });
+})();
+
+
+<script>
+(function(){
+  var toggle=document.getElementById('sb-toggle'),
+      backdrop=document.getElementById('sb-backdrop');
+  var isMobile=window.innerWidth<768;
+  var collapsed=localStorage.getItem('sidebar_collapsed');
+  if(!isMobile && collapsed==='1') document.body.classList.add('sb-collapsed');
+  function doToggle(){
+    if(isMobile){document.body.classList.toggle('sb-open');}
+    else{var c=document.body.classList.toggle('sb-collapsed');localStorage.setItem('sidebar_collapsed',c?'1':'0');}
+  }
+  if(toggle) toggle.addEventListener('click',doToggle);
+  if(backdrop) backdrop.addEventListener('click',function(){document.body.classList.remove('sb-open');});
+})();
+</script>
+</body>
+</html>
