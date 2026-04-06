@@ -363,6 +363,33 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
 .tc-score, .pc-score { font-size: 13px; font-weight: 700; color: #fff; }
 .tc-reviews, .pc-reviews { font-size: 12px; color: rgba(255,255,255,.55); }
 
+/* Elite Yacht Spotlight */
+.s-eyacht { padding: 80px 0; background: #fff; }
+.eyacht-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+.eyacht-img-wrap { position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 12px 48px rgba(0,0,0,.14); }
+.eyacht-top-badge { position: absolute; top: 16px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,.72); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: .1em; padding: 6px 18px; border-radius: 50px; white-space: nowrap; z-index: 2; }
+.eyacht-img { display: block; width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+.eyacht-label { font-size: 12px; font-weight: 700; letter-spacing: .12em; color: #3b82f6; text-transform: uppercase; margin-bottom: 8px; }
+.eyacht-title { font-size: clamp(26px,3vw,40px); font-weight: 900; color: #0b1120; line-height: 1.15; margin-bottom: 12px; }
+.eyacht-sub { font-size: 15px; color: #64748b; line-height: 1.7; margin-bottom: 24px; }
+.eyacht-specs { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+.eyacht-spec { font-size: 14px; color: #374151; display: flex; align-items: center; gap: 8px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px 14px; }
+.eyacht-spec-icon { font-size: 16px; }
+.eyacht-price-row { display: flex; align-items: baseline; gap: 6px; margin-bottom: 6px; flex-wrap: wrap; }
+.eyacht-from { font-size: 13px; color: #64748b; }
+.eyacht-price { font-size: 40px; font-weight: 900; color: #0b1120; line-height: 1; }
+.eyacht-per { font-size: 14px; color: #64748b; }
+.eyacht-tier-badge { background: #dbeafe; color: #1d4ed8; font-size: 11px; font-weight: 700; letter-spacing: .07em; padding: 4px 12px; border-radius: 50px; text-transform: uppercase; }
+.eyacht-upsell { font-size: 13px; color: #0d9488; font-weight: 600; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 8px 14px; margin-bottom: 20px; display: inline-block; }
+.eyacht-feat-head { font-size: 13px; color: #64748b; margin-bottom: 8px; }
+.eyacht-feat-list { list-style: none; padding: 0; margin: 0 0 24px; display: flex; flex-direction: column; gap: 7px; }
+.eyacht-feat-list li { font-size: 14px; color: #1e293b; display: flex; align-items: flex-start; gap: 8px; }
+.ef-plus { color: #3b82f6; font-weight: 800; flex-shrink: 0; }
+.eyacht-btn { display: inline-block; background: #fff; border: 2px solid #3b82f6; color: #3b82f6; font-size: 16px; font-weight: 700; padding: 14px 36px; border-radius: 50px; text-decoration: none; transition: all .2s; }
+.eyacht-btn:hover { background: #3b82f6; color: #fff; }
+.eyacht-no-pay { font-size: 12px; color: #94a3b8; margin-top: 10px; text-align: center; }
+@media(max-width:768px) { .eyacht-inner { grid-template-columns: 1fr; } }
+
 /* Elite card premium gold treatment */
 .pc-elite { border: 1.5px solid rgba(212,160,23,0.55) !important; background: linear-gradient(160deg, rgba(30,28,60,1) 0%, rgba(40,32,20,1) 100%) !important; box-shadow: 0 0 40px rgba(212,160,23,0.18), 0 8px 32px rgba(0,0,0,0.4) !important; }
 .pc-elite .p-amount { color: #F7CE68; }
@@ -775,6 +802,49 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
   </div>
 </section>
 
+
+<!-- ELITE YACHT SPOTLIGHT -->
+<section class="s-eyacht">
+  <div class="container">
+    <div class="eyacht-inner anim">
+      <div class="eyacht-img-wrap">
+        <div class="eyacht-top-badge">★ TOP TIER</div>
+        <img src="https://bluuu.tours/storage/app/uploads/public/69b/24f/6ff/69b24f6ff11ed876143371.jpg" alt="Fortune Yachts Eldorado — Elite Tour" class="eyacht-img">
+      </div>
+      <div class="eyacht-body">
+        <div class="eyacht-label">ELITE</div>
+        <h2 class="eyacht-title">The best we offer</h2>
+        <p class="eyacht-sub">Handcrafted yacht by Fortune Yachts, premium service, and the most relaxed pace on the water.</p>
+        <div class="eyacht-specs">
+          <div class="eyacht-spec"><span class="eyacht-spec-icon">⛵</span> Eldorado yacht · 13m · 2026</div>
+          <div class="eyacht-spec"><span class="eyacht-spec-icon">👥</span> Max 13 guests</div>
+          <div class="eyacht-spec"><span class="eyacht-spec-icon">☀️</span> Full shade · bow lounge with sofas</div>
+        </div>
+        <div class="eyacht-price-row">
+          <span class="eyacht-from">from</span>
+          <span class="eyacht-price">$149</span>
+          <span class="eyacht-per">/ person</span>
+          <span class="eyacht-tier-badge">TOP TIER</span>
+        </div>
+        <div class="eyacht-upsell">↑ Only +$20/person more than Premium</div>
+        <div class="eyacht-feats">
+          <div class="eyacht-feat-head">Everything in Premium, plus:</div>
+          <ul class="eyacht-feat-list">
+            <li><span class="ef-plus">+</span> Brand-new Fortune Yachts Eldorado</li>
+            <li><span class="ef-plus">+</span> Drone photos &amp; video included</li>
+            <li><span class="ef-plus">+</span> All photos &amp; videos delivered next day</li>
+            <li><span class="ef-plus">+</span> Free GoPro rental — shoot your own content</li>
+            <li><span class="ef-plus">+</span> Lunch at luxury cliff-top hotel restaurant</li>
+            <li><span class="ef-plus">+</span> Photo stop at secret spot</li>
+            <li><span class="ef-plus">+</span> Most experienced guides — 3+ years with Bluuu</li>
+          </ul>
+        </div>
+        <a href="https://bluuu.tours" class="eyacht-btn">Select Elite →</a>
+        <div class="eyacht-no-pay">No payment required to view options</div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ELITE EXPERIENCE -->
 <section class="s-elite s-dark">
