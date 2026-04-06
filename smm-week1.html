@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>@bluuutours — Instagram Feed Preview</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#fafafa;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+.profile{max-width:935px;margin:0 auto;padding:30px 20px 24px;display:flex;align-items:center;gap:40px}
+.avatar-circle{width:86px;height:86px;border-radius:50%;background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);padding:3px;flex-shrink:0}
+.avatar-inner{width:100%;height:100%;border-radius:50%;background:#fff;padding:3px;display:flex;align-items:center;justify-content:center;font-size:36px}
+.profile-info h1{font-size:20px;font-weight:300;margin-bottom:16px}
+.profile-btns{display:flex;gap:8px;margin-bottom:16px}
+.btn-follow{background:#0095f6;color:#fff;border:none;padding:7px 24px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer}
+.btn-msg{background:#efefef;color:#000;border:none;padding:7px 24px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer}
+.stats{display:flex;gap:30px;margin-bottom:16px}
+.stat strong{font-size:16px;font-weight:600;display:block}
+.stat span{font-size:13px;color:#737373}
+.bio{font-size:14px;line-height:1.6}
+.bio strong{display:block}
+.bio a{color:#00376b;text-decoration:none}
+.highlights{max-width:935px;margin:0 auto;padding:0 20px 20px;display:flex;gap:20px;overflow-x:auto}
+.hl{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;flex-shrink:0}
+.hl-ring{width:56px;height:56px;border-radius:50%;border:2px solid #dbdbdb;padding:2px}
+.hl-inner{width:100%;height:100%;border-radius:50%;background:linear-gradient(135deg,#0077B6,#00B4D8);display:flex;align-items:center;justify-content:center;font-size:22px}
+.hl span{font-size:11px;color:#262626}
+.tabs{max-width:935px;margin:0 auto;border-top:1px solid #dbdbdb;display:flex;justify-content:center;gap:60px}
+.tab{padding:12px 0;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#737373;cursor:pointer;border-top:2px solid transparent}
+.tab.active{color:#262626;border-top-color:#262626}
+.grid{max-width:935px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+.gi{aspect-ratio:1;overflow:hidden;cursor:pointer;position:relative;background:#111}
+.gi img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .2s}
+.gi:hover img{opacity:.7}
+.gi-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:16px;opacity:0;transition:opacity .2s;color:#fff;font-weight:700;font-size:15px}
+.gi:hover .gi-overlay{opacity:1}
+.fmt{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.6);color:#fff;font-size:10px;padding:2px 7px;border-radius:10px}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:100;align-items:center;justify-content:center}
+.modal-bg.open{display:flex}
+.modal{background:#fff;border-radius:4px;width:90vw;max-width:900px;max-height:90vh;display:flex;overflow:hidden}
+.modal-img{width:50%;flex-shrink:0}
+.modal-img img{width:100%;height:100%;object-fit:cover;display:block}
+.modal-right{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.mhead{padding:14px 16px;border-bottom:1px solid #efefef;display:flex;align-items:center;gap:12px}
+.mava{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#0077B6,#00B4D8);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.muser{font-size:14px;font-weight:600}
+.mloc{font-size:12px;color:#737373}
+.mbody{flex:1;overflow-y:auto;padding:16px}
+.mcaption{font-size:14px;line-height:1.6;margin-bottom:12px}
+.mcaption strong{font-weight:600}
+.mtags{font-size:13px;color:#00376b;line-height:1.8;margin-bottom:16px}
+.mmeta{font-size:11px;color:#8e8e8e;border-top:1px solid #efefef;padding-top:12px;line-height:1.8}
+.mfooter{padding:12px 16px;border-top:1px solid #efefef;display:flex;justify-content:space-between;align-items:center}
+.mlikes{font-size:14px;font-weight:600}
+.mdate{font-size:12px;color:#8e8e8e}
+.mclose{position:absolute;top:16px;right:16px;background:none;border:none;color:#fff;font-size:32px;cursor:pointer;z-index:101;line-height:1}
+.nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.9);border:none;border-radius:50%;width:40px;height:40px;font-size:22px;cursor:pointer;z-index:101;display:flex;align-items:center;justify-content:center}
+.nav-l{left:12px}
+.nav-r{right:12px}
+.sheets-bar{max-width:935px;margin:24px auto;padding:0 20px 40px}
+.sheets-bar a{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #dbdbdb;border-radius:12px;padding:14px 18px;text-decoration:none;color:#262626;font-size:14px}
+.sheets-bar a:hover{background:#f0f8ff}
+.sheets-bar a span{color:#0077B6;font-weight:600}
+@media(max-width:600px){
+  .profile{flex-direction:column;text-align:center;gap:16px}
+  .stats{justify-content:center}
+  .profile-btns{justify-content:center}
+  .modal{flex-direction:column}
+  .modal-img{width:100%;height:50vw}
+}
+</style>
+</head>
+<body>
+
+<div class="profile">
+  <div class="avatar-circle"><div class="avatar-inner">🌊</div></div>
+  <div class="profile-info">
+    <h1>bluuutours</h1>
+    <div class="profile-btns">
+      <button class="btn-follow">Follow</button>
+      <button class="btn-msg">Message</button>
+    </div>
+    <div class="stats">
+      <div class="stat"><strong>247</strong><span>posts</span></div>
+      <div class="stat"><strong>18.4K</strong><span>followers</span></div>
+      <div class="stat"><strong>312</strong><span>following</span></div>
+    </div>
+    <div class="bio">
+      <strong>Bluuu Tours 🌊 Nusa Penida</strong>
+      Premium ocean day trips from Bali<br>
+      Manta rays · Turtles · Crystal waters<br>
+      9,000+ ⭐ reviews<br>
+      <a href="https://bluuu.tours" target="_blank">bluuu.tours</a>
+    </div>
+  </div>
+</div>
+
+<div class="highlights">
+  <div class="hl"><div class="hl-ring"><div class="hl-inner">🐟</div></div><span>Ocean Life</span></div>
+  <div class="hl"><div class="hl-ring"><div class="hl-inner">🐢</div></div><span>Wildlife</span></div>
+  <div class="hl"><div class="hl-ring"><div class="hl-inner">🚤</div></div><span>Behind Us</span></div>
+  <div class="hl"><div class="hl-ring"><div class="hl-inner">✨</div></div><span>Guests</span></div>
+  <div class="hl"><div class="hl-ring"><div class="hl-inner">🗺️</div></div><span>Tips</span></div>
+</div>
+
+<div class="tabs">
+  <div class="tab active">POSTS</div>
+  <div class="tab">REELS</div>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<div class="sheets-bar">
+  <a href="https://docs.google.com/spreadsheets/d/1pByjwK4TQy5HqB431l3sX7TushhpSYMSulvVK6mBQ1s/edit" target="_blank">
+    📊 <span>Full 30-day plan in Google Sheets</span> — all captions, hashtags & visual briefs
+  </a>
+</div>
+
+<div class="modal-bg" id="modal">
+  <button class="nav nav-l" onclick="navPost(-1)">‹</button>
+  <button class="nav nav-r" onclick="navPost(1)">›</button>
+  <button class="mclose" onclick="closeModal()">×</button>
+  <div class="modal">
+    <div class="modal-img"><img id="mimg" src="" alt=""></div>
+    <div class="modal-right">
+      <div class="mhead">
+        <div class="mava">🌊</div>
+        <div><div class="muser">bluuutours</div><div class="mloc">Nusa Penida, Bali</div></div>
+      </div>
+      <div class="mbody">
+        <div class="mcaption"><strong>bluuutours</strong> <span id="mcap"></span></div>
+        <div class="mtags" id="mtags"></div>
+        <div class="mmeta" id="mmeta"></div>
+      </div>
+      <div class="mfooter">
+        <div class="mlikes" id="mlikes"></div>
+        <div class="mdate" id="mdate"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const posts = [
+  {day:'Apr 1',format:'Reels',pillar:'🌊 Ocean Life',caption:"She moves like she owns the ocean. Because she does. 🐡 Manta rays at Nusa Penida — the kind of encounter that resets your whole perspective on life. Ready to meet her? Link in bio.",tags:'#nusapenida #mantaray #snorkelingbali #bluuutours #balidaytrip #oceanlife #underwaterphotography',img:'smm-images/day1.png',likes:'1,284',ref:'@sunfish.bali'},
+  {day:'Apr 2',format:'Carousel',pillar:'✨ Guest Moments',caption:"9,000+ reviews later and we still get butterflies reading your stories. 🐢 Slide through some of our favorite guest moments — and tell us: which island stole your heart?",tags:'#bluuutours #nusapenidatrip #balitour #travelbali #guestlove #snorkelingadventure',img:'smm-images/day2.png',likes:'876',ref:'@balitourreviews'},
+  {day:'Apr 3',format:'Carousel',pillar:'🗺️ Know Before You Go',caption:"Thinking about Nusa Penida? Here's what nobody tells you upfront 👇 Slide 4 is the one that saves most people's trips.",tags:'#nusapenida #balitips #traveltips #islandhopping #visitbali #knowbeforeyougo',img:'smm-images/day3.png',likes:'2,103',ref:'@nusapenidaofficial'},
+  {day:'Apr 4',format:'Photo',pillar:'🐢 Wild Encounters',caption:"Some travel moments don't need a filter. 🌿 Sea turtles of Nusa Penida — hanging out in crystal blue, completely unbothered by your existential dread.",tags:'#seaturtle #underwaterphoto #nusapenida #snorkelingbali #marinelife #oceanlovers #bluuutours',img:'smm-images/day4.png',likes:'3,421',ref:'@turtlesofbali'},
+  {day:'Apr 5',format:'Photo',pillar:'🚤 Behind the Bluuu',caption:"5:30 AM. The captain's already out there. The ocean doesn't wait — and neither do we. ☀️ See you on the water.",tags:'#behindthescenes #bluuutours #balidawn #boatlife #nusapenida #captainlife',img:'smm-images/day5.png',likes:'654',ref:'@balidawnshots'},
+  {day:'Apr 6',format:'Reels',pillar:'🌊 Ocean Life',caption:"From Sanur to another world in 45 minutes. 🌊 This is what your Tuesday could look like. Every. Single. Week.",tags:'#aerialphoto #nusapenida #baliocean #droneshot #islandhopping #bluuutours #sanurbali',img:'smm-images/day6.png',likes:'1,892',ref:'@baliaerial'},
+  {day:'Apr 7',format:'Reels',pillar:'🐢 Wild Encounters',caption:"This is what's waiting for you beneath the surface. 🐠🐙⭐ Nusa Penida marine life doesn't hold back. Neither should you.",tags:'#marinelife #coralreef #underwaterbali #snorkeling #nusapenida #sealife #bluuutours',img:'smm-images/day7.png',likes:'4,107',ref:'@balidiving'},
+];
+
+let cur = 0;
+
+function renderGrid() {
+  const g = document.getElementById('grid');
+  posts.forEach((p,i) => {
+    const d = document.createElement('div');
+    d.className = 'gi';
+    d.innerHTML = `<img src="${p.img}" loading="lazy" alt="${p.day}"><div class="gi-overlay">♥ ${p.likes}</div><div class="fmt">${p.format}</div>`;
+    d.onclick = () => openModal(i);
+    g.appendChild(d);
+  });
+}
+
+function openModal(i) {
+  cur = i; const p = posts[i];
+  document.getElementById('mimg').src = p.img;
+  document.getElementById('mcap').textContent = p.caption;
+  document.getElementById('mtags').textContent = p.tags;
+  document.getElementById('mmeta').innerHTML = `📌 ${p.pillar}<br>🎬 ${p.format}<br>👁 Ref: ${p.ref}`;
+  document.getElementById('mlikes').textContent = p.likes + ' likes';
+  document.getElementById('mdate').textContent = p.day;
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeModal() { document.getElementById('modal').classList.remove('open'); }
+function navPost(d) { cur=(cur+d+posts.length)%posts.length; openModal(cur); }
+
+document.getElementById('modal').addEventListener('click',e=>{ if(e.target===document.getElementById('modal')) closeModal(); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); if(e.key==='ArrowRight') navPost(1); if(e.key==='ArrowLeft') navPost(-1); });
+renderGrid();
+</script>
+</body>
+</html>
