@@ -129,6 +129,45 @@ section { padding: 80px 0; }
 .wc h4 { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 8px; }
 .wc p { font-size: 13px; color: rgba(255,255,255,.55); line-height: 1.6; }
 .s-timeline { background: #f8fafc; }
+/* PRIVATE BLOCK */
+.priv-block { background: var(--navy-card); border-radius: 24px; overflow: hidden; border: 1px solid rgba(255,255,255,.07); }
+.priv-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.priv-hero-left { padding: 40px 40px 32px; }
+.priv-label { font-size: 11px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--blue); margin-bottom: 12px; }
+.priv-title { font-size: 32px; font-weight: 900; color: #fff; line-height: 1.15; margin-bottom: 12px; }
+.priv-sub { font-size: 15px; color: var(--muted); line-height: 1.65; margin-bottom: 24px; }
+.priv-price-row { display: flex; align-items: baseline; gap: 6px; margin-bottom: 24px; }
+.priv-from { font-size: 13px; color: var(--muted); }
+.priv-amount { font-size: 52px; font-weight: 900; color: #fff; line-height: 1; }
+.priv-per { font-size: 16px; color: var(--muted); }
+.priv-cta-row { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+.priv-hero-right { background: linear-gradient(135deg,#0a1a35,#0f2040); padding: 32px 28px; display: flex; align-items: center; }
+.priv-boats { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+.priv-boat-card { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); border-radius: 14px; padding: 14px 18px; display: flex; align-items: center; gap: 14px; position: relative; }
+.priv-popular { border-color: rgba(249,115,22,.4); background: rgba(249,115,22,.07); }
+.priv-elite { border-color: rgba(234,179,8,.4); background: rgba(234,179,8,.06); }
+.priv-boat-badge { position: absolute; top: -10px; right: 14px; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; background: var(--orange); color: #fff; padding: 2px 8px; border-radius: 20px; }
+.priv-boat-icon { font-size: 24px; }
+.priv-boat-name { font-weight: 800; color: #fff; font-size: 15px; flex: 1; }
+.priv-boat-spec { font-size: 12px; color: var(--muted); }
+.priv-boat-price { font-weight: 700; color: #93c5fd; font-size: 14px; white-space: nowrap; }
+.priv-perks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid rgba(255,255,255,.06); }
+.priv-perk { display: flex; align-items: flex-start; gap: 12px; padding: 22px 24px; border-right: 1px solid rgba(255,255,255,.06); }
+.priv-perk:nth-child(3n) { border-right: none; }
+.priv-perk-icon { font-size: 22px; flex-shrink: 0; }
+.priv-perk strong { font-size: 14px; color: #fff; display: block; margin-bottom: 2px; }
+.priv-perk-sub { font-size: 12px; color: var(--muted); }
+@media (max-width: 900px) {
+  .priv-hero { grid-template-columns: 1fr; }
+  .priv-perks { grid-template-columns: repeat(2, 1fr); }
+  .priv-perk:nth-child(2n) { border-right: none; }
+  .priv-perk:nth-child(3n) { border-right: 1px solid rgba(255,255,255,.06); }
+}
+@media (max-width: 560px) {
+  .priv-hero-left { padding: 28px 20px; }
+  .priv-perks { grid-template-columns: 1fr; }
+  .priv-perk { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,.06); }
+}
 /* NEW TIMELINE — card grid */
 .tl-grid { display: flex; flex-direction: column; gap: 20px; }
 .tl-card { display: grid; grid-template-columns: 280px 1fr; border-radius: 24px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,.07); background: #fff; }
@@ -857,78 +896,58 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
 
     <!-- PRIVATE TOURS -->
     <div class="pkg-panel" id="pkg-private" style="display:none">
-      <div class="pkg-grid">
-        <div class="pc anim">
-          <div class="p-tier t-blue">Classic</div>
-          <h3>Classic</h3>
-          <p class="p-desc">Your own speedboat, your own group. Flexible route, full day on Nusa Penida.</p>
-          <div class="p-boat">Up to 20 guests · Speedboat 12m · Per boat</div>
-          <div class="p-price">
-            <span class="p-from">From</span>
-            <span class="p-amount">$769</span><span class="p-per">/ boat</span>
+      <div class="priv-block anim">
+        <div class="priv-hero">
+          <div class="priv-hero-left">
+            <div class="priv-label">Private Charter</div>
+            <h3 class="priv-title">The whole boat is yours</h3>
+            <p class="priv-sub">Your group, your route, your pace. No strangers, no fixed stops — just a full day in the ocean designed around you.</p>
+            <div class="priv-price-row">
+              <span class="priv-from">From</span>
+              <span class="priv-amount">$769</span>
+              <span class="priv-per">/ boat</span>
+            </div>
+            <div class="priv-cta-row">
+              <a href="https://bluuu.tours" class="p-btn solid">Choose your boat →</a>
+              <a href="https://wa.me/6281370262777?text=Hi!%20I%27m%20interested%20in%20a%20Private%20Charter%20for%20Nusa%20Penida." class="wa-inline" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>Ask on WhatsApp</a>
+            </div>
           </div>
-          <ul class="p-list">
-            <li><span class="chk">✓</span>Entire boat — your group only</li>
-            <li><span class="chk">✓</span>Flexible route & timing</li>
-            <li><span class="chk">✓</span>Full snorkeling equipment</li>
-            <li><span class="chk">✓</span>Lunch + drinks on board</li>
-            <li><span class="chk">✓</span>GoPro footage included</li>
-            <li><span class="chk">✓</span>Alcohol welcome on board</li>
-            <li><span class="chk">✓</span>Hotel pickup & drop-off</li>
-            <li><span class="chk">✓</span>Insurance up to 75 years</li>
-          </ul>
-          <div class="bp-seal"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>Best Price Guaranteed</div>
-          <a href="https://bluuu.tours" class="p-btn outline">Book Classic Private</a>
-          <a href="https://wa.me/6281370262777?text=Hi!%20I%27m%20interested%20in%20the%20Private%20Classic%20Tour." class="wa-inline" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>Or ask on WhatsApp</a>
+          <div class="priv-hero-right">
+            <div class="priv-boats">
+              <div class="priv-boat-card">
+                <div class="priv-boat-icon">🚤</div>
+                <div class="priv-boat-name">Classic</div>
+                <div class="priv-boat-spec">Speedboat 12m · up to 20 pax</div>
+                <div class="priv-boat-price">from $769</div>
+              </div>
+              <div class="priv-boat-card priv-popular">
+                <div class="priv-boat-badge">Popular</div>
+                <div class="priv-boat-icon">🛥️</div>
+                <div class="priv-boat-name">Premium</div>
+                <div class="priv-boat-spec">Motor yacht 13m · up to 12 pax</div>
+                <div class="priv-boat-price">from $969</div>
+              </div>
+              <div class="priv-boat-card priv-elite">
+                <div class="priv-boat-badge" style="background:linear-gradient(90deg,#eab308,#f97316);">★ Elite</div>
+                <div class="priv-boat-icon">⚓</div>
+                <div class="priv-boat-name">Eldorado</div>
+                <div class="priv-boat-spec">Fortune Yachts 13m · up to 8 pax</div>
+                <div class="priv-boat-price" style="color:#eab308;">from $1,569</div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="pc featured anim" style="animation-delay:.1s">
-          <div class="p-tier t-orange">Premium · Popular</div>
-          <h3>Premium</h3>
-          <p class="p-desc">Motor yacht for your group. Fully custom route, photographer, prosecco — the sweet spot.</p>
-          <div class="p-boat">Up to 12 guests · Motor yacht 13m · Per boat</div>
-          <div class="p-price">
-            <span class="p-from">From</span>
-            <span class="p-amount">$969</span><span class="p-per">/ boat</span>
-          </div>
-          <ul class="p-list">
-            <li><span class="chk">✓</span>Everything in Classic</li>
-            <li><span class="chk">✓</span>100% custom route & timing</li>
-            <li><span class="chk">✓</span>Professional photographer</li>
-            <li><span class="chk">✓</span>Upgraded lunch + juice</li>
-            <li><span class="chk">✓</span>Prosecco on sunset return</li>
-            <li><span class="chk">✓</span>Sound system on board</li>
-            <li><span class="chk">✓</span>Bean bags & sun deck</li>
-            <li class="bold"><span class="chk">✓</span>+1 extra hour on water</li>
-          </ul>
-          <div class="bp-seal"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>Best Price Guaranteed</div>
-          <a href="https://bluuu.tours" class="p-btn solid">Book Premium Private</a>
-          <a href="https://wa.me/6281370262777?text=Hi!%20I%27m%20interested%20in%20the%20Private%20Premium%20Tour." class="wa-inline" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>Or ask on WhatsApp</a>
-        </div>
-        <div class="pc anim pc-elite" id="elite" style="animation-delay:.2s">
-          <div class="p-tier" style="background:linear-gradient(135deg,#D4A017,#F7CE68);color:#1a1a1a;font-weight:800;">✦ Elite · Eldorado</div>
-          <h3>Elite</h3>
-          <p class="p-desc">Brand-new Fortune Yachts Eldorado 2026. VIP host, drone video, unlimited drinks — the best we offer.</p>
-          <div class="p-boat">Up to 8 guests · Eldorado yacht 13m (2026)</div>
-          <div class="p-price">
-            <span class="p-from">From</span>
-            <span class="p-amount">$1,569</span><span class="p-per">/ boat</span>
-          </div>
-          <ul class="p-list">
-            <li><span class="chk">✓</span>Everything in Premium</li>
-            <li><span class="chk">✓</span>Brand-new Eldorado yacht 2026</li>
-            <li><span class="chk">✓</span>Dedicated VIP host</li>
-            <li><span class="chk">✓</span>Drone aerial video (same day)</li>
-            <li><span class="chk">✓</span>Unlimited drinks + coconut</li>
-            <li><span class="chk">✓</span>Prosecco + fruit platter</li>
-            <li><span class="chk">✓</span>GoPro rental included</li>
-            <li class="bold"><span class="chk">✓</span>A/C cabin · JBL sound system</li>
-          </ul>
-          <div class="bp-seal"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>Best Price Guaranteed</div>
-          <a href="https://bluuu.tours" class="p-btn outline">Book Elite Private</a>
-          <a href="https://wa.me/6281370262777?text=Hi!%20I%27m%20interested%20in%20the%20Elite%20Private%20Eldorado%20Charter." class="wa-inline" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>Or ask on WhatsApp</a>
+        <div class="priv-perks">
+          <div class="priv-perk"><span class="priv-perk-icon">🚢</span><div><strong>Entire boat — your group only</strong><div class="priv-perk-sub">No strangers. No shared groups.</div></div></div>
+          <div class="priv-perk"><span class="priv-perk-icon">🗺️</span><div><strong>Custom route & timing</strong><div class="priv-perk-sub">Pick your stops, skip the ones you don't want.</div></div></div>
+          <div class="priv-perk"><span class="priv-perk-icon">🤿</span><div><strong>Full snorkel gear included</strong><div class="priv-perk-sub">Premium masks, fins, life jackets for all.</div></div></div>
+          <div class="priv-perk"><span class="priv-perk-icon">🍽️</span><div><strong>Lunch & drinks on board</strong><div class="priv-perk-sub">Or upgrade to La Rossa beach club.</div></div></div>
+          <div class="priv-perk"><span class="priv-perk-icon">📸</span><div><strong>GoPro footage included</strong><div class="priv-perk-sub">Your guide captures underwater moments.</div></div></div>
+          <div class="priv-perk"><span class="priv-perk-icon">🚗</span><div><strong>Hotel pickup & drop-off</strong><div class="priv-perk-sub">Private car for your group, both ways.</div></div></div>
         </div>
       </div>
-    </div>
+
+
 
     <script>
     function switchPkgTab(tab) {
