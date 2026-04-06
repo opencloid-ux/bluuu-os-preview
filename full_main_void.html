@@ -38,6 +38,8 @@ body { font-family: 'PetrovSans', -apple-system, sans-serif; background: #fff; c
 .hero h1 { font-size: clamp(48px, 7vw, 88px); font-weight: 800; line-height: 1.0; color: #fff; margin-bottom: 20px; letter-spacing: -0.025em; }
 .hero h1 .ib { font-style: italic; font-weight: 400; color: var(--blue-it); display: inline-block; transform: skewX(-10deg); }
 .hero p { font-size: 17px; color: rgba(255,255,255,0.7); line-height: 1.65; margin-bottom: 40px; max-width: 640px; }
+.hero-price-hint { color: rgba(255,255,255,0.85); font-size: 15px; margin-bottom: 28px; letter-spacing: .02em; }
+.hero-price-hint strong { color: #fff; font-size: 18px; }
 .hero-btns { display: flex; gap: 14px; justify-content: center; }
 .btn-primary { background: var(--blue); color: #fff; border: none; border-radius: 50px; padding: 14px 36px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: 'PetrovSans', sans-serif; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all .25s; box-shadow: 0 0 28px rgba(59,130,246,0.55); }
 .btn-primary:hover { background: #2a72f0; box-shadow: 0 0 44px rgba(59,130,246,0.75); transform: translateY(-2px); }
@@ -719,6 +721,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
     <div class="hero-badge" style="margin-bottom:28px;"><div class="badge-dot"></div>Award-Winning Tours · Bali</div>
     <h1>Discover <span class="ib">Nusa Penida</span></h1>
     <p>Manta rays, snorkeling, diving, and a land tour — all in one unforgettable day from Bali. 10,000+ five-star reviews.</p>
+        <div class="hero-price-hint">From <strong>$87</strong>/person &nbsp;·&nbsp; Private boats from <strong>$769</strong></div>
     <div class="hero-btns">
       <a href="https://bluuu.tours" class="btn-primary">Book Your Tour</a>
       <a href="#tours" class="btn-secondary">Explore Tours</a>
@@ -820,7 +823,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
       <div class="ic anim"><div class="ic-icon ic-illus"><img src="img/icons/boat.jpg" class="ic-illus-img" alt=""></div><h4>Comfort Yacht</h4><p>Premium seating, smoother ride, and attentive crew service all day.</p></div>
       <div class="ic anim" style="animation-delay:.08s"><div class="ic-icon ic-illus"><img src="img/icons/lunch.jpg" class="ic-illus-img" alt=""></div><h4>Curated Lunch</h4><p>Lunch with ocean views and thoughtful service to recharge the day.</p></div>
       <div class="ic anim" style="animation-delay:.16s"><div class="ic-icon ic-illus"><img src="img/icons/sunset.svg" class="ic-illus-img" alt=""></div><h4>Land Highlights</h4><p>Short stops for iconic views: Kelingking, Crystal Bay, and more.</p></div>
-      <div class="ic anim" style="animation-delay:.08s"><div class="ic-icon ic-illus"><img src="img/icons/photo.jpg" class="ic-illus-img" alt=""></div><h4>Underwater GoPro</h4><p>4K underwater footage delivered via Google Drive within 3 days. Free.</p></div>
+      <div class="ic anim" style="animation-delay:.08s"><div class="ic-icon ic-illus"><img src="img/icons/photo.jpg" class="ic-illus-img" alt=""></div><h4>GoPro + Photography</h4><p>All tours: free 4K GoPro footage. Premium: +pro photographer. Elite: +drone footage.</p></div>
       <div class="ic anim" style="animation-delay:.16s"><div class="ic-icon ic-illus"><img src="img/icons/snorkeling.svg" class="ic-illus-img" alt=""></div><h4>Snorkeling Gear</h4><p>High-quality snorkeling gear supplied for every guest on board.</p></div>
       <div class="ic anim" style="animation-delay:.24s"><div class="ic-icon ic-illus"><img src="img/icons/welcome_drinks.jpg" class="ic-illus-img" alt=""></div><h4>Free Hotel Pickup</h4><p>Toyota Avanza or APV arrives at your hotel the morning of the tour.</p></div>
     </div>
@@ -1020,6 +1023,59 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
 </section>
 
 
+<!-- REVIEWS -->
+<section class="s-rev" id="reviews">
+  <div class="container">
+    <div class="rev-top-row anim">
+      <div>
+        <div class="s-label">Trusted by Travelers</div>
+        <h2 class="s-title">What guests <span class="it">say</span></h2>
+      </div>
+      <div class="rev-stats">
+        <div class="rev-stat"><div class="big">10,629</div><div class="lbl">Reviews</div></div>
+        <div class="rev-stat"><div class="big">4.9</div><div class="lbl">Avg. Rating</div></div>
+      </div>
+    </div>
+    <div class="rev-grid">
+      <div class="rc anim">
+        <div class="rc-top"><div class="rc-avatar" style="background:#f97316;">M</div><div><div class="rc-name">Marcello</div><div class="rc-meta">Viator · Recent</div></div></div>
+        <div class="rc-stars">★★★★★</div>
+        <div class="rc-text">"Very excellent tour recommended 100% worth the money. A special thanks to the guides Dena and Ryan — absolutely incredible experience."</div>
+      </div>
+      <div class="rc anim" style="animation-delay:.1s">
+        <div class="rc-top"><div class="rc-avatar" style="background:#0b1b35;">M</div><div><div class="rc-name">Matthew</div><div class="rc-meta">Google · Recent</div></div></div>
+        <div class="rc-stars">★★★★★</div>
+        <div class="rc-text">"Simply brilliant tour to Nusa Penida! We got to see turtles and manta rays. The stop at the scenic Cliff was spectacular. Would love to do it again!"</div>
+      </div>
+      <div class="rc anim" style="animation-delay:.2s">
+        <div class="rc-top"><div class="rc-avatar" style="background:#f59e0b;">J</div><div><div class="rc-name">Jenisse</div><div class="rc-meta">Tripadvisor · Recent</div></div></div>
+        <div class="rc-stars">★★★★★</div>
+        <div class="rc-text">"We had an amazing time at Nusa Penida. Everything was smooth sailing — all thanks to Ceco and Ringgo who were our amazing guides."</div>
+      </div>
+      <div class="rc anim">
+        <div class="rc-top"><div class="rc-avatar" style="background:#10b981;">S</div><div><div class="rc-name">Sophie</div><div class="rc-meta">Airbnb · Recent</div></div></div>
+        <div class="rc-stars">★★★★★</div>
+        <div class="rc-text">"Incredible day! The manta rays were up close and personal. The whole team was professional and safety-conscious throughout. Cannot recommend enough!"</div>
+      </div>
+      <div class="rc anim" style="animation-delay:.1s">
+        <div class="rc-top"><div class="rc-avatar" style="background:#6366f1;">D</div><div><div class="rc-name">David K.</div><div class="rc-meta">GetYourGuide · Recent</div></div></div>
+        <div class="rc-stars">★★★★★</div>
+        <div class="rc-text">"Booked the private charter for 8 people and it was worth every penny. Custom route, photographer, drone footage — everything was perfect."</div>
+      </div>
+      <div class="rc anim" style="animation-delay:.2s">
+        <div class="rc-top"><div class="rc-avatar" style="background:#ec4899;">A</div><div><div class="rc-name">Anna P.</div><div class="rc-meta">Klook · Recent</div></div></div>
+        <div class="rc-stars">★★★★★</div>
+        <div class="rc-text">"Best tour in Bali, period. The GoPro footage they gave us is now our most-watched video. Sea turtles, reef fish, and crystal blue water everywhere!"</div>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top: 16px;">
+      <a href="https://bluuu.tours" class="btn-primary">See All Reviews</a>
+    </div>
+  </div>
+</section>
+
+
+
 <!-- PREMIUM SHARED TOUR SPOTLIGHT -->
 <section class="s-premium-spot">
   <div class="container">
@@ -1198,8 +1254,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
         <div class="kids-compare">
           <div class="kc">
             <div class="kc-head shared">🚤 Shared Tour</div>
-            <div class="kc-row"><span class="kc-ok">✓</span> Min age: <strong>6 years</strong></div>
-            <div class="kc-row"><span class="kc-ok">✓</span> Must be able to swim</div>
+            <div class="kc-row"><span class="kc-ok">✓</span> Min age: <strong>8 years</strong> (must swim)</div>
+            
             <div class="kc-row"><span class="kc-ok">✓</span> Life jackets provided</div>
             <div class="kc-row"><span class="kc-no">–</span> Fixed group schedule</div>
             <div class="kc-row"><span class="kc-no">–</span> Shared boat with others</div>
@@ -1213,7 +1269,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
             <div class="kc-row"><span class="kc-ok">✓</span> Kids menu on request</div>
           </div>
         </div>
-        <p class="kids-quote">&ldquo;We had a 2-year-old and a 5-year-old. The crew was incredibly patient and the kids had the best day of the trip.&rdquo;</p>
+        <p class="kids-quote">&ldquo;We booked the private charter for our family with two young kids. The crew was incredibly patient and adapted everything to our pace. Best day of the whole trip.&rdquo;</p>
         <p class="kids-quote-name">— Anna, Germany · Private Charter · Jan 2025</p>
         <a href="https://wa.me/6281370262777?text=Hi!%20I%27m%20travelling%20with%20kids%20and%20interested%20in%20a%20Private%20Charter." class="btn-wa-family" target="_blank">
           <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
@@ -1317,23 +1373,6 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
     <div class="manta-cta-row anim">
       <a href="https://bluuu.tours" class="p-btn solid">Book your tour</a>
       <span class="manta-guarantee">🛡️ No manta sighting? $15/person credit on your next trip.</span>
-    </div>
-  </div>
-</section>
-
-<!-- MARINE WILDLIFE -->
-<section class="s-wl">
-  <div class="container">
-    <div class="sec-head anim">
-      <div class="s-label">Marine Life</div>
-      <h2 class="s-title">Wildlife you'll <span class="it">encounter</span></h2>
-      <p class="s-sub">Bali's underwater world is extraordinary. Here's what our guests see most often.</p>
-    </div>
-    <div class="wl-grid">
-      <div class="wc anim"><div class="wi"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s4-8 10-8 10 8 10 8-4 8-10 8S2 12 2 12z"/><path d="M12 4c0 0-4 3-4 8s4 8 4 8"/><path d="M12 4c0 0 4 3 4 8s-4 8-4 8"/><circle cx="12" cy="12" r="1"/></svg></div><h4>Manta Rays</h4><p>Seen almost every day. Majestic, graceful — the highlight of every trip.</p></div>
-      <div class="wc anim" style="animation-delay:.08s"><div class="wi"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="5" ry="4"/><path d="M7 12c-2 0-4-1-5-3"/><path d="M17 12c2 0 4-1 5-3"/><path d="M9 16l-2 3"/><path d="M15 16l2 3"/><path d="M10 8l-1-3"/><path d="M14 8l1-3"/></svg></div><h4>Sea Turtles</h4><p>Gentle giants gliding through the reef. Very common sightings year-round.</p></div>
-      <div class="wc anim" style="animation-delay:.16s"><div class="wi"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8s2-4 8-4 8 4 8 4-1 5-5 7-9 1-11-7z"/><path d="M18 8c1 1 3 4 3 7"/><path d="M13 15c0 3-1 5-4 6"/></svg></div><h4>Dolphins</h4><p>Playful pod encounters on the boat ride. Pure magic when they appear.</p></div>
-      <div class="wc anim" style="animation-delay:.24s"><div class="wi"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12s3-7 9-7 9 7 9 7-3 7-9 7-9-7-9-7z"/><circle cx="13" cy="12" r="2"/><path d="M21 12c0 0 1-3 1-5"/><path d="M21 12c0 0 1 3 1 5"/></svg></div><h4>Tropical Fish</h4><p>Hundreds of colorful species in coral gardens that come alive underwater.</p></div>
     </div>
   </div>
 </section>
@@ -1595,64 +1634,13 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
         <div class="direct-title">Book direct — get more</div>
         <div class="direct-sub">We're on Klook, Viator, Airbnb, GetYourGuide. But these perks are exclusive to <strong>bluuu.tours</strong>:</div>
         <div class="direct-perks">
-          <div class="dp">Free GoPro footage</div>
+          <div class="dp">Pro photographer upgrade (Premium+)</div>
           <div class="dp">Sunset prosecco on return</div>
           <div class="dp">Best price guaranteed</div>
           <div class="dp">Instant confirmation</div>
         </div>
       </div>
       <a href="https://bluuu.tours" class="btn-primary direct-cta">Book Direct</a>
-    </div>
-  </div>
-</section>
-
-<!-- REVIEWS -->
-<section class="s-rev" id="reviews">
-  <div class="container">
-    <div class="rev-top-row anim">
-      <div>
-        <div class="s-label">Trusted by Travelers</div>
-        <h2 class="s-title">What guests <span class="it">say</span></h2>
-      </div>
-      <div class="rev-stats">
-        <div class="rev-stat"><div class="big">10,629</div><div class="lbl">Reviews</div></div>
-        <div class="rev-stat"><div class="big">4.9</div><div class="lbl">Avg. Rating</div></div>
-      </div>
-    </div>
-    <div class="rev-grid">
-      <div class="rc anim">
-        <div class="rc-top"><div class="rc-avatar" style="background:#f97316;">M</div><div><div class="rc-name">Marcello</div><div class="rc-meta">Viator · Recent</div></div></div>
-        <div class="rc-stars">★★★★★</div>
-        <div class="rc-text">"Very excellent tour recommended 100% worth the money. A special thanks to the guides Dena and Ryan — absolutely incredible experience."</div>
-      </div>
-      <div class="rc anim" style="animation-delay:.1s">
-        <div class="rc-top"><div class="rc-avatar" style="background:#0b1b35;">M</div><div><div class="rc-name">Matthew</div><div class="rc-meta">Google · Recent</div></div></div>
-        <div class="rc-stars">★★★★★</div>
-        <div class="rc-text">"Simply brilliant tour to Nusa Penida! We got to see turtles and manta rays. The stop at the scenic Cliff was spectacular. Would love to do it again!"</div>
-      </div>
-      <div class="rc anim" style="animation-delay:.2s">
-        <div class="rc-top"><div class="rc-avatar" style="background:#f59e0b;">J</div><div><div class="rc-name">Jenisse</div><div class="rc-meta">Tripadvisor · Recent</div></div></div>
-        <div class="rc-stars">★★★★★</div>
-        <div class="rc-text">"We had an amazing time at Nusa Penida. Everything was smooth sailing — all thanks to Ceco and Ringgo who were our amazing guides."</div>
-      </div>
-      <div class="rc anim">
-        <div class="rc-top"><div class="rc-avatar" style="background:#10b981;">S</div><div><div class="rc-name">Sophie</div><div class="rc-meta">Airbnb · Recent</div></div></div>
-        <div class="rc-stars">★★★★★</div>
-        <div class="rc-text">"Incredible day! The manta rays were up close and personal. The whole team was professional and safety-conscious throughout. Cannot recommend enough!"</div>
-      </div>
-      <div class="rc anim" style="animation-delay:.1s">
-        <div class="rc-top"><div class="rc-avatar" style="background:#6366f1;">D</div><div><div class="rc-name">David K.</div><div class="rc-meta">GetYourGuide · Recent</div></div></div>
-        <div class="rc-stars">★★★★★</div>
-        <div class="rc-text">"Booked the private charter for 8 people and it was worth every penny. Custom route, photographer, drone footage — everything was perfect."</div>
-      </div>
-      <div class="rc anim" style="animation-delay:.2s">
-        <div class="rc-top"><div class="rc-avatar" style="background:#ec4899;">A</div><div><div class="rc-name">Anna P.</div><div class="rc-meta">Klook · Recent</div></div></div>
-        <div class="rc-stars">★★★★★</div>
-        <div class="rc-text">"Best tour in Bali, period. The GoPro footage they gave us is now our most-watched video. Sea turtles, reef fish, and crystal blue water everywhere!"</div>
-      </div>
-    </div>
-    <div style="text-align:center; margin-top: 16px;">
-      <a href="https://bluuu.tours" class="btn-primary">See All Reviews</a>
     </div>
   </div>
 </section>
@@ -1676,7 +1664,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
       </div>
       <div class="faq-item">
         <button class="faq-q"><span>Can beginners join the snorkeling tour?</span><span class="faq-icon">+</span></button>
-        <div class="faq-a">Yes! No experience required. Our guides accompany every guest in the water. We provide all gear including life vests and full-face masks for comfort. Children from age 5+ are welcome.</div>
+        <div class="faq-a">Yes! No experience required. Our guides accompany every guest in the water. We provide all gear including life vests and full-face masks for comfort. Minimum age for shared tours is 8 years (children must be able to swim). For younger children, we recommend a private charter.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q"><span>What time does the tour start and end?</span><span class="faq-icon">+</span></button>
@@ -1692,7 +1680,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
       </div>
       <div class="faq-item">
         <button class="faq-q"><span>Is there an age or weight limit?</span><span class="faq-icon">+</span></button>
-        <div class="faq-a">Children from age 5 are welcome for snorkeling. Insurance covers ages 7–70. No weight limit for boat travel. Guests with mobility limitations should contact us before booking so we can arrange appropriate accommodations.</div>
+        <div class="faq-a">Minimum age for shared tours is 8 years (children must be able to swim). For private charters, all ages are welcome including infants. Insurance covers ages 7–70. No weight limit for boat travel. Guests with mobility limitations should contact us before booking.</div>
       </div>
     </div>
   </div>
