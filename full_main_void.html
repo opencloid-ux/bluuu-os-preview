@@ -142,7 +142,12 @@ section { padding: 80px 0; }
 .tc-meta { font-size: 13px; color: rgba(255,255,255,0.65); }
 .tc-price { font-size: 22px; font-weight: 700; color: var(--blue); }
 .tc-price .sm { font-size: 14px; font-weight: 400; color: rgba(255,255,255,0.5); margin-left: 2px; }
-.s-inc { background: var(--navy); }
+.s-inc { background: #fff; }
+.s-inc .s-title { color: var(--dark); }
+.s-inc .s-label { color: var(--blue); }
+.s-inc .s-sub { color: var(--muted); }
+.s-inc .ic h4 { color: var(--dark); }
+.s-inc .ic p { color: var(--muted); }
 .inc-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
 .ic { background: var(--navy-card); border: 1px solid rgba(255,255,255,0.06); border-radius: 18px; padding: 32px 24px; text-align: center; transition: transform .2s, background .2s; }
 .ic:hover { transform: translateY(-4px); background: rgba(59,130,246,0.08); border-color: rgba(59,130,246,0.25); }
@@ -189,7 +194,7 @@ section { padding: 80px 0; }
 .wi { font-size: 36px; margin-bottom: 16px; display: flex; align-items: center; justify-content: center; width: 56px; height: 56px; margin: 0 auto 18px; background: rgba(59,130,246,0.12); border-radius: 14px; } .wi svg { stroke: #7dd3fc; }
 .wc h4 { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 8px; }
 .wc p { font-size: 13px; color: rgba(255,255,255,.55); line-height: 1.6; }
-.s-timeline { background: #f8fafc; }
+.s-timeline { background: var(--dark); }
 /* PRIVATE BLOCK */
 .priv-block { background: var(--navy-card); border-radius: 24px; overflow: hidden; border: 1px solid rgba(255,255,255,.07); }
 .priv-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
@@ -438,7 +443,10 @@ footer { background: #fff; border-top: 1px solid #f0f0f0; padding: 64px 0 0; }
 
 
 /* GOPRO */
-.s-gopro { padding: 90px 0; background: var(--dark); }
+.s-gopro { padding: 90px 0; background: #f0f6ff; }
+.gopro-title { color: var(--dark) !important; }
+.gopro-sub { color: var(--muted) !important; }
+.gopro-badge { background: var(--blue); color: #fff; }
 .gopro-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
 .gopro-badge { display: inline-block; background: var(--blue); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 6px 16px; border-radius: 50px; margin-bottom: 24px; }
 .gopro-title { font-size: clamp(26px,3.5vw,44px); font-weight: 900; color: #fff; margin-bottom: 16px; line-height: 1.15; }
@@ -534,7 +542,7 @@ footer { background: #fff; border-top: 1px solid #f0f0f0; padding: 64px 0 0; }
 
 /* CHANGE 2: Fix white gap between sections */
 .s-wl { border-bottom: 1px solid #f0f2f5; }
-.s-timeline { border-top: 0; }
+.s-timeline { border-top: 0; background: var(--dark); }
 
 /* CHANGE 4: Reduced motion & cursor pointer */
 @media (prefers-reduced-motion: reduce) {
@@ -598,16 +606,16 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
 @media(max-width:480px) { .routes-grid { grid-template-columns: 1fr; } }
 
 /* Elite Yacht Spotlight */
-.s-eyacht { padding: 80px 0; background: #fff; }
+.s-eyacht { padding: 80px 0; background: var(--dark); }
 .eyacht-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
 .eyacht-img-wrap { position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 12px 48px rgba(0,0,0,.14); }
 .eyacht-top-badge { position: absolute; top: 16px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,.72); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: .1em; padding: 6px 18px; border-radius: 50px; white-space: nowrap; z-index: 2; }
 .eyacht-img { display: block; width: 100%; aspect-ratio: 4/3; object-fit: cover; }
-.eyacht-label { font-size: 12px; font-weight: 700; letter-spacing: .12em; color: #3b82f6; text-transform: uppercase; margin-bottom: 8px; }
-.eyacht-title { font-size: clamp(26px,3vw,40px); font-weight: 900; color: #0b1120; line-height: 1.15; margin-bottom: 12px; }
-.eyacht-sub { font-size: 15px; color: #64748b; line-height: 1.7; margin-bottom: 24px; }
+.eyacht-label { font-size: 12px; font-weight: 700; letter-spacing: .12em; color: rgba(255,255,255,0.5); text-transform: uppercase; margin-bottom: 8px; }
+.eyacht-title { font-size: clamp(26px,3vw,40px); font-weight: 900; color: #fff /*dark*/0; line-height: 1.15; margin-bottom: 12px; }
+.eyacht-sub { font-size: 15px; color: rgba(255,255,255,0.65); line-height: 1.7; margin-bottom: 24px; }
 .eyacht-specs { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
-.eyacht-spec { font-size: 14px; color: #374151; display: flex; align-items: center; gap: 8px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px 14px; }
+.eyacht-spec { font-size: 14px; color: rgba(255,255,255,0.75); display: flex; align-items: center; gap: 8px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px 14px; }
 .eyacht-spec-icon { font-size: 16px; }
 .eyacht-price-row { display: flex; align-items: baseline; gap: 6px; margin-bottom: 6px; flex-wrap: wrap; }
 .eyacht-from { font-size: 13px; color: #64748b; }
