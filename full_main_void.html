@@ -752,6 +752,192 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
   box-shadow: 0 2px 12px rgba(0,0,0,0.12);
 }
 
+
+/* ── REELS ── */
+.reels-track {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 16px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+.reels-track::-webkit-scrollbar { height: 4px; }
+.reels-track::-webkit-scrollbar-track { background: rgba(255,255,255,.05); border-radius:2px; }
+.reels-track::-webkit-scrollbar-thumb { background: var(--blue); border-radius:2px; }
+.reel-card {
+  flex: 0 0 200px;
+  scroll-snap-align: start;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.reel-thumb {
+  position: relative;
+  aspect-ratio: 9/16;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--navy-card);
+}
+.reel-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .3s ease;
+}
+.reel-card:hover .reel-thumb img { transform: scale(1.04); }
+.reel-play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,.35);
+  font-size: 28px;
+  color: #fff;
+  opacity: 0;
+  transition: opacity .2s;
+}
+.reel-card:hover .reel-play { opacity: 1; }
+.reel-quote {
+  font-size: 12px;
+  color: var(--muted2);
+  line-height: 1.5;
+  font-style: italic;
+  margin: 0;
+}
+@media(max-width:640px) { .reel-card { flex: 0 0 155px; } }
+
+/* ── MINI FAQ ── */
+.mfaq-list { display:flex; flex-direction:column; gap:8px; max-width:760px; margin:0 auto; }
+.mfaq-item {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+}
+.mfaq-q {
+  cursor: pointer;
+  padding: 18px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--dark);
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.mfaq-q::after { content:"＋"; font-size:18px; color:var(--blue); flex-shrink:0; transition: transform .2s; }
+details[open] .mfaq-q::after { content:"−"; }
+.mfaq-a {
+  padding: 0 20px 18px;
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* ── VS COMPETITORS ── */
+.vs-table-wrap { overflow-x: auto; }
+.vs-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 560px;
+}
+.vs-table th, .vs-table td {
+  padding: 14px 16px;
+  text-align: left;
+  font-size: 14px;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+}
+.vs-table thead th {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--muted2);
+  padding-bottom: 16px;
+}
+.vs-feature { color: var(--muted2); font-size: 13px; width: 34%; }
+.vs-bluuu { color: #10d984; width: 33%; }
+.vs-others { color: #f24a4a; width: 33%; }
+.vs-logo {
+  display: inline-block;
+  font-weight: 900;
+  font-size: 15px;
+  color: var(--blue);
+  letter-spacing: .06em;
+  border: 1px solid var(--blue);
+  border-radius: 6px;
+  padding: 4px 10px;
+}
+.vs-yes { color: #10d984; }
+.vs-no { color: #f24a4a; }
+.vs-table tbody tr:hover { background: rgba(255,255,255,.03); }
+
+/* ── GUIDES ── */
+.guides-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+.guide-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(0,0,0,.07);
+  transition: transform .2s, box-shadow .2s;
+}
+.guide-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,.12); }
+.guide-photo {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.guide-initials {
+  font-size: 48px;
+  font-weight: 900;
+  color: rgba(255,255,255,.25);
+  letter-spacing: .02em;
+}
+.guide-info { padding: 16px; }
+.guide-name { font-size: 18px; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+.guide-cert { font-size: 13px; font-weight: 600; color: var(--blue); margin-bottom: 4px; }
+.guide-meta { font-size: 12px; color: var(--muted); margin-bottom: 10px; line-height: 1.5; }
+.guide-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.gtag {
+  font-size: 11px;
+  font-weight: 600;
+  background: #eff6ff;
+  color: var(--blue);
+  border-radius: 20px;
+  padding: 3px 10px;
+}
+
+/* ── PICKUP TIMES ── */
+.pickup-times {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 20px;
+}
+.pt-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  padding: 8px 16px;
+  font-size: 13px;
+}
+.pt-area { font-weight: 600; color: var(--dark); }
+.pt-time { color: var(--muted); }
+
 </style>
 </head>
 <body>
@@ -1135,6 +1321,102 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
 
 
 
+
+<!-- REELS GALLERY -->
+<section class="s-reels s-dark" id="reels">
+  <div class="container">
+    <div class="sec-head anim">
+      <div class="s-label">Real Moments</div>
+      <h2 class="s-title">Shot on the <span class="it">water</span></h2>
+      <p class="s-sub">GoPro, drones, underwater — Bluuu guests bring it home every time.</p>
+    </div>
+    <div class="reels-track">
+      <a class="reel-card" href="https://www.youtube.com/watch?v=KUL8f7Z6d7Q" target="_blank" rel="noopener">
+        <div class="reel-thumb">
+          <img src="https://i.ytimg.com/vi/KUL8f7Z6d7Q/hqdefault.jpg" alt="Bluuu Tours Reel" loading="lazy">
+          <div class="reel-play">▶</div>
+        </div>
+        <p class="reel-quote">"Best day of our whole Bali trip — the manta dive was unreal."</p>
+      </a>
+      <a class="reel-card" href="https://www.youtube.com/watch?v=sG-pDlTpFlA" target="_blank" rel="noopener">
+        <div class="reel-thumb">
+          <img src="https://i.ytimg.com/vi/sG-pDlTpFlA/hqdefault.jpg" alt="Bluuu Tours Reel" loading="lazy">
+          <div class="reel-play">▶</div>
+        </div>
+        <p class="reel-quote">"They captured footage I didn't even know they took. Absolutely stunning."</p>
+      </a>
+      <a class="reel-card" href="https://www.youtube.com/watch?v=KKfI_S54jbc" target="_blank" rel="noopener">
+        <div class="reel-thumb">
+          <img src="https://i.ytimg.com/vi/KKfI_S54jbc/hqdefault.jpg" alt="Bluuu Tours Reel" loading="lazy">
+          <div class="reel-play">▶</div>
+        </div>
+        <p class="reel-quote">"Crystal Bay was breathtaking — drone footage gave me chills."</p>
+      </a>
+      <a class="reel-card" href="https://www.youtube.com/watch?v=Zo62kyDmg1U" target="_blank" rel="noopener">
+        <div class="reel-thumb">
+          <img src="https://i.ytimg.com/vi/Zo62kyDmg1U/hqdefault.jpg" alt="Bluuu Tours Reel" loading="lazy">
+          <div class="reel-play">▶</div>
+        </div>
+        <p class="reel-quote">"Small group meant the guide actually swam with us. Every. Single. Spot."</p>
+      </a>
+      <a class="reel-card" href="https://www.youtube.com/watch?v=gKwDwd-dH9Y" target="_blank" rel="noopener">
+        <div class="reel-thumb">
+          <img src="https://i.ytimg.com/vi/gKwDwd-dH9Y/hqdefault.jpg" alt="Bluuu Tours Reel" loading="lazy">
+          <div class="reel-play">▶</div>
+        </div>
+        <p class="reel-quote">"Kelingking looked exactly like the photos — worth every second of the swim."</p>
+      </a>
+      <a class="reel-card" href="https://www.youtube.com/watch?v=76b0RTIB4DI" target="_blank" rel="noopener">
+        <div class="reel-thumb">
+          <img src="https://i.ytimg.com/vi/76b0RTIB4DI/hqdefault.jpg" alt="Bluuu Tours Reel" loading="lazy">
+          <div class="reel-play">▶</div>
+        </div>
+        <p class="reel-quote">"Luxury yacht, prosecco at sunset, sea turtles — my friends didn't believe me."</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- MINI FAQ -->
+<section class="s-minifaq" id="minifaq">
+  <div class="container">
+    <div class="sec-head anim">
+      <div class="s-label">Quick Answers</div>
+      <h2 class="s-title">Questions you <span class="it">actually have</span></h2>
+    </div>
+    <div class="mfaq-list">
+      <details class="mfaq-item">
+        <summary class="mfaq-q">Do I need to know how to swim?</summary>
+        <div class="mfaq-a">You don't need to be a strong swimmer. We provide life jackets, snorkel vests, and your guide stays in the water with you at all times. Most of our guests are beginner snorkelers — and they all loved it.</div>
+      </details>
+      <details class="mfaq-item">
+        <summary class="mfaq-q">What should I bring?</summary>
+        <div class="mfaq-a">Just yourself and sunscreen (reef-safe if possible). We provide snorkel gear, life jackets, towels, and lunch. Bring a change of clothes, flip flops, cash for tipping, and your sense of adventure.</div>
+      </details>
+      <details class="mfaq-item">
+        <summary class="mfaq-q">I get seasick easily — is this okay?</summary>
+        <div class="mfaq-a">The channel between Bali and Nusa Penida can have waves — especially in wet season. We recommend taking seasickness tablets the night before. Our boats are modern speedboats, not slow ferries. Most guests are fine; some feel rough for 20–30 min crossing.</div>
+      </details>
+      <details class="mfaq-item">
+        <summary class="mfaq-q">Can kids join the tour?</summary>
+        <div class="mfaq-a">Yes! Children 4+ are welcome on shared tours. Private charters have no age restrictions. Kids love the turtles and manta rays. Our guides are experienced with families and always keep little ones close in the water.</div>
+      </details>
+      <details class="mfaq-item">
+        <summary class="mfaq-q">What if the weather is bad?</summary>
+        <div class="mfaq-a">We monitor forecasts daily. If conditions are dangerous, we cancel — and you get a full refund or reschedule at no cost. We never compromise safety for the sake of running a tour. See our Weather Protocol section for details.</div>
+      </details>
+      <details class="mfaq-item">
+        <summary class="mfaq-q">What's included in the price?</summary>
+        <div class="mfaq-a">Hotel pickup & drop-off, speedboat, PADI-certified guide, snorkel equipment, life jacket, towel, boxed lunch & fresh fruit, GoPro footage (highlight reel), national park entrance fee, and insurance. Nothing hidden.</div>
+      </details>
+      <details class="mfaq-item">
+        <summary class="mfaq-q">Should I tip the guide?</summary>
+        <div class="mfaq-a">Tipping is not required but genuinely appreciated. Guides work hard — they're in the water with you for 6+ hours. A typical tip is 50,000–100,000 IDR (~$3–6 USD) per person if you had a great experience. It goes directly to your guide.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
 <!-- PREMIUM SHARED TOUR SPOTLIGHT -->
 <section class="s-premium-spot">
   <div class="container">
@@ -1184,6 +1466,15 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
       <h2 class="s-title">Free hotel <span class="it">pickup included</span></h2>
       <p class="s-sub">No taxis, no stress. Your air-conditioned Toyota arrives at your hotel — and takes you back at day's end.</p>
       <p class="s-sub" style="margin-top:-8px;font-size:14px;color:#6b7280;">📍 Pickup from Kuta, Seminyak, Canggu, Legian, Sanur, Nusa Dua &amp; more.</p>
+      <div class="pickup-times">
+        <div class="pt-row"><span class="pt-area">Sanur</span><span class="pt-time">5 min away</span></div>
+        <div class="pt-row"><span class="pt-area">Nusa Dua</span><span class="pt-time">~25 min</span></div>
+        <div class="pt-row"><span class="pt-area">Kuta / Legian</span><span class="pt-time">~30 min</span></div>
+        <div class="pt-row"><span class="pt-area">Seminyak</span><span class="pt-time">~40 min</span></div>
+        <div class="pt-row"><span class="pt-area">Canggu</span><span class="pt-time">~50 min</span></div>
+        <div class="pt-row"><span class="pt-area">Uluwatu</span><span class="pt-time">~60 min</span></div>
+        <div class="pt-row"><span class="pt-area">Ubud</span><span class="pt-time">~90 min</span></div>
+      </div>
     </div>
     <div class="pickup-flow">
       <div class="pf-step">
@@ -1663,6 +1954,74 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
   </div>
 </section>
 
+<!-- GUIDES -->
+<section class="s-guides" id="guides">
+  <div class="container">
+    <div class="sec-head anim">
+      <div class="s-label">The People in the Water with You</div>
+      <h2 class="s-title">Meet your <span class="it">guides</span></h2>
+      <p class="s-sub">PADI certified, ocean-raised, and obsessed with making sure you see something extraordinary.</p>
+    </div>
+    <div class="guides-grid anim">
+      <div class="guide-card">
+        <div class="guide-photo" style="background:linear-gradient(135deg,#0f2040 0%,#1e3a5f 100%)">
+          <div class="guide-initials">B</div>
+        </div>
+        <div class="guide-info">
+          <div class="guide-name">Budi</div>
+          <div class="guide-cert">Level 4 Master Freediver</div>
+          <div class="guide-meta">8 yrs experience · EN / ID</div>
+          <div class="guide-tags"><span class="gtag">Freediving</span><span class="gtag">Mantas</span></div>
+        </div>
+      </div>
+      <div class="guide-card">
+        <div class="guide-photo" style="background:linear-gradient(135deg,#0f2040 0%,#1a3550 100%)">
+          <div class="guide-initials">N</div>
+        </div>
+        <div class="guide-info">
+          <div class="guide-name">Nyoman</div>
+          <div class="guide-cert">PADI IDC Staff Instructor</div>
+          <div class="guide-meta">Since 2007 · Lifeguard · Cruise Lines · EN / ID</div>
+          <div class="guide-tags"><span class="gtag">Instructor</span><span class="gtag">Families</span></div>
+        </div>
+      </div>
+      <div class="guide-card">
+        <div class="guide-photo" style="background:linear-gradient(135deg,#0f2040 0%,#162d45 100%)">
+          <div class="guide-initials">V</div>
+        </div>
+        <div class="guide-info">
+          <div class="guide-name">Vicky</div>
+          <div class="guide-cert">PADI Divemaster</div>
+          <div class="guide-meta">7 yrs · 5-star dive centers · EN / ID</div>
+          <div class="guide-tags"><span class="gtag">Divemaster</span><span class="gtag">Underwater Photo</span></div>
+        </div>
+      </div>
+      <div class="guide-card">
+        <div class="guide-photo" style="background:linear-gradient(135deg,#0f2040 0%,#1b3248 100%)">
+          <div class="guide-initials">T</div>
+        </div>
+        <div class="guide-info">
+          <div class="guide-name">Tim</div>
+          <div class="guide-cert">APNEA Freediver + Advanced Scuba</div>
+          <div class="guide-meta">EN / ID</div>
+          <div class="guide-tags"><span class="gtag">Freediving</span><span class="gtag">Snorkel</span></div>
+        </div>
+      </div>
+      <div class="guide-card">
+        <div class="guide-photo" style="background:linear-gradient(135deg,#0f2040 0%,#193045 100%)">
+          <div class="guide-initials">J</div>
+        </div>
+        <div class="guide-info">
+          <div class="guide-name">Jana</div>
+          <div class="guide-cert">PADI Divemaster + Boat Captain</div>
+          <div class="guide-meta">Since 2007 · Lifeguard · 11 yrs Cruise Lines · EN / ID</div>
+          <div class="guide-tags"><span class="gtag">Captain</span><span class="gtag">Safety</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- GALLERY -->
 <section class="s-gal">
   <div class="container">
@@ -1683,6 +2042,80 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
   </div>
 </section>
 
+
+<!-- VS COMPETITORS -->
+<section class="s-versus s-dark" id="versus">
+  <div class="container">
+    <div class="sec-head anim">
+      <div class="s-label">Why It Matters</div>
+      <h2 class="s-title">Not all Nusa Penida tours are <span class="it">equal</span></h2>
+      <p class="s-sub">Most operators run tourist conveyor belts. We don't. Here's what's actually different.</p>
+    </div>
+    <div class="vs-table-wrap anim">
+      <table class="vs-table">
+        <thead>
+          <tr>
+            <th class="vs-feature">What matters</th>
+            <th class="vs-bluuu">
+              <div class="vs-logo">BLUUU</div>
+            </th>
+            <th class="vs-others">Most Operators</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Group size</td>
+            <td class="vs-yes">Max 13–15 guests</td>
+            <td class="vs-no">25–40 on one boat</td>
+          </tr>
+          <tr>
+            <td>GoPro footage included</td>
+            <td class="vs-yes">✓ Standard on every tour</td>
+            <td class="vs-no">Extra charge or none</td>
+          </tr>
+          <tr>
+            <td>Underwater photographer</td>
+            <td class="vs-yes">✓ Premium & Elite tiers</td>
+            <td class="vs-no">Not available</td>
+          </tr>
+          <tr>
+            <td>Drone coverage</td>
+            <td class="vs-yes">✓ Elite tier</td>
+            <td class="vs-no">Not available</td>
+          </tr>
+          <tr>
+            <td>Afternoon manta rays</td>
+            <td class="vs-yes">✓ Dedicated manta point</td>
+            <td class="vs-no">Morning rush only</td>
+          </tr>
+          <tr>
+            <td>Weather NO-GO refund</td>
+            <td class="vs-yes">✓ 100% refund, always</td>
+            <td class="vs-no">Credit or reschedule only</td>
+          </tr>
+          <tr>
+            <td>Free hotel pickup</td>
+            <td class="vs-yes">✓ AC Toyota, island-wide</td>
+            <td class="vs-no">Extra cost or none</td>
+          </tr>
+          <tr>
+            <td>Certified PADI guides</td>
+            <td class="vs-yes">✓ All guides certified</td>
+            <td class="vs-no">Mixed, often uncertified</td>
+          </tr>
+          <tr>
+            <td>9,000+ verified reviews</td>
+            <td class="vs-yes">✓ 4.9★ across all OTAs</td>
+            <td class="vs-no">Typically under 1,000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="text-align:center;margin-top:32px;">
+      <a href="https://wa.me/6281370262777" class="btn-primary wa-inline" target="_blank" rel="noopener">Book with Bluuu — The Difference Shows</a>
+    </div>
+  </div>
+</section>
 
 <!-- BOOK DIRECT INCENTIVE -->
 <section class="s-direct">
