@@ -363,6 +363,43 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
 .tc-score, .pc-score { font-size: 13px; font-weight: 700; color: #fff; }
 .tc-reviews, .pc-reviews { font-size: 12px; color: rgba(255,255,255,.55); }
 
+/* Premium Shared Tour Spotlight */
+.s-premium-spot { padding: 80px 0; background: #f8fafc; }
+.pspot-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+.pspot-img-wrap { position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 12px 48px rgba(0,0,0,.12); }
+.pspot-top-badge { position: absolute; top: 16px; left: 50%; transform: translateX(-50%); background: #f97316; color: #fff; font-size: 11px; font-weight: 700; letter-spacing: .1em; padding: 6px 18px; border-radius: 50px; white-space: nowrap; z-index: 2; }
+.pspot-img { display: block; width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+.pspot-label { font-size: 12px; font-weight: 700; letter-spacing: .12em; color: #f97316; text-transform: uppercase; margin-bottom: 8px; }
+.pspot-title { font-size: clamp(26px,3vw,40px); font-weight: 900; color: #0b1120; line-height: 1.15; margin-bottom: 12px; }
+.pspot-sub { font-size: 15px; color: #64748b; line-height: 1.7; margin-bottom: 24px; }
+.pspot-specs { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+.pspot-spec { font-size: 14px; color: #374151; display: flex; align-items: center; gap: 8px; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px 14px; }
+.pspot-price-row { display: flex; align-items: baseline; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; }
+.pspot-from { font-size: 13px; color: #64748b; }
+.pspot-price { font-size: 40px; font-weight: 900; color: #0b1120; line-height: 1; }
+.pspot-per { font-size: 14px; color: #64748b; }
+.pspot-badge { background: #fff7ed; color: #f97316; font-size: 11px; font-weight: 700; letter-spacing: .07em; padding: 4px 12px; border-radius: 50px; text-transform: uppercase; border: 1px solid #fed7aa; }
+.pspot-feat-head { font-size: 13px; color: #64748b; margin-bottom: 8px; }
+.pspot-feat-list { list-style: none; padding: 0; margin: 0 0 24px; display: flex; flex-direction: column; gap: 7px; }
+.pspot-feat-list li { font-size: 14px; color: #1e293b; display: flex; align-items: flex-start; gap: 8px; }
+.pf-plus { color: #f97316; font-weight: 800; flex-shrink: 0; }
+.pspot-btn { display: inline-block; background: #f97316; color: #fff; font-size: 16px; font-weight: 700; padding: 14px 36px; border-radius: 50px; text-decoration: none; transition: all .2s; }
+.pspot-btn:hover { background: #ea6c0a; }
+.pspot-no-pay { font-size: 12px; color: #94a3b8; margin-top: 10px; text-align: center; }
+@media(max-width:768px) { .pspot-inner { grid-template-columns: 1fr; } }
+
+/* Private Routes Teaser */
+.s-routes { padding: 80px 0; background: #fff; }
+.routes-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin: 40px 0 48px; }
+.rt-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px 20px; transition: box-shadow .2s, transform .2s; cursor: default; }
+.rt-card:hover { box-shadow: 0 8px 32px rgba(59,130,246,.12); transform: translateY(-3px); }
+.rt-emoji { font-size: 28px; margin-bottom: 12px; }
+.rt-title { font-size: 16px; font-weight: 800; color: #0b1120; margin-bottom: 6px; }
+.rt-desc { font-size: 13px; color: #64748b; line-height: 1.6; }
+.routes-cta { text-align: center; }
+@media(max-width:768px) { .routes-grid { grid-template-columns: 1fr 1fr; } }
+@media(max-width:480px) { .routes-grid { grid-template-columns: 1fr; } }
+
 /* Elite Yacht Spotlight */
 .s-eyacht { padding: 80px 0; background: #fff; }
 .eyacht-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
@@ -762,6 +799,47 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
 </section>
 
 
+<!-- PREMIUM SHARED TOUR SPOTLIGHT -->
+<section class="s-premium-spot">
+  <div class="container">
+    <div class="pspot-inner anim">
+      <div class="pspot-img-wrap">
+        <div class="pspot-top-badge">⭐ MOST POPULAR</div>
+        <img src="https://bluuu.tours/storage/app/uploads/public/69b/24d/c07/69b24dc07fcf9439980605.jpg" alt="Bluuu Tours — Premium Shared Tour" class="pspot-img">
+      </div>
+      <div class="pspot-body">
+        <div class="pspot-label">PREMIUM SHARED</div>
+        <h2 class="pspot-title">The sweet spot</h2>
+        <p class="pspot-sub">Smaller group, more personal attention, the best snorkel spots — without chartering a full yacht.</p>
+        <div class="pspot-specs">
+          <div class="pspot-spec"><span>🚤</span> Premium speedboat · Up to 8 guests</div>
+          <div class="pspot-spec"><span>📸</span> Professional photographer on board</div>
+          <div class="pspot-spec"><span>🤿</span> Full-face masks &amp; priority spots</div>
+        </div>
+        <div class="pspot-price-row">
+          <span class="pspot-from">from</span>
+          <span class="pspot-price">$109</span>
+          <span class="pspot-per">/ person</span>
+          <span class="pspot-badge">POPULAR</span>
+        </div>
+        <div class="pspot-feats">
+          <div class="pspot-feat-head">Everything in Essential, plus:</div>
+          <ul class="pspot-feat-list">
+            <li><span class="pf-plus">+</span> Smaller group — max 8 people</li>
+            <li><span class="pf-plus">+</span> Full-face snorkel masks</li>
+            <li><span class="pf-plus">+</span> Priority access to all snorkel spots</li>
+            <li><span class="pf-plus">+</span> Professional photographer on board</li>
+            <li><span class="pf-plus">+</span> Manta Bay private access</li>
+            <li><span class="pf-plus">+</span> Most experienced senior guide</li>
+          </ul>
+        </div>
+        <a href="https://bluuu.tours" class="pspot-btn">Book Premium →</a>
+        <div class="pspot-no-pay">No payment required to view options</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- FREE PICKUP -->
 <section class="s-pickup">
   <div class="container">
@@ -877,6 +955,52 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
           <div class="ec-note">Prosecco on return cruise included for all Elite guests</div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRIVATE ROUTES TEASER -->
+<section class="s-routes">
+  <div class="container">
+    <div class="sec-head anim">
+      <div class="s-label">Private Routes</div>
+      <h2 class="s-title">Pick your <span class="it">perfect day</span></h2>
+      <p class="s-sub">Your own yacht, your own pace — six ways to spend a day on the Bali sea.</p>
+    </div>
+    <div class="routes-grid">
+      <div class="rt-card anim">
+        <div class="rt-emoji">🗺️</div>
+        <div class="rt-title">Classic route</div>
+        <div class="rt-desc">Mantas, Kelingking Cliff, snorkeling, lagoon — all the top spots in one day.</div>
+      </div>
+      <div class="rt-card anim" style="animation-delay:.06s">
+        <div class="rt-emoji">🌊</div>
+        <div class="rt-title">Chill &amp; relax</div>
+        <div class="rt-desc">Lago Pontoon, scenic cruise, swim in calm bays. Your day, your rules.</div>
+      </div>
+      <div class="rt-card anim" style="animation-delay:.12s">
+        <div class="rt-emoji">👨‍👩‍👧</div>
+        <div class="rt-title">Family-first day</div>
+        <div class="rt-desc">Fewer stops, more time at each. Kids' jackets &amp; snorkel gear provided.</div>
+      </div>
+      <div class="rt-card anim" style="animation-delay:.18s">
+        <div class="rt-emoji">🎉</div>
+        <div class="rt-title">Celebration day</div>
+        <div class="rt-desc">Snorkel first, beach club finish. Birthdays, hen dos, any celebration.</div>
+      </div>
+      <div class="rt-card anim" style="animation-delay:.24s">
+        <div class="rt-emoji">🤿</div>
+        <div class="rt-title">Dive highlights</div>
+        <div class="rt-desc">Manta Point + Crystal Bay. No certification needed — instructors with you.</div>
+      </div>
+      <div class="rt-card anim" style="animation-delay:.30s">
+        <div class="rt-emoji">🏄</div>
+        <div class="rt-title">Watersport day</div>
+        <div class="rt-desc">Snorkel in the morning, jet ski + e-foil + banana boat after lunch.</div>
+      </div>
+    </div>
+    <div class="routes-cta anim">
+      <a href="https://bluuu.tours" class="btn-primary">See All Private Routes →</a>
     </div>
   </div>
 </section>
