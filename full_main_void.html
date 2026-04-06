@@ -168,6 +168,62 @@ section { padding: 80px 0; }
   .priv-perks { grid-template-columns: 1fr; }
   .priv-perk { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,.06); }
 }
+/* KIDS & FAMILIES */
+.s-kids { padding: 80px 0; background: var(--beige); }
+.kids-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 48px; align-items: start; margin-top: 40px; }
+.kids-img { position: relative; height: 420px; border-radius: 20px; overflow: hidden; }
+.kids-img-badge { position: absolute; bottom: 16px; left: 16px; background: rgba(0,0,0,.55); backdrop-filter: blur(6px); color: #fff; font-size: 13px; font-weight: 700; padding: 8px 16px; border-radius: 50px; }
+.kids-content { display: flex; flex-direction: column; gap: 20px; }
+.kids-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.kc { background: #fff; border-radius: 16px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,.06); }
+.kc-head { font-size: 13px; font-weight: 800; letter-spacing: .03em; text-transform: uppercase; padding: 8px 12px; border-radius: 8px; margin-bottom: 12px; }
+.kc-head.shared { background: rgba(59,130,246,.1); color: var(--blue); }
+.kc-head.private { background: rgba(234,179,8,.12); color: #92400e; }
+.kc-row { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--dark); padding: 5px 0; border-bottom: 1px solid #f3f4f6; }
+.kc-row:last-child { border-bottom: none; }
+.kc-ok { color: #16a34a; font-weight: 700; }
+.kc-no { color: #9ca3af; font-weight: 700; }
+.kids-quote { font-size: 15px; font-style: italic; color: #374151; line-height: 1.65; background: #fff; padding: 16px 20px; border-left: 3px solid var(--blue); border-radius: 0 12px 12px 0; }
+.kids-quote-name { font-size: 12px; color: var(--muted); font-weight: 600; margin-top: -8px; padding-left: 20px; }
+.btn-wa-family { display: inline-flex; align-items: center; gap: 8px; background: #25D366; color: #fff; font-size: 14px; font-weight: 700; padding: 14px 28px; border-radius: 50px; text-decoration: none; width: fit-content; transition: opacity .2s; }
+.btn-wa-family:hover { opacity: .88; }
+@media(max-width:780px) { .kids-grid { grid-template-columns: 1fr; } .kids-img { height: 260px; } .kids-compare { grid-template-columns: 1fr; } }
+
+/* MANTA RAYS */
+.s-mantas { padding: 80px 0; background: var(--navy); }
+.s-mantas .sec-head { margin-bottom: 40px; }
+.mantas-grid { display: grid; grid-template-columns: 280px 1fr; gap: 40px; align-items: start; }
+.manta-stat-col { display: flex; flex-direction: column; gap: 16px; }
+.manta-stat { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.09); border-radius: 18px; padding: 24px 20px; }
+.manta-stat-num { font-size: 42px; font-weight: 900; color: #fff; line-height: 1; }
+.manta-stat-label { font-size: 14px; font-weight: 600; color: #93c5fd; margin-top: 4px; }
+.manta-stat-label span { font-size: 12px; color: #64748b; font-weight: 400; }
+.manta-info-col { display: flex; flex-direction: column; gap: 20px; }
+.manta-info-card { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); border-radius: 18px; padding: 28px; }
+.manta-info-icon { font-size: 28px; margin-bottom: 10px; }
+.manta-info-title { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+.manta-info-desc { font-size: 14px; color: #94a3b8; line-height: 1.7; }
+.manta-cta-row { display: flex; align-items: center; gap: 24px; margin-top: 36px; flex-wrap: wrap; }
+.manta-guarantee { font-size: 13px; color: #93c5fd; font-weight: 600; }
+@media(max-width:700px) { .mantas-grid { grid-template-columns: 1fr; } }
+
+/* MARINE LIFE DEEP DIVE */
+.s-marinelife-deep { padding: 80px 0; background: var(--navy); border-top: 1px solid rgba(255,255,255,.06); }
+.s-marinelife-deep .sec-head { margin-bottom: 40px; }
+.s-marinelife-deep .s-title, .s-marinelife-deep .s-label { color: #fff; }
+.s-marinelife-deep .s-sub { color: #94a3b8; }
+.mld-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+.mld-card { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); border-radius: 18px; padding: 28px 22px; }
+.mld-emoji { font-size: 36px; margin-bottom: 12px; }
+.mld-rarity { display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: .12em; padding: 3px 10px; border-radius: 20px; margin-bottom: 10px; }
+.mld-rarity.common { background: rgba(22,163,74,.15); color: #4ade80; }
+.mld-rarity.occasional { background: rgba(249,115,22,.12); color: #fb923c; }
+.mld-rarity.rare { background: rgba(234,179,8,.12); color: #fbbf24; }
+.mld-name { font-size: 17px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+.mld-desc { font-size: 13px; color: #94a3b8; line-height: 1.65; }
+@media(max-width:780px) { .mld-grid { grid-template-columns: repeat(2,1fr); } }
+@media(max-width:480px) { .mld-grid { grid-template-columns: 1fr; } }
+
 /* NEW TIMELINE — card grid */
 .tl-grid { display: flex; flex-direction: column; gap: 20px; }
 .tl-card { display: grid; grid-template-columns: 280px 1fr; border-radius: 24px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,.07); background: #fff; }
@@ -1121,6 +1177,49 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
   </div>
 </section>
 
+<!-- KIDS & FAMILIES -->
+<section class="s-kids">
+  <div class="container">
+    <div class="sec-head anim">
+      <div class="s-label">Families &amp; Kids</div>
+      <h2 class="s-title">Travelling with <span class="it">little ones?</span></h2>
+      <p class="s-sub">We take families every day. Here's what you need to know before booking.</p>
+    </div>
+    <div class="kids-grid anim">
+      <div class="kids-img">
+        <img src="https://bluuu.tours/storage/app/uploads/public/69b/24d/c07/69b24dc07fcf9439980605.jpg" alt="Family snorkeling Nusa Penida" style="width:100%;height:100%;object-fit:cover;border-radius:20px;">
+        <div class="kids-img-badge">🐠 Kids love it here</div>
+      </div>
+      <div class="kids-content">
+        <div class="kids-compare">
+          <div class="kc">
+            <div class="kc-head shared">🚤 Shared Tour</div>
+            <div class="kc-row"><span class="kc-ok">✓</span> Min age: <strong>6 years</strong></div>
+            <div class="kc-row"><span class="kc-ok">✓</span> Must be able to swim</div>
+            <div class="kc-row"><span class="kc-ok">✓</span> Life jackets provided</div>
+            <div class="kc-row"><span class="kc-no">–</span> Fixed group schedule</div>
+            <div class="kc-row"><span class="kc-no">–</span> Shared boat with others</div>
+          </div>
+          <div class="kc">
+            <div class="kc-head private">⚓ Private Charter</div>
+            <div class="kc-row"><span class="kc-ok">✓</span> <strong>All ages welcome</strong></div>
+            <div class="kc-row"><span class="kc-ok">✓</span> Infants &amp; toddlers OK</div>
+            <div class="kc-row"><span class="kc-ok">✓</span> Entire boat — family only</div>
+            <div class="kc-row"><span class="kc-ok">✓</span> Your pace &amp; route</div>
+            <div class="kc-row"><span class="kc-ok">✓</span> Kids menu on request</div>
+          </div>
+        </div>
+        <p class="kids-quote">&ldquo;We had a 2-year-old and a 5-year-old. The crew was incredibly patient and the kids had the best day of the trip.&rdquo;</p>
+        <p class="kids-quote-name">— Anna, Germany · Private Charter · Jan 2025</p>
+        <a href="https://wa.me/6281370262777?text=Hi!%20I%27m%20travelling%20with%20kids%20and%20interested%20in%20a%20Private%20Charter." class="btn-wa-family" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+          Ask about family options
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- PRIVATE ROUTES TEASER -->
 <section class="s-routes">
   <div class="container">
@@ -1184,6 +1283,40 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
   </div>
 </section>
 
+<!-- MANTA RAYS -->
+<section class="s-mantas" id="s-mantas">
+  <div class="container">
+    <div class="sec-head anim" style="color:#fff">
+      <div class="s-label" style="color:#93c5fd">Manta Rays</div>
+      <h2 class="s-title" style="color:#fff">The <span class="it">real reason</span> people come</h2>
+      <p class="s-sub" style="color:#94a3b8">Manta Bay is one of the most reliable manta ray spots in the world. Here's what to expect.</p>
+    </div>
+    <div class="mantas-grid anim">
+      <div class="manta-stat-col">
+        <div class="manta-stat"><div class="manta-stat-num">~90%</div><div class="manta-stat-label">Sighting rate<br><span>based on 8+ years of tours</span></div></div>
+        <div class="manta-stat"><div class="manta-stat-num">~14:00</div><div class="manta-stat-label">Peak feeding time<br><span>when mantas are most active</span></div></div>
+        <div class="manta-stat"><div class="manta-stat-num">8+</div><div class="manta-stat-label">Years at Manta Bay<br><span>our guides know every current</span></div></div>
+      </div>
+      <div class="manta-info-col">
+        <div class="manta-info-card">
+          <div class="manta-info-icon">🦈</div>
+          <h3 class="manta-info-title">Manta Ray Station</h3>
+          <p class="manta-info-desc">Manta Bay (Manta Point) is a cleaning station on the southwest tip of Nusa Penida. Reef mantas come here daily to be cleaned by smaller fish — you'll see them glide 2–5 metres below the surface.</p>
+        </div>
+        <div class="manta-info-card">
+          <div class="manta-info-icon">🔵</div>
+          <h3 class="manta-info-title">Crystal Bay & Mola Mola</h3>
+          <p class="manta-info-desc">Crystal Bay is a separate stop on the north side. In season (Jul–Oct), this is where Mola Mola (ocean sunfish) are spotted. If you miss mantas at Manta Bay, we redirect to Crystal Bay — and credit $15/person toward your next tour.</p>
+        </div>
+      </div>
+    </div>
+    <div class="manta-cta-row anim">
+      <a href="https://bluuu.tours" class="p-btn solid">Book your tour</a>
+      <span class="manta-guarantee">🛡️ No manta sighting? $15/person credit on your next trip.</span>
+    </div>
+  </div>
+</section>
+
 <!-- MARINE WILDLIFE -->
 <section class="s-wl">
   <div class="container">
@@ -1197,6 +1330,55 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
       <div class="wc anim" style="animation-delay:.08s"><div class="wi"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="5" ry="4"/><path d="M7 12c-2 0-4-1-5-3"/><path d="M17 12c2 0 4-1 5-3"/><path d="M9 16l-2 3"/><path d="M15 16l2 3"/><path d="M10 8l-1-3"/><path d="M14 8l1-3"/></svg></div><h4>Sea Turtles</h4><p>Gentle giants gliding through the reef. Very common sightings year-round.</p></div>
       <div class="wc anim" style="animation-delay:.16s"><div class="wi"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8s2-4 8-4 8 4 8 4-1 5-5 7-9 1-11-7z"/><path d="M18 8c1 1 3 4 3 7"/><path d="M13 15c0 3-1 5-4 6"/></svg></div><h4>Dolphins</h4><p>Playful pod encounters on the boat ride. Pure magic when they appear.</p></div>
       <div class="wc anim" style="animation-delay:.24s"><div class="wi"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12s3-7 9-7 9 7 9 7-3 7-9 7-9-7-9-7z"/><circle cx="13" cy="12" r="2"/><path d="M21 12c0 0 1-3 1-5"/><path d="M21 12c0 0 1 3 1 5"/></svg></div><h4>Tropical Fish</h4><p>Hundreds of colorful species in coral gardens that come alive underwater.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARINE LIFE DEEP DIVE -->
+<section class="s-marinelife-deep">
+  <div class="container">
+    <div class="sec-head anim">
+      <div class="s-label">Underwater World</div>
+      <h2 class="s-title">What you'll <span class="it">see below</span></h2>
+      <p class="s-sub">Six species our guests encounter most — from near-certain sightings to bucket-list rarities.</p>
+    </div>
+    <div class="mld-grid anim">
+      <div class="mld-card">
+        <div class="mld-emoji">🦈</div>
+        <div class="mld-rarity common">COMMON</div>
+        <h4 class="mld-name">Manta Ray</h4>
+        <p class="mld-desc">Reef mantas up to 4m wingspan at Manta Bay. Graceful, gentle, unforgettable.</p>
+      </div>
+      <div class="mld-card">
+        <div class="mld-emoji">🐢</div>
+        <div class="mld-rarity common">COMMON</div>
+        <h4 class="mld-name">Sea Turtle</h4>
+        <p class="mld-desc">Green and hawksbill turtles rest on the reef at Gamat Bay and Toyapakeh.</p>
+      </div>
+      <div class="mld-card">
+        <div class="mld-emoji">🐬</div>
+        <div class="mld-rarity occasional">OCCASIONAL</div>
+        <h4 class="mld-name">Dolphin</h4>
+        <p class="mld-desc">Spinner dolphins often appear on the morning crossing to Nusa Penida.</p>
+      </div>
+      <div class="mld-card">
+        <div class="mld-emoji">🦈</div>
+        <div class="mld-rarity occasional">OCCASIONAL</div>
+        <h4 class="mld-name">Reef Shark</h4>
+        <p class="mld-desc">Whitetip reef sharks patrol the deeper reef edges — harmless and curious.</p>
+      </div>
+      <div class="mld-card">
+        <div class="mld-emoji">🐡</div>
+        <div class="mld-rarity rare">RARE</div>
+        <h4 class="mld-name">Mola Mola</h4>
+        <p class="mld-desc">Ocean sunfish weighing up to 2 tons. Crystal Bay, Jul–Oct season only.</p>
+      </div>
+      <div class="mld-card">
+        <div class="mld-emoji">🐠</div>
+        <div class="mld-rarity common">COMMON</div>
+        <h4 class="mld-name">Tropical Fish</h4>
+        <p class="mld-desc">Hundreds of species: clownfish, angelfish, parrotfish — every snorkel spot is alive.</p>
+      </div>
     </div>
   </div>
 </section>
