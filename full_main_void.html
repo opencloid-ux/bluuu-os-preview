@@ -606,16 +606,16 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
 @media(max-width:480px) { .routes-grid { grid-template-columns: 1fr; } }
 
 /* Elite Yacht Spotlight */
-.s-eyacht { padding: 80px 0; background: var(--dark); }
+.s-eyacht { padding: 80px 0; background: #fff; }
 .eyacht-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
 .eyacht-img-wrap { position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 12px 48px rgba(0,0,0,.14); }
 .eyacht-top-badge { position: absolute; top: 16px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,.72); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: .1em; padding: 6px 18px; border-radius: 50px; white-space: nowrap; z-index: 2; }
 .eyacht-img { display: block; width: 100%; aspect-ratio: 4/3; object-fit: cover; }
-.eyacht-label { font-size: 12px; font-weight: 700; letter-spacing: .12em; color: rgba(255,255,255,0.5); text-transform: uppercase; margin-bottom: 8px; }
+.eyacht-label { font-size: 12px; font-weight: 700; letter-spacing: .12em; color: var(--muted2); text-transform: uppercase; margin-bottom: 8px; }
 .eyacht-title { font-size: clamp(26px,3vw,40px); font-weight: 900; color: #fff /*dark*/0; line-height: 1.15; margin-bottom: 12px; }
-.eyacht-sub { font-size: 15px; color: rgba(255,255,255,0.65); line-height: 1.7; margin-bottom: 24px; }
+.eyacht-sub { font-size: 15px; color: #64748b; line-height: 1.7; margin-bottom: 24px; }
 .eyacht-specs { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
-.eyacht-spec { font-size: 14px; color: rgba(255,255,255,0.75); display: flex; align-items: center; gap: 8px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px 14px; }
+.eyacht-spec { font-size: 14px; color: #374151; display: flex; align-items: center; gap: 8px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px 14px; }
 .eyacht-spec-icon { font-size: 16px; }
 .eyacht-price-row { display: flex; align-items: baseline; gap: 6px; margin-bottom: 6px; flex-wrap: wrap; }
 .eyacht-from { font-size: 13px; color: #64748b; }
@@ -1660,7 +1660,7 @@ details[open] .mfaq-q::after { content:"−"; }
   </div>
 </section>
 
-<section class="s-eyacht s-dark">
+<section class="s-eyacht">
   <div class="container">
     <div class="eyacht-inner anim">
       <div class="eyacht-img-wrap">
@@ -1702,7 +1702,7 @@ details[open] .mfaq-q::after { content:"−"; }
   </div>
 </section>
 
-<section class="s-elite">
+<section class="s-elite s-dark">
   <div class="container">
     <div class="elite-inner">
       <div class="elite-left">
