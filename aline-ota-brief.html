@@ -1,315 +1,253 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BLUUU OS — Для Алайн</title>
+<title>BLUUU OS — For Aline</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --navy: #0a0f1e; --navy-2: #0e1628; --navy-3: #141e35;
+    --navy: #0a0f1e; --navy-3: #141e35;
     --teal: #00c4a0; --teal-dim: rgba(0,196,160,0.12); --teal-glow: rgba(0,196,160,0.25);
-    --blue: #1a8fff; --white: #f0f4ff; --muted: rgba(240,244,255,0.45);
-    --border: rgba(240,244,255,0.08); --card: rgba(255,255,255,0.04); --card-hover: rgba(255,255,255,0.07);
+    --white: #f0f4ff; --muted: rgba(240,244,255,0.45);
+    --border: rgba(240,244,255,0.08); --card: rgba(255,255,255,0.04);
     --red: #ff5a5a; --yellow: #ffbe00; --orange: #ff8c42;
   }
-  html, body { width: 100%; height: 100%; background: var(--navy); font-family: 'Outfit', sans-serif; color: var(--white); overflow: hidden; -webkit-font-smoothing: antialiased; }
-  .deck { width: 100vw; height: 100vh; position: relative; }
-  .slide { position: absolute; inset: 0; display: flex; flex-direction: column; padding: clamp(2rem, 5vw, 4rem) clamp(2rem, 7vw, 7rem); opacity: 0; pointer-events: none; transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16,1,0.3,1); transform: translateX(40px); overflow: hidden; }
-  .slide.active { opacity: 1; pointer-events: all; transform: translateX(0); }
-  .slide.prev { opacity: 0; transform: translateX(-40px); }
-  .slide::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 60% 50% at 80% 20%, rgba(0,196,160,0.06) 0%, transparent 70%), radial-gradient(ellipse 50% 60% at 10% 80%, rgba(255,140,66,0.05) 0%, transparent 70%); }
-  .slide::after { content: ''; position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 80px 80px; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%); }
-  .nav { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 1rem; background: rgba(14,22,40,0.85); backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: 100px; padding: 0.6rem 1.2rem; z-index: 100; }
-  .nav button { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 1.1rem; padding: 0.3rem 0.6rem; border-radius: 50px; transition: color 0.2s, background 0.2s; font-family: 'Outfit', sans-serif; }
-  .nav button:hover { color: var(--white); background: var(--card); }
-  .nav .dots { display: flex; gap: 6px; align-items: center; }
-  .nav .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); cursor: pointer; transition: background 0.3s, transform 0.3s; }
-  .nav .dot.active { background: var(--teal); transform: scale(1.4); }
-  .nav .counter { font-size: 0.75rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; min-width: 3ch; text-align: center; }
-  .progress { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, var(--teal), var(--orange)); z-index: 100; transition: width 0.5s cubic-bezier(0.16,1,0.3,1); box-shadow: 0 0 12px var(--teal-glow); }
-  .eyebrow { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--teal); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; position: relative; z-index: 1; }
-  .eyebrow::before { content: ''; display: block; width: 2rem; height: 1px; background: var(--teal); }
-  h2 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; position: relative; z-index: 1; }
-  .accent { color: var(--teal); }
-  .mono { font-family: 'JetBrains Mono', monospace; }
-  p.lead { font-size: clamp(1rem, 2vw, 1.25rem); color: var(--muted); line-height: 1.7; max-width: 58ch; position: relative; z-index: 1; margin-top: 1.25rem; }
-  .card { background: var(--card); border: 1px solid var(--border); border-radius: 1.25rem; padding: 1.5rem; position: relative; z-index: 1; transition: background 0.2s; }
-  .card:hover { background: var(--card-hover); }
-  .card.teal-glow { border-color: rgba(0,196,160,0.25); box-shadow: 0 0 30px var(--teal-dim); }
-  .card.orange-glow { border-color: rgba(255,140,66,0.25); box-shadow: 0 0 30px rgba(255,140,66,0.1); }
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; position: relative; z-index: 1; }
-  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; position: relative; z-index: 1; }
-  .grid-asym { display: grid; grid-template-columns: 1.4fr 1fr; gap: 1.5rem; position: relative; z-index: 1; }
-  .stat { display: flex; flex-direction: column; gap: 0.25rem; }
-  .stat-num { font-size: 2.5rem; font-weight: 800; line-height: 1; color: var(--teal); }
-  .stat-label { font-size: 0.8rem; color: var(--muted); font-weight: 500; }
-  .badge { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; padding: 0.25rem 0.7rem; border-radius: 100px; text-transform: uppercase; }
-  .badge.red { background: rgba(255,90,90,0.12); color: var(--red); border: 1px solid rgba(255,90,90,0.25); }
-  .badge.yellow { background: rgba(255,190,0,0.1); color: var(--yellow); border: 1px solid rgba(255,190,0,0.25); }
-  .badge.green { background: var(--teal-dim); color: var(--teal); border: 1px solid rgba(0,196,160,0.25); }
-  .badge.orange { background: rgba(255,140,66,0.1); color: var(--orange); border: 1px solid rgba(255,140,66,0.25); }
-  .flow { display: flex; flex-direction: column; gap: 0; position: relative; z-index: 1; }
-  .flow-item { display: flex; align-items: flex-start; gap: 1rem; padding: 0.85rem 0; border-bottom: 1px solid var(--border); }
-  .flow-item:last-child { border-bottom: none; }
-  .flow-num { width: 28px; height: 28px; min-width: 28px; border-radius: 50%; background: var(--teal-dim); border: 1px solid rgba(0,196,160,0.3); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; color: var(--teal); font-family: 'JetBrains Mono', monospace; }
-  .flow-text { font-size: 0.9rem; color: var(--white); line-height: 1.5; padding-top: 3px; }
-  .flow-text small { display: block; color: var(--muted); font-size: 0.78rem; margin-top: 0.15rem; }
-  .data-table { width: 100%; border-collapse: collapse; position: relative; z-index: 1; font-size: 0.82rem; }
-  .data-table th { text-align: left; padding: 0.6rem 0.75rem; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--border); }
-  .data-table td { padding: 0.65rem 0.75rem; border-bottom: 1px solid var(--border); color: var(--white); line-height: 1.4; }
-  .data-table tr:last-child td { border-bottom: none; }
-  .data-table tr:hover td { background: var(--card); }
-  .divider { width: 100%; height: 1px; background: var(--border); margin: 1.25rem 0; position: relative; z-index: 1; }
-  @keyframes pulse-ring { 0% { transform: scale(1); opacity: 0.6; } 100% { transform: scale(2); opacity: 0; } }
-  .pulse-dot { position: relative; display: inline-block; width: 10px; height: 10px; }
-  .pulse-dot::before { content: ''; position: absolute; inset: 0; border-radius: 50%; background: var(--teal); animation: pulse-ring 1.5s ease-out infinite; }
-  .pulse-dot::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: var(--teal); }
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-  .slide.active .animate { animation: fadeUp 0.5s cubic-bezier(0.16,1,0.3,1) both; }
-  .slide.active .animate:nth-child(1) { animation-delay: 0.05s; } .slide.active .animate:nth-child(2) { animation-delay: 0.12s; } .slide.active .animate:nth-child(3) { animation-delay: 0.19s; } .slide.active .animate:nth-child(4) { animation-delay: 0.26s; } .slide.active .animate:nth-child(5) { animation-delay: 0.33s; }
-  .watermark { position: fixed; bottom: 5.5rem; right: 2rem; font-size: 0.65rem; color: rgba(240,244,255,0.18); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.1em; text-transform: uppercase; z-index: 50; }
-  #s1 { justify-content: center; }
-  .cover-tag { display: inline-flex; align-items: center; gap: 0.5rem; border: 1px solid var(--border); padding: 0.4rem 0.9rem; border-radius: 100px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 2rem; position: relative; z-index: 1; }
-  .cover-company { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: var(--teal); position: relative; z-index: 1; margin-bottom: 0.75rem; }
-  .cover-title .line1 { display: block; color: var(--muted); font-weight: 300; font-size: clamp(1.5rem, 4vw, 2.5rem); }
-  .cover-title .line2 { display: block; font-size: clamp(3rem, 8vw, 6.5rem); font-weight: 800; letter-spacing: -0.04em; line-height: 0.9; position: relative; z-index: 1; }
-  .cover-sub { margin-top: 2rem; max-width: 46ch; font-size: 1.05rem; color: var(--muted); line-height: 1.6; position: relative; z-index: 1; }
-  .cover-footer { display: flex; gap: 2.5rem; margin-top: 3rem; position: relative; z-index: 1; }
-  .deco-ring { position: absolute; right: -5rem; top: 50%; transform: translateY(-50%); width: 40vw; height: 40vw; border-radius: 50%; border: 1px solid var(--border); pointer-events: none; }
-  .deco-ring::after { content: ''; position: absolute; inset: 10%; border-radius: 50%; border: 1px solid rgba(255,140,66,0.15); }
-  @media (max-width: 768px) { .grid-2, .grid-3, .grid-asym { grid-template-columns: 1fr; } .slide { padding: 1.5rem; } .cover-title .line2 { font-size: 3rem; } }
+  html, body { width:100%; height:100%; background:var(--navy); font-family:'Outfit',sans-serif; color:var(--white); overflow:hidden; -webkit-font-smoothing:antialiased; }
+  .deck { width:100vw; height:100vh; position:relative; }
+  .slide { position:absolute; inset:0; display:flex; flex-direction:column; padding:clamp(2rem,5vw,4rem) clamp(2rem,7vw,7rem); opacity:0; pointer-events:none; transition:opacity .5s ease,transform .5s cubic-bezier(.16,1,.3,1); transform:translateX(40px); overflow:hidden; }
+  .slide.active { opacity:1; pointer-events:all; transform:translateX(0); }
+  .slide.prev { opacity:0; transform:translateX(-40px); }
+  .slide::before { content:''; position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse 60% 50% at 80% 20%,rgba(0,196,160,.06) 0%,transparent 70%),radial-gradient(ellipse 50% 60% at 10% 80%,rgba(255,140,66,.05) 0%,transparent 70%); }
+  .slide::after { content:''; position:absolute; inset:0; pointer-events:none; background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px); background-size:80px 80px; mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 100%); }
+  .nav { position:fixed; bottom:2rem; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:1rem; background:rgba(14,22,40,.85); backdrop-filter:blur(16px); border:1px solid var(--border); border-radius:100px; padding:.6rem 1.2rem; z-index:100; }
+  .nav button { background:none; border:none; color:var(--muted); cursor:pointer; font-size:1.1rem; padding:.3rem .6rem; border-radius:50px; transition:color .2s,background .2s; font-family:'Outfit',sans-serif; }
+  .nav button:hover { color:var(--white); background:var(--card); }
+  .dots { display:flex; gap:6px; align-items:center; }
+  .dot { width:6px; height:6px; border-radius:50%; background:var(--border); cursor:pointer; transition:background .3s,transform .3s; }
+  .dot.active { background:var(--teal); transform:scale(1.4); }
+  .counter { font-size:.75rem; color:var(--muted); font-family:'JetBrains Mono',monospace; min-width:3ch; text-align:center; }
+  .progress { position:fixed; top:0; left:0; height:2px; background:linear-gradient(90deg,var(--teal),var(--orange)); z-index:100; transition:width .5s cubic-bezier(.16,1,.3,1); box-shadow:0 0 12px var(--teal-glow); }
+  .eyebrow { font-size:.7rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--teal); margin-bottom:1rem; display:flex; align-items:center; gap:.5rem; position:relative; z-index:1; }
+  .eyebrow::before { content:''; display:block; width:2rem; height:1px; background:var(--teal); }
+  h2 { font-size:clamp(1.8rem,4vw,3rem); font-weight:700; line-height:1.1; letter-spacing:-.02em; position:relative; z-index:1; }
+  .accent { color:var(--teal); }
+  p.lead { font-size:clamp(1rem,2vw,1.25rem); color:var(--muted); line-height:1.7; max-width:58ch; position:relative; z-index:1; margin-top:1.25rem; }
+  .card { background:var(--card); border:1px solid var(--border); border-radius:1.25rem; padding:1.5rem; position:relative; z-index:1; }
+  .card.teal-glow { border-color:rgba(0,196,160,.25); box-shadow:0 0 30px var(--teal-dim); }
+  .card.orange-glow { border-color:rgba(255,140,66,.25); box-shadow:0 0 30px rgba(255,140,66,.1); }
+  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; position:relative; z-index:1; }
+  .grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1rem; position:relative; z-index:1; }
+  .grid-asym { display:grid; grid-template-columns:1.4fr 1fr; gap:1.5rem; position:relative; z-index:1; }
+  .stat { display:flex; flex-direction:column; gap:.25rem; }
+  .stat-num { font-size:2.5rem; font-weight:800; line-height:1; color:var(--teal); }
+  .stat-label { font-size:.8rem; color:var(--muted); font-weight:500; }
+  .badge { display:inline-flex; align-items:center; font-size:.7rem; font-weight:600; letter-spacing:.08em; padding:.25rem .7rem; border-radius:100px; text-transform:uppercase; }
+  .badge.red { background:rgba(255,90,90,.12); color:var(--red); border:1px solid rgba(255,90,90,.25); }
+  .badge.yellow { background:rgba(255,190,0,.1); color:var(--yellow); border:1px solid rgba(255,190,0,.25); }
+  .badge.green { background:var(--teal-dim); color:var(--teal); border:1px solid rgba(0,196,160,.25); }
+  .badge.orange { background:rgba(255,140,66,.1); color:var(--orange); border:1px solid rgba(255,140,66,.25); }
+  .flow { display:flex; flex-direction:column; }
+  .flow-item { display:flex; align-items:flex-start; gap:1rem; padding:.85rem 0; border-bottom:1px solid var(--border); }
+  .flow-item:last-child { border-bottom:none; }
+  .flow-num { width:28px; height:28px; min-width:28px; border-radius:50%; background:var(--teal-dim); border:1px solid rgba(0,196,160,.3); display:flex; align-items:center; justify-content:center; font-size:.68rem; font-weight:700; color:var(--teal); font-family:'JetBrains Mono',monospace; }
+  .flow-text { font-size:.9rem; color:var(--white); line-height:1.5; padding-top:3px; }
+  .flow-text small { display:block; color:var(--muted); font-size:.78rem; margin-top:.15rem; }
+  .divider { width:100%; height:1px; background:var(--border); margin:1.25rem 0; position:relative; z-index:1; }
+  @keyframes pulse-ring { 0%{transform:scale(1);opacity:.6} 100%{transform:scale(2);opacity:0} }
+  .pulse-dot { position:relative; display:inline-block; width:10px; height:10px; }
+  .pulse-dot::before { content:''; position:absolute; inset:0; border-radius:50%; background:var(--teal); animation:pulse-ring 1.5s ease-out infinite; }
+  .pulse-dot::after { content:''; position:absolute; inset:0; border-radius:50%; background:var(--teal); }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+  .slide.active .animate { animation:fadeUp .5s cubic-bezier(.16,1,.3,1) both; }
+  .slide.active .animate:nth-child(1){animation-delay:.05s}.slide.active .animate:nth-child(2){animation-delay:.12s}.slide.active .animate:nth-child(3){animation-delay:.19s}.slide.active .animate:nth-child(4){animation-delay:.26s}.slide.active .animate:nth-child(5){animation-delay:.33s}
+  .watermark { position:fixed; bottom:5.5rem; right:2rem; font-size:.65rem; color:rgba(240,244,255,.18); font-family:'JetBrains Mono',monospace; letter-spacing:.1em; text-transform:uppercase; z-index:50; }
+  #s1 { justify-content:center; }
+  .cover-tag { display:inline-flex; align-items:center; gap:.5rem; border:1px solid var(--border); padding:.4rem .9rem; border-radius:100px; font-size:.72rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:2rem; position:relative; z-index:1; }
+  .cover-company { font-size:.75rem; font-weight:600; letter-spacing:.25em; text-transform:uppercase; color:var(--teal); position:relative; z-index:1; margin-bottom:.75rem; }
+  .cover-title .line1 { display:block; color:var(--muted); font-weight:300; font-size:clamp(1.5rem,4vw,2.5rem); }
+  .cover-title .line2 { display:block; font-size:clamp(3rem,8vw,6.5rem); font-weight:800; letter-spacing:-.04em; line-height:.9; position:relative; z-index:1; }
+  .cover-sub { margin-top:2rem; max-width:46ch; font-size:1.05rem; color:var(--muted); line-height:1.6; position:relative; z-index:1; }
+  .cover-footer { display:flex; gap:2.5rem; margin-top:3rem; position:relative; z-index:1; }
+  .deco-ring { position:absolute; right:-5rem; top:50%; transform:translateY(-50%); width:40vw; height:40vw; border-radius:50%; border:1px solid var(--border); pointer-events:none; }
+  .deco-ring::after { content:''; position:absolute; inset:10%; border-radius:50%; border:1px solid rgba(255,140,66,.15); }
+  @media(max-width:768px){.grid-2,.grid-3,.grid-asym{grid-template-columns:1fr}.slide{padding:1.5rem}.cover-title .line2{font-size:3rem}}
 </style>
 </head>
 <body>
 <div class="progress" id="progress"></div>
 <div class="deck">
 
-  <!-- SLIDE 1 — COVER -->
-  <div class="slide active" id="s1">
-    <div class="deco-ring"></div>
-    <div class="cover-tag animate"><span class="pulse-dot"></span>April 2026 · Confidential</div>
-    <div class="cover-company animate">Bluuu OS</div>
-    <div class="cover-title animate">
-      <span class="line1">автоматизация для</span>
-      <span class="line2">Алайн<span class="accent">.</span></span>
+<div class="slide active" id="s1">
+  <div class="deco-ring"></div>
+  <div class="cover-tag animate"><span class="pulse-dot"></span>April 2026 · Confidential</div>
+  <div class="cover-company animate">Bluuu OS</div>
+  <div class="cover-title animate">
+    <span class="line1">built for</span>
+    <span class="line2">Aline<span class="accent">.</span></span>
+  </div>
+  <p class="cover-sub animate">How BLUUU OS replaces 4 hours of daily manual OTA management across 9 platforms — with one Channel Manager that closes all of them automatically.</p>
+  <div class="cover-footer animate">
+    <div class="stat"><span class="stat-num">9</span><span class="stat-label">OTA platforms, all manual</span></div>
+    <div class="stat"><span class="stat-num">~4 hrs</span><span class="stat-label">mechanical work per day</span></div>
+    <div class="stat"><span class="stat-num">20×</span><span class="stat-label">close requests in high season</span></div>
+  </div>
+</div>
+
+<div class="slide" id="s2">
+  <div class="eyebrow animate">Your role in the system</div>
+  <h2 class="animate">9 platforms. Manually. Every day<span class="accent">.</span></h2>
+  <p class="lead animate" style="margin-bottom:1.5rem;">Aline is the single person holding all OTA availability for the company. One missed close = overbooking. The system shouldn't depend on human memory.</p>
+  <div class="grid-2 animate" style="flex:1;align-content:start;">
+    <div class="card">
+      <div style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-bottom:1rem;">8 manual steps per day</div>
+      <div class="flow">
+        <div class="flow-item"><div class="flow-num">1</div><div class="flow-text">Check bookings → record in daily stat</div></div>
+        <div class="flow-item"><div class="flow-num">2</div><div class="flow-text">Check availability per spreadsheet<small>How many spots left — tracked manually</small></div></div>
+        <div class="flow-item"><div class="flow-num">3</div><div class="flow-text">Close each of 9 OTAs separately<small>Log into each platform individually</small></div></div>
+        <div class="flow-item"><div class="flow-num">4</div><div class="flow-text">Check if tier needs to change</div></div>
+        <div class="flow-item"><div class="flow-num">5</div><div class="flow-text">Check and respond to reviews<small>Google, Viator, GYG, Klook, Airbnb</small></div></div>
+        <div class="flow-item"><div class="flow-num">6–8</div><div class="flow-text">Guide reviews, MOD signals, tour reports<small>All added to stat manually</small></div></div>
+      </div>
     </div>
-    <p class="cover-sub animate">Как BLUUU OS убирает 4 часа ручного управления 9 OTA-платформами каждый день. Channel Manager — одна кнопка для всех платформ.</p>
-    <div class="cover-footer animate">
-      <div class="stat"><span class="stat-num">9</span><span class="stat-label">OTA платформ вручную</span></div>
-      <div class="stat"><span class="stat-num">~4 ч</span><span class="stat-label">механики в день</span></div>
-      <div class="stat"><span class="stat-num">1 782</span><span class="stat-label">запроса «please close» в данных</span></div>
+    <div class="card">
+      <div style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem;">Platform close speed</div>
+      <div style="display:flex;flex-direction:column;gap:.35rem;font-size:.82rem;">
+        <div style="display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid var(--border);"><span>Viator</span><span><span class="mono" style="color:var(--red);">10–15 sec</span> <span class="badge red">login code</span></span></div>
+        <div style="display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid var(--border);"><span>GYG</span><span class="mono" style="color:var(--teal);">2–3 sec</span></div>
+        <div style="display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid var(--border);"><span>Klook</span><span><span class="mono" style="color:var(--yellow);">1–10 sec</span> <span class="badge yellow">load issues</span></span></div>
+        <div style="display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid var(--border);"><span>Airbnb / Headout</span><span class="mono" style="color:var(--teal);">2–5 sec</span></div>
+        <div style="display:flex;justify-content:space-between;padding:.4rem 0;"><span>Clicks / GetMyBoat / Ctrip</span><span class="mono" style="color:var(--teal);">2–4 sec</span></div>
+      </div>
+      <div class="divider"></div>
+      <div style="font-size:.8rem;color:var(--muted);">High season: <span style="color:var(--white);">up to 20 closes/day</span> × 9 platforms = <span style="color:var(--red);">180 operations</span></div>
     </div>
   </div>
+</div>
 
-  <!-- SLIDE 2 — КОНТЕКСТ -->
-  <div class="slide" id="s2">
-    <div class="eyebrow animate">Кто ты в системе</div>
-    <h2 class="animate">9 платформ. Вручную. Каждый день<span class="accent">.</span></h2>
-    <p class="lead animate" style="margin-bottom:1.5rem;">Ты единственный человек который держит всю OTA-доступность компании. Закрыть не ту дату, пропустить платформу — и получаем овербукинг. Система не должна зависеть от человеческой памяти.</p>
-    <div class="grid-2 animate" style="flex:1;align-content:start;">
-      <div class="card">
-        <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--red);margin-bottom:1rem;">Ежедневный ручной процесс (8 шагов)</div>
-        <div class="flow">
-          <div class="flow-item"><div class="flow-num">1</div><div class="flow-text">Проверить брони в календаре → записать в daily stat</div></div>
-          <div class="flow-item"><div class="flow-num">2</div><div class="flow-text">Проверить доступность на следующий день<small>По спредшиту вручную — сколько мест осталось</small></div></div>
-          <div class="flow-item"><div class="flow-num">3</div><div class="flow-text">Закрыть лодки в OTA если забронированы<small>По каждой из 9 платформ отдельно</small></div></div>
-          <div class="flow-item"><div class="flow-num">4</div><div class="flow-text">Проверить нужно ли менять тир</div></div>
-          <div class="flow-item"><div class="flow-num">5</div><div class="flow-text">Проверить и ответить на отзывы<small>Google, Viator, GYG, Klook, Airbnb — каждый день</small></div></div>
-          <div class="flow-item"><div class="flow-num">6</div><div class="flow-text">Добавить гид-ревью в stat</div></div>
-          <div class="flow-item"><div class="flow-num">7</div><div class="flow-text">Получить сигнал от MOD → закрыть availability</div></div>
-          <div class="flow-item"><div class="flow-num">8</div><div class="flow-text">Проверить tour reports → добавить в stat</div></div>
-        </div>
-      </div>
-      <div class="card">
-        <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.75rem;">Скорость закрытия по платформам</div>
-        <table class="data-table">
-          <thead><tr><th>Платформа</th><th>Время</th><th>Боль</th></tr></thead>
-          <tbody>
-            <tr><td>Viator</td><td class="mono" style="color:var(--red);">10–15 сек</td><td><span class="badge red">логин+код</span></td></tr>
-            <tr><td>GYG</td><td class="mono" style="color:var(--teal);">2–3 сек</td><td><span class="badge yellow">цены медленно</span></td></tr>
-            <tr><td>Klook</td><td class="mono" style="color:var(--yellow);">1–10 сек</td><td><span class="badge yellow">загрузка</span></td></tr>
-            <tr><td>Airbnb</td><td class="mono" style="color:var(--teal);">2–4 сек</td><td><span class="badge green">ок</span></td></tr>
-            <tr><td>Headout</td><td class="mono" style="color:var(--teal);">2–5 сек</td><td><span class="badge green">ок</span></td></tr>
-            <tr><td>Clicks Boat</td><td class="mono" style="color:var(--teal);">2–5 сек</td><td><span class="badge green">ок</span></td></tr>
-            <tr><td>Ctrip</td><td class="mono" style="color:var(--teal);">2–4 сек</td><td><span class="badge green">ок</span></td></tr>
-            <tr><td>GetMyBoat</td><td class="mono" style="color:var(--teal);">2–4 сек</td><td><span class="badge green">ок</span></td></tr>
-            <tr><td>Сайт</td><td class="mono" style="color:var(--teal);">2–4 сек</td><td><span class="badge green">ок</span></td></tr>
-          </tbody>
-        </table>
-        <div class="divider"></div>
-        <div style="font-size:0.8rem;color:var(--muted);">High season: <span style="color:var(--white);">8–20 закрытий в день</span> × 9 платформ = до <span style="color:var(--red);">180 ручных операций</span></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 3 — CHANNEL MANAGER -->
-  <div class="slide" id="s3">
-    <div class="eyebrow animate">Модуль 1 · Sprint 1 — Приоритет №1</div>
-    <h2 class="animate">Channel Manager<span class="accent">.</span></h2>
-    <p class="lead animate">Одно закрытие — все 9 платформ обновляются одновременно. Автоматически.</p>
-    <div class="grid-asym animate" style="flex:1;align-content:start;margin-top:1.5rem;">
-      <div>
-        <div class="card teal-glow">
-          <div style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:1.25rem;">Как работает</div>
-          <div class="flow">
-            <div class="flow-item"><div class="flow-num">1</div><div class="flow-text">Бронирование поступает из любого канала<small>Viator, Klook, GYG, Airbnb, сайт — всё в одном месте</small></div></div>
-            <div class="flow-item"><div class="flow-num">2</div><div class="flow-text">Система проверяет availability: осталось N мест<small>Единый источник истины — не спредшит + мозг</small></div></div>
-            <div class="flow-item"><div class="flow-num">3</div><div class="flow-text">Лимит достигнут → все 9 OTA закрываются автоматически<small>Не нужно заходить в каждую платформу отдельно</small></div></div>
-            <div class="flow-item"><div class="flow-num">4</div><div class="flow-text">Отмена → все платформы открываются автоматически<small>Слот освобождён — не нужно помнить это сделать</small></div></div>
-            <div class="flow-item"><div class="flow-num">5</div><div class="flow-text">Алайн видит дашборд: все платформы, все даты, один экран<small>Ошибка «пропустила платформу» — физически невозможна</small></div></div>
-          </div>
-        </div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:1rem;">
-        <div class="card orange-glow">
-          <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--orange);margin-bottom:0.75rem;">Боль которая уходит</div>
-          <p style="font-size:0.82rem;color:var(--muted);line-height:1.5;margin-bottom:0.75rem;">«Переключилась пока грузится страница, забыла вернуться» — именно так происходят ошибки. Channel Manager делает пропуск платформы технически невозможным.</p>
-          <div style="background:rgba(255,90,90,0.06);border:1px solid rgba(255,90,90,0.15);border-radius:0.75rem;padding:0.75rem;">
-            <div style="font-size:0.7rem;color:var(--red);font-weight:600;margin-bottom:0.3rem;">Viator — главная проблема</div>
-            <p style="font-size:0.8rem;color:var(--muted);">10–15 сек на ввод кода подтверждения при каждом логине. Если 20 закрытий в день = 5 минут только на ожидание кода</p>
-          </div>
-        </div>
-        <div class="card" style="background:var(--teal-dim);border-color:rgba(0,196,160,0.2);">
-          <div class="stat"><span class="stat-num">~4 ч</span><span class="stat-label">механики в день → 0. Алайн фокусируется на стратегии.</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 4 — PRICING ENGINE -->
-  <div class="slide" id="s4">
-    <div class="eyebrow animate">Модуль 2 · Sprint 2</div>
-    <h2 class="animate">Pricing Engine — синхронизация цен<span class="accent">.</span></h2>
-    <p class="lead animate">Изменил цену на сайте → она автоматически применилась на всех 9 OTA. Без ручного захода на каждую платформу.</p>
-    <div class="grid-2 animate" style="flex:1;align-content:start;margin-top:1.5rem;">
+<div class="slide" id="s3">
+  <div class="eyebrow animate">Module 1 · Sprint 1 — Top Priority</div>
+  <h2 class="animate">Channel Manager<span class="accent">.</span></h2>
+  <p class="lead animate">One close — all 9 platforms update simultaneously. Automatically.</p>
+  <div class="grid-asym animate" style="flex:1;align-content:start;margin-top:1.5rem;">
+    <div>
       <div class="card teal-glow">
-        <div style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem;">Динамическое ценообразование</div>
+        <div style="font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:1.25rem;">How it works</div>
         <div class="flow">
-          <div class="flow-item"><div class="flow-num">1</div><div class="flow-text">Карим меняет тир в системе<small>Лодка переходит в Premium pricing</small></div></div>
-          <div class="flow-item"><div class="flow-num">2</div><div class="flow-text">Цены автоматически обновляются в Viator, Klook, GYG...<small>Через API — не нужно заходить в каждую платформу</small></div></div>
-          <div class="flow-item"><div class="flow-num">3</div><div class="flow-text">Алайн получает уведомление: «Цены обновлены везде»<small>Можно проверить — не нужно делать вручную</small></div></div>
-          <div class="flow-item"><div class="flow-num">4</div><div class="flow-text">Расхождение цен между платформами → алерт<small>Защита от ситуации когда одна платформа осталась с старой ценой</small></div></div>
-        </div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:1rem;">
-        <div class="card">
-          <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.75rem;">Статус цен по платформам</div>
-          <div style="display:flex;flex-direction:column;gap:0.4rem;">
-            <div style="display:flex;justify-content:space-between;align-items:center;padding:0.35rem 0;border-bottom:1px solid var(--border);font-size:0.82rem;"><span>Viator</span><span class="mono" style="color:var(--teal);">✓ $89</span></div>
-            <div style="display:flex;justify-content:space-between;align-items:center;padding:0.35rem 0;border-bottom:1px solid var(--border);font-size:0.82rem;"><span>GYG</span><span class="mono" style="color:var(--teal);">✓ $89</span></div>
-            <div style="display:flex;justify-content:space-between;align-items:center;padding:0.35rem 0;border-bottom:1px solid var(--border);font-size:0.82rem;"><span>Klook</span><span class="mono" style="color:var(--teal);">✓ $89</span></div>
-            <div style="display:flex;justify-content:space-between;align-items:center;padding:0.35rem 0;border-bottom:1px solid var(--border);font-size:0.82rem;"><span>Airbnb</span><span class="mono" style="color:var(--teal);">✓ $89</span></div>
-            <div style="display:flex;justify-content:space-between;align-items:center;padding:0.35rem 0;font-size:0.82rem;"><span>Сайт</span><span class="mono" style="color:var(--teal);">✓ $89</span></div>
-          </div>
-        </div>
-        <div class="card" style="background:var(--teal-dim);border-color:rgba(0,196,160,0.2);">
-          <div class="stat"><span class="stat-num">1 раз</span><span class="stat-label">меняешь цену — обновляется везде</span></div>
+          <div class="flow-item"><div class="flow-num">1</div><div class="flow-text">Booking comes in from any channel<small>Viator, Klook, GYG, Airbnb, website — all in one place</small></div></div>
+          <div class="flow-item"><div class="flow-num">2</div><div class="flow-text">System counts: N spots remaining<small>Single source of truth — not a spreadsheet</small></div></div>
+          <div class="flow-item"><div class="flow-num">3</div><div class="flow-text">Limit reached → all 9 OTAs closed automatically<small>No need to log into each platform</small></div></div>
+          <div class="flow-item"><div class="flow-num">4</div><div class="flow-text">Cancellation → all platforms reopen automatically<small>Slot freed — nothing to remember</small></div></div>
+          <div class="flow-item"><div class="flow-num">5</div><div class="flow-text">Dashboard: all platforms, all dates, one screen<small>Skipping a platform becomes physically impossible</small></div></div>
         </div>
       </div>
     </div>
-  </div>
-
-  <!-- SLIDE 5 — REVIEW HUB -->
-  <div class="slide" id="s5">
-    <div class="eyebrow animate">Модуль 3 · Sprint 2</div>
-    <h2 class="animate">Review Hub — все отзывы в одном месте<span class="accent">.</span></h2>
-    <p class="lead animate">Сейчас отзывы читаются по 5 платформам отдельно. Review Hub собирает всё в один экран.</p>
-    <div class="grid-asym animate" style="flex:1;align-content:start;margin-top:1.5rem;">
-      <div>
-        <div class="card teal-glow">
-          <div style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:1.25rem;">Unified Review Dashboard</div>
-          <div style="display:flex;flex-direction:column;gap:0.75rem;">
-            <div style="background:var(--navy-3);border-radius:0.75rem;padding:1rem;">
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;"><span style="font-size:0.75rem;font-weight:600;color:var(--muted);">Viator · 2 часа назад</span><span class="mono" style="color:var(--teal);font-size:0.82rem;">★ 5.0</span></div>
-              <p style="font-size:0.82rem;color:var(--white);">«Amazing experience! Our guide Komang was incredible...»</p>
-              <div style="margin-top:0.5rem;display:flex;gap:0.5rem;"><span class="badge green">отвечено</span></div>
-            </div>
-            <div style="background:var(--navy-3);border-radius:0.75rem;padding:1rem;">
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;"><span style="font-size:0.75rem;font-weight:600;color:var(--muted);">GYG · 4 часа назад</span><span class="mono" style="color:var(--red);font-size:0.82rem;">★ 2.0</span></div>
-              <p style="font-size:0.82rem;color:var(--white);">«The boat was different from the photos...»</p>
-              <div style="margin-top:0.5rem;display:flex;gap:0.5rem;"><span class="badge red">требует ответа</span></div>
-            </div>
-            <div style="background:var(--navy-3);border-radius:0.75rem;padding:1rem;">
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;"><span style="font-size:0.75rem;font-weight:600;color:var(--muted);">Klook · 6 часов назад</span><span class="mono" style="color:var(--teal);font-size:0.82rem;">★ 4.0</span></div>
-              <p style="font-size:0.82rem;color:var(--white);">«Good tour but the transfer was late...»</p>
-              <div style="margin-top:0.5rem;display:flex;gap:0.5rem;"><span class="badge orange">в очереди</span></div>
-            </div>
-          </div>
-        </div>
+    <div style="display:flex;flex-direction:column;gap:1rem;">
+      <div class="card orange-glow">
+        <div style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:.75rem;">Viator — biggest pain</div>
+        <p style="font-size:.82rem;color:var(--muted);line-height:1.5;">10–15 sec login code wait every single time. At 20 closes per day = 5 minutes just entering confirmation codes. Channel Manager doesn't log in — it works via API.</p>
       </div>
-      <div style="display:flex;flex-direction:column;gap:1rem;">
-        <div class="card">
-          <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.75rem;">Фильтры и приоритеты</div>
-          <div class="flow">
-            <div class="flow-item"><div class="flow-num">!</div><div class="flow-text">1–2 звезды → красный флаг<small>Первыми в очереди на ответ</small></div></div>
-            <div class="flow-item"><div class="flow-num">→</div><div class="flow-text">AI-черновик ответа<small>Готовый текст — редактируешь и отправляешь</small></div></div>
-            <div class="flow-item"><div class="flow-num">✓</div><div class="flow-text">Статус: отвечено / не отвечено / пропущено<small>Ничего не потеряется</small></div></div>
-          </div>
-        </div>
-        <div class="card" style="background:var(--teal-dim);border-color:rgba(0,196,160,0.2);">
-          <div class="stat"><span class="stat-num">5 → 1</span><span class="stat-label">вкладок для отзывов вместо пяти отдельных</span></div>
-        </div>
+      <div style="background:rgba(255,90,90,.06);border:1px solid rgba(255,90,90,.15);border-radius:1.25rem;padding:1.5rem;position:relative;z-index:1;">
+        <div style="font-size:.7rem;color:var(--red);font-weight:600;margin-bottom:.5rem;">Errors that disappear</div>
+        <p style="font-size:.82rem;color:var(--muted);line-height:1.5;">«Switched tabs while the page was loading, forgot to come back.» That's how missed closes happen. Channel Manager makes it technically impossible.</p>
+      </div>
+      <div class="card" style="background:var(--teal-dim);border-color:rgba(0,196,160,.2);">
+        <div class="stat"><span class="stat-num">~4 hrs</span><span class="stat-label">daily mechanics → 0</span></div>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- SLIDE 6 — ИТОГ -->
-  <div class="slide" id="s6">
-    <div class="eyebrow animate">Итог</div>
-    <h2 class="animate">Алайн управляет стратегией — не вкладками<span class="accent">.</span></h2>
-    <div class="grid-3 animate" style="flex:1;align-content:start;margin-top:1.5rem;">
-      <div class="card teal-glow">
-        <div style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem;">Sprint 1 — апрель</div>
-        <div class="flow">
-          <div class="flow-item"><div class="flow-num">✓</div><div class="flow-text">Channel Manager<small>9 OTA → 1 кнопка закрытия</small></div></div>
-          <div class="flow-item"><div class="flow-num">✓</div><div class="flow-text">Auto-close при лимите<small>Физически нельзя пропустить платформу</small></div></div>
-          <div class="flow-item"><div class="flow-num">✓</div><div class="flow-text">Private boat auto-close<small>Забронировали на сайте → все OTA закрыты</small></div></div>
-        </div>
+<div class="slide" id="s4">
+  <div class="eyebrow animate">Module 2 · Sprint 2</div>
+  <h2 class="animate">Pricing Engine + Review Hub<span class="accent">.</span></h2>
+  <p class="lead animate">Change price or tier once → syncs to all 9 OTAs via API. All reviews from 5 platforms in one screen.</p>
+  <div class="grid-2 animate" style="flex:1;align-content:start;margin-top:1.5rem;">
+    <div class="card teal-glow">
+      <div style="font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem;">Pricing Engine</div>
+      <div class="flow">
+        <div class="flow-item"><div class="flow-num">1</div><div class="flow-text">Karim changes tier or base price in system</div></div>
+        <div class="flow-item"><div class="flow-num">2</div><div class="flow-text">Prices update in Viator, Klook, GYG... via API<small>No need to open each platform</small></div></div>
+        <div class="flow-item"><div class="flow-num">3</div><div class="flow-text">Aline gets notification: «Prices updated everywhere»<small>Can verify — doesn't need to do it manually</small></div></div>
+        <div class="flow-item"><div class="flow-num">4</div><div class="flow-text">Price mismatch detected → alert<small>Protection against stale price on one platform</small></div></div>
       </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:1rem;">
       <div class="card">
-        <div style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;">Sprint 2 — май</div>
-        <div class="flow">
-          <div class="flow-item"><div class="flow-num">→</div><div class="flow-text">Pricing Engine<small>1 изменение → все OTA</small></div></div>
-          <div class="flow-item"><div class="flow-num">→</div><div class="flow-text">Review Hub<small>Все отзывы в одном месте</small></div></div>
-          <div class="flow-item"><div class="flow-num">→</div><div class="flow-text">Tour reports tracker<small>Кто сдал / не сдал — без ручной проверки</small></div></div>
+        <div style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem;">Unified Review Hub</div>
+        <div style="background:var(--navy-3);border-radius:.75rem;padding:1rem;margin-bottom:.5rem;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem;"><span style="font-size:.72rem;color:var(--muted);">Viator · 2h ago</span><span class="mono" style="color:var(--teal);font-size:.8rem;">★ 5.0</span></div>
+          <p style="font-size:.8rem;">"Amazing experience! The guide was incredible..."</p>
+          <div style="margin-top:.4rem;"><span class="badge green">replied</span></div>
+        </div>
+        <div style="background:var(--navy-3);border-radius:.75rem;padding:1rem;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem;"><span style="font-size:.72rem;color:var(--muted);">GYG · 4h ago</span><span class="mono" style="color:var(--red);font-size:.8rem;">★ 2.0</span></div>
+          <p style="font-size:.8rem;">"Boat was different from the photos..."</p>
+          <div style="margin-top:.4rem;"><span class="badge red">needs reply</span></div>
         </div>
       </div>
-      <div style="display:flex;flex-direction:column;gap:1rem;">
-        <div class="card" style="background:var(--teal-dim);border-color:rgba(0,196,160,0.2);">
-          <div class="stat"><span class="stat-num">~4 ч</span><span class="stat-label">механики в день → 0</span></div>
-        </div>
-        <div class="card" style="background:rgba(255,90,90,0.06);border-color:rgba(255,90,90,0.2);">
-          <div class="stat"><span class="stat-num">0</span><span class="stat-label">риска овербукинга от человеческой ошибки</span></div>
-        </div>
-        <div class="card" style="background:rgba(255,140,66,0.08);border-color:rgba(255,140,66,0.2);">
-          <div class="stat"><span class="stat-num">9 → 1</span><span class="stat-label">платформ в одном дашборде</span></div>
-        </div>
+      <div class="card" style="background:var(--teal-dim);border-color:rgba(0,196,160,.2);">
+        <div class="stat"><span class="stat-num">5 → 1</span><span class="stat-label">tabs for reviews</span></div>
       </div>
     </div>
   </div>
+</div>
+
+<div class="slide" id="s5">
+  <div class="eyebrow animate">Summary</div>
+  <h2 class="animate">Aline manages strategy — not tabs<span class="accent">.</span></h2>
+  <div class="grid-3 animate" style="flex:1;align-content:start;margin-top:1.5rem;">
+    <div class="card teal-glow">
+      <div style="font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem;">Sprint 1 — April</div>
+      <div class="flow">
+        <div class="flow-item"><div class="flow-num">✓</div><div class="flow-text">Channel Manager<small>9 OTAs → 1 action</small></div></div>
+        <div class="flow-item"><div class="flow-num">✓</div><div class="flow-text">Auto-close at capacity<small>Missing a platform — impossible</small></div></div>
+        <div class="flow-item"><div class="flow-num">✓</div><div class="flow-text">Private boat auto-close<small>Website booking → all OTAs closed</small></div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div style="font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;">Sprint 2 — May</div>
+      <div class="flow">
+        <div class="flow-item"><div class="flow-num">→</div><div class="flow-text">Pricing Engine<small>1 change → all OTAs</small></div></div>
+        <div class="flow-item"><div class="flow-num">→</div><div class="flow-text">Review Hub<small>All reviews in one place</small></div></div>
+        <div class="flow-item"><div class="flow-num">→</div><div class="flow-text">Tour reports tracker<small>Who submitted, who hasn't</small></div></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:1rem;">
+      <div class="card" style="background:var(--teal-dim);border-color:rgba(0,196,160,.2);">
+        <div class="stat"><span class="stat-num">~4 hrs</span><span class="stat-label">daily mechanics → 0</span></div>
+      </div>
+      <div class="card" style="background:rgba(255,90,90,.06);border-color:rgba(255,90,90,.2);">
+        <div class="stat"><span class="stat-num">0</span><span class="stat-label">overbooking risk from manual errors</span></div>
+      </div>
+      <div class="card" style="background:rgba(255,140,66,.08);border-color:rgba(255,140,66,.2);">
+        <div class="stat"><span class="stat-num">9 → 1</span><span class="stat-label">platforms in one dashboard</span></div>
+      </div>
+    </div>
+  </div>
+</div>
 
 </div>
-<nav class="nav" id="navBar">
+<nav class="nav">
   <button id="prevBtn">←</button>
   <div class="dots" id="dots"></div>
-  <span class="counter" id="counter">1/6</span>
+  <span class="counter" id="counter">1/5</span>
   <button id="nextBtn">→</button>
 </nav>
-<div class="watermark">BLUUU OS · Алайн · Confidential</div>
+<div class="watermark">BLUUU OS · Aline · Confidential</div>
 <script>
-  const slides = document.querySelectorAll('.slide'); const total = slides.length; let cur = 0;
-  const dotsEl = document.getElementById('dots'); const counterEl = document.getElementById('counter'); const progressEl = document.getElementById('progress');
-  function buildDots() { dotsEl.innerHTML = ''; for (let i = 0; i < total; i++) { const d = document.createElement('div'); d.className = 'dot' + (i === 0 ? ' active' : ''); d.addEventListener('click', () => go(i)); dotsEl.appendChild(d); } }
-  function go(n) { slides[cur].classList.remove('active'); slides[cur].classList.add('prev'); const old = cur; cur = (n + total) % total; slides[cur].classList.add('active'); setTimeout(() => slides[old].classList.remove('prev'), 600); dotsEl.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === cur)); counterEl.textContent = (cur + 1) + '/' + total; progressEl.style.width = ((cur + 1) / total * 100) + '%'; }
-  document.getElementById('prevBtn').addEventListener('click', () => go(cur - 1));
-  document.getElementById('nextBtn').addEventListener('click', () => go(cur + 1));
-  document.addEventListener('keydown', e => { if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(cur + 1); if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') go(cur - 1); });
-  let startX = 0; document.addEventListener('touchstart', e => startX = e.touches[0].clientX);
-  document.addEventListener('touchend', e => { const dx = e.changedTouches[0].clientX - startX; if (Math.abs(dx) > 50) go(dx < 0 ? cur + 1 : cur - 1); });
-  buildDots(); progressEl.style.width = (1 / total * 100) + '%';
+  const slides=document.querySelectorAll('.slide'),total=slides.length;let cur=0;
+  const dotsEl=document.getElementById('dots'),counterEl=document.getElementById('counter'),progressEl=document.getElementById('progress');
+  function buildDots(){dotsEl.innerHTML='';for(let i=0;i<total;i++){const d=document.createElement('div');d.className='dot'+(i===0?' active':'');d.addEventListener('click',()=>go(i));dotsEl.appendChild(d);}}
+  function go(n){slides[cur].classList.remove('active');slides[cur].classList.add('prev');const old=cur;cur=(n+total)%total;slides[cur].classList.add('active');setTimeout(()=>slides[old].classList.remove('prev'),600);dotsEl.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===cur));counterEl.textContent=(cur+1)+'/'+total;progressEl.style.width=((cur+1)/total*100)+'%';}
+  document.getElementById('prevBtn').addEventListener('click',()=>go(cur-1));
+  document.getElementById('nextBtn').addEventListener('click',()=>go(cur+1));
+  document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowDown')go(cur+1);if(e.key==='ArrowLeft'||e.key==='ArrowUp')go(cur-1);});
+  let startX=0;document.addEventListener('touchstart',e=>startX=e.touches[0].clientX);
+  document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-startX;if(Math.abs(dx)>50)go(dx<0?cur+1:cur-1);});
+  buildDots();progressEl.style.width=(1/total*100)+'%';
 </script>
 </body>
 </html>
