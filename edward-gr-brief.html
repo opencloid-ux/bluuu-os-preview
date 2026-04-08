@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLUUU OS — Для Эдварда</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0a0f1e; --navy-2: #0e1628; --navy-3: #141e35;
+    --teal: #00c4a0; --teal-dim: rgba(0,196,160,0.12); --teal-glow: rgba(0,196,160,0.25);
+    --blue: #1a8fff; --white: #f0f4ff; --muted: rgba(240,244,255,0.45);
+    --border: rgba(240,244,255,0.08); --card: rgba(255,255,255,0.04); --card-hover: rgba(255,255,255,0.07);
+    --red: #ff5a5a; --yellow: #ffbe00; --purple: #a78bfa;
+  }
+  html, body { width: 100%; height: 100%; background: var(--navy); font-family: 'Outfit', sans-serif; color: var(--white); overflow: hidden; -webkit-font-smoothing: antialiased; }
+  .deck { width: 100vw; height: 100vh; position: relative; }
+  .slide { position: absolute; inset: 0; display: flex; flex-direction: column; padding: clamp(2rem, 5vw, 4rem) clamp(2rem, 7vw, 7rem); opacity: 0; pointer-events: none; transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16,1,0.3,1); transform: translateX(40px); overflow: hidden; }
+  .slide.active { opacity: 1; pointer-events: all; transform: translateX(0); }
+  .slide.prev { opacity: 0; transform: translateX(-40px); }
+  .slide::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 60% 50% at 80% 20%, rgba(0,196,160,0.06) 0%, transparent 70%), radial-gradient(ellipse 50% 60% at 10% 80%, rgba(167,139,250,0.05) 0%, transparent 70%); }
+  .slide::after { content: ''; position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 80px 80px; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%); }
+  .nav { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 1rem; background: rgba(14,22,40,0.85); backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: 100px; padding: 0.6rem 1.2rem; z-index: 100; }
+  .nav button { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 1.1rem; padding: 0.3rem 0.6rem; border-radius: 50px; transition: color 0.2s, background 0.2s; font-family: 'Outfit', sans-serif; }
+  .nav button:hover { color: var(--white); background: var(--card); }
+  .nav .dots { display: flex; gap: 6px; align-items: center; }
+  .nav .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); cursor: pointer; transition: background 0.3s, transform 0.3s; }
+  .nav .dot.active { background: var(--teal); transform: scale(1.4); }
+  .nav .counter { font-size: 0.75rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; min-width: 3ch; text-align: center; }
+  .progress { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, var(--teal), var(--purple)); z-index: 100; transition: width 0.5s cubic-bezier(0.16,1,0.3,1); box-shadow: 0 0 12px var(--teal-glow); }
+  .eyebrow { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--teal); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; position: relative; z-index: 1; }
+  .eyebrow::before { content: ''; display: block; width: 2rem; height: 1px; background: var(--teal); }
+  h2 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; position: relative; z-index: 1; }
+  .accent { color: var(--teal); }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  p.lead { font-size: clamp(1rem, 2vw, 1.25rem); color: var(--muted); line-height: 1.7; max-width: 58ch; position: relative; z-index: 1; margin-top: 1.25rem; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 1.25rem; padding: 1.5rem; position: relative; z-index: 1; transition: background 0.2s; }
+  .card:hover { background: var(--card-hover); }
+  .card.teal-glow { border-color: rgba(0,196,160,0.25); box-shadow: 0 0 30px var(--teal-dim); }
+  .card.purple-glow { border-color: rgba(167,139,250,0.25); box-shadow: 0 0 30px rgba(167,139,250,0.1); }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; position: relative; z-index: 1; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; position: relative; z-index: 1; }
+  .grid-asym { display: grid; grid-template-columns: 1.4fr 1fr; gap: 1.5rem; position: relative; z-index: 1; }
+  .stat { display: flex; flex-direction: column; gap: 0.25rem; }
+  .stat-num { font-size: 2.5rem; font-weight: 800; line-height: 1; color: var(--teal); }
+  .stat-label { font-size: 0.8rem; color: var(--muted); font-weight: 500; }
+  .badge { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; padding: 0.25rem 0.7rem; border-radius: 100px; text-transform: uppercase; }
+  .badge.red { background: rgba(255,90,90,0.12); color: var(--red); border: 1px solid rgba(255,90,90,0.25); }
+  .badge.yellow { background: rgba(255,190,0,0.1); color: var(--yellow); border: 1px solid rgba(255,190,0,0.25); }
+  .badge.green { background: var(--teal-dim); color: var(--teal); border: 1px solid rgba(0,196,160,0.25); }
+  .badge.purple { background: rgba(167,139,250,0.1); color: var(--purple); border: 1px solid rgba(167,139,250,0.25); }
+  .flow { display: flex; flex-direction: column; gap: 0; position: relative; z-index: 1; }
+  .flow-item { display: flex; align-items: flex-start; gap: 1rem; padding: 0.85rem 0; border-bottom: 1px solid var(--border); }
+  .flow-item:last-child { border-bottom: none; }
+  .flow-num { width: 28px; height: 28px; min-width: 28px; border-radius: 50%; background: var(--teal-dim); border: 1px solid rgba(0,196,160,0.3); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; color: var(--teal); font-family: 'JetBrains Mono', monospace; }
+  .flow-text { font-size: 0.9rem; color: var(--white); line-height: 1.5; padding-top: 3px; }
+  .flow-text small { display: block; color: var(--muted); font-size: 0.78rem; margin-top: 0.15rem; }
+  .data-table { width: 100%; border-collapse: collapse; position: relative; z-index: 1; font-size: 0.85rem; }
+  .data-table th { text-align: left; padding: 0.6rem 1rem; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--border); }
+  .data-table td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); color: var(--white); line-height: 1.4; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: var(--card); }
+  .divider { width: 100%; height: 1px; background: var(--border); margin: 1.25rem 0; position: relative; z-index: 1; }
+  @keyframes pulse-ring { 0% { transform: scale(1); opacity: 0.6; } 100% { transform: scale(2); opacity: 0; } }
+  .pulse-dot { position: relative; display: inline-block; width: 10px; height: 10px; }
+  .pulse-dot::before { content: ''; position: absolute; inset: 0; border-radius: 50%; background: var(--teal); animation: pulse-ring 1.5s ease-out infinite; }
+  .pulse-dot::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: var(--teal); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .slide.active .animate { animation: fadeUp 0.5s cubic-bezier(0.16,1,0.3,1) both; }
+  .slide.active .animate:nth-child(1) { animation-delay: 0.05s; } .slide.active .animate:nth-child(2) { animation-delay: 0.12s; } .slide.active .animate:nth-child(3) { animation-delay: 0.19s; } .slide.active .animate:nth-child(4) { animation-delay: 0.26s; } .slide.active .animate:nth-child(5) { animation-delay: 0.33s; }
+  .watermark { position: fixed; bottom: 5.5rem; right: 2rem; font-size: 0.65rem; color: rgba(240,244,255,0.18); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.1em; text-transform: uppercase; z-index: 50; }
+  #s1 { justify-content: center; }
+  .cover-tag { display: inline-flex; align-items: center; gap: 0.5rem; border: 1px solid var(--border); padding: 0.4rem 0.9rem; border-radius: 100px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 2rem; position: relative; z-index: 1; }
+  .cover-company { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: var(--teal); position: relative; z-index: 1; margin-bottom: 0.75rem; }
+  .cover-title .line1 { display: block; color: var(--muted); font-weight: 300; font-size: clamp(1.5rem, 4vw, 2.5rem); }
+  .cover-title .line2 { display: block; font-size: clamp(3rem, 8vw, 6.5rem); font-weight: 800; letter-spacing: -0.04em; line-height: 0.9; position: relative; z-index: 1; }
+  .cover-sub { margin-top: 2rem; max-width: 46ch; font-size: 1.05rem; color: var(--muted); line-height: 1.6; position: relative; z-index: 1; }
+  .cover-footer { display: flex; gap: 2.5rem; margin-top: 3rem; position: relative; z-index: 1; }
+  .deco-ring { position: absolute; right: -5rem; top: 50%; transform: translateY(-50%); width: 40vw; height: 40vw; border-radius: 50%; border: 1px solid var(--border); pointer-events: none; }
+  .deco-ring::after { content: ''; position: absolute; inset: 10%; border-radius: 50%; border: 1px solid rgba(167,139,250,0.15); }
+  @media (max-width: 768px) { .grid-2, .grid-3, .grid-asym { grid-template-columns: 1fr; } .slide { padding: 1.5rem; } .cover-title .line2 { font-size: 3rem; } }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="deck">
+
+  <!-- SLIDE 1 — COVER -->
+  <div class="slide active" id="s1">
+    <div class="deco-ring"></div>
+    <div class="cover-tag animate"><span class="pulse-dot"></span>April 2026 · Confidential</div>
+    <div class="cover-company animate">Bluuu OS</div>
+    <div class="cover-title animate">
+      <span class="line1">автоматизация для</span>
+      <span class="line2">Эдварда<span class="accent">.</span></span>
+    </div>
+    <p class="cover-sub animate">Как BLUUU OS убирает ручной ввод OTA-бронирований, ошибки с датами, поиск availability в двух местах и ChatGPT для сложных гостей — встроенный в процесс.</p>
+    <div class="cover-footer animate">
+      <div class="stat"><span class="stat-num">5</span><span class="stat-label">Топ-5 вопросов гостей</span></div>
+      <div class="stat"><span class="stat-num">2×</span><span class="stat-label">Проверяет availability</span></div>
+      <div class="stat"><span class="stat-num">0</span><span class="stat-label">Виджета платёжной ссылки</span></div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2 — КОНТЕКСТ -->
+  <div class="slide" id="s2">
+    <div class="eyebrow animate">Кто ты в системе</div>
+    <h2 class="animate">Первый контакт с гостем — это ты<span class="accent">.</span></h2>
+    <p class="lead animate" style="margin-bottom:1.5rem;">Эдвард — первое живое слово которое слышит гость после бота. Он квалифицирует, рекомендует, бронирует. Но инструменты тормозят быстрее чем он может работать.</p>
+    <div class="grid-2 animate" style="flex:1;align-content:start;">
+      <div class="card">
+        <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--red);margin-bottom:1rem;">Главные боли сейчас</div>
+        <div class="flow">
+          <div class="flow-item"><div class="flow-num">!</div><div class="flow-text">OTA ввод вручную — ошибки с датами<small>Klook US-формат: «06/07» — июнь или июль? Нужна взаимопроверка</small></div></div>
+          <div class="flow-item"><div class="flow-num">!</div><div class="flow-text">Availability: сайт + calendar отдельно<small>Отмена на сайте не освобождает слот → нужно проверять дважды</small></div></div>
+          <div class="flow-item"><div class="flow-num">!</div><div class="flow-text">Платёжная ссылка — убрали виджет из Kommo<small>Теперь: отдельный сайт, вручную вводишь номер лида + цену</small></div></div>
+          <div class="flow-item"><div class="flow-num">!</div><div class="flow-text">Спецификаций лодок нигде нет<small>Гость спрашивает «сколько человек?» — нет данных под рукой</small></div></div>
+          <div class="flow-item"><div class="flow-num">!</div><div class="flow-text">ChatGPT использует лично для сложных гостей<small>Копирует текст вручную — не интегрировано</small></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.75rem;">Топ-5 вопросов гостей</div>
+        <table class="data-table">
+          <thead><tr><th>#</th><th>Вопрос</th><th>Сейчас</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">1</td><td>Цена / лучшая цена?</td><td><span class="badge yellow">вручную</span></td></tr>
+            <tr><td class="mono">2</td><td>Есть дата X?</td><td><span class="badge red">2 источника</span></td></tr>
+            <tr><td class="mono">3</td><td>Вегетарианское меню?</td><td><span class="badge yellow">вручную</span></td></tr>
+            <tr><td class="mono">4</td><td>Трансфер включён?</td><td><span class="badge yellow">вручную</span></td></tr>
+            <tr><td class="mono">5</td><td>Какая погода?</td><td><span class="badge red">ждёт команду</span></td></tr>
+          </tbody>
+        </table>
+        <div class="divider"></div>
+        <div style="font-size:0.8rem;color:var(--muted);">Все 5 вопросов можно закрыть автоматически</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3 — OTA AUTO-INPUT -->
+  <div class="slide" id="s3">
+    <div class="eyebrow animate">Модуль 1 · Sprint 1</div>
+    <h2 class="animate">OTA Auto-Import + Единая Availability<span class="accent">.</span></h2>
+    <p class="lead animate">OTA-брони поступают в Odoo автоматически. Один источник правды — ни сайт, ни calendar отдельно.</p>
+    <div class="grid-asym animate" style="flex:1;align-content:start;margin-top:1.5rem;">
+      <div>
+        <div class="card teal-glow">
+          <div style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:1.25rem;">Новый процесс</div>
+          <div class="flow">
+            <div class="flow-item"><div class="flow-num">1</div><div class="flow-text">Гость бронирует на Klook/Viator/GYG<small>Бронь автоматически появляется в Odoo</small></div></div>
+            <div class="flow-item"><div class="flow-num">2</div><div class="flow-text">Формат даты — нормализован системой<small>«06/07» из US-формата Klook → 7 июня. Ошибки исключены.</small></div></div>
+            <div class="flow-item"><div class="flow-num">3</div><div class="flow-text">Availability — один экран<small>Не нужно проверять сайт + calendar. Один источник.</small></div></div>
+            <div class="flow-item"><div class="flow-num">4</div><div class="flow-text">Отмена → слот освобождается сразу везде<small>Автоматически. Без ручного открытия.</small></div></div>
+            <div class="flow-item"><div class="flow-num">5</div><div class="flow-text">Эдвард видит готовый список задач на утро<small>Ввести не нужно — всё уже там</small></div></div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div class="card purple-glow">
+          <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--purple);margin-bottom:0.75rem;">Unified Availability</div>
+          <div style="display:flex;flex-direction:column;gap:0.4rem;">
+            <div style="font-size:0.82rem;padding:0.45rem 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;"><span>8 июня · Shared</span><span class="mono" style="color:var(--teal);">4 / 16 мест</span></div>
+            <div style="font-size:0.82rem;padding:0.45rem 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;"><span>9 июня · Shared</span><span class="mono" style="color:var(--yellow);">14 / 16 мест</span></div>
+            <div style="font-size:0.82rem;padding:0.45rem 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;"><span>9 июня · Private B1</span><span class="mono" style="color:var(--red);">забронирована</span></div>
+            <div style="font-size:0.82rem;padding:0.45rem 0;display:flex;justify-content:space-between;align-items:center;"><span>10 июня · Shared</span><span class="mono" style="color:var(--teal);">свободно</span></div>
+          </div>
+        </div>
+        <div class="card" style="background:var(--teal-dim);border-color:rgba(0,196,160,0.2);">
+          <div class="stat"><span class="stat-num">0</span><span class="stat-label">ошибок с датами и форматами. Нормализация в API.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4 — PAYMENT LINK + FAQ -->
+  <div class="slide" id="s4">
+    <div class="eyebrow animate">Модуль 2 · Sprint 1</div>
+    <h2 class="animate">Payment Link + FAQ в одном месте<span class="accent">.</span></h2>
+    <p class="lead animate">Платёжная ссылка — один клик прямо в чате. Ответы на топ-5 вопросов — под рукой, не в голове.</p>
+    <div class="grid-2 animate" style="flex:1;align-content:start;margin-top:1.5rem;">
+      <div class="card teal-glow">
+        <div style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem;">Payment Link — восстановлен</div>
+        <div style="display:flex;flex-direction:column;gap:0.75rem;">
+          <div style="background:rgba(255,90,90,0.06);border:1px solid rgba(255,90,90,0.15);border-radius:0.75rem;padding:0.85rem;">
+            <div style="font-size:0.7rem;color:var(--red);font-weight:600;margin-bottom:0.3rem;">Сейчас</div>
+            <p style="font-size:0.8rem;color:var(--muted);">Открыть отдельный сайт → вручную ввести номер лида, цену, имя гостя → скопировать ссылку → вставить в чат</p>
+          </div>
+          <div style="background:var(--teal-dim);border:1px solid rgba(0,196,160,0.2);border-radius:0.75rem;padding:0.85rem;">
+            <div style="font-size:0.7rem;color:var(--teal);font-weight:600;margin-bottom:0.3rem;">После</div>
+            <p style="font-size:0.8rem;color:var(--white);">Кнопка «💳 Создать ссылку» в Respond.io → данные из лида автозаполнены → одно нажатие → ссылка ушла гостю</p>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="stat"><span class="stat-num">1 клик</span><span class="stat-label">вместо 5 шагов на отдельном сайте</span></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div class="card purple-glow">
+          <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--purple);margin-bottom:0.75rem;">Быстрые ответы в боте</div>
+          <div class="flow">
+            <div class="flow-item"><div class="flow-num">💰</div><div class="flow-text">Цена<small>Актуальный прайс по типу и дате — в 1 клик</small></div></div>
+            <div class="flow-item"><div class="flow-num">🚐</div><div class="flow-text">Трансфер включён?<small>Да / Нет — зависит от OTA / типа тура — авто-ответ</small></div></div>
+            <div class="flow-item"><div class="flow-num">🌿</div><div class="flow-text">Вегетарианское меню?<small>Да, доступно — фиксируется в бронировании</small></div></div>
+            <div class="flow-item"><div class="flow-num">🌊</div><div class="flow-text">Погода завтра?<small>Авто-репорт в 06:00: wind/wave + GO/NO-GO</small></div></div>
+            <div class="flow-item"><div class="flow-num">🛥</div><div class="flow-text">Спецификация лодки<small>Фото + capacity + описание — в базе знаний</small></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5 — AI ASSIST -->
+  <div class="slide" id="s5">
+    <div class="eyebrow animate">Модуль 3 · Sprint 2</div>
+    <h2 class="animate">AI-ассистент встроен в чат<span class="accent">.</span></h2>
+    <p class="lead animate">Сейчас Эдвард копирует текст в ChatGPT вручную. После — AI-черновик прямо в Respond.io, без переключения вкладок.</p>
+    <div class="grid-asym animate" style="flex:1;align-content:start;margin-top:1.5rem;">
+      <div>
+        <div class="card teal-glow">
+          <div style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:1.25rem;">Как работает</div>
+          <div class="flow">
+            <div class="flow-item"><div class="flow-num">1</div><div class="flow-text">Гость написал агрессивное сообщение о возврате<small>Эдвард нажимает «✨ Предложить ответ»</small></div></div>
+            <div class="flow-item"><div class="flow-num">2</div><div class="flow-text">AI видит контекст чата и историю брони<small>Не нужно ничего копировать — всё уже в системе</small></div></div>
+            <div class="flow-item"><div class="flow-num">3</div><div class="flow-text">Черновик: вежливый, точный, на нужном языке<small>Соответствует tone of voice Bluuu</small></div></div>
+            <div class="flow-item"><div class="flow-num">4</div><div class="flow-text">Эдвард редактирует → отправляет<small>Контроль остаётся у человека</small></div></div>
+          </div>
+          <div class="divider"></div>
+          <div style="background:var(--navy-3);border-radius:0.75rem;padding:1rem;">
+            <div style="font-size:0.7rem;color:var(--muted);margin-bottom:0.5rem;">Пример черновика AI:</div>
+            <p style="font-size:0.82rem;color:var(--white);line-height:1.5;">«Hi John, I completely understand your concern. Our team would like to offer you a complimentary rescheduling to any available date within the next 3 months, at no extra cost...»</p>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div class="card">
+          <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.75rem;">Типы сложных ситуаций</div>
+          <div class="flow">
+            <div class="flow-item"><div class="flow-num">→</div><div class="flow-text">Агрессивный гость<small>Тональность: де-эскалация</small></div></div>
+            <div class="flow-item"><div class="flow-num">→</div><div class="flow-text">Жалоба на отмену по погоде<small>Эмпатия + опции</small></div></div>
+            <div class="flow-item"><div class="flow-num">→</div><div class="flow-text">Запрос возврата сверх политики<small>Точная политика + эскалация к Диме</small></div></div>
+            <div class="flow-item"><div class="flow-num">→</div><div class="flow-text">Жалоба на лодку «не та что на фото»<small>Факты + извинения + компенсация</small></div></div>
+          </div>
+        </div>
+        <div class="card" style="background:var(--teal-dim);border-color:rgba(0,196,160,0.2);">
+          <div class="stat"><span class="stat-num">0</span><span class="stat-label">переключений в ChatGPT — всё в одном окне</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 6 — ИТОГ -->
+  <div class="slide" id="s6">
+    <div class="eyebrow animate">Итог</div>
+    <h2 class="animate">Эдвард общается — не ищет данные<span class="accent">.</span></h2>
+    <div class="grid-3 animate" style="flex:1;align-content:start;margin-top:1.5rem;">
+      <div class="card teal-glow">
+        <div style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem;">Sprint 1 — апрель</div>
+        <div class="flow">
+          <div class="flow-item"><div class="flow-num">✓</div><div class="flow-text">OTA Auto-Import<small>Ввод вручную → автоматически из API</small></div></div>
+          <div class="flow-item"><div class="flow-num">✓</div><div class="flow-text">Единая availability<small>Сайт + calendar → один источник</small></div></div>
+          <div class="flow-item"><div class="flow-num">✓</div><div class="flow-text">Payment Link в 1 клик<small>Виджет восстановлен в Respond.io</small></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;">Sprint 2 — май</div>
+        <div class="flow">
+          <div class="flow-item"><div class="flow-num">→</div><div class="flow-text">AI-ассистент в Respond.io<small>Черновики ответов без переключений</small></div></div>
+          <div class="flow-item"><div class="flow-num">→</div><div class="flow-text">База знаний лодок<small>Фото + capacity + спецификации</small></div></div>
+          <div class="flow-item"><div class="flow-num">→</div><div class="flow-text">Погода в 06:00 авто<small>GO/NO-GO без ожидания команды</small></div></div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div class="card" style="background:var(--teal-dim);border-color:rgba(0,196,160,0.2);">
+          <div class="stat"><span class="stat-num">0</span><span class="stat-label">ошибок ввода OTA-бронирований</span></div>
+        </div>
+        <div class="card" style="background:rgba(167,139,250,0.08);border-color:rgba(167,139,250,0.2);">
+          <div class="stat"><span class="stat-num">1 клик</span><span class="stat-label">платёжная ссылка вместо 5 шагов</span></div>
+        </div>
+        <div class="card" style="background:rgba(255,190,0,0.06);border-color:rgba(255,190,0,0.2);">
+          <div class="stat"><span class="stat-num">встроен</span><span class="stat-label">AI-ассистент — без ChatGPT в соседней вкладке</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<nav class="nav" id="navBar">
+  <button id="prevBtn">←</button>
+  <div class="dots" id="dots"></div>
+  <span class="counter" id="counter">1/6</span>
+  <button id="nextBtn">→</button>
+</nav>
+<div class="watermark">BLUUU OS · Эдвард · Confidential</div>
+<script>
+  const slides = document.querySelectorAll('.slide'); const total = slides.length; let cur = 0;
+  const dotsEl = document.getElementById('dots'); const counterEl = document.getElementById('counter'); const progressEl = document.getElementById('progress');
+  function buildDots() { dotsEl.innerHTML = ''; for (let i = 0; i < total; i++) { const d = document.createElement('div'); d.className = 'dot' + (i === 0 ? ' active' : ''); d.addEventListener('click', () => go(i)); dotsEl.appendChild(d); } }
+  function go(n) { slides[cur].classList.remove('active'); slides[cur].classList.add('prev'); const old = cur; cur = (n + total) % total; slides[cur].classList.add('active'); setTimeout(() => slides[old].classList.remove('prev'), 600); dotsEl.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === cur)); counterEl.textContent = (cur + 1) + '/' + total; progressEl.style.width = ((cur + 1) / total * 100) + '%'; }
+  document.getElementById('prevBtn').addEventListener('click', () => go(cur - 1));
+  document.getElementById('nextBtn').addEventListener('click', () => go(cur + 1));
+  document.addEventListener('keydown', e => { if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(cur + 1); if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') go(cur - 1); });
+  let startX = 0; document.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+  document.addEventListener('touchend', e => { const dx = e.changedTouches[0].clientX - startX; if (Math.abs(dx) > 50) go(dx < 0 ? cur + 1 : cur - 1); });
+  buildDots(); progressEl.style.width = (1 / total * 100) + '%';
+</script>
+</body>
+</html>
