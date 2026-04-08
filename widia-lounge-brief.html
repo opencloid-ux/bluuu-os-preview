@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLUUU OS — Для Видии</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0a0f1e; --navy-2: #0e1628; --navy-3: #141e35;
+    --teal: #00c4a0; --teal-dim: rgba(0,196,160,0.12); --teal-glow: rgba(0,196,160,0.25);
+    --blue: #1a8fff; --white: #f0f4ff; --muted: rgba(240,244,255,0.45);
+    --border: rgba(240,244,255,0.08); --card: rgba(255,255,255,0.04); --card-hover: rgba(255,255,255,0.07);
+    --red: #ff5a5a; --yellow: #ffbe00; --green: #00c4a0; --purple: #a78bfa;
+  }
+  html, body { width: 100%; height: 100%; background: var(--navy); font-family: 'Outfit', sans-serif; color: var(--white); overflow: hidden; -webkit-font-smoothing: antialiased; }
+  .deck { width: 100vw; height: 100vh; position: relative; }
+  .slide { position: absolute; inset: 0; display: flex; flex-direction: column; padding: clamp(2rem, 5vw, 4rem) clamp(2rem, 7vw, 7rem); opacity: 0; pointer-events: none; transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16,1,0.3,1); transform: translateX(40px); overflow: hidden; }
+  .slide.active { opacity: 1; pointer-events: all; transform: translateX(0); }
+  .slide.prev { opacity: 0; transform: translateX(-40px); }
+  .slide::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 60% 50% at 80% 20%, rgba(0,196,160,0.06) 0%, transparent 70%), radial-gradient(ellipse 50% 60% at 10% 80%, rgba(26,143,255,0.05) 0%, transparent 70%); }
+  .slide::after { content: ''; position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 80px 80px; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%); }
+  .nav { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 1rem; background: rgba(14,22,40,0.85); backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: 100px; padding: 0.6rem 1.2rem; z-index: 100; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.4); }
+  .nav button { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 1.1rem; padding: 0.3rem 0.6rem; border-radius: 50px; transition: color 0.2s, background 0.2s; font-family: 'Outfit', sans-serif; }
+  .nav button:hover { color: var(--white); background: var(--card); }
+  .nav .dots { display: flex; gap: 6px; align-items: center; }
+  .nav .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); cursor: pointer; transition: background 0.3s, transform 0.3s; }
+  .nav .dot.active { background: var(--teal); transform: scale(1.4); }
+  .nav .counter { font-size: 0.75rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; min-width: 3ch; text-align: center; }
+  .progress { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, var(--teal), var(--blue)); z-index: 100; transition: width 0.5s cubic-bezier(0.16,1,0.3,1); box-shadow: 0 0 12px var(--teal-glow); }
+  .eyebrow { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--teal); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; position: relative; z-index: 1; }
+  .eyebrow::before { content: ''; display: block; width: 2rem; height: 1px; background: var(--teal); }
+  h2 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; position: relative; z-index: 1; }
+  .accent { color: var(--teal); }
+  .muted { color: var(--muted); }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  p.lead { font-size: clamp(1rem, 2vw, 1.25rem); color: var(--muted); line-height: 1.7; max-width: 58ch; position: relative; z-index: 1; margin-top: 1.25rem; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 1.25rem; padding: 1.5rem; position: relative; z-index: 1; transition: background 0.2s; }
+  .card:hover { background: var(--card-hover); }
+  .card.teal-glow { border-color: rgba(0,196,160,0.25); box-shadow: 0 0 30px var(--teal-dim); }
+  .card.blue-glow { border-color: rgba(26,143,255,0.25); box-shadow: 0 0 30px rgba(26,143,255,0.1); }
+  .card.purple-glow { border-color: rgba(167,139,250,0.25); box-shadow: 0 0 30px rgba(167,139,250,0.1); }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; position: relative; z-index: 1; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; position: relative; z-index: 1; }
+  .grid-asym { display: grid; grid-template-columns: 1.4fr 1fr; gap: 1.5rem; position: relative; z-index: 1; }
+  .stat { display: flex; flex-direction: column; gap: 0.25rem; }
+  .stat-num { font-size: 2.5rem; font-weight: 800; line-height: 1; color: var(--teal); }
+  .stat-label { font-size: 0.8rem; color: var(--muted); font-weight: 500; }
+  .badge { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; padding: 0.25rem 0.7rem; border-radius: 100px; text-transform: uppercase; }
+  .badge.red { background: rgba(255,90,90,0.12); color: var(--red); border: 1px solid rgba(255,90,90,0.25); }
+  .badge.yellow { background: rgba(255,190,0,0.1); color: var(--yellow); border: 1px solid rgba(255,190,0,0.25); }
+  .badge.green { background: var(--teal-dim); color: var(--teal); border: 1px solid rgba(0,196,160,0.25); }
+  .badge.purple { background: rgba(167,139,250,0.1); color: var(--purple); border: 1px solid rgba(167,139,250,0.25); }
+  .flow { display: flex; flex-direction: column; gap: 0; position: relative; z-index: 1; }
+  .flow-item { display: flex; align-items: flex-start; gap: 1rem; padding: 0.85rem 0; border-bottom: 1px solid var(--border); }
+  .flow-item:last-child { border-bottom: none; }
+  .flow-num { width: 28px; height: 28px; min-width: 28px; border-radius: 50%; background: var(--teal-dim); border: 1px solid rgba(0,196,160,0.3); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; color: var(--teal); font-family: 'JetBrains Mono', monospace; }
+  .flow-text { font-size: 0.9rem; color: var(--white); line-height: 1.5; padding-top: 3px; }
+  .flow-text small { display: block; color: var(--muted); font-size: 0.78rem; margin-top: 0.15rem; }
+  .data-table { width: 100%; border-collapse: collapse; position: relative; z-index: 1; font-size: 0.85rem; }
+  .data-table th { text-align: left; padding: 0.6rem 1rem; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--border); }
+  .data-table td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); color: var(--white); line-height: 1.4; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: var(--card); }
+  .icon-circle { width: 42px; height: 42px; min-width: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; background: var(--teal-dim); border: 1px solid rgba(0,196,160,0.2); }
+  .divider { width: 100%; height: 1px; background: var(--border); margin: 1.5rem 0; position: relative; z-index: 1; }
+  @keyframes pulse-ring { 0% { transform: scale(1); opacity: 0.6; } 100% { transform: scale(2); opacity: 0; } }
+  .pulse-dot { position: relative; display: inline-block; width: 10px; height: 10px; }
+  .pulse-dot::before { content: ''; position: absolute; inset: 0; border-radius: 50%; background: var(--teal); animation: pulse-ring 1.5s ease-out infinite; }
+  .pulse-dot::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: var(--teal); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .slide.active .animate { animation: fadeUp 0.5s cubic-bezier(0.16,1,0.3,1) both; }
+  .slide.active .animate:nth-child(1) { animation-delay: 0.05s; }
+  .slide.active .animate:nth-child(2) { animation-delay: 0.12s; }
+  .slide.active .animate:nth-child(3) { animation-delay: 0.19s; }
+  .slide.active .animate:nth-child(4) { animation-delay: 0.26s; }
+  .slide.active .animate:nth-child(5) { animation-delay: 0.33s; }
+  .slide.active .animate:nth-child(6) { animation-delay: 0.40s; }
+  .watermark { position: fixed; bottom: 5.5rem; right: 2rem; font-size: 0.65rem; color: rgba(240,244,255,0.18); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.1em; text-transform: uppercase; z-index: 50; }
+  #s1 { justify-content: center; }
+  .cover-tag { display: inline-flex; align-items: center; gap: 0.5rem; border: 1px solid var(--border); padding: 0.4rem 0.9rem; border-radius: 100px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 2rem; position: relative; z-index: 1; }
+  .cover-company { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: var(--teal); position: relative; z-index: 1; margin-bottom: 0.75rem; }
+  .cover-title { position: relative; z-index: 1; }
+  .cover-title .line1 { display: block; color: var(--muted); font-weight: 300; font-size: clamp(1.5rem, 4vw, 2.5rem); }
+  .cover-title .line2 { display: block; font-size: clamp(3rem, 8vw, 6.5rem); font-weight: 800; letter-spacing: -0.04em; line-height: 0.9; }
+  .cover-sub { margin-top: 2rem; max-width: 44ch; font-size: 1.05rem; color: var(--muted); line-height: 1.6; position: relative; z-index: 1; }
+  .cover-footer { display: flex; gap: 2.5rem; margin-top: 3rem; position: relative; z-index: 1; }
+  .deco-ring { position: absolute; right: -5rem; top: 50%; transform: translateY(-50%); width: 40vw; height: 40vw; border-radius: 50%; border: 1px solid var(--border); pointer-events: none; }
+  .deco-ring::after { content: ''; position: absolute; inset: 10%; border-radius: 50%; border: 1px solid rgba(0,196,160,0.15); }
+  @media (max-width: 768px) { .grid-2, .grid-3, .grid-asym { grid-template-columns: 1fr; } .slide { padding: 1.5rem; } .cover-title .line2 { font-size: 3rem; } }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="deck" id="deck">
+
+  <!-- SLIDE 1 — COVER -->
+  <div class="slide active" id="s1">
+    <div class="deco-ring"></div>
+    <div class="cover-tag animate"><span class="pulse-dot"></span>April 2026 · Confidential</div>
+    <div class="cover-company animate">Bluuu OS</div>
+    <div class="cover-title animate">
+      <span class="line1">автоматизация для</span>
+      <span class="line2">Видии<span class="accent">.</span></span>
+    </div>
+    <p class="cover-sub animate">Как BLUUU OS убирает бумажные списки, ручной чекин и хаос в пиковое утро 07:30–09:30. 4 модуля, QR-сканер, live статус гостей.</p>
+    <div class="cover-footer animate">
+      <div class="stat"><span class="stat-num">4</span><span class="stat-label">Модуля</span></div>
+      <div class="stat"><span class="stat-num">07:30</span><span class="stat-label">Пиковый старт</span></div>
+      <div class="stat"><span class="stat-num">0</span><span class="stat-label">Бумажных списков</span></div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2 — КОНТЕКСТ -->
+  <div class="slide" id="s2">
+    <div class="eyebrow animate">Кто ты в системе</div>
+    <h2 class="animate">Ты — первое и последнее впечатление<span class="accent">.</span></h2>
+    <p class="lead animate" style="margin-bottom:1.5rem;">Гость видит Bluuu впервые через тебя. И финальное впечатление — тоже ты. Всё между этим — лодка и океан. Твоя работа начинается в 07:30 и не прощает ошибок.</p>
+    <div class="grid-2 animate" style="flex:1;align-content:start;">
+      <div class="card">
+        <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--red);margin-bottom:1rem;">Главные боли сейчас</div>
+        <div class="flow">
+          <div class="flow-item">
+            <div class="flow-num">!</div>
+            <div class="flow-text">Чекин вручную из распечатанного листа<small>Ищешь имя, сверяешь ваучер, проверяешь balance — всё руками</small></div>
+          </div>
+          <div class="flow-item">
+            <div class="flow-num">!</div>
+            <div class="flow-text">Гость не знает что бронировал<small>Shared или Private? Объясняешь на месте, в пиковую очередь</small></div>
+          </div>
+          <div class="flow-item">
+            <div class="flow-num">!</div>
+            <div class="flow-text">Погодная отмена — гость узнаёт при чекине<small>Приехал, потратил время — и только тут слышит «тур отменён»</small></div>
+          </div>
+          <div class="flow-item">
+            <div class="flow-num">!</div>
+            <div class="flow-text">Dietary и экстра-заказы теряются<small>Торт, цветы, веган-меню — всё в WhatsApp, без гарантий</small></div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;">Пиковое утро</div>
+        <table class="data-table">
+          <thead><tr><th>Время</th><th>Волна гостей</th><th>Нагрузка</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">07:30</td><td>Standard Shared</td><td><span class="badge red">макс</span></td></tr>
+            <tr><td class="mono">08:00–08:15</td><td>Premium Shared</td><td><span class="badge red">макс</span></td></tr>
+            <tr><td class="mono">08:30–09:30</td><td>Private + Premium</td><td><span class="badge yellow">высокая</span></td></tr>
+          </tbody>
+        </table>
+        <div class="divider"></div>
+        <div style="display:flex;gap:2rem;">
+          <div class="stat"><span class="stat-num">60–120</span><span class="stat-label">гостей в день (пик)</span></div>
+          <div class="stat"><span class="stat-num">2 ч</span><span class="stat-label">критическое окно</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3 — DIGITAL CHECK-IN -->
+  <div class="slide" id="s3">
+    <div class="eyebrow animate">Модуль 1 · Sprint 1</div>
+    <h2 class="animate">Digital Check-In<span class="accent">.</span></h2>
+    <p class="lead animate">QR-сканер вместо бумажного списка. Весь чекин — 5 секунд.</p>
+    <div class="grid-asym animate" style="flex:1;align-content:start;margin-top:1.5rem;">
+      <div>
+        <div class="card teal-glow">
+          <div style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:1.25rem;">Новый процесс чекина</div>
+          <div class="flow">
+            <div class="flow-item">
+              <div class="flow-num">1</div>
+              <div class="flow-text">Гость показывает QR-код (из confirmation email / WhatsApp)<small>Сканируешь телефоном — 1 секунда</small></div>
+            </div>
+            <div class="flow-item">
+              <div class="flow-num">2</div>
+              <div class="flow-text">Экран показывает: имя, тип тура, лодку, статус оплаты<small>Всё видно сразу. Никакого поиска по списку</small></div>
+            </div>
+            <div class="flow-item">
+              <div class="flow-num">3</div>
+              <div class="flow-text">Dietary restrictions + экстра-заказы — на том же экране<small>«Веган, торт на борту, цветы» — видно до того как гость открыл рот</small></div>
+            </div>
+            <div class="flow-item">
+              <div class="flow-num">4</div>
+              <div class="flow-text">Нажимаешь «✓ Прибыл» — статус обновляется<small>Видно в real-time: кто прибыл, кто ожидается, кто опоздал</small></div>
+            </div>
+            <div class="flow-item">
+              <div class="flow-num">5</div>
+              <div class="flow-text">Браслет / лянъярд соответствует типу тура<small>Цвет автоматически указан — Shared vs Private сразу видно</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div class="card purple-glow">
+          <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--purple);margin-bottom:0.75rem;">Live Guest Board</div>
+          <div style="display:flex;flex-direction:column;gap:0.5rem;">
+            <div style="font-size:0.82rem;color:var(--white);display:flex;justify-content:space-between;align-items:center;padding:0.35rem 0;border-bottom:1px solid var(--border);"><span>✓ Smith, John</span><span class="badge green">прибыл</span></div>
+            <div style="font-size:0.82rem;color:var(--white);display:flex;justify-content:space-between;align-items:center;padding:0.35rem 0;border-bottom:1px solid var(--border);"><span>✓ Tanaka Family (4)</span><span class="badge green">прибыл</span></div>
+            <div style="font-size:0.82rem;color:var(--white);display:flex;justify-content:space-between;align-items:center;padding:0.35rem 0;border-bottom:1px solid var(--border);"><span>⏳ Müller, Anna</span><span class="badge yellow">ожидается</span></div>
+            <div style="font-size:0.82rem;color:var(--white);display:flex;justify-content:space-between;align-items:center;padding:0.35rem 0;"><span>⚠ Brown (2)</span><span class="badge red">опаздывает</span></div>
+          </div>
+        </div>
+        <div class="card" style="background:var(--teal-dim);border-color:rgba(0,196,160,0.2);">
+          <div class="stat"><span class="stat-num">5 сек</span><span class="stat-label">полный чекин одного гостя. Было 2–3 минуты.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4 — ПОГОДА -->
+  <div class="slide" id="s4">
+    <div class="eyebrow animate">Модуль 2 · Sprint 1</div>
+    <h2 class="animate">Weather Alert System<span class="accent">.</span></h2>
+    <p class="lead animate">Гость узнаёт об отмене накануне вечером — не когда уже стоит в очереди на чекин.</p>
+    <div class="grid-2 animate" style="flex:1;align-content:start;margin-top:1.5rem;">
+      <div class="card teal-glow">
+        <div style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem;">Автоматический алгоритм</div>
+        <div class="flow">
+          <div class="flow-item"><div class="flow-num">20:00</div><div class="flow-text">Pre-check погоды<small>3 источника: BMKG, Windy, Windguru — автоматически</small></div></div>
+          <div class="flow-item"><div class="flow-num">05:00</div><div class="flow-text">Финальные данные<small>Ветер, волны, видимость — система собирает сама</small></div></div>
+          <div class="flow-item"><div class="flow-num">05:45</div><div class="flow-text">GO / NO-GO решение<small>Правило двух «нет»: 2 из 3 источников = автоуведомление</small></div></div>
+          <div class="flow-item"><div class="flow-num">06:00</div><div class="flow-text">Уведомления гостям<small>WhatsApp + email: «Тур подтверждён» или «Перенос, вот варианты»</small></div></div>
+        </div>
+        <div class="divider"></div>
+        <div style="background:rgba(255,190,0,0.08);border:1px solid rgba(255,190,0,0.2);border-radius:0.75rem;padding:0.75rem;margin-top:0.25rem;">
+          <div style="font-size:0.75rem;font-weight:600;color:var(--yellow);margin-bottom:0.3rem;">Скрипт который работает (Widia)</div>
+          <p style="font-size:0.82rem;color:var(--white);line-height:1.5;">«Мы ждём обновления от harbour master и сообщим вам» — эта фраза реально снижает жалобы. Теперь она отправляется автоматически.</p>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div class="card">
+          <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.75rem;">Пороги GO / NO-GO</div>
+          <table class="data-table">
+            <thead><tr><th>Параметр</th><th>Безопасно</th><th>Опасно</th></tr></thead>
+            <tbody>
+              <tr><td>Ветер</td><td class="mono" style="color:var(--teal);">&lt;20 kn</td><td class="mono" style="color:var(--red);">≥20 kn</td></tr>
+              <tr><td>Волны</td><td class="mono" style="color:var(--teal);">&lt;1.5 m</td><td class="mono" style="color:var(--red);">≥1.5 m</td></tr>
+              <tr><td>Видимость</td><td class="mono" style="color:var(--teal);">норм</td><td class="mono" style="color:var(--red);">туман</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card">
+          <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.75rem;">До vs После</div>
+          <div style="display:flex;flex-direction:column;gap:0.5rem;">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:0.4rem 0;border-bottom:1px solid var(--border);"><span style="font-size:0.82rem;color:var(--muted);">До: гость узнаёт при чекине</span><span class="badge red">конфликт</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:0.4rem 0;"><span style="font-size:0.82rem;color:var(--white);">После: уведомление в 06:00</span><span class="badge green">доволен</span></div>
+          </div>
+        </div>
+        <div class="card" style="background:var(--teal-dim);border-color:rgba(0,196,160,0.2);">
+          <div class="stat"><span class="stat-num">~0</span><span class="stat-label">конфликтов по отменам при включённом алерте</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5 — ЭКСТРА И DIETARY -->
+  <div class="slide" id="s5">
+    <div class="eyebrow animate">Модуль 3 · Sprint 1</div>
+    <h2 class="animate">Special Requests Dashboard<span class="accent">.</span></h2>
+    <p class="lead animate">Dietary restrictions и экстра-заказы — в дашборде, не в WhatsApp чате.</p>
+    <div class="grid-asym animate" style="flex:1;align-content:start;margin-top:1.5rem;">
+      <div>
+        <div class="card teal-glow">
+          <div style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:1.25rem;">Как это работает сейчас vs потом</div>
+          <div style="display:flex;flex-direction:column;gap:1rem;">
+            <div style="background:rgba(255,90,90,0.06);border:1px solid rgba(255,90,90,0.15);border-radius:0.75rem;padding:1rem;">
+              <div style="font-size:0.7rem;font-weight:600;text-transform:uppercase;color:var(--red);margin-bottom:0.5rem;">Сейчас</div>
+              <p style="font-size:0.85rem;color:var(--muted);line-height:1.5;">Гость пишет в WhatsApp «у нас есть веган» → кто-то читает → может записать → может забыть → Widia узнаёт на месте</p>
+            </div>
+            <div style="background:var(--teal-dim);border:1px solid rgba(0,196,160,0.2);border-radius:0.75rem;padding:1rem;">
+              <div style="font-size:0.7rem;font-weight:600;text-transform:uppercase;color:var(--teal);margin-bottom:0.5rem;">После</div>
+              <p style="font-size:0.85rem;color:var(--white);line-height:1.5;">При бронировании — поле «Special Requests» → данные идут в Odoo → автоматически появляются в дашборде Widia к 07:00</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div class="card purple-glow">
+          <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--purple);margin-bottom:0.75rem;">Дашборд спецзапросов</div>
+          <div style="display:flex;flex-direction:column;gap:0.5rem;">
+            <div style="font-size:0.82rem;padding:0.5rem;background:var(--navy-3);border-radius:0.5rem;display:flex;align-items:flex-start;gap:0.5rem;"><span>🎂</span><div><div style="font-weight:600;">Smith (Лодка 3)</div><div style="color:var(--muted);font-size:0.75rem;">Торт на борту, день рождения</div></div></div>
+            <div style="font-size:0.82rem;padding:0.5rem;background:var(--navy-3);border-radius:0.5rem;display:flex;align-items:flex-start;gap:0.5rem;"><span>🌿</span><div><div style="font-weight:600;">Tanaka (2 человека)</div><div style="color:var(--muted);font-size:0.75rem;">Веган-меню, без глютена</div></div></div>
+            <div style="font-size:0.82rem;padding:0.5rem;background:var(--navy-3);border-radius:0.5rem;display:flex;align-items:flex-start;gap:0.5rem;"><span>🌹</span><div><div style="font-weight:600;">Müller (Private)</div><div style="color:var(--muted);font-size:0.75rem;">Цветы на борту, медовый месяц</div></div></div>
+          </div>
+        </div>
+        <div class="card" style="background:var(--teal-dim);border-color:rgba(0,196,160,0.2);">
+          <div class="stat"><span class="stat-num">100%</span><span class="stat-label">спецзапросов видны заранее — ни одного «ой, не знала»</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 6 — BOAT MATCH -->
+  <div class="slide" id="s6">
+    <div class="eyebrow animate">Модуль 4 · Sprint 2</div>
+    <h2 class="animate">Boat Assignment Sync<span class="accent">.</span></h2>
+    <p class="lead animate">Гость видит фото своей реальной лодки — до отплытия, не «ожидал другого».</p>
+    <div class="grid-2 animate" style="flex:1;align-content:start;margin-top:1.5rem;">
+      <div class="card teal-glow">
+        <div style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem;">Самая частая жалоба → решена</div>
+        <div style="background:rgba(255,90,90,0.06);border:1px solid rgba(255,90,90,0.15);border-radius:0.75rem;padding:1rem;margin-bottom:1rem;">
+          <div style="font-size:0.7rem;font-weight:600;text-transform:uppercase;color:var(--red);margin-bottom:0.4rem;">Проблема</div>
+          <p style="font-size:0.85rem;color:var(--muted);line-height:1.5;">«Гости видят фото одной лодки, получают другую» — самая частая жалоба по словам Widia. Создаёт недовольство ещё до отплытия.</p>
+        </div>
+        <div style="background:var(--teal-dim);border:1px solid rgba(0,196,160,0.2);border-radius:0.75rem;padding:1rem;">
+          <div style="font-size:0.7rem;font-weight:600;text-transform:uppercase;color:var(--teal);margin-bottom:0.4rem;">Решение</div>
+          <p style="font-size:0.85rem;color:var(--white);line-height:1.5;">Когда Давид назначает лодку в системе → автоматически: 1) в дашборде Widia обновляется фото назначенной лодки; 2) гость получает WhatsApp с реальным фото накануне</p>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div class="card">
+          <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.75rem;">Итоговый дашборд Widia</div>
+          <div class="flow">
+            <div class="flow-item"><div class="flow-num">✓</div><div class="flow-text">QR-чекин<small>5 секунд на гостя</small></div></div>
+            <div class="flow-item"><div class="flow-num">✓</div><div class="flow-text">Live guest board<small>Ожидается / прибыл / на борту</small></div></div>
+            <div class="flow-item"><div class="flow-num">✓</div><div class="flow-text">Спецзапросы и dietary<small>Видны до 07:00</small></div></div>
+            <div class="flow-item"><div class="flow-num">✓</div><div class="flow-text">Погодный алерт<small>Гости в курсе с 06:00</small></div></div>
+            <div class="flow-item"><div class="flow-num">✓</div><div class="flow-text">Фото назначенной лодки<small>Соответствие ожиданиям</small></div></div>
+          </div>
+        </div>
+        <div class="card" style="background:var(--teal-dim);border-color:rgba(0,196,160,0.2);">
+          <div class="stat"><span class="stat-num">0</span><span class="stat-label">бумажных списков, 0 «не знала», 0 конфликтов при чекине</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<nav class="nav" id="navBar">
+  <button id="prevBtn">←</button>
+  <div class="dots" id="dots"></div>
+  <span class="counter" id="counter">1/6</span>
+  <button id="nextBtn">→</button>
+</nav>
+<div class="watermark">BLUUU OS · Видия · Confidential</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let cur = 0;
+  const dotsEl = document.getElementById('dots');
+  const counterEl = document.getElementById('counter');
+  const progressEl = document.getElementById('progress');
+  function buildDots() { dotsEl.innerHTML = ''; for (let i = 0; i < total; i++) { const d = document.createElement('div'); d.className = 'dot' + (i === 0 ? ' active' : ''); d.addEventListener('click', () => go(i)); dotsEl.appendChild(d); } }
+  function go(n) { slides[cur].classList.remove('active'); slides[cur].classList.add('prev'); const old = cur; cur = (n + total) % total; slides[cur].classList.add('active'); setTimeout(() => slides[old].classList.remove('prev'), 600); dotsEl.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === cur)); counterEl.textContent = (cur + 1) + '/' + total; progressEl.style.width = ((cur + 1) / total * 100) + '%'; }
+  document.getElementById('prevBtn').addEventListener('click', () => go(cur - 1));
+  document.getElementById('nextBtn').addEventListener('click', () => go(cur + 1));
+  document.addEventListener('keydown', e => { if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(cur + 1); if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') go(cur - 1); });
+  let startX = 0;
+  document.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+  document.addEventListener('touchend', e => { const dx = e.changedTouches[0].clientX - startX; if (Math.abs(dx) > 50) go(dx < 0 ? cur + 1 : cur - 1); });
+  buildDots();
+  progressEl.style.width = (1 / total * 100) + '%';
+</script>
+</body>
+</html>

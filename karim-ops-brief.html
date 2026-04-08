@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLUUU OS — Для Карима</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0a0f1e; --navy-2: #0e1628; --navy-3: #141e35;
+    --teal: #00c4a0; --teal-dim: rgba(0,196,160,0.12); --teal-glow: rgba(0,196,160,0.25);
+    --blue: #1a8fff; --white: #f0f4ff; --muted: rgba(240,244,255,0.45);
+    --border: rgba(240,244,255,0.08); --card: rgba(255,255,255,0.04); --card-hover: rgba(255,255,255,0.07);
+    --red: #ff5a5a; --yellow: #ffbe00; --green: #00c4a0;
+    --orange: #ff8c42;
+  }
+  html, body { width: 100%; height: 100%; background: var(--navy); font-family: 'Outfit', sans-serif; color: var(--white); overflow: hidden; -webkit-font-smoothing: antialiased; }
+  .deck { width: 100vw; height: 100vh; position: relative; }
+  .slide { position: absolute; inset: 0; display: flex; flex-direction: column; padding: clamp(2rem, 5vw, 4rem) clamp(2rem, 7vw, 7rem); opacity: 0; pointer-events: none; transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16,1,0.3,1); transform: translateX(40px); overflow: hidden; }
+  .slide.active { opacity: 1; pointer-events: all; transform: translateX(0); }
+  .slide.prev { opacity: 0; transform: translateX(-40px); }
+  .slide::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 60% 50% at 80% 20%, rgba(0,196,160,0.06) 0%, transparent 70%), radial-gradient(ellipse 50% 60% at 10% 80%, rgba(26,143,255,0.05) 0%, transparent 70%); }
+  .slide::after { content: ''; position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 80px 80px; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%); }
+  .nav { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 1rem; background: rgba(14,22,40,0.85); backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: 100px; padding: 0.6rem 1.2rem; z-index: 100; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.4); }
+  .nav button { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 1.1rem; padding: 0.3rem 0.6rem; border-radius: 50px; transition: color 0.2s, background 0.2s; font-family: 'Outfit', sans-serif; }
+  .nav button:hover { color: var(--white); background: var(--card); }
+  .nav .dots { display: flex; gap: 6px; align-items: center; }
+  .nav .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); cursor: pointer; transition: background 0.3s, transform 0.3s; }
+  .nav .dot.active { background: var(--teal); transform: scale(1.4); }
+  .nav .counter { font-size: 0.75rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; min-width: 3ch; text-align: center; }
+  .progress { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, var(--teal), var(--blue)); z-index: 100; transition: width 0.5s cubic-bezier(0.16,1,0.3,1); box-shadow: 0 0 12px var(--teal-glow); }
+  .eyebrow { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--teal); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; position: relative; z-index: 1; }
+  .eyebrow::before { content: ''; display: block; width: 2rem; height: 1px; background: var(--teal); }
+  h1 { font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 800; line-height: 1.0; letter-spacing: -0.02em; position: relative; z-index: 1; }
+  h2 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; position: relative; z-index: 1; }
+  h3 { font-size: 1.1rem; font-weight: 600; position: relative; z-index: 1; }
+  .accent { color: var(--teal); }
+  .muted { color: var(--muted); }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  p.lead { font-size: clamp(1rem, 2vw, 1.25rem); color: var(--muted); line-height: 1.7; max-width: 58ch; position: relative; z-index: 1; margin-top: 1.25rem; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 1.25rem; padding: 1.5rem; position: relative; z-index: 1; transition: background 0.2s; }
+  .card:hover { background: var(--card-hover); }
+  .card.teal-glow { border-color: rgba(0,196,160,0.25); box-shadow: 0 0 30px var(--teal-dim); }
+  .card.blue-glow { border-color: rgba(26,143,255,0.25); box-shadow: 0 0 30px rgba(26,143,255,0.1); }
+  .card.orange-glow { border-color: rgba(255,140,66,0.25); box-shadow: 0 0 30px rgba(255,140,66,0.1); }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; position: relative; z-index: 1; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; position: relative; z-index: 1; }
+  .grid-asym { display: grid; grid-template-columns: 1.4fr 1fr; gap: 1.5rem; position: relative; z-index: 1; }
+  .stat { display: flex; flex-direction: column; gap: 0.25rem; }
+  .stat-num { font-size: 2.5rem; font-weight: 800; line-height: 1; color: var(--teal); }
+  .stat-label { font-size: 0.8rem; color: var(--muted); font-weight: 500; }
+  .badge { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; padding: 0.25rem 0.7rem; border-radius: 100px; text-transform: uppercase; }
+  .badge.red { background: rgba(255,90,90,0.12); color: var(--red); border: 1px solid rgba(255,90,90,0.25); }
+  .badge.yellow { background: rgba(255,190,0,0.1); color: var(--yellow); border: 1px solid rgba(255,190,0,0.25); }
+  .badge.green { background: var(--teal-dim); color: var(--teal); border: 1px solid rgba(0,196,160,0.25); }
+  .badge.orange { background: rgba(255,140,66,0.1); color: var(--orange); border: 1px solid rgba(255,140,66,0.25); }
+  .flow { display: flex; flex-direction: column; gap: 0; position: relative; z-index: 1; }
+  .flow-item { display: flex; align-items: flex-start; gap: 1rem; padding: 0.85rem 0; border-bottom: 1px solid var(--border); }
+  .flow-item:last-child { border-bottom: none; }
+  .flow-num { width: 28px; height: 28px; min-width: 28px; border-radius: 50%; background: var(--teal-dim); border: 1px solid rgba(0,196,160,0.3); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; color: var(--teal); font-family: 'JetBrains Mono', monospace; }
+  .flow-text { font-size: 0.9rem; color: var(--white); line-height: 1.5; padding-top: 3px; }
+  .flow-text small { display: block; color: var(--muted); font-size: 0.78rem; margin-top: 0.15rem; }
+  .data-table { width: 100%; border-collapse: collapse; position: relative; z-index: 1; font-size: 0.85rem; }
+  .data-table th { text-align: left; padding: 0.6rem 1rem; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--border); }
+  .data-table td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); color: var(--white); line-height: 1.4; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: var(--card); }
+  .icon-circle { width: 42px; height: 42px; min-width: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; background: var(--teal-dim); border: 1px solid rgba(0,196,160,0.2); }
+  .mt-1 { margin-top: 0.5rem; } .mt-2 { margin-top: 1rem; } .mt-3 { margin-top: 1.5rem; } .mt-4 { margin-top: 2rem; } .mt-auto { margin-top: auto; }
+  .divider { width: 100%; height: 1px; background: var(--border); margin: 1.5rem 0; position: relative; z-index: 1; }
+  @keyframes pulse-ring { 0% { transform: scale(1); opacity: 0.6; } 100% { transform: scale(2); opacity: 0; } }
+  .pulse-dot { position: relative; display: inline-block; width: 10px; height: 10px; }
+  .pulse-dot::before { content: ''; position: absolute; inset: 0; border-radius: 50%; background: var(--teal); animation: pulse-ring 1.5s ease-out infinite; }
+  .pulse-dot::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: var(--teal); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .slide.active .animate { animation: fadeUp 0.5s cubic-bezier(0.16,1,0.3,1) both; }
+  .slide.active .animate:nth-child(1) { animation-delay: 0.05s; }
+  .slide.active .animate:nth-child(2) { animation-delay: 0.12s; }
+  .slide.active .animate:nth-child(3) { animation-delay: 0.19s; }
+  .slide.active .animate:nth-child(4) { animation-delay: 0.26s; }
+  .slide.active .animate:nth-child(5) { animation-delay: 0.33s; }
+  .slide.active .animate:nth-child(6) { animation-delay: 0.40s; }
+  .watermark { position: fixed; bottom: 5.5rem; right: 2rem; font-size: 0.65rem; color: rgba(240,244,255,0.18); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.1em; text-transform: uppercase; z-index: 50; }
+  #s1 { justify-content: center; }
+  .cover-tag { display: inline-flex; align-items: center; gap: 0.5rem; border: 1px solid var(--border); padding: 0.4rem 0.9rem; border-radius: 100px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 2rem; position: relative; z-index: 1; }
+  .cover-company { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: var(--teal); position: relative; z-index: 1; margin-bottom: 0.75rem; }
+  .cover-title { position: relative; z-index: 1; }
+  .cover-title .line1 { display: block; color: var(--muted); font-weight: 300; font-size: clamp(1.5rem, 4vw, 2.5rem); }
+  .cover-title .line2 { display: block; font-size: clamp(3rem, 8vw, 6.5rem); font-weight: 800; letter-spacing: -0.04em; line-height: 0.9; }
+  .cover-sub { margin-top: 2rem; max-width: 44ch; font-size: 1.05rem; color: var(--muted); line-height: 1.6; position: relative; z-index: 1; }
+  .cover-footer { display: flex; gap: 2.5rem; margin-top: 3rem; position: relative; z-index: 1; }
+  .deco-ring { position: absolute; right: -5rem; top: 50%; transform: translateY(-50%); width: 40vw; height: 40vw; border-radius: 50%; border: 1px solid var(--border); pointer-events: none; }
+  .deco-ring::after { content: ''; position: absolute; inset: 10%; border-radius: 50%; border: 1px solid rgba(0,196,160,0.15); }
+  @media (max-width: 768px) { .grid-2, .grid-3, .grid-asym { grid-template-columns: 1fr; } .slide { padding: 1.5rem; } .cover-title .line2 { font-size: 3rem; } }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="deck" id="deck">
+
+  <!-- SLIDE 1 — COVER -->
+  <div class="slide active" id="s1">
+    <div class="deco-ring"></div>
+    <div class="cover-tag animate"><span class="pulse-dot"></span>April 2026 · Confidential</div>
+    <div class="cover-company animate">Bluuu OS</div>
+    <div class="cover-title animate">
+      <span class="line1">автоматизация для</span>
+      <span class="line2">Карима<span class="accent">.</span></span>
+    </div>
+    <p class="cover-sub animate">Как BLUUU OS меняет операционный контроль, финансовую видимость и стратегическое управление. 5 модулей, реальные данные, без Excel.</p>
+    <div class="cover-footer animate">
+      <div class="stat"><span class="stat-num">5</span><span class="stat-label">Модулей</span></div>
+      <div class="stat"><span class="stat-num">~2 ч</span><span class="stat-label">Освобождается/день</span></div>
+      <div class="stat"><span class="stat-num">Real-time</span><span class="stat-label">P&L без отчётов</span></div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2 — КОНТЕКСТ -->
+  <div class="slide" id="s2">
+    <div class="eyebrow animate">Кто ты в системе</div>
+    <h2 class="animate">Operations & Finance — в одних руках<span class="accent">.</span></h2>
+    <p class="lead animate" style="margin-bottom:1.5rem;">Ты держишь операционный поток и финансы одновременно. Сейчас это требует ручного сбора данных из разных источников каждый день.</p>
+    <div class="grid-2 animate" style="flex:1; align-content:start;">
+      <div class="card">
+        <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--red);margin-bottom:1rem;">Где теряется время сейчас</div>
+        <div class="flow">
+          <div class="flow-item">
+            <div class="flow-num">!</div>
+            <div class="flow-text">Финансовые данные раскиданы по источникам<small>OTA выплаты, Odoo, наличные, расходы — нет единой картины</small></div>
+          </div>
+          <div class="flow-item">
+            <div class="flow-num">!</div>
+            <div class="flow-text">Динамическое ценообразование — вручную<small>Решение по цене = опыт + интуиция, без данных по заполняемости</small></div>
+          </div>
+          <div class="flow-item">
+            <div class="flow-num">!</div>
+            <div class="flow-text">Vendor payments без системы<small>La Bianca ждала оплату 2+ месяца — трекинга инвойсов нет</small></div>
+          </div>
+          <div class="flow-item">
+            <div class="flow-num">!</div>
+            <div class="flow-text">Capacity vs Revenue — нет связки<small>Сколько лодок × заполняемость × цена = упущенная выручка?</small></div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;">Оценка потерь</div>
+        <table class="data-table">
+          <thead><tr><th>Задача</th><th>Статус</th></tr></thead>
+          <tbody>
+            <tr><td>P&L в реальном времени</td><td><span class="badge red">нет</span></td></tr>
+            <tr><td>Алерты по capacity</td><td><span class="badge red">нет</span></td></tr>
+            <tr><td>Трекинг vendor инвойсов</td><td><span class="badge red">нет</span></td></tr>
+            <tr><td>Revenue по OTA-каналам</td><td><span class="badge yellow">ручной</span></td></tr>
+            <tr><td>Динамика цен по дням</td><td><span class="badge yellow">ручной</span></td></tr>
+          </tbody>
+        </table>
+        <div class="divider"></div>
+        <div class="stat"><span class="stat-num" style="font-size:1.8rem;">~2 ч</span><span class="stat-label">ежедневного сбора данных вручную</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3 — ФИНАНСОВЫЙ ДАШБОРД -->
+  <div class="slide" id="s3">
+    <div class="eyebrow animate">Модуль 1 · Sprint 1</div>
+    <h2 class="animate">Finance Dashboard<span class="accent">.</span></h2>
+    <div class="grid-asym animate" style="flex:1;align-content:start;margin-top:1.5rem;">
+      <div>
+        <div class="card teal-glow">
+          <div style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:1.25rem;">Что видишь в одном экране</div>
+          <div class="flow">
+            <div class="flow-item">
+              <div class="flow-num">1</div>
+              <div class="flow-text">Daily Revenue — по каналам<small>Viator, Klook, GYG, сайт, WhatsApp — одна цифра + разбивка</small></div>
+            </div>
+            <div class="flow-item">
+              <div class="flow-num">2</div>
+              <div class="flow-text">Расходы за день / неделю / месяц<small>Топливо, обеды, ретрибуция, vendor bills — автоматически</small></div>
+            </div>
+            <div class="flow-item">
+              <div class="flow-num">3</div>
+              <div class="flow-text">P&L на сегодня без ожидания бухгалтера<small>Gross margin по лодкам и типам туров</small></div>
+            </div>
+            <div class="flow-item">
+              <div class="flow-num">4</div>
+              <div class="flow-text">Vendor invoice tracker<small>Статус: оплачено / ожидает / просрочено. Алерт за 3 дня до дедлайна</small></div>
+            </div>
+            <div class="flow-item">
+              <div class="flow-num">5</div>
+              <div class="flow-text">Forecast на 7/14/30 дней<small>По текущим бронированиям и историческим паттернам</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div class="card orange-glow">
+          <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--orange);margin-bottom:0.75rem;">Vendor Tracker</div>
+          <div style="display:flex;flex-direction:column;gap:0.5rem;">
+            <div style="font-size:0.82rem;color:var(--white);display:flex;justify-content:space-between;align-items:center;padding:0.35rem 0;border-bottom:1px solid var(--border);"><span>La Bianca Lunch</span><span class="badge green">оплачено</span></div>
+            <div style="font-size:0.82rem;color:var(--white);display:flex;justify-content:space-between;align-items:center;padding:0.35rem 0;border-bottom:1px solid var(--border);"><span>Amarta Lunch</span><span class="badge green">оплачено</span></div>
+            <div style="font-size:0.82rem;color:var(--white);display:flex;justify-content:space-between;align-items:center;padding:0.35rem 0;border-bottom:1px solid var(--border);"><span>Khamara Catering</span><span class="badge yellow">срок 3 дня</span></div>
+            <div style="font-size:0.82rem;color:var(--white);display:flex;justify-content:space-between;align-items:center;padding:0.35rem 0;"><span>Fuel Supplier</span><span class="badge green">авто-учёт</span></div>
+          </div>
+        </div>
+        <div class="card" style="background:var(--teal-dim);border-color:rgba(0,196,160,0.2);">
+          <div class="stat"><span class="stat-num">0</span><span class="stat-label">просроченных инвойсов. Система алертует заранее — не после</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4 — REVENUE & PRICING -->
+  <div class="slide" id="s4">
+    <div class="eyebrow animate">Модуль 2 · Sprint 2</div>
+    <h2 class="animate">Revenue Intelligence<span class="accent">.</span></h2>
+    <p class="lead animate">Динамическое ценообразование на основе данных — не на основе интуиции.</p>
+    <div class="grid-2 animate" style="flex:1;align-content:start;margin-top:1.5rem;">
+      <div class="card teal-glow">
+        <div style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem;">Как работает ценовой модуль</div>
+        <div class="flow">
+          <div class="flow-item">
+            <div class="flow-num">1</div>
+            <div class="flow-text">Заполняемость по лодкам в реальном времени<small>Сколько мест занято на каждый день вперёд на 30 дней</small></div>
+          </div>
+          <div class="flow-item">
+            <div class="flow-num">2</div>
+            <div class="flow-text">Алерт: лодка &gt;80% → рекомендация поднять цену<small>Система считает, ты решаешь — один клик на изменение</small></div>
+          </div>
+          <div class="flow-item">
+            <div class="flow-num">3</div>
+            <div class="flow-text">Синхронизация цен по всем 9 OTA<small>Меняешь на сайте → автоматически обновляется везде через API</small></div>
+          </div>
+          <div class="flow-item">
+            <div class="flow-num">4</div>
+            <div class="flow-text">Channel performance сравнение<small>Revenue per booking по каждой платформе — где лучший ROI</small></div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div class="card">
+          <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.75rem;">Revenue по каналам (пример)</div>
+          <table class="data-table">
+            <thead><tr><th>Канал</th><th>Rev/booking</th><th>Тренд</th></tr></thead>
+            <tbody>
+              <tr><td>Прямой сайт</td><td class="mono" style="color:var(--teal);">$148</td><td><span class="badge green">↑ лучший</span></td></tr>
+              <tr><td>WhatsApp</td><td class="mono" style="color:var(--teal);">$135</td><td><span class="badge green">↑</span></td></tr>
+              <tr><td>Viator</td><td class="mono" style="color:var(--yellow);">$112</td><td><span class="badge yellow">комиссия</span></td></tr>
+              <tr><td>Klook</td><td class="mono" style="color:var(--yellow);">$108</td><td><span class="badge yellow">комиссия</span></td></tr>
+              <tr><td>Airbnb</td><td class="mono" style="color:var(--red);">$95</td><td><span class="badge red">↓ пересмотр</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card" style="background:rgba(255,140,66,0.08);border-color:rgba(255,140,66,0.2);">
+          <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--orange);margin-bottom:0.5rem;">Инсайт</div>
+          <p style="font-size:0.85rem;color:var(--white);line-height:1.5;">Прямой канал даёт на 35% больше с бронирования. BLUUU OS показывает это число каждый день.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5 — OPS CONTROL -->
+  <div class="slide" id="s5">
+    <div class="eyebrow animate">Модуль 3 · Sprint 1</div>
+    <h2 class="animate">Operations Control Center<span class="accent">.</span></h2>
+    <p class="lead animate">Весь операционный день — в одном дашборде. Погода, лодки, загрузка, инциденты.</p>
+    <div class="grid-3 animate" style="flex:1;align-content:start;margin-top:1.5rem;">
+      <div class="card teal-glow">
+        <div style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem;">Weather GO / NO-GO</div>
+        <div style="text-align:center;padding:1rem 0;">
+          <div style="font-size:3rem;font-weight:800;color:var(--teal);font-family:'JetBrains Mono',monospace;">GO</div>
+          <div style="font-size:0.75rem;color:var(--muted);margin-top:0.5rem;">Автоматический 05:45 вердикт</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-top:0.75rem;">
+          <div style="background:var(--navy-3);border-radius:0.75rem;padding:0.75rem;text-align:center;"><div style="font-size:1.1rem;font-weight:700;font-family:'JetBrains Mono',monospace;color:var(--white);">14 kn</div><div style="font-size:0.7rem;color:var(--muted);">Ветер</div></div>
+          <div style="background:var(--navy-3);border-radius:0.75rem;padding:0.75rem;text-align:center;"><div style="font-size:1.1rem;font-weight:700;font-family:'JetBrains Mono',monospace;color:var(--white);">0.8 m</div><div style="font-size:0.7rem;color:var(--muted);">Волны</div></div>
+        </div>
+        <div style="margin-top:0.75rem;font-size:0.75rem;color:var(--muted);">Правило двух «нет»: 2 из 3 источников = NO-GO. Автоуведомление гостям.</div>
+      </div>
+      <div class="card">
+        <div style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;">Статус флота сегодня</div>
+        <div class="flow">
+          <div class="flow-item">
+            <div class="flow-num" style="background:var(--teal-dim);color:var(--teal);">✓</div>
+            <div class="flow-text">5 лодок — на рейсе<small>Пассажиры: 87 человек</small></div>
+          </div>
+          <div class="flow-item">
+            <div class="flow-num" style="background:rgba(255,190,0,0.1);color:var(--yellow);">⚙</div>
+            <div class="flow-text">1 лодка — техобслуживание<small>Плановое, 100h интервал</small></div>
+          </div>
+          <div class="flow-item">
+            <div class="flow-num" style="background:var(--card);color:var(--muted);">○</div>
+            <div class="flow-text">1 лодка — резерв<small>Доступна для экстренного задействования</small></div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="stat"><span class="stat-num" style="font-size:1.5rem;">87%</span><span class="stat-label">загрузка флота сегодня</span></div>
+      </div>
+      <div class="card">
+        <div style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;">KPI недели</div>
+        <div style="display:flex;flex-direction:column;gap:0.75rem;">
+          <div><div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:0.3rem;"><span>Заполняемость</span><span class="mono" style="color:var(--teal);">84%</span></div><div style="height:3px;background:var(--navy-3);border-radius:2px;"><div style="height:100%;width:84%;background:var(--teal);border-radius:2px;"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:0.3rem;"><span>Рейтинг отзывов</span><span class="mono" style="color:var(--teal);">4.9</span></div><div style="height:3px;background:var(--navy-3);border-radius:2px;"><div style="height:100%;width:98%;background:var(--teal);border-radius:2px;"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:0.3rem;"><span>On-time departure</span><span class="mono" style="color:var(--yellow);">91%</span></div><div style="height:3px;background:var(--navy-3);border-radius:2px;"><div style="height:100%;width:91%;background:var(--yellow);border-radius:2px;"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:0.3rem;"><span>Инциденты</span><span class="mono" style="color:var(--teal);">0</span></div><div style="height:3px;background:var(--navy-3);border-radius:2px;"><div style="height:100%;width:100%;background:var(--teal);border-radius:2px;"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 6 — МАСШТАБИРОВАНИЕ -->
+  <div class="slide" id="s6">
+    <div class="eyebrow animate">Модуль 4 · Горизонт 2</div>
+    <h2 class="animate">Масштабирование без потери контроля<span class="accent">.</span></h2>
+    <p class="lead animate">BLUUU OS — это не просто автоматизация Бали. Это операционная ОС для второй локации.</p>
+    <div class="grid-asym animate" style="flex:1;align-content:start;margin-top:1.5rem;">
+      <div class="card teal-glow">
+        <div style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:1.25rem;">Что переезжает в новую локацию одной кнопкой</div>
+        <div class="flow">
+          <div class="flow-item"><div class="flow-num">1</div><div class="flow-text">Операционный дашборд<small>Лодки, экипаж, погода, passenger list — готово к старту</small></div></div>
+          <div class="flow-item"><div class="flow-num">2</div><div class="flow-text">Ценовая модель<small>Tier-структура + динамика по заполняемости</small></div></div>
+          <div class="flow-item"><div class="flow-num">3</div><div class="flow-text">Финансовый учёт<small>P&L, vendor трекер, channel revenue — с первого дня</small></div></div>
+          <div class="flow-item"><div class="flow-num">4</div><div class="flow-text">Bot + CRM<small>WhatsApp automation, pre-booking, follow-up</small></div></div>
+          <div class="flow-item"><div class="flow-num">5</div><div class="flow-text">KPI и отчётность<small>Все метрики под одним логином — Бали + новая точка</small></div></div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div class="card">
+          <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.75rem;">Вертикальная интеграция</div>
+          <div style="display:flex;flex-direction:column;gap:0.75rem;">
+            <div style="display:flex;align-items:center;gap:0.75rem;padding:0.5rem 0;border-bottom:1px solid var(--border);"><div class="icon-circle">⛵</div><div><div style="font-size:0.85rem;font-weight:600;">Fortune Yachts</div><div style="font-size:0.75rem;color:var(--muted);">Производство и поставка флота</div></div></div>
+            <div style="display:flex;align-items:center;gap:0.75rem;padding:0.5rem 0;border-bottom:1px solid var(--border);"><div class="icon-circle">🤖</div><div><div style="font-size:0.85rem;font-weight:600;">BLUUU OS</div><div style="font-size:0.75rem;color:var(--muted);">AI операционная система</div></div></div>
+            <div style="display:flex;align-items:center;gap:0.75rem;padding:0.5rem 0;"><div class="icon-circle">🌊</div><div><div style="font-size:0.85rem;font-weight:600;">Bluuu Tours</div><div style="font-size:0.75rem;color:var(--muted);">Бренд и гостевой опыт</div></div></div>
+          </div>
+        </div>
+        <div class="card" style="background:var(--teal-dim);border-color:rgba(0,196,160,0.2);">
+          <div class="stat"><span class="stat-num">×N</span><span class="stat-label">локаций — один Карим. Система работает, ты управляешь стратегически.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 7 — NEXT STEPS -->
+  <div class="slide" id="s7">
+    <div class="eyebrow animate">Роудмап</div>
+    <h2 class="animate">Что и когда<span class="accent">.</span></h2>
+    <div class="grid-2 animate" style="flex:1;align-content:start;margin-top:1.5rem;">
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div class="card teal-glow">
+          <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem;">Sprint 1 — апрель 2026</div>
+          <div class="flow">
+            <div class="flow-item"><div class="flow-num">✓</div><div class="flow-text">Weather GO/NO-GO автоматизация<small>Уже частично работает</small></div></div>
+            <div class="flow-item"><div class="flow-num">→</div><div class="flow-text">Finance Dashboard v1<small>Revenue + расходы + P&L daily</small></div></div>
+            <div class="flow-item"><div class="flow-num">→</div><div class="flow-text">Vendor invoice tracker<small>Никаких «ждали 2 месяца»</small></div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;">Sprint 2 — май 2026</div>
+          <div class="flow">
+            <div class="flow-item"><div class="flow-num">→</div><div class="flow-text">OTA API синхронизация цен<small>Одно изменение → все 9 платформ</small></div></div>
+            <div class="flow-item"><div class="flow-num">→</div><div class="flow-text">Revenue Intelligence<small>Channel performance, forecast, алерты</small></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:1.5rem;">
+        <div>
+          <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;">Ключевой результат</div>
+          <div style="font-size:1.5rem;font-weight:800;line-height:1.2;">Карим видит P&L сегодняшнего дня в 09:00 — без звонков, без Excel, без ожидания.</div>
+        </div>
+        <div class="divider"></div>
+        <div style="display:flex;gap:2rem;">
+          <div class="stat"><span class="stat-num">~2 ч</span><span class="stat-label">освобождается в день</span></div>
+          <div class="stat"><span class="stat-num">0</span><span class="stat-label">просроченных инвойсов</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<nav class="nav" id="navBar">
+  <button id="prevBtn">←</button>
+  <div class="dots" id="dots"></div>
+  <span class="counter" id="counter">1/7</span>
+  <button id="nextBtn">→</button>
+</nav>
+<div class="watermark">BLUUU OS · Карим · Confidential</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let cur = 0;
+  const dotsEl = document.getElementById('dots');
+  const counterEl = document.getElementById('counter');
+  const progressEl = document.getElementById('progress');
+
+  function buildDots() {
+    dotsEl.innerHTML = '';
+    for (let i = 0; i < total; i++) {
+      const d = document.createElement('div');
+      d.className = 'dot' + (i === 0 ? ' active' : '');
+      d.addEventListener('click', () => go(i));
+      dotsEl.appendChild(d);
+    }
+  }
+
+  function go(n) {
+    slides[cur].classList.remove('active');
+    slides[cur].classList.add('prev');
+    setTimeout(() => slides[cur < n ? cur : n + (cur > n ? 1 : 0)].classList.remove('prev'), 500);
+    const old = cur;
+    cur = (n + total) % total;
+    slides[cur].classList.add('active');
+    setTimeout(() => slides[old].classList.remove('prev'), 600);
+    dotsEl.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === cur));
+    counterEl.textContent = (cur + 1) + '/' + total;
+    progressEl.style.width = ((cur + 1) / total * 100) + '%';
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', () => go(cur - 1));
+  document.getElementById('nextBtn').addEventListener('click', () => go(cur + 1));
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(cur + 1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') go(cur - 1);
+  });
+
+  let startX = 0;
+  document.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+  document.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 50) go(dx < 0 ? cur + 1 : cur - 1);
+  });
+
+  buildDots();
+  progressEl.style.width = (1 / total * 100) + '%';
+</script>
+</body>
+</html>
