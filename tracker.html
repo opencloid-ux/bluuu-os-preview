@@ -6,192 +6,222 @@
 <title>Command Center</title>
 <style>
 @font-face { font-family: 'PetrovSans'; src: url('fonts/PetrovSans-Bold.woff') format('woff'); font-weight: 700; }
-@font-face { font-family: 'PetrovSans'; src: url('fonts/PetrovSans-Regular.woff') format('woff'); font-weight: 400; }
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --bg: #f5f5f7;
+  --bg: #f2f2f7;
   --surface: #fff;
-  --surface2: #fafafa;
-  --surface3: #f0f0f2;
-  --border: rgba(0,0,0,0.06);
-  --border-strong: rgba(0,0,0,0.12);
-  --text: #1d1d1f;
-  --text2: rgba(0,0,0,0.5);
-  --text3: rgba(0,0,0,0.28);
+  --surface-hover: #fafafe;
+  --grouped-bg: #fff;
+  --border: rgba(60,60,67,0.06);
+  --separator: rgba(60,60,67,0.1);
+  --text: #1c1c1e;
+  --text2: #3a3a3c;
+  --text3: #8e8e93;
+  --text4: #aeaeb2;
   --red: #ff3b30;
   --orange: #ff9500;
-  --yellow: #e08600;
+  --yellow: #ff9f0a;
   --blue: #007aff;
+  --indigo: #5856d6;
   --purple: #af52de;
   --green: #34c759;
   --teal: #5ac8fa;
-  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+  --pink: #ff2d55;
+  --font: -apple-system, 'SF Pro Display', 'SF Pro Text', 'Inter', BlinkMacSystemFont, 'Helvetica Neue', system-ui, sans-serif;
   --font-brand: 'PetrovSans', var(--font);
-  --safe-top: env(safe-area-inset-top, 0px);
-  --safe-bottom: env(safe-area-inset-bottom, 0px);
-  --sidebar: 280px;
+  --sidebar: 300px;
+  --radius: 14px;
+  --card-shadow: 0 0.5px 1px rgba(0,0,0,0.03), 0 1px 3px rgba(0,0,0,0.04);
+  --card-shadow-hover: 0 1px 4px rgba(0,0,0,0.05), 0 4px 16px rgba(0,0,0,0.06);
 }
 
-html { background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; font-family: var(--font); font-size: 14px; }
+html { background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-family: var(--font); font-size: 15px; line-height: 1.47; }
 body { min-height: 100dvh; }
 
 /* ─── HEADER ─── */
 .hdr {
   position: sticky; top: 0; z-index: 100;
   display: flex; align-items: center; justify-content: space-between;
-  padding: calc(12px + var(--safe-top)) 24px 12px;
-  background: rgba(245,245,247,0.82);
+  padding: 14px 28px;
+  background: rgba(242,242,247,0.72);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   backdrop-filter: saturate(180%) blur(20px);
-  border-bottom: 0.5px solid var(--border);
+  border-bottom: 0.33px solid var(--separator);
 }
-.hdr-left { display: flex; align-items: center; gap: 16px; }
-.brand { font-family: var(--font-brand); font-weight: 700; font-size: 20px; letter-spacing: -0.02em; color: var(--text); }
-.hdr-pills { display: flex; gap: 8px; flex-wrap: wrap; }
-.hdr-pill {
+.hdr-left { display: flex; align-items: center; gap: 20px; }
+.brand { font-family: var(--font-brand); font-weight: 700; font-size: 22px; letter-spacing: -0.03em; color: var(--text); }
+.hdr-stats { display: flex; gap: 6px; flex-wrap: wrap; }
+.hdr-stat {
   display: flex; align-items: center; gap: 5px;
-  font-size: 12px; font-weight: 500; color: var(--text2);
-  padding: 4px 10px; border-radius: 8px;
+  font-size: 13px; font-weight: 500; color: var(--text3);
+  padding: 5px 12px; border-radius: 20px;
   background: var(--surface);
-  box-shadow: 0 0.5px 1px rgba(0,0,0,0.04);
+  box-shadow: var(--card-shadow);
 }
-.hdr-pill b { color: var(--text); font-variant-numeric: tabular-nums; }
-.hdr-pill .dot { width: 6px; height: 6px; border-radius: 50%; }
-.hdr-time { font-size: 12px; color: var(--text3); font-variant-numeric: tabular-nums; }
+.hdr-stat b { color: var(--text); font-weight: 600; font-variant-numeric: tabular-nums; }
+.hdr-stat .dot { width: 7px; height: 7px; border-radius: 50%; }
+.hdr-time { font-size: 13px; color: var(--text4); font-weight: 400; }
 
 /* ─── LAYOUT ─── */
 .layout {
   display: grid;
   grid-template-columns: var(--sidebar) 1fr var(--sidebar);
   gap: 0;
-  min-height: calc(100vh - 52px);
+  min-height: calc(100dvh - 56px);
 }
-.col-l, .col-r {
-  padding: 20px 16px;
-  border-right: 0.5px solid var(--border);
-  overflow-y: auto;
-}
-.col-r { border-right: none; border-left: 0.5px solid var(--border); }
-.col-c { padding: 20px 24px; overflow-y: auto; }
 
-/* ─── WIDGETS (sidebars) ─── */
-.widget { margin-bottom: 24px; }
-.w-title {
-  font-size: 11px; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.08em; color: var(--text3); margin-bottom: 10px;
+/* Sidebars */
+.col-l, .col-r { padding: 24px 20px; overflow-y: auto; }
+.col-l { background: var(--bg); }
+.col-r { background: var(--bg); }
+.col-c { padding: 24px 28px; overflow-y: auto; background: var(--bg); }
+
+/* ─── iOS GROUPED SECTIONS ─── */
+.widget { margin-bottom: 28px; }
+.w-label {
+  font-size: 13px; font-weight: 400; color: var(--text3);
+  text-transform: uppercase; letter-spacing: -0.01em;
+  padding: 0 16px 8px;
+}
+.w-group {
+  background: var(--grouped-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
 }
 
 /* Stat cards */
-.stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .stat-card {
-  background: var(--surface); border-radius: 12px; padding: 14px 12px;
-  border: 0.5px solid var(--border);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+  background: var(--surface); border-radius: var(--radius); padding: 18px 16px;
+  box-shadow: var(--card-shadow);
+  display: flex; flex-direction: column; gap: 2px;
 }
-.stat-card .num { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; line-height: 1; font-variant-numeric: tabular-nums; }
-.stat-card .lab { font-size: 11px; color: var(--text2); margin-top: 4px; }
-
-/* Timeline */
-.tl-item {
-  display: flex; align-items: flex-start; gap: 10px;
-  padding: 10px 0; border-bottom: 0.5px solid var(--border);
-}
-.tl-item:last-child { border-bottom: none; }
-.tl-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 4px; flex-shrink: 0; }
-.tl-body { flex: 1; min-width: 0; }
-.tl-who { font-size: 13px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.tl-what { font-size: 12px; color: var(--text2); line-height: 1.3; margin-top: 2px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.tl-date { font-size: 11px; color: var(--text3); margin-top: 3px; font-variant-numeric: tabular-nums; }
-
-/* Project list */
-.proj-item {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 9px 0; border-bottom: 0.5px solid var(--border);
-}
-.proj-item:last-child { border-bottom: none; }
-.proj-name { font-size: 13px; font-weight: 500; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.proj-bar-wrap { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-.proj-bar { width: 48px; height: 4px; border-radius: 2px; background: var(--surface3); overflow: hidden; }
-.proj-bar-fill { height: 100%; border-radius: 2px; }
-.proj-count { font-size: 11px; color: var(--text3); font-variant-numeric: tabular-nums; min-width: 18px; text-align: right; }
-
-/* Team */
-.team-item {
-  display: flex; align-items: center; gap: 10px;
-  padding: 8px 0; border-bottom: 0.5px solid var(--border);
-}
-.team-item:last-child { border-bottom: none; }
-.team-avatar {
-  width: 28px; height: 28px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px; font-weight: 600; flex-shrink: 0;
-}
-.team-info { flex: 1; min-width: 0; }
-.team-name { font-size: 13px; font-weight: 500; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.team-tasks { font-size: 11px; color: var(--text3); }
-
-/* ─── CENTER: TASKS ─── */
-.section { margin-bottom: 28px; }
-.sec-head {
-  display: flex; align-items: center; gap: 8px;
-  padding-bottom: 10px; cursor: pointer;
-  -webkit-user-select: none; user-select: none;
-}
-.sec-dot { width: 8px; height: 8px; border-radius: 50%; }
-.sec-name { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text2); }
-.sec-num { font-size: 11px; color: var(--text3); }
-.sec-arrow { margin-left: auto; font-size: 10px; color: var(--text3); transition: transform 0.2s; }
-.section.closed .sec-arrow { transform: rotate(-90deg); }
-.sec-body {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 10px;
-  max-height: 5000px; transition: max-height 0.35s ease, opacity 0.25s;
-  opacity: 1; overflow: hidden;
-}
-.section.closed .sec-body { max-height: 0; opacity: 0; }
-
-/* Task cards */
-.card {
-  background: var(--surface); border-radius: 12px;
-  padding: 16px; border: 0.5px solid var(--border);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
-  cursor: default; transition: border-color 0.15s, box-shadow 0.15s;
-  display: flex; flex-direction: column; gap: 8px;
-}
-.card:hover { border-color: var(--border-strong); box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-
-.card-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.card-who { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.card-deadline {
-  flex-shrink: 0; font-size: 11px; font-weight: 500;
-  padding: 3px 8px; border-radius: 6px; white-space: nowrap;
+.stat-card .num {
+  font-size: 34px; font-weight: 700; letter-spacing: -0.03em; line-height: 1;
   font-variant-numeric: tabular-nums;
 }
-.card-deadline.overdue { background: rgba(255,59,48,0.1); color: var(--red); }
-.card-deadline.today { background: rgba(224,134,0,0.1); color: var(--yellow); }
-.card-deadline.soon { background: rgba(255,149,0,0.08); color: var(--orange); }
-.card-deadline.normal { background: rgba(0,0,0,0.04); color: var(--text3); }
-.card-deadline.none { display: none; }
+.stat-card .lab { font-size: 13px; color: var(--text3); font-weight: 400; margin-top: 2px; }
 
-.card-what { font-size: 13px; color: var(--text2); line-height: 1.4; }
+/* Timeline items (inside grouped) */
+.tl-row {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 13px 16px;
+}
+.tl-row + .tl-row { border-top: 0.33px solid var(--separator); }
+.tl-indicator { width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+.tl-content { flex: 1; min-width: 0; }
+.tl-name { font-size: 15px; font-weight: 600; color: var(--text); line-height: 1.2; }
+.tl-desc {
+  font-size: 13px; color: var(--text3); line-height: 1.3; margin-top: 2px;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.tl-when { font-size: 12px; color: var(--text4); margin-top: 3px; }
 
-.card-meta { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
-.pill { font-size: 10px; font-weight: 500; padding: 2px 7px; border-radius: 5px; letter-spacing: 0.01em; }
-.pill-project { background: rgba(0,0,0,0.04); color: var(--text3); }
-.pill-high { background: rgba(255,59,48,0.08); color: var(--red); }
-.pill-medium { background: rgba(255,149,0,0.06); color: var(--orange); }
-.pill-low { background: rgba(0,0,0,0.03); color: var(--text3); }
+/* Project rows */
+.proj-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px; gap: 12px;
+}
+.proj-row + .proj-row { border-top: 0.33px solid var(--separator); }
+.proj-label { font-size: 15px; font-weight: 400; color: var(--text); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.proj-track { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.proj-bar { width: 56px; height: 4px; border-radius: 2px; background: var(--bg); overflow: hidden; }
+.proj-fill { height: 100%; border-radius: 2px; transition: width 0.3s; }
+.proj-frac { font-size: 13px; color: var(--text4); font-variant-numeric: tabular-nums; min-width: 26px; text-align: right; }
 
-.card-notes {
-  font-size: 12px; color: var(--text2); line-height: 1.35;
-  padding-top: 8px; border-top: 0.5px solid var(--border);
+/* Team rows */
+.team-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 16px;
+}
+.team-row + .team-row { border-top: 0.33px solid var(--separator); }
+.team-av {
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 600; flex-shrink: 0;
+}
+.team-detail { flex: 1; min-width: 0; }
+.team-n { font-size: 15px; font-weight: 500; color: var(--text); line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.team-sub { font-size: 13px; color: var(--text4); }
+
+/* ─── CENTER: TASK SECTIONS ─── */
+.section { margin-bottom: 28px; }
+.sec-header {
+  display: flex; align-items: center; gap: 8px;
+  padding: 0 4px 10px;
+  cursor: pointer; -webkit-user-select: none; user-select: none;
+}
+.sec-indicator { width: 9px; height: 9px; border-radius: 50%; }
+.sec-title { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: -0.01em; color: var(--text3); }
+.sec-count { font-size: 13px; font-weight: 400; color: var(--text4); }
+.sec-chevron {
+  margin-left: auto; width: 20px; height: 20px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; color: var(--text4); transition: transform 0.25s;
+}
+.section.collapsed .sec-chevron { transform: rotate(-90deg); }
+
+.sec-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 12px;
+  overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.3s;
+  max-height: 8000px; opacity: 1;
+}
+.section.collapsed .sec-grid { max-height: 0; opacity: 0; }
+
+/* Task cards */
+.task {
+  background: var(--surface); border-radius: var(--radius);
+  padding: 18px 18px 16px;
+  box-shadow: var(--card-shadow);
+  cursor: default;
+  transition: box-shadow 0.2s, transform 0.15s;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.task:hover { box-shadow: var(--card-shadow-hover); transform: translateY(-1px); }
+.task:active { transform: translateY(0); }
+
+.task-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.task-assignee {
+  font-size: 17px; font-weight: 600; letter-spacing: -0.02em; color: var(--text);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.3;
+}
+.task-chip {
+  flex-shrink: 0; font-size: 12px; font-weight: 500;
+  padding: 4px 10px; border-radius: 8px; white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.task-chip.overdue { background: rgba(255,59,48,0.1); color: var(--red); }
+.task-chip.today { background: rgba(255,159,10,0.1); color: var(--yellow); }
+.task-chip.soon { background: rgba(255,149,0,0.08); color: var(--orange); }
+.task-chip.normal { background: rgba(142,142,147,0.08); color: var(--text3); }
+.task-chip.none { display: none; }
+
+.task-desc { font-size: 15px; color: var(--text2); line-height: 1.4; }
+
+.task-tags { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-top: 2px; }
+.tag {
+  font-size: 12px; font-weight: 500; padding: 3px 9px; border-radius: 6px;
+}
+.tag-proj { background: rgba(142,142,147,0.08); color: var(--text3); }
+.tag-high { background: rgba(255,59,48,0.07); color: var(--red); }
+.tag-medium { background: rgba(255,149,0,0.06); color: var(--orange); }
+.tag-low { background: rgba(142,142,147,0.06); color: var(--text4); }
+
+.task-extra {
+  font-size: 13px; color: var(--text3); line-height: 1.4;
+  padding-top: 10px; margin-top: 4px; border-top: 0.33px solid var(--separator);
   display: none;
 }
-.card.open .card-notes { display: block; }
+.task.open .task-extra { display: block; }
 
 /* ─── RESPONSIVE ─── */
-@media (max-width: 1100px) {
+@media (max-width: 1200px) {
+  :root { --sidebar: 260px; }
+}
+@media (max-width: 1000px) {
   .layout { grid-template-columns: 240px 1fr; }
   .col-r { display: none; }
 }
@@ -199,24 +229,24 @@ body { min-height: 100dvh; }
   .layout { grid-template-columns: 1fr; }
   .col-l { display: none; }
   .col-c { padding: 16px; }
-  .hdr { padding: 10px 16px; flex-wrap: wrap; gap: 8px; }
-  .hdr-pills { display: flex; overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; }
-  .sec-body { grid-template-columns: 1fr; }
+  .hdr { padding: 12px 16px; flex-wrap: wrap; gap: 8px; }
+  .hdr-stats { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; }
+  .sec-grid { grid-template-columns: 1fr; }
 }
 
 /* Animations */
-@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-.section { animation: fadeUp 0.3s ease both; }
-.section:nth-child(2) { animation-delay: 0.05s; }
-.section:nth-child(3) { animation-delay: 0.1s; }
-.section:nth-child(4) { animation-delay: 0.15s; }
-.section:nth-child(5) { animation-delay: 0.2s; }
+@keyframes slideUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+.section { animation: slideUp 0.35s cubic-bezier(0.4,0,0.2,1) both; }
+.section:nth-child(2) { animation-delay: 0.06s; }
+.section:nth-child(3) { animation-delay: 0.12s; }
+.section:nth-child(4) { animation-delay: 0.18s; }
+.section:nth-child(5) { animation-delay: 0.24s; }
 
-/* Scrollbar */
-::-webkit-scrollbar { width: 6px; }
+/* Scrollbar — macOS style */
+::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.2); }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 4px; border: 2px solid transparent; background-clip: content-box; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.2); background-clip: content-box; }
 </style>
 <link rel="preconnect" href="https://rsms.me"><link href="https://rsms.me/inter/inter.css" rel="stylesheet">
 </head>
@@ -230,198 +260,182 @@ const STATUS = {
   waiting:     { label: 'Ждёт ответа',  color: 'var(--orange)' },
   in_progress: { label: 'В работе',      color: 'var(--blue)' },
   blocked:     { label: 'Заблокировано', color: 'var(--purple)' },
-  done:        { label: 'Закрыто',       color: 'var(--green)' }
+  done:        { label: 'Готово',        color: 'var(--green)' }
 };
 const ORDER = ['urgent','waiting','in_progress','blocked','done'];
-const COLORS = ['#ff3b30','#007aff','#af52de','#34c759','#ff9500','#5ac8fa','#e08600','#ff2d55'];
+const PAL = ['#ff3b30','#007aff','#af52de','#34c759','#ff9500','#5ac8fa','#5856d6','#ff2d55'];
 
-function parseDate(s) { if (!s) return null; const p=s.split('-').map(Number); return new Date(p[0],p[1]-1,p[2]); }
+function parseDate(s) { if(!s) return null; const p=s.split('-').map(Number); return new Date(p[0],p[1]-1,p[2]); }
 function today() { const d=new Date(); d.setHours(0,0,0,0); return d; }
 function diffDays(s) { const d=parseDate(s); if(!d) return null; return Math.round((d-today())/864e5); }
 function esc(s) { if(!s) return ''; const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
 
 const MO = ['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
-function fmtShort(s) { const d=parseDate(s); if(!d) return ''; return d.getDate()+' '+MO[d.getMonth()]; }
+function fmt(s) { const d=parseDate(s); if(!d) return ''; return d.getDate()+' '+MO[d.getMonth()]; }
 
-function deadlineChip(t) {
-  if (!t.deadline) return { text:'', cls:'none' };
-  const diff = diffDays(t.deadline);
-  if (diff===null) return { text:'', cls:'none' };
-  const l = fmtShort(t.deadline);
-  if (diff<0) return { text: l+' · просрочено', cls:'overdue' };
-  if (diff===0) return { text: l+' · сегодня', cls:'today' };
-  if (diff===1) return { text: l+' · завтра', cls:'soon' };
-  if (diff<=3) return { text: l+' · '+diff+' дн.', cls:'soon' };
-  return { text: l, cls:'normal' };
+function chip(t) {
+  if(!t.deadline) return {text:'',cls:'none'};
+  const diff=diffDays(t.deadline); if(diff===null) return {text:'',cls:'none'};
+  const l=fmt(t.deadline);
+  if(diff<0) return {text:l+' · просрочено',cls:'overdue'};
+  if(diff===0) return {text:l+' · сегодня',cls:'today'};
+  if(diff===1) return {text:l+' · завтра',cls:'soon'};
+  if(diff<=3) return {text:l+' · через '+diff+' дн.',cls:'soon'};
+  return {text:l,cls:'normal'};
 }
 
-function hashColor(s) { let h=0; for(let i=0;i<s.length;i++) h=s.charCodeAt(i)+((h<<5)-h); return COLORS[Math.abs(h)%COLORS.length]; }
+function hcol(s) { let h=0; for(let i=0;i<s.length;i++) h=s.charCodeAt(i)+((h<<5)-h); return PAL[Math.abs(h)%PAL.length]; }
 
 function render(data) {
-  const tasks = data.tasks || [];
-  if (!tasks.length) { document.getElementById('app').innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:80vh;color:var(--text3)">Нет задач</div>'; return; }
+  const tasks=data.tasks||[];
+  if(!tasks.length) { document.getElementById('app').innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:80vh;color:var(--text4);font-size:17px;font-weight:500">Задач пока нет</div>'; return; }
 
-  const groups = {}; ORDER.forEach(s => groups[s]=[]);
-  tasks.forEach(t => { if(groups[t.status]) groups[t.status].push(t); });
-  const counts = {}; ORDER.forEach(s => counts[s]=groups[s].length);
+  const groups={}; ORDER.forEach(s=>groups[s]=[]);
+  tasks.forEach(t=>{if(groups[t.status]) groups[t.status].push(t)});
+  const counts={}; ORDER.forEach(s=>counts[s]=groups[s].length);
 
-  const projMap = {};
-  tasks.forEach(t => {
-    const p = t.project || 'Без проекта';
-    if (!projMap[p]) projMap[p] = { total:0, done:0 };
-    projMap[p].total++;
-    if (t.status==='done') projMap[p].done++;
-  });
-  const projects = Object.entries(projMap).sort((a,b)=>b[1].total-a[1].total);
+  const projMap={};
+  tasks.forEach(t=>{const p=t.project||'Другое';if(!projMap[p])projMap[p]={total:0,done:0};projMap[p].total++;if(t.status==='done')projMap[p].done++});
+  const projects=Object.entries(projMap).sort((a,b)=>b[1].total-a[1].total);
 
-  const teamMap = {};
-  tasks.forEach(t => {
-    const a = t.assignee || '?';
-    if (!teamMap[a]) teamMap[a] = { active:0, done:0 };
-    if (t.status==='done') teamMap[a].done++; else teamMap[a].active++;
-  });
-  const team = Object.entries(teamMap).sort((a,b)=>b[1].active-a[1].active);
+  const teamMap={};
+  tasks.forEach(t=>{const a=t.assignee||'?';if(!teamMap[a])teamMap[a]={active:0,done:0};if(t.status==='done')teamMap[a].done++;else teamMap[a].active++});
+  const team=Object.entries(teamMap).sort((a,b)=>b[1].active-a[1].active);
 
-  const upcoming = tasks
-    .filter(t => t.deadline && t.status!=='done')
-    .map(t => ({...t, diff: diffDays(t.deadline)}))
-    .filter(t => t.diff !== null && t.diff <= 7)
-    .sort((a,b) => a.diff - b.diff);
+  const upcoming=tasks.filter(t=>t.deadline&&t.status!=='done').map(t=>({...t,diff:diffDays(t.deadline)})).filter(t=>t.diff!==null&&t.diff<=7).sort((a,b)=>a.diff-b.diff);
 
-  let upd = '';
-  if (data.lastUpdated) {
-    const d = new Date(data.lastUpdated);
-    upd = d.toLocaleDateString('ru-RU',{day:'2-digit',month:'2-digit',year:'numeric'}) + ' ' +
-          d.toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'});
-  }
+  let upd='';
+  if(data.lastUpdated){const d=new Date(data.lastUpdated);upd=d.toLocaleDateString('ru-RU',{day:'2-digit',month:'2-digit',year:'numeric'})+' '+d.toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'})}
 
-  let h = '';
+  let h='';
 
-  h += `<div class="hdr">
+  // HEADER
+  h+=`<div class="hdr">
     <div class="hdr-left">
       <div class="brand">Command Center</div>
-      <div class="hdr-pills">
-        <div class="hdr-pill"><b>${tasks.length}</b>&nbsp;задач</div>
-        <div class="hdr-pill"><span class="dot" style="background:var(--red)"></span>&nbsp;<b>${counts.urgent}</b></div>
-        <div class="hdr-pill"><span class="dot" style="background:var(--orange)"></span>&nbsp;<b>${counts.waiting}</b></div>
-        <div class="hdr-pill"><span class="dot" style="background:var(--blue)"></span>&nbsp;<b>${counts.in_progress}</b></div>
-        <div class="hdr-pill"><span class="dot" style="background:var(--green)"></span>&nbsp;<b>${counts.done}</b></div>
+      <div class="hdr-stats">
+        <div class="hdr-stat"><b>${tasks.length}</b> задач</div>
+        <div class="hdr-stat"><span class="dot" style="background:var(--red)"></span> <b>${counts.urgent}</b></div>
+        <div class="hdr-stat"><span class="dot" style="background:var(--orange)"></span> <b>${counts.waiting}</b></div>
+        <div class="hdr-stat"><span class="dot" style="background:var(--blue)"></span> <b>${counts.in_progress}</b></div>
+        <div class="hdr-stat"><span class="dot" style="background:var(--green)"></span> <b>${counts.done}</b></div>
       </div>
     </div>
     <div class="hdr-time">${upd}</div>
   </div>`;
 
-  h += '<div class="layout">';
+  h+='<div class="layout">';
 
-  // LEFT
-  h += '<div class="col-l">';
-  const overdue = tasks.filter(t=>t.deadline && t.status!=='done' && diffDays(t.deadline)<0).length;
-  const todayCount = tasks.filter(t=>t.deadline && t.status!=='done' && diffDays(t.deadline)===0).length;
-  h += `<div class="widget">
-    <div class="w-title">Сводка</div>
+  // ─── LEFT ───
+  h+='<div class="col-l">';
+
+  const overdue=tasks.filter(t=>t.deadline&&t.status!=='done'&&diffDays(t.deadline)<0).length;
+  const todayN=tasks.filter(t=>t.deadline&&t.status!=='done'&&diffDays(t.deadline)===0).length;
+  h+=`<div class="widget">
+    <div class="w-label">Сводка</div>
     <div class="stat-grid">
-      <div class="stat-card"><div class="num" style="color:var(--red)">${counts.urgent + overdue}</div><div class="lab">Горит</div></div>
-      <div class="stat-card"><div class="num" style="color:var(--yellow)">${todayCount}</div><div class="lab">Сегодня</div></div>
-      <div class="stat-card"><div class="num" style="color:var(--orange)">${counts.waiting}</div><div class="lab">Ждут</div></div>
+      <div class="stat-card"><div class="num" style="color:var(--red)">${counts.urgent+overdue}</div><div class="lab">Горит</div></div>
+      <div class="stat-card"><div class="num" style="color:var(--yellow)">${todayN}</div><div class="lab">Сегодня</div></div>
+      <div class="stat-card"><div class="num" style="color:var(--orange)">${counts.waiting}</div><div class="lab">Ждут ответа</div></div>
       <div class="stat-card"><div class="num" style="color:var(--blue)">${counts.in_progress}</div><div class="lab">В работе</div></div>
     </div>
   </div>`;
 
-  if (upcoming.length) {
-    h += '<div class="widget"><div class="w-title">Ближайшие дедлайны</div>';
-    upcoming.forEach(t => {
-      const col = t.diff<0 ? 'var(--red)' : t.diff===0 ? 'var(--yellow)' : t.diff<=2 ? 'var(--orange)' : 'var(--text3)';
-      const when = t.diff<0 ? 'просрочено' : t.diff===0 ? 'сегодня' : t.diff===1 ? 'завтра' : fmtShort(t.deadline);
-      h += `<div class="tl-item">
-        <div class="tl-dot" style="background:${col}"></div>
-        <div class="tl-body">
-          <div class="tl-who">${esc(t.assignee)}</div>
-          <div class="tl-what">${esc(t.task)}</div>
-          <div class="tl-date">${when}</div>
+  if(upcoming.length){
+    h+='<div class="widget"><div class="w-label">Ближайшие дедлайны</div><div class="w-group">';
+    upcoming.forEach(t=>{
+      const c=t.diff<0?'var(--red)':t.diff===0?'var(--yellow)':t.diff<=2?'var(--orange)':'var(--text4)';
+      const w=t.diff<0?'просрочено':t.diff===0?'сегодня':t.diff===1?'завтра':fmt(t.deadline);
+      h+=`<div class="tl-row">
+        <div class="tl-indicator" style="background:${c}"></div>
+        <div class="tl-content">
+          <div class="tl-name">${esc(t.assignee)}</div>
+          <div class="tl-desc">${esc(t.task)}</div>
+          <div class="tl-when">${w}</div>
         </div>
       </div>`;
     });
-    h += '</div>';
+    h+='</div></div>';
   }
-  h += '</div>';
+  h+='</div>';
 
-  // CENTER
-  h += '<div class="col-c">';
-  ORDER.forEach(status => {
-    const items = groups[status];
-    if (!items.length) return;
-    const cfg = STATUS[status];
-    const closed = status==='done' ? ' closed' : '';
+  // ─── CENTER ───
+  h+='<div class="col-c">';
+  ORDER.forEach(status=>{
+    const items=groups[status]; if(!items.length) return;
+    const cfg=STATUS[status];
+    const collapsed=status==='done'?' collapsed':'';
 
-    h += `<div class="section${closed}">
-      <div class="sec-head" onclick="tog(this)">
-        <span class="sec-dot" style="background:${cfg.color}"></span>
-        <span class="sec-name">${cfg.label}</span>
-        <span class="sec-num">${items.length}</span>
-        <span class="sec-arrow">▼</span>
+    h+=`<div class="section${collapsed}">
+      <div class="sec-header" onclick="tog(this)">
+        <span class="sec-indicator" style="background:${cfg.color}"></span>
+        <span class="sec-title">${cfg.label}</span>
+        <span class="sec-count">${items.length}</span>
+        <span class="sec-chevron">▼</span>
       </div>
-      <div class="sec-body">`;
+      <div class="sec-grid">`;
 
-    items.forEach(t => {
-      const chip = deadlineChip(t);
-      const priCls = 'pill-'+(t.priority||'low');
-      h += `<div class="card" onclick="this.classList.toggle('open')">
-        <div class="card-top">
-          <div class="card-who">${esc(t.assignee)}</div>
-          <div class="card-deadline ${chip.cls}">${chip.text}</div>
+    items.forEach(t=>{
+      const c=chip(t);
+      const pri='tag-'+(t.priority||'low');
+      h+=`<div class="task" onclick="this.classList.toggle('open')">
+        <div class="task-head">
+          <div class="task-assignee">${esc(t.assignee)}</div>
+          <div class="task-chip ${c.cls}">${c.text}</div>
         </div>
-        <div class="card-what">${esc(t.task)}</div>
-        <div class="card-meta">
-          ${t.project ? `<span class="pill pill-project">${esc(t.project)}</span>` : ''}
-          <span class="pill ${priCls}">${esc(t.priority||'')}</span>
+        <div class="task-desc">${esc(t.task)}</div>
+        <div class="task-tags">
+          ${t.project?`<span class="tag tag-proj">${esc(t.project)}</span>`:''}
+          <span class="tag ${pri}">${esc(t.priority||'')}</span>
         </div>
-        ${t.notes ? `<div class="card-notes">${esc(t.notes)}</div>` : ''}
+        ${t.notes?`<div class="task-extra">${esc(t.notes)}</div>`:''}
       </div>`;
     });
-    h += '</div></div>';
+    h+='</div></div>';
   });
-  h += '</div>';
+  h+='</div>';
 
-  // RIGHT
-  h += '<div class="col-r">';
-  h += '<div class="widget"><div class="w-title">Проекты</div>';
-  projects.forEach(([name, d]) => {
-    const pct = d.total ? Math.round(d.done/d.total*100) : 0;
-    const col = hashColor(name);
-    h += `<div class="proj-item">
-      <div class="proj-name">${esc(name)}</div>
-      <div class="proj-bar-wrap">
-        <div class="proj-bar"><div class="proj-bar-fill" style="width:${pct}%;background:${col}"></div></div>
-        <div class="proj-count">${d.done}/${d.total}</div>
+  // ─── RIGHT ───
+  h+='<div class="col-r">';
+
+  h+='<div class="widget"><div class="w-label">Проекты</div><div class="w-group">';
+  projects.forEach(([name,d])=>{
+    const pct=d.total?Math.round(d.done/d.total*100):0;
+    const c=hcol(name);
+    h+=`<div class="proj-row">
+      <div class="proj-label">${esc(name)}</div>
+      <div class="proj-track">
+        <div class="proj-bar"><div class="proj-fill" style="width:${pct}%;background:${c}"></div></div>
+        <div class="proj-frac">${d.done}/${d.total}</div>
       </div>
     </div>`;
   });
-  h += '</div>';
+  h+='</div></div>';
 
-  h += '<div class="widget"><div class="w-title">Команда</div>';
-  team.forEach(([name, d]) => {
-    const col = hashColor(name);
-    const initials = name.split(/[\s()]+/).filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('');
-    h += `<div class="team-item">
-      <div class="team-avatar" style="background:${col}18;color:${col}">${initials}</div>
-      <div class="team-info">
-        <div class="team-name">${esc(name)}</div>
-        <div class="team-tasks">${d.active} активн. · ${d.done} закр.</div>
+  h+='<div class="widget"><div class="w-label">Команда</div><div class="w-group">';
+  team.forEach(([name,d])=>{
+    const c=hcol(name);
+    const ini=name.split(/[\s()]+/).filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('');
+    h+=`<div class="team-row">
+      <div class="team-av" style="background:${c}14;color:${c}">${ini}</div>
+      <div class="team-detail">
+        <div class="team-n">${esc(name)}</div>
+        <div class="team-sub">${d.active} активн.${d.done?' · '+d.done+' закр.':''}</div>
       </div>
     </div>`;
   });
-  h += '</div>';
+  h+='</div></div>';
 
-  h += '</div>';
-  h += '</div>';
+  h+='</div>';
+  h+='</div>';
 
-  document.getElementById('app').innerHTML = h;
+  document.getElementById('app').innerHTML=h;
 }
 
-function tog(el) { el.parentElement.classList.toggle('closed'); }
+function tog(el){el.parentElement.classList.toggle('collapsed')}
 
 fetch('./tracker-data.json?'+Date.now()).then(r=>r.json()).then(render).catch(e=>{
-  document.getElementById('app').innerHTML=`<div style="display:flex;align-items:center;justify-content:center;height:80vh;color:var(--text3)">Ошибка: ${e.message}</div>`;
+  document.getElementById('app').innerHTML=`<div style="display:flex;align-items:center;justify-content:center;height:80vh;color:var(--text4);font-size:15px">Ошибка: ${e.message}</div>`;
 });
 </script>
 </body>
