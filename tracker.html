@@ -4,530 +4,475 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Command Center</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+@font-face { font-family: 'PetrovSans'; src: url('fonts/PetrovSans-Bold.woff') format('woff'); font-weight: 700; }
+@font-face { font-family: 'PetrovSans'; src: url('fonts/PetrovSans-Regular.woff') format('woff'); font-weight: 400; }
+
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --bg: #000000;
-  --surface: #1c1c1e;
-  --surface-hover: #2c2c2e;
-  --surface-elevated: #3a3a3c;
-  --separator: rgba(255,255,255,0.08);
-  --separator-bold: rgba(255,255,255,0.12);
-  --text-primary: #ffffff;
-  --text-secondary: rgba(255,255,255,0.55);
-  --text-tertiary: rgba(255,255,255,0.3);
+  --bg: #000;
+  --grouped-bg: #1c1c1e;
+  --grouped-bg-hover: #2c2c2e;
+  --separator: rgba(255,255,255,0.07);
+  --label: rgba(255,255,255,0.55);
+  --label2: rgba(255,255,255,0.3);
+  --white: #fff;
   --red: #ff453a;
   --orange: #ff9f0a;
+  --yellow: #ffd60a;
   --blue: #0a84ff;
   --purple: #bf5af2;
   --green: #30d158;
-  --red-bg: rgba(255,69,58,0.12);
-  --orange-bg: rgba(255,159,10,0.12);
-  --blue-bg: rgba(10,132,255,0.12);
-  --purple-bg: rgba(191,90,242,0.12);
-  --green-bg: rgba(48,209,88,0.12);
-  --radius: 12px;
-  --radius-sm: 8px;
-  --radius-pill: 100px;
+  --teal: #64d2ff;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+  --font-brand: 'PetrovSans', var(--font);
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-html { 
-  background: var(--bg); 
-  color: var(--text-primary);
+html {
+  background: var(--bg);
+  color: var(--white);
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: var(--font);
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', system-ui, sans-serif;
   min-height: 100dvh;
-  padding: 0;
+  padding-bottom: calc(20px + var(--safe-bottom));
 }
 
-/* ===== Header ===== */
+/* Header — frosted glass */
 .header {
   position: sticky;
   top: 0;
-  z-index: 10;
-  padding: 16px 20px;
-  background: rgba(0,0,0,0.72);
+  z-index: 100;
+  padding: calc(16px + var(--safe-top)) 20px 14px;
+  background: rgba(0,0,0,0.7);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   backdrop-filter: saturate(180%) blur(20px);
-  border-bottom: 0.5px solid var(--separator);
 }
 
-.header-top {
+.header-row {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  margin-bottom: 14px;
 }
 
-.header-title {
-  font-size: 28px;
+.brand {
+  font-family: var(--font-brand);
   font-weight: 700;
-  letter-spacing: -0.02em;
-  color: var(--text-primary);
+  font-size: 24px;
+  letter-spacing: -0.01em;
 }
 
-.header-updated {
-  font-size: 13px;
-  font-weight: 400;
-  color: var(--text-tertiary);
+.updated {
+  font-size: 12px;
+  color: var(--label2);
   font-variant-numeric: tabular-nums;
 }
 
-/* Stats */
+/* Stat bar */
 .stats {
   display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 14px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
 }
+.stats::-webkit-scrollbar { display: none; }
 
-.stat-pill {
-  display: inline-flex;
+.stat {
+  display: flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 12px;
-  border-radius: var(--radius-pill);
+  white-space: nowrap;
   font-size: 13px;
-  font-weight: 500;
-  background: var(--surface);
-  color: var(--text-secondary);
-  transition: background 0.2s;
+  color: var(--label);
 }
-
-.stat-pill .dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.stat-pill .count {
+.stat b {
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--white);
   font-variant-numeric: tabular-nums;
 }
-
-/* ===== Content ===== */
-.content {
-  padding: 8px 20px 40px;
+.stat .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
 }
 
-/* ===== Sections ===== */
+/* Sections */
+.page { padding: 0 16px; }
+
 .section {
-  margin-bottom: 8px;
+  margin-top: 24px;
 }
 
-.section-header {
+.section-head {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 12px 0;
+  padding: 0 4px 8px;
   cursor: pointer;
   -webkit-user-select: none;
   user-select: none;
 }
 
-.section-header:hover .section-label {
-  color: var(--text-primary);
-}
-
-.section-indicator {
-  width: 8px;
-  height: 8px;
+.section-dot {
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
-  flex-shrink: 0;
 }
 
-.section-label {
+.section-name {
   font-size: 13px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--text-secondary);
-  transition: color 0.2s;
+  letter-spacing: 0.06em;
+  color: var(--label);
 }
 
-.section-count {
+.section-num {
   font-size: 12px;
-  font-weight: 500;
-  color: var(--text-tertiary);
-  margin-left: 2px;
+  color: var(--label2);
+  font-variant-numeric: tabular-nums;
 }
 
-.section-chevron {
+.section-arrow {
   margin-left: auto;
-  color: var(--text-tertiary);
-  font-size: 12px;
-  transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+  font-size: 11px;
+  color: var(--label2);
+  transition: transform 0.25s ease;
 }
 
-.section.collapsed .section-chevron {
+.section.closed .section-arrow {
   transform: rotate(-90deg);
 }
 
 .section-body {
+  border-radius: 12px;
+  background: var(--grouped-bg);
   overflow: hidden;
-  transition: max-height 0.35s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.25s;
-  max-height: 2000px;
+  max-height: 5000px;
+  transition: max-height 0.4s ease, opacity 0.3s;
   opacity: 1;
 }
 
-.section.collapsed .section-body {
+.section.closed .section-body {
   max-height: 0;
   opacity: 0;
 }
 
-/* ===== Task List ===== */
-.task-list {
-  background: var(--surface);
-  border-radius: var(--radius);
-  overflow: hidden;
-}
-
-/* ===== Task Row ===== */
-.task-row {
-  display: flex;
-  align-items: flex-start;
+/* Task item */
+.task {
   padding: 14px 16px;
-  gap: 12px;
   border-bottom: 0.5px solid var(--separator);
   transition: background 0.15s;
   cursor: default;
 }
 
-.task-row:last-child {
-  border-bottom: none;
+.task:last-child { border-bottom: none; }
+.task:active { background: var(--grouped-bg-hover); }
+
+@media (hover: hover) {
+  .task:hover { background: var(--grouped-bg-hover); }
 }
 
-.task-row:hover {
-  background: var(--surface-hover);
-}
-
-/* Status bar */
-.task-status-bar {
-  width: 3px;
-  min-height: 36px;
-  border-radius: 2px;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-/* Task main content */
-.task-main {
-  flex: 1;
-  min-width: 0;
-}
-
-.task-top {
+/* Row 1: Assignee + deadline chip */
+.task-r1 {
   display: flex;
-  align-items: baseline;
+  align-items: center;
+  justify-content: space-between;
   gap: 8px;
-  margin-bottom: 3px;
-  flex-wrap: wrap;
+  margin-bottom: 4px;
 }
 
-.task-assignee {
-  font-size: 15px;
+.task-who {
+  font-size: 16px;
   font-weight: 600;
-  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.task-when {
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 
-.task-desc {
-  font-size: 14px;
+.task-when.overdue {
+  background: rgba(255,69,58,0.15);
+  color: var(--red);
+}
+.task-when.today {
+  background: rgba(255,214,10,0.15);
+  color: var(--yellow);
+}
+.task-when.soon {
+  background: rgba(255,159,10,0.1);
+  color: var(--orange);
+}
+.task-when.normal {
+  background: rgba(255,255,255,0.06);
+  color: var(--label);
+}
+.task-when.none {
+  display: none;
+}
+
+/* Row 2: Task description */
+.task-what {
+  font-size: 15px;
   font-weight: 400;
-  color: var(--text-secondary);
+  color: var(--label);
   line-height: 1.4;
 }
 
-.task-meta-row {
+/* Row 3: Tags */
+.task-tags {
   display: flex;
-  align-items: center;
-  gap: 12px;
+  gap: 6px;
   margin-top: 8px;
   flex-wrap: wrap;
 }
 
-.tag {
-  display: inline-flex;
-  align-items: center;
-  padding: 2px 8px;
-  border-radius: var(--radius-pill);
+.pill {
   font-size: 11px;
   font-weight: 500;
+  padding: 2px 7px;
+  border-radius: 5px;
   letter-spacing: 0.01em;
 }
 
-.tag-project {
-  background: var(--surface-hover);
-  color: var(--text-secondary);
+.pill-project {
+  background: rgba(255,255,255,0.06);
+  color: var(--label);
 }
 
-.tag-priority-high {
-  background: var(--red-bg);
+.pill-high {
+  background: rgba(255,69,58,0.1);
   color: var(--red);
 }
-
-.tag-priority-medium {
-  background: var(--orange-bg);
+.pill-medium {
+  background: rgba(255,159,10,0.08);
   color: var(--orange);
 }
-
-.tag-priority-low {
-  background: var(--surface-hover);
-  color: var(--text-tertiary);
+.pill-low {
+  background: rgba(255,255,255,0.05);
+  color: var(--label2);
 }
 
-.task-date {
-  font-size: 12px;
-  color: var(--text-tertiary);
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-}
-
-.task-days {
-  font-size: 12px;
-  font-weight: 500;
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-}
-
-.task-days.overdue {
-  color: var(--red);
-}
-
-.task-days.normal {
-  color: var(--text-tertiary);
-}
-
-.task-days.today {
-  color: var(--green);
-}
-
+/* Notes (expandable) */
 .task-notes {
   font-size: 13px;
-  color: var(--text-tertiary);
-  margin-top: 4px;
+  color: var(--label2);
   line-height: 1.35;
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 0.5px solid var(--separator);
+  display: none;
 }
 
-/* ===== Empty State ===== */
-.empty {
+.task.open .task-notes { display: block; }
+
+/* Created date */
+.task-created {
+  font-size: 11px;
+  color: var(--label2);
+  margin-top: 4px;
+  font-variant-numeric: tabular-nums;
+}
+
+.task.open .task-created { display: block; }
+.task-created { display: none; }
+
+/* Empty */
+.empty-state {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 40vh;
-  color: var(--text-tertiary);
+  min-height: 50vh;
   font-size: 15px;
-  font-weight: 400;
+  color: var(--label2);
 }
 
-/* ===== Responsive ===== */
-@media (max-width: 600px) {
-  .header { padding: 14px 16px; }
-  .header-title { font-size: 22px; }
-  .content { padding: 4px 16px 32px; }
-  .task-row { padding: 12px 14px; }
-  .task-meta-row { gap: 8px; }
-  .header-top { flex-direction: column; gap: 4px; }
-}
-
-/* ===== Fade-in ===== */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(8px); }
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.task-list {
-  animation: fadeUp 0.4s cubic-bezier(0.25, 0.1, 0.25, 1) both;
+.section {
+  animation: fadeIn 0.35s ease both;
 }
+.section:nth-child(1) { animation-delay: 0s; }
+.section:nth-child(2) { animation-delay: 0.05s; }
+.section:nth-child(3) { animation-delay: 0.1s; }
+.section:nth-child(4) { animation-delay: 0.15s; }
+.section:nth-child(5) { animation-delay: 0.2s; }
 
-.section:nth-child(2) .task-list { animation-delay: 0.06s; }
-.section:nth-child(3) .task-list { animation-delay: 0.12s; }
-.section:nth-child(4) .task-list { animation-delay: 0.18s; }
-.section:nth-child(5) .task-list { animation-delay: 0.24s; }
+/* Desktop wider */
+@media (min-width: 700px) {
+  .page { max-width: 680px; margin: 0 auto; }
+  .header { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  .stats { margin-top: 0; }
+}
 </style>
+<link rel="preconnect" href="https://rsms.me"><link href="https://rsms.me/inter/inter.css" rel="stylesheet">
 </head>
 <body>
 
 <div id="app"></div>
 
 <script>
-const STATUS_CONFIG = {
-  urgent:      { label: 'Горит',           color: 'var(--red)',    bg: 'var(--red-bg)',    icon: '●' },
-  waiting:     { label: 'Ждёт ответа',    color: 'var(--orange)', bg: 'var(--orange-bg)', icon: '●' },
-  in_progress: { label: 'В работе',        color: 'var(--blue)',   bg: 'var(--blue-bg)',   icon: '●' },
-  blocked:     { label: 'Заблокировано',   color: 'var(--purple)', bg: 'var(--purple-bg)', icon: '●' },
-  done:        { label: 'Закрыто',         color: 'var(--green)',  bg: 'var(--green-bg)',  icon: '●' }
+const STATUS = {
+  urgent:      { label: 'Горит',         color: 'var(--red)' },
+  waiting:     { label: 'Ждёт ответа',  color: 'var(--orange)' },
+  in_progress: { label: 'В работе',      color: 'var(--blue)' },
+  blocked:     { label: 'Заблокировано', color: 'var(--purple)' },
+  done:        { label: 'Закрыто',       color: 'var(--green)' }
 };
 
-const PRIORITY_LABELS = { high: 'High', medium: 'Medium', low: 'Low' };
-const STATUS_ORDER = ['urgent', 'waiting', 'in_progress', 'blocked', 'done'];
+const ORDER = ['urgent','waiting','in_progress','blocked','done'];
 
 function parseDate(s) {
   if (!s) return null;
-  const [y, m, d] = s.split('-').map(Number);
-  return new Date(y, m - 1, d);
+  const p = s.split('-').map(Number);
+  return new Date(p[0], p[1]-1, p[2]);
 }
 
-function today() {
-  const d = new Date();
-  d.setHours(0, 0, 0, 0);
-  return d;
-}
+function today() { const d = new Date(); d.setHours(0,0,0,0); return d; }
 
-function daysDiff(dateStr) {
-  const d = parseDate(dateStr);
+function diffDays(ds) {
+  const d = parseDate(ds);
   if (!d) return null;
-  const t = today();
-  return Math.round((d - t) / 86400000);
+  return Math.round((d - today()) / 86400000);
 }
 
-function formatDateShort(dateStr) {
-  const d = parseDate(dateStr);
-  if (!d) return '—';
+function deadlineChip(task) {
+  if (!task.deadline) return { text: '', cls: 'none' };
+  const diff = diffDays(task.deadline);
+  if (diff === null) return { text: '', cls: 'none' };
   const months = ['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
-  return `${d.getDate()} ${months[d.getMonth()]}`;
+  const d = parseDate(task.deadline);
+  const label = d.getDate() + ' ' + months[d.getMonth()];
+  if (diff < 0) return { text: `${label} · просрочено`, cls: 'overdue' };
+  if (diff === 0) return { text: `${label} · сегодня`, cls: 'today' };
+  if (diff === 1) return { text: `${label} · завтра`, cls: 'soon' };
+  if (diff <= 3) return { text: `${label} · ${diff} дн.`, cls: 'soon' };
+  return { text: label, cls: 'normal' };
 }
 
-function daysLabel(task) {
-  if (task.deadline) {
-    const diff = daysDiff(task.deadline);
-    if (diff === null) return { text: '', cls: 'normal' };
-    if (diff < 0) return { text: `${Math.abs(diff)} дн. просрочено`, cls: 'overdue' };
-    if (diff === 0) return { text: 'сегодня', cls: 'today' };
-    if (diff === 1) return { text: 'завтра', cls: 'normal' };
-    return { text: `${diff} дн.`, cls: 'normal' };
-  }
-  // No deadline — show days since created
-  const diff = daysDiff(task.created);
-  if (diff === null) return { text: '', cls: 'normal' };
-  return { text: `${Math.abs(diff)} дн. назад`, cls: 'normal' };
+function fmtDate(ds) {
+  if (!ds) return '';
+  const d = parseDate(ds);
+  const months = ['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
+  return d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
 }
 
-function renderApp(data) {
+function render(data) {
   const tasks = data.tasks || [];
-  
-  if (tasks.length === 0) {
-    document.getElementById('app').innerHTML = '<div class="empty">Нет активных задач</div>';
+  if (!tasks.length) {
+    document.getElementById('app').innerHTML = '<div class="empty-state">Нет активных задач</div>';
     return;
   }
 
-  const grouped = {};
-  STATUS_ORDER.forEach(s => grouped[s] = []);
-  tasks.forEach(t => {
-    if (grouped[t.status]) grouped[t.status].push(t);
-  });
+  const groups = {};
+  ORDER.forEach(s => groups[s] = []);
+  tasks.forEach(t => { if (groups[t.status]) groups[t.status].push(t); });
 
-  const counts = {
-    total: tasks.length,
-    urgent: grouped.urgent.length,
-    waiting: grouped.waiting.length,
-    active: grouped.in_progress.length,
-    done: grouped.done.length
-  };
+  const counts = {};
+  ORDER.forEach(s => counts[s] = groups[s].length);
 
-  // Updated timestamp
-  let updatedStr = '';
+  let upd = '';
   if (data.lastUpdated) {
     const d = new Date(data.lastUpdated);
-    updatedStr = d.toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric' }) 
-      + ', ' + d.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+    upd = d.toLocaleDateString('ru-RU',{day:'2-digit',month:'2-digit',year:'numeric'})
+      + ' ' + d.toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'});
   }
 
-  let html = `
-    <div class="header">
-      <div class="header-top">
-        <div class="header-title">Command Center</div>
-        <div class="header-updated">${updatedStr}</div>
-      </div>
-      <div class="stats">
-        <span class="stat-pill"><span class="count">${counts.total}</span> всего</span>
-        <span class="stat-pill"><span class="dot" style="background:var(--red)"></span><span class="count">${counts.urgent}</span></span>
-        <span class="stat-pill"><span class="dot" style="background:var(--orange)"></span><span class="count">${counts.waiting}</span></span>
-        <span class="stat-pill"><span class="dot" style="background:var(--blue)"></span><span class="count">${counts.active}</span></span>
-        <span class="stat-pill"><span class="dot" style="background:var(--green)"></span><span class="count">${counts.done}</span></span>
-      </div>
+  let h = `
+  <div class="header">
+    <div class="header-row">
+      <div class="brand">Command Center</div>
+      <div class="updated">${upd}</div>
     </div>
-    <div class="content">
-  `;
+    <div class="stats">
+      <div class="stat"><b>${tasks.length}</b> всего</div>
+      <div class="stat"><span class="dot" style="background:var(--red)"></span><b>${counts.urgent}</b></div>
+      <div class="stat"><span class="dot" style="background:var(--orange)"></span><b>${counts.waiting}</b></div>
+      <div class="stat"><span class="dot" style="background:var(--blue)"></span><b>${counts.in_progress}</b></div>
+      <div class="stat"><span class="dot" style="background:var(--green)"></span><b>${counts.done}</b></div>
+    </div>
+  </div>
+  <div class="page">`;
 
-  STATUS_ORDER.forEach(status => {
-    const items = grouped[status];
-    if (items.length === 0) return;
-    
-    const cfg = STATUS_CONFIG[status];
-    const collapsed = status === 'done' ? ' collapsed' : '';
+  ORDER.forEach(status => {
+    const items = groups[status];
+    if (!items.length) return;
+    const cfg = STATUS[status];
+    const closed = status === 'done' ? ' closed' : '';
 
-    html += `
-      <div class="section${collapsed}">
-        <div class="section-header" onclick="toggleSection(this)">
-          <span class="section-indicator" style="background:${cfg.color}"></span>
-          <span class="section-label">${cfg.label}</span>
-          <span class="section-count">${items.length}</span>
-          <span class="section-chevron">▼</span>
-        </div>
-        <div class="section-body">
-          <div class="task-list">
-    `;
+    h += `
+    <div class="section${closed}">
+      <div class="section-head" onclick="tog(this)">
+        <span class="section-dot" style="background:${cfg.color}"></span>
+        <span class="section-name">${cfg.label}</span>
+        <span class="section-num">${items.length}</span>
+        <span class="section-arrow">▼</span>
+      </div>
+      <div class="section-body">`;
 
     items.forEach(task => {
-      const dl = daysLabel(task);
-      const priorityClass = `tag-priority-${task.priority}`;
-      
-      html += `
-        <div class="task-row">
-          <div class="task-status-bar" style="background:${cfg.color}"></div>
-          <div class="task-main">
-            <div class="task-top">
-              <span class="task-assignee">${task.assignee}</span>
-              <span class="task-desc">${task.task}</span>
-            </div>
-            <div class="task-meta-row">
-              ${task.project ? `<span class="tag tag-project">${task.project}</span>` : ''}
-              <span class="tag ${priorityClass}">${PRIORITY_LABELS[task.priority] || task.priority}</span>
-              <span class="task-date">${formatDateShort(task.created)}</span>
-              ${task.deadline ? `<span class="task-date">→ ${formatDateShort(task.deadline)}</span>` : ''}
-              ${dl.text ? `<span class="task-days ${dl.cls}">${dl.text}</span>` : ''}
-            </div>
-            ${task.notes ? `<div class="task-notes">${task.notes}</div>` : ''}
+      const chip = deadlineChip(task);
+      const priClass = 'pill-' + (task.priority || 'low');
+
+      h += `
+        <div class="task" onclick="this.classList.toggle('open')">
+          <div class="task-r1">
+            <div class="task-who">${esc(task.assignee)}</div>
+            <div class="task-when ${chip.cls}">${chip.text}</div>
           </div>
-        </div>
-      `;
+          <div class="task-what">${esc(task.task)}</div>
+          <div class="task-tags">
+            ${task.project ? `<span class="pill pill-project">${esc(task.project)}</span>` : ''}
+            <span class="pill ${priClass}">${esc(task.priority || '')}</span>
+          </div>
+          ${task.notes ? `<div class="task-notes">${esc(task.notes)}</div>` : ''}
+          <div class="task-created">Создано ${fmtDate(task.created)}</div>
+        </div>`;
     });
 
-    html += `
-          </div>
-        </div>
-      </div>
-    `;
+    h += `</div></div>`;
   });
 
-  html += '</div>';
-  document.getElementById('app').innerHTML = html;
+  h += '</div>';
+  document.getElementById('app').innerHTML = h;
 }
 
-function toggleSection(el) {
-  el.parentElement.classList.toggle('collapsed');
+function esc(s) {
+  if (!s) return '';
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
 }
 
-async function init() {
-  try {
-    const r = await fetch('./tracker-data.json?' + Date.now());
-    const data = await r.json();
-    renderApp(data);
-  } catch (e) {
-    document.getElementById('app').innerHTML = `<div class="empty">Ошибка загрузки: ${e.message}</div>`;
-  }
-}
+function tog(el) { el.parentElement.classList.toggle('closed'); }
 
-init();
+fetch('./tracker-data.json?' + Date.now())
+  .then(r => r.json())
+  .then(render)
+  .catch(e => {
+    document.getElementById('app').innerHTML = `<div class="empty-state">Ошибка: ${e.message}</div>`;
+  });
 </script>
 </body>
 </html>
