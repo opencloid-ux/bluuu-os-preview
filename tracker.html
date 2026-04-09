@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Command Center</title>
+    <style>
+        /* Font faces */
+        @font-face {
+            font-family: 'PetrovSans';
+            src: url('fonts/PetrovSans-400.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'PetrovSans';
+            src: url('fonts/PetrovSans-700.woff') format('woff');
+            font-weight: 700;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'PetrovSans';
+            src: url('fonts/PetrovSans-800.woff') format('woff');
+            font-weight: 800;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'PetrovSans';
+            src: url('fonts/PetrovSans-900.woff') format('woff');
+            font-weight: 900;
+            font-style: normal;
+        }
+
+        /* Reset & base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #08080f;
+            color: #e2e2e8;
+            line-height: 1.5;
+        }
+
+        body {
+            padding: 24px 16px;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            margin-bottom: 48px;
+        }
+
+        .header-title {
+            font-family: 'PetrovSans', sans-serif;
+            font-size: clamp(32px, 8vw, 56px);
+            font-weight: 900;
+            color: #ffffff;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .header-subtitle {
+            font-size: 13px;
+            color: #6b6b80;
+            font-weight: 400;
+            margin-bottom: 24px;
+        }
+
+        /* Stats row */
+        .stats {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+
+        .stat-pill {
+            background: #13131f;
+            border: 1px solid #1f1f2e;
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 13px;
+            color: #e2e2e8;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-pill:hover {
+            border-color: #3b3b52;
+            background: #1a1a25;
+        }
+
+        .stat-value {
+            font-family: 'PetrovSans', sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            color: #ffffff;
+        }
+
+        .stat-label {
+            color: #6b6b80;
+        }
+
+        /* Sections */
+        .sections-container {
+            display: grid;
+            grid-auto-flow: row;
+            gap: 40px;
+        }
+
+        .section {
+            margin-bottom: 16px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            user-select: none;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background 0.2s ease;
+        }
+
+        .section-header:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .section-icon {
+            font-size: 20px;
+        }
+
+        .section-title {
+            font-family: 'PetrovSans', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 0.01em;
+        }
+
+        .section-count {
+            margin-left: auto;
+            font-size: 13px;
+            color: #6b6b80;
+            font-weight: 600;
+        }
+
+        .section-toggle {
+            margin-left: auto;
+            font-size: 14px;
+            color: #6b6b80;
+            transition: transform 0.3s ease;
+        }
+
+        .section.collapsed .section-toggle {
+            transform: rotate(-90deg);
+        }
+
+        .tasks-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 16px;
+            transition: max-height 0.3s ease;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .section.collapsed .tasks-list {
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Task card */
+        .task-card {
+            background: #13131f;
+            border: 1px solid #1f1f2e;
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: cardEntry 0.5s ease-out both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .task-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at top-left, rgba(255, 255, 255, 0.05) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        @keyframes cardEntry {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .task-card:hover {
+            border-color: #3b3b52;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Status-specific colors */
+        .task-card.urgent {
+            border-left-color: #ff3b5c;
+        }
+
+        .task-card.urgent:hover {
+            box-shadow: 0 8px 24px rgba(255, 59, 92, 0.2), 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .task-card.urgent.pulse {
+            animation: cardEntry 0.5s ease-out, urgentPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes urgentPulse {
+            0%, 100% {
+                box-shadow: 0 4px 12px rgba(255, 59, 92, 0.2), 0 0 0 0 rgba(255, 59, 92, 0.4);
+            }
+            50% {
+                box-shadow: 0 4px 12px rgba(255, 59, 92, 0.3), 0 0 0 8px rgba(255, 59, 92, 0);
+            }
+        }
+
+        .task-card.waiting {
+            border-left-color: #f59e0b;
+        }
+
+        .task-card.waiting:hover {
+            box-shadow: 0 8px 24px rgba(245, 158, 11, 0.15), 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .task-card.in_progress {
+            border-left-color: #3b82f6;
+        }
+
+        .task-card.in_progress:hover {
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.15), 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .task-card.blocked {
+            border-left-color: #8b5cf6;
+        }
+
+        .task-card.blocked:hover {
+            box-shadow: 0 8px 24px rgba(139, 92, 246, 0.15), 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .task-card.done {
+            border-left-color: #10b981;
+            opacity: 0.7;
+        }
+
+        .task-card.done:hover {
+            opacity: 1;
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.15), 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Card content */
+        .task-header {
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .task-assignee {
+            font-family: 'PetrovSans', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 6px;
+        }
+
+        .task-title {
+            font-size: 14px;
+            color: #e2e2e8;
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+
+        .task-meta {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 12px;
+            color: #6b6b80;
+            flex-wrap: wrap;
+        }
+
+        .task-date {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .task-created {
+            color: #6b6b80;
+        }
+
+        .task-deadline {
+            color: #f59e0b;
+        }
+
+        .task-deadline.overdue {
+            color: #ff3b5c;
+            font-weight: 600;
+        }
+
+        .task-counter {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            padding: 4px 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            color: #6b6b80;
+        }
+
+        .task-counter.overdue {
+            background: rgba(255, 59, 92, 0.15);
+            color: #ff3b5c;
+            font-weight: 600;
+        }
+
+        .task-footer {
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .task-priority {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .task-priority.high {
+            background: rgba(255, 59, 92, 0.2);
+            color: #ff3b5c;
+        }
+
+        .task-priority.medium {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+        }
+
+        .task-priority.low {
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+        }
+
+        .task-notes {
+            font-size: 12px;
+            color: #6b6b80;
+            font-style: italic;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid #1f1f2e;
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6b6b80;
+            font-size: 14px;
+        }
+
+        .empty-state-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+            opacity: 0.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 16px;
+            }
+
+            .header {
+                margin-bottom: 32px;
+            }
+
+            .header-title {
+                font-size: clamp(24px, 6vw, 40px);
+            }
+
+            .tasks-list {
+                grid-template-columns: 1fr;
+            }
+
+            .task-card {
+                margin-bottom: 8px;
+            }
+
+            .stats {
+                gap: 8px;
+            }
+
+            .stat-pill {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+        }
+
+        /* Loading state */
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6b6b80;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            border: 3px solid #1f1f2e;
+            border-top-color: #ffffff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-bottom: 16px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Stagger animations */
+        .task-card:nth-child(1) { animation-delay: 0.05s; }
+        .task-card:nth-child(2) { animation-delay: 0.1s; }
+        .task-card:nth-child(3) { animation-delay: 0.15s; }
+        .task-card:nth-child(4) { animation-delay: 0.2s; }
+        .task-card:nth-child(5) { animation-delay: 0.25s; }
+        .task-card:nth-child(6) { animation-delay: 0.3s; }
+        .task-card:nth-child(7) { animation-delay: 0.35s; }
+        .task-card:nth-child(8) { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="loading">
+            <div class="loading-spinner"></div>
+            <p>Загрузка данных...</p>
+        </div>
+    </div>
+
+    <script>
+        // Status configuration
+        const STATUS_CONFIG = {
+            urgent: {
+                label: 'ГОРИТ',
+                icon: '🔴',
+                order: 1,
+                collapsed: false
+            },
+            waiting: {
+                label: 'ЖДЁТ ОТВЕТА',
+                icon: '⏰',
+                order: 2,
+                collapsed: false
+            },
+            in_progress: {
+                label: 'В РАБОТЕ',
+                icon: '🔵',
+                order: 3,
+                collapsed: false
+            },
+            blocked: {
+                label: 'ЗАБЛОКИРОВАНО',
+                icon: '🚫',
+                order: 4,
+                collapsed: false
+            },
+            done: {
+                label: 'ЗАКРЫТО',
+                icon: '✅',
+                order: 5,
+                collapsed: true
+            }
+        };
+
+        const PRIORITY_LABELS = {
+            high: 'ВЫСОКИЙ',
+            medium: 'СРЕДНИЙ',
+            low: 'НИЗКИЙ'
+        };
+
+        // Utility functions
+        function calculateDays(dateString) {
+            const date = new Date(dateString);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            date.setHours(0, 0, 0, 0);
+            const diffTime = Math.abs(today - date);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            return diffDays;
+        }
+
+        function isOverdue(deadline) {
+            const deadlineDate = new Date(deadline);
+            const today = new Date();
+            return deadlineDate < today;
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('ru-RU', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        function getDaysText(createdDate) {
+            const days = calculateDays(createdDate);
+            if (days === 1) return '1 день';
+            if (days < 5) return `${days} дня`;
+            return `${days} дней`;
+        }
+
+        function getOverdueText(deadline) {
+            const days = calculateDays(deadline);
+            if (days === 1) return 'просрочено 1 день';
+            if (days < 5) return `просрочено ${days} дня`;
+            return `просрочено ${days} дней`;
+        }
+
+        // Render functions
+        function renderTaskCard(task) {
+            const overdue = isOverdue(task.deadline);
+            const daysText = overdue ? getOverdueText(task.deadline) : getDaysText(task.created);
+
+            return `
+                <div class="task-card ${task.status}${task.status === 'urgent' ? ' pulse' : ''}">
+                    <div class="task-header">
+                        <div class="task-assignee">${task.assignee}</div>
+                        <div class="task-title">${task.task}</div>
+                    </div>
+
+                    <div class="task-meta">
+                        <div class="task-date task-created">
+                            Создано: ${formatDate(task.created)}
+                        </div>
+                        ${task.deadline ? `
+                            <div class="task-date task-deadline${overdue ? ' overdue' : ''}">
+                                Дедлайн: ${formatDate(task.deadline)}
+                            </div>
+                        ` : ''}
+                    </div>
+
+                    <div class="task-counter${overdue ? ' overdue' : ''}">
+                        ${overdue ? '⚠️' : '📅'} ${daysText}
+                    </div>
+
+                    <div class="task-footer">
+                        <span class="task-priority ${task.priority}">
+                            ${PRIORITY_LABELS[task.priority] || task.priority}
+                        </span>
+                    </div>
+
+                    ${task.notes ? `<div class="task-notes">📝 ${task.notes}</div>` : ''}
+                </div>
+            `;
+        }
+
+        function renderSection(status, tasks) {
+            const config = STATUS_CONFIG[status];
+            const isCollapsed = config.collapsed;
+            const tasksHtml = tasks.length > 0
+                ? tasks.map(renderTaskCard).join('')
+                : '<div class="empty-state"><div class="empty-state-icon">✨</div>Нет задач</div>';
+
+            return `
+                <div class="section${isCollapsed ? ' collapsed' : ''}">
+                    <div class="section-header" onclick="toggleSection(this)">
+                        <span class="section-icon">${config.icon}</span>
+                        <span class="section-title">${config.label}</span>
+                        <span class="section-count">${tasks.length}</span>
+                        <span class="section-toggle">▼</span>
+                    </div>
+                    <div class="tasks-list">
+                        ${tasksHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderStats(tasks) {
+            const total = tasks.length;
+            const urgent = tasks.filter(t => t.status === 'urgent').length;
+            const waiting = tasks.filter(t => t.status === 'waiting').length;
+            const done = tasks.filter(t => t.status === 'done').length;
+
+            return `
+                <div class="stats">
+                    <div class="stat-pill">
+                        <span class="stat-label">Всего:</span>
+                        <span class="stat-value">${total}</span>
+                    </div>
+                    <div class="stat-pill">
+                        <span class="stat-label">🔴 ГОРИТ:</span>
+                        <span class="stat-value">${urgent}</span>
+                    </div>
+                    <div class="stat-pill">
+                        <span class="stat-label">⏰ ЖДЁТ:</span>
+                        <span class="stat-value">${waiting}</span>
+                    </div>
+                    <div class="stat-pill">
+                        <span class="stat-label">✅ ГОТОВО:</span>
+                        <span class="stat-value">${done}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderApp(data) {
+            // Group tasks by status
+            const grouped = {};
+            Object.keys(STATUS_CONFIG).forEach(status => {
+                grouped[status] = [];
+            });
+
+            data.tasks.forEach(task => {
+                if (grouped[task.status]) {
+                    grouped[task.status].push(task);
+                }
+            });
+
+            // Format last updated
+            const lastUpdated = new Date(data.lastUpdated).toLocaleString('ru-RU', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            // Sort by status order
+            const sortedStatuses = Object.entries(STATUS_CONFIG)
+                .sort(([, a], [, b]) => a.order - b.order)
+                .map(([status]) => status);
+
+            const sectionsHtml = sortedStatuses
+                .map(status => renderSection(status, grouped[status]))
+                .join('');
+
+            const html = `
+                <div class="header">
+                    <div class="header-title">COMMAND CENTER</div>
+                    <div class="header-subtitle">Обновлено: ${lastUpdated}</div>
+                    ${renderStats(data.tasks)}
+                </div>
+                <div class="sections-container">
+                    ${sectionsHtml}
+                </div>
+            `;
+
+            document.getElementById('app').innerHTML = html;
+        }
+
+        function toggleSection(headerElement) {
+            const section = headerElement.parentElement;
+            section.classList.toggle('collapsed');
+        }
+
+        // Load and render
+        async function init() {
+            try {
+                const response = await fetch('./tracker-data.json');
+                const data = await response.json();
+                renderApp(data);
+            } catch (error) {
+                console.error('Ошибка загрузки данных:', error);
+                document.getElementById('app').innerHTML = `
+                    <div class="empty-state" style="padding: 60px 20px;">
+                        <div class="empty-state-icon">❌</div>
+                        <p>Ошибка загрузки данных</p>
+                        <p style="font-size: 12px; margin-top: 8px;">${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        init();
+    </script>
+</body>
+</html>
