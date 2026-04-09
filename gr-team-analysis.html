@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLUUU OS — GR Team: Анализ и Автоматизация</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0f1e;
+    --bg2: #0f1628;
+    --bg3: #141c33;
+    --teal: #00c4a0;
+    --teal2: #00e8be;
+    --teal-dim: rgba(0,196,160,0.12);
+    --teal-border: rgba(0,196,160,0.25);
+    --amber: #f5a623;
+    --red: #ff5c5c;
+    --blue: #4a9eff;
+    --purple: #9b6dff;
+    --text: #e8eaf6;
+    --text2: #8892b0;
+    --text3: #5a6580;
+    --card: rgba(255,255,255,0.04);
+    --card-border: rgba(255,255,255,0.07);
+  }
+
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  /* ── DECK ── */
+  .deck {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 48px 64px;
+    opacity: 0;
+    transform: translateX(80px);
+    transition: opacity 0.45s cubic-bezier(0.4,0,0.2,1), transform 0.45s cubic-bezier(0.4,0,0.2,1);
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .slide.active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: all;
+  }
+  .slide.exit {
+    opacity: 0;
+    transform: translateX(-80px);
+  }
+
+  /* ── NAV ── */
+  .nav {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 100;
+  }
+  .nav-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--text3);
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s, width 0.3s;
+  }
+  .nav-dot.active {
+    background: var(--teal);
+    width: 22px;
+    border-radius: 3px;
+  }
+
+  .nav-arrows {
+    position: fixed;
+    bottom: 28px;
+    right: 40px;
+    display: flex;
+    gap: 10px;
+    z-index: 100;
+  }
+  .nav-btn {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--card-border);
+    background: var(--card);
+    color: var(--text2);
+    font-size: 18px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .nav-btn:hover { border-color: var(--teal); color: var(--teal); }
+
+  .slide-counter {
+    position: fixed;
+    top: 24px;
+    right: 40px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text3);
+    letter-spacing: 0.05em;
+    z-index: 100;
+  }
+  .slide-counter span { color: var(--teal); }
+
+  /* ── LOGO ── */
+  .logo {
+    position: fixed;
+    top: 24px;
+    left: 40px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--teal);
+    z-index: 100;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ── BG DECORATIONS ── */
+  .bg-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+  }
+  .bg-glow-1 { width: 600px; height: 600px; background: rgba(0,196,160,0.06); top: -200px; right: -200px; }
+  .bg-glow-2 { width: 400px; height: 400px; background: rgba(74,158,255,0.05); bottom: -150px; left: -100px; }
+
+  .grid-lines {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  /* ── TYPOGRAPHY ── */
+  .tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal);
+    background: var(--teal-dim);
+    border: 1px solid var(--teal-border);
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 20px;
+  }
+  h1 em { color: var(--teal); font-style: normal; }
+
+  h2 {
+    font-size: clamp(26px, 3.5vw, 42px);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  h2 em { color: var(--teal); font-style: normal; }
+
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--teal);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+  }
+
+  .subtitle {
+    font-size: clamp(15px, 2vw, 19px);
+    color: var(--text2);
+    line-height: 1.6;
+    max-width: 700px;
+    margin-bottom: 32px;
+  }
+
+  /* ── CARDS ── */
+  .cards {
+    display: grid;
+    gap: 16px;
+    width: 100%;
+    max-width: 1100px;
+  }
+  .cards-2 { grid-template-columns: 1fr 1fr; }
+  .cards-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .cards-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: var(--teal-border); }
+  .card.accent { border-color: var(--teal-border); }
+  .card.red-accent { border-color: rgba(255,92,92,0.25); }
+  .card.amber-accent { border-color: rgba(245,166,35,0.25); }
+  .card.blue-accent { border-color: rgba(74,158,255,0.25); }
+  .card.purple-accent { border-color: rgba(155,109,255,0.25); }
+
+  .card-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 8px;
+  }
+  .card-label.red { color: var(--red); }
+  .card-label.amber { color: var(--amber); }
+  .card-label.blue { color: var(--blue); }
+  .card-label.purple { color: var(--purple); }
+
+  .card-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .card-body {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.6;
+  }
+  .card-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--teal);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .card-num.red { color: var(--red); }
+  .card-num.amber { color: var(--amber); }
+
+  /* ── LISTS ── */
+  .list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--text2);
+    line-height: 1.5;
+  }
+  .list li .dot {
+    flex-shrink: 0;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--teal);
+    margin-top: 7px;
+  }
+  .list li .dot.red { background: var(--red); }
+  .list li .dot.amber { background: var(--amber); }
+  .list li strong { color: var(--text); }
+
+  /* ── TABLE / GRID ROWS ── */
+  .row-item {
+    display: grid;
+    grid-template-columns: 28px 1fr auto;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    background: var(--card);
+  }
+  .row-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--teal);
+  }
+  .row-title { font-size: 14px; font-weight: 600; color: var(--text); }
+  .row-sub { font-size: 12px; color: var(--text2); margin-top: 2px; }
+  .badge {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  .badge.high { background: rgba(0,196,160,0.15); color: var(--teal); border: 1px solid var(--teal-border); }
+  .badge.mid { background: rgba(245,166,35,0.12); color: var(--amber); border: 1px solid rgba(245,166,35,0.25); }
+  .badge.low { background: rgba(74,158,255,0.1); color: var(--blue); border: 1px solid rgba(74,158,255,0.2); }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 48px;
+    height: 2px;
+    background: var(--teal);
+    margin-bottom: 24px;
+    opacity: 0.6;
+  }
+
+  /* ── QUOTE ── */
+  .quote {
+    border-left: 3px solid var(--teal);
+    padding: 12px 20px;
+    background: var(--teal-dim);
+    border-radius: 0 8px 8px 0;
+    font-size: 14px;
+    color: var(--text2);
+    font-style: italic;
+    line-height: 1.6;
+    margin: 8px 0;
+  }
+  .quote cite {
+    display: block;
+    font-style: normal;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--teal);
+    margin-top: 6px;
+  }
+
+  /* ── PROGRESS BAR ── */
+  .progress-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .progress-label { font-size: 12px; color: var(--text2); width: 160px; flex-shrink: 0; }
+  .progress-bar { flex: 1; height: 6px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 3px; background: var(--teal); }
+  .progress-val { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--teal); width: 45px; text-align: right; }
+
+  /* ── MODULE TAGS ── */
+  .module-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid;
+    margin: 3px;
+  }
+  .m-booking { color: var(--teal); border-color: var(--teal-border); background: var(--teal-dim); }
+  .m-crm { color: var(--blue); border-color: rgba(74,158,255,0.2); background: rgba(74,158,255,0.07); }
+  .m-ops { color: var(--amber); border-color: rgba(245,166,35,0.2); background: rgba(245,166,35,0.07); }
+  .m-finance { color: var(--purple); border-color: rgba(155,109,255,0.2); background: rgba(155,109,255,0.07); }
+  .m-review { color: var(--red); border-color: rgba(255,92,92,0.2); background: rgba(255,92,92,0.07); }
+
+  /* ── TIMELINE / WEEKS ── */
+  .timeline { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+  .tl-row { display: flex; gap: 16px; align-items: flex-start; }
+  .tl-week {
+    flex-shrink: 0;
+    width: 80px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--teal);
+    padding-top: 3px;
+    letter-spacing: 0.06em;
+  }
+  .tl-items { display: flex; flex-wrap: wrap; gap: 8px; flex: 1; }
+  .tl-item {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 13px;
+    color: var(--text2);
+  }
+  .tl-item strong { color: var(--text); }
+
+  /* ── SLIDE CONTENT WRAPPERS ── */
+  .content-wide { width: 100%; max-width: 1100px; }
+  .content-center { width: 100%; max-width: 900px; text-align: center; align-items: center; }
+  .col-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; width: 100%; max-width: 1100px; align-items: start; }
+  .col-layout-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; width: 100%; max-width: 1100px; align-items: start; }
+
+  /* ── PERSON BLOCK ── */
+  .person-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .person-avatar {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: var(--teal-dim);
+    border: 2px solid var(--teal-border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+  .person-name { font-size: 20px; font-weight: 700; color: var(--text); }
+  .person-role { font-size: 12px; color: var(--teal); font-family: 'JetBrains Mono', monospace; }
+
+  /* ── SCROLL IN OVERFLOW ── */
+  .scroll-area {
+    overflow-y: auto;
+    width: 100%;
+    max-height: calc(100vh - 180px);
+    scrollbar-width: thin;
+    scrollbar-color: var(--teal-border) transparent;
+  }
+</style>
+</head>
+<body>
+
+<div class="logo">BLUUU OS</div>
+<div class="slide-counter">СЛАЙД <span id="cur">1</span> / <span id="tot">12</span></div>
+
+<nav class="nav" id="nav"></nav>
+<div class="nav-arrows">
+  <button class="nav-btn" onclick="prev()">←</button>
+  <button class="nav-btn" onclick="next()">→</button>
+</div>
+
+<div class="deck" id="deck">
+
+  <!-- ═══ SLIDE 1: TITLE ═══ -->
+  <section class="slide active" data-slide="0">
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+    <div class="grid-lines"></div>
+    <div style="display:flex;flex-direction:column;align-items:center;text-align:center;max-width:900px;gap:0;">
+      <div class="tag">Исследование команды · Апрель 2026</div>
+      <h1>GR Команда:<br><em>Анализ и Автоматизация</em></h1>
+      <p class="subtitle">Консолидированный анализ интервью 4 GR-менеджеров Bluuu Tours.<br>Системные паттерны, топ-10 автоматизаций и план Quick Wins на ближайший месяц.</p>
+      <div style="display:flex;gap:20px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
+        <div style="background:var(--card);border:1px solid var(--card-border);border-radius:10px;padding:14px 24px;text-align:center;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;color:var(--teal);">4</div>
+          <div style="font-size:12px;color:var(--text2);">менеджера</div>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--card-border);border-radius:10px;padding:14px 24px;text-align:center;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;color:var(--teal);">8</div>
+          <div style="font-size:12px;color:var(--text2);">тем-паттернов</div>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--card-border);border-radius:10px;padding:14px 24px;text-align:center;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;color:var(--teal);">10</div>
+          <div style="font-size:12px;color:var(--text2);">автоматизаций</div>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--card-border);border-radius:10px;padding:14px 24px;text-align:center;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;color:var(--amber);">5</div>
+          <div style="font-size:12px;color:var(--text2);">quick wins</div>
+        </div>
+      </div>
+      <div style="margin-top:24px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+        <span style="font-size:12px;color:var(--text3);">Интервьюируемые:</span>
+        <span style="background:var(--teal-dim);border:1px solid var(--teal-border);border-radius:4px;padding:2px 10px;font-size:12px;color:var(--teal);">Dima</span>
+        <span style="background:var(--teal-dim);border:1px solid var(--teal-border);border-radius:4px;padding:2px 10px;font-size:12px;color:var(--teal);">Edward</span>
+        <span style="background:var(--teal-dim);border:1px solid var(--teal-border);border-radius:4px;padding:2px 10px;font-size:12px;color:var(--teal);">Mika</span>
+        <span style="background:var(--teal-dim);border:1px solid var(--teal-border);border-radius:4px;padding:2px 10px;font-size:12px;color:var(--teal);">Yudha</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SLIDE 2: ПАТТЕРНЫ ═══ -->
+  <section class="slide" data-slide="1">
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="grid-lines"></div>
+    <div class="content-wide">
+      <div class="tag">Раздел 1 — Ключевые паттерны</div>
+      <h2>8 тем, которые <em>повторяются у всех</em></h2>
+      <p class="subtitle" style="margin-bottom:24px;">Упомянуты минимум двумя менеджерами независимо друг от друга.</p>
+      <div class="cards cards-4" style="gap:12px;">
+        <div class="card accent">
+          <div class="card-label">Тема 1</div>
+          <div class="card-title">Объём + скорость</div>
+          <div class="card-body">30+ чатов одновременно в high season. Ручные процессы ломаются под нагрузкой.</div>
+        </div>
+        <div class="card red-accent">
+          <div class="card-label red">Тема 2</div>
+          <div class="card-title">Платёжные задержки</div>
+          <div class="card-body">Подтверждение банковского перевода — вручную, особенно в выходные. Нет real-time интеграции.</div>
+        </div>
+        <div class="card amber-accent">
+          <div class="card-label amber">Тема 3</div>
+          <div class="card-title">Availability — ненадёжен</div>
+          <div class="card-body">Сайт ≠ календарь. Ручная сверка 5–10 мин на каждый запрос. Риск double-booking.</div>
+        </div>
+        <div class="card blue-accent">
+          <div class="card-label blue">Тема 4</div>
+          <div class="card-title">Кастомные маршруты</div>
+          <div class="card-body">Согласование с гидом занимает 2–3 дня вместо 2 часов. Повторяется постоянно.</div>
+        </div>
+        <div class="card purple-accent">
+          <div class="card-label purple">Тема 5</div>
+          <div class="card-title">Культура copy-paste</div>
+          <div class="card-body">У каждого своя папка шаблонов. Нет единой системы. Новые сотрудники беспомощны.</div>
+        </div>
+        <div class="card red-accent">
+          <div class="card-label red">Тема 6</div>
+          <div class="card-title">Эскалация к Диме/Кариму</div>
+          <div class="card-body">Нет матрицы решений. Каждый рефанд и скидка — через двух человек. Узкое горлышко.</div>
+        </div>
+        <div class="card amber-accent">
+          <div class="card-label amber">Тема 7</div>
+          <div class="card-title">OTA-нагрузка</div>
+          <div class="card-body">GetMyBoat, ClickAndBoat — отдельный логин, риск предупреждений. Нет единого слоя.</div>
+        </div>
+        <div class="card blue-accent">
+          <div class="card-label blue">Тема 8</div>
+          <div class="card-title">Погодные отмены</div>
+          <div class="card-body">100+ гостей, уведомляют вручную, делят список. Шаблоны есть, workflow — нет.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SLIDE 3: УЗКИЕ МЕСТА ═══ -->
+  <section class="slide" data-slide="2">
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="grid-lines"></div>
+    <div class="content-wide">
+      <div class="tag">Раздел 1.2 — Системные узкие места</div>
+      <h2>4 <em>bottleneck-а</em>, которые блокируют всё</h2>
+      <div class="col-layout" style="margin-top:24px;">
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <div class="card red-accent">
+            <div class="card-label red">Bottleneck 1 — критический</div>
+            <div class="card-title">Дима и Карим — единые точки отказа</div>
+            <div class="card-body" style="margin-top:8px;">Все рефанды, скидки, эскалации, отмены по погоде, согласование маршрутов — через них. Ответ: от минут до часов. Менеджеры заблокированы в ожидании.</div>
+          </div>
+          <div class="card red-accent">
+            <div class="card-label red">Bottleneck 2 — критический</div>
+            <div class="card-title">Ручной ввод лидов и подтверждение платежей</div>
+            <div class="card-body" style="margin-top:8px;">OTA-букинги вводятся вручную → ошибки дат (особенно Klook US-формат MM/DD). Подтверждение оплаты — звонок бухгалтеру. Дублирование, потеря лидов.</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <div class="card amber-accent">
+            <div class="card-label amber">Bottleneck 3 — высокий</div>
+            <div class="card-title">Inventory accuracy</div>
+            <div class="card-body" style="margin-top:8px;">Сайт, календарь и ручная проверка расходятся. Лодка помечена недоступной, хотя отмена прошла. Требует ручной сверки каждый раз.</div>
+          </div>
+          <div class="card amber-accent">
+            <div class="card-label amber">Bottleneck 4 — высокий</div>
+            <div class="card-title">Коммуникация с гидами и поставщиками</div>
+            <div class="card-body" style="margin-top:8px;">Кастомные маршруты = ручная переписка с Geebran. Предтурные изменения (еда, допы) — разрозненные чаты. Нет централизованного pre-tour брифинга.</div>
+          </div>
+          <div class="quote" style="margin-top:8px;">
+            «Не читаю чаты 40 минут — открываю дашборд, вижу всё за 5 минут, фокусируюсь на решениях.»
+            <cite>— Дима, идеальное состояние</cite>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SLIDE 4: MIKA ═══ -->
+  <section class="slide" data-slide="3">
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="grid-lines"></div>
+    <div class="content-wide">
+      <div class="tag">Раздел 2.1 — Профиль</div>
+      <div class="col-layout">
+        <div>
+          <div class="person-header">
+            <div class="person-avatar">👩</div>
+            <div>
+              <div class="person-name">Mika</div>
+              <div class="person-role">GR Manager — Guest Relation Lead</div>
+            </div>
+          </div>
+          <h3>Ежедневный процесс</h3>
+          <ul class="list" style="margin-bottom:16px;">
+            <li><span class="dot"></span>Срочные вопросы (сегодня/завтра туры)</li>
+            <li><span class="dot"></span>Ввод всех входящих лидов в CRM</li>
+            <li><span class="dot"></span>Airbnb + email — проверка сообщений</li>
+            <li><span class="dot"></span>Квалификация гостей, проверка availability</li>
+            <li><span class="dot"></span>Отправка итинерария, фото лодок, цен</li>
+            <li><span class="dot"></span>Платёжная ссылка → follow-up через 1 час</li>
+            <li><span class="dot"></span>Закрытие смены — все задачи зафиксированы</li>
+          </ul>
+          <h3>Распределение времени</h3>
+          <div class="progress-row"><div class="progress-label">Odoo / CRM</div><div class="progress-bar"><div class="progress-fill" style="width:60%"></div></div><div class="progress-val">60%</div></div>
+          <div class="progress-row"><div class="progress-label">WhatsApp + остальное</div><div class="progress-bar"><div class="progress-fill" style="width:40%;background:var(--blue)"></div></div><div class="progress-val" style="color:var(--blue)">40%</div></div>
+        </div>
+        <div>
+          <h3>Топ болей</h3>
+          <ul class="list">
+            <li><span class="dot red"></span><strong>Объём в high season</strong> — точность падает при нагрузке</li>
+            <li><span class="dot red"></span><strong>Кастомный маршрут</strong> — 2–3 дня туда-обратно с Geebran</li>
+            <li><span class="dot red"></span><strong>Подтверждение перевода</strong> — особенно в выходные: звонок бухгалтеру</li>
+            <li><span class="dot amber"></span><strong>Inconsistency политики</strong> — давление на рефанд под угрозой плохого отзыва</li>
+            <li><span class="dot amber"></span><strong>Трансфер-путаница</strong> — гости не понимают, что шаттл бесплатный</li>
+            <li><span class="dot amber"></span><strong>Ограничения по возрасту</strong> — нет автоматической проверки, каждый раз вручную</li>
+            <li><span class="dot"></span><strong>Information retrieval</strong> — нужно спрашивать Диму/Карима/Дэвида для базовых данных</li>
+          </ul>
+          <h3 style="margin-top:16px;">Что хочет</h3>
+          <ul class="list">
+            <li><span class="dot"></span>Авто-ввод OTA-букингов</li>
+            <li><span class="dot"></span>Real-time статус платежей</li>
+            <li><span class="dot"></span>Visibility по всем лодкам без запросов</li>
+            <li><span class="dot"></span>Готовые итинерарии (не спрашивать каждый раз)</li>
+            <li><span class="dot"></span>Авто-проверка возраста/ёмкости в системе</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SLIDE 5: YUDHA ═══ -->
+  <section class="slide" data-slide="4">
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="grid-lines"></div>
+    <div class="content-wide">
+      <div class="tag">Раздел 2.2 — Профиль</div>
+      <div class="col-layout">
+        <div>
+          <div class="person-header">
+            <div class="person-avatar">👨</div>
+            <div>
+              <div class="person-name">Yudha</div>
+              <div class="person-role">GR Manager</div>
+            </div>
+          </div>
+          <h3>Утренняя смена</h3>
+          <ul class="list" style="margin-bottom:14px;">
+            <li><span class="dot"></span>Экстренные запросы: болезни, опоздания водителей, отмены</li>
+            <li><span class="dot"></span>Ввод OTA-букингов → обновление календаря</li>
+            <li><span class="dot"></span>Закрытие лодок если fully booked</li>
+            <li><span class="dot"></span>Follow-up с нерешёнными гостями</li>
+          </ul>
+          <h3>Дневная смена</h3>
+          <ul class="list" style="margin-bottom:14px;">
+            <li><span class="dot"></span>Просроченные задачи</li>
+            <li><span class="dot"></span>Ответы на вопросы, обработка броней</li>
+            <li><span class="dot"></span>Проверка поставщиков: фотограф, доп.заказы (напитки, еда)</li>
+          </ul>
+          <h3>Время</h3>
+          <div class="progress-row"><div class="progress-label">WhatsApp + команда</div><div class="progress-bar"><div class="progress-fill" style="width:60%"></div></div><div class="progress-val">60%</div></div>
+          <div class="progress-row"><div class="progress-label">Airbnb, OTA, сайт</div><div class="progress-bar"><div class="progress-fill" style="width:40%;background:var(--blue)"></div></div><div class="progress-val" style="color:var(--blue)">40%</div></div>
+        </div>
+        <div>
+          <h3>Частые конфликты с гостями</h3>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;">
+            <div class="card red-accent" style="padding:10px 14px;">
+              <div class="card-body">«Дайте скидку за меньшие часы» — нет, так не работает ценообразование</div>
+            </div>
+            <div class="card red-accent" style="padding:10px 14px;">
+              <div class="card-body">«Гарантируйте манту — иначе возврат» — невозможно, дикие животные</div>
+            </div>
+            <div class="card amber-accent" style="padding:10px 14px;">
+              <div class="card-body">«Дети дешевле?» / «Местная цена по KITAS?» — неясная политика</div>
+            </div>
+            <div class="card amber-accent" style="padding:10px 14px;">
+              <div class="card-body">«Даёте ли комиссию агентам?» — ответ варьируется</div>
+            </div>
+          </div>
+          <h3>Что хочет</h3>
+          <ul class="list">
+            <li><span class="dot"></span>Авто-ввод OTA + авто-закрытие при достижении лимита</li>
+            <li><span class="dot"></span>Предустановленные параметры скидок (без Карима каждый раз)</li>
+            <li><span class="dot"></span>Чёткие политические шаблоны: комиссии, детские цены, мантарей</li>
+            <li><span class="dot"></span>Умный follow-up — не вручную каждый день</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SLIDE 6: DIMA — ДАШБОРД ═══ -->
+  <section class="slide" data-slide="5">
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="grid-lines"></div>
+    <div class="content-wide">
+      <div class="tag">Раздел 2.3 — Dashboard Requirements</div>
+      <h2>Дима: <em>требования к дашборду</em></h2>
+      <div class="col-layout" style="margin-top:20px;">
+        <div>
+          <h3>Ежедневный вид</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
+            <div class="card accent" style="padding:12px 16px;">
+              <div class="card-label">Метрика</div>
+              <div class="card-title" style="font-size:13px;">Время ответа</div>
+              <div class="card-body" style="font-size:12px;">По менеджерам в минутах</div>
+            </div>
+            <div class="card accent" style="padding:12px 16px;">
+              <div class="card-label">Метрика</div>
+              <div class="card-title" style="font-size:13px;">Конверсия</div>
+              <div class="card-body" style="font-size:12px;">Запросы → бронирования</div>
+            </div>
+            <div class="card red-accent" style="padding:12px 16px;">
+              <div class="card-label red">Метрика</div>
+              <div class="card-title" style="font-size:13px;">Отмены + причины</div>
+              <div class="card-body" style="font-size:12px;">% с разбивкой по типам</div>
+            </div>
+            <div class="card amber-accent" style="padding:12px 16px;">
+              <div class="card-label amber">Метрика</div>
+              <div class="card-title" style="font-size:13px;">Эскалации</div>
+              <div class="card-body" style="font-size:12px;">Кто, почему, сколько</div>
+            </div>
+          </div>
+          <div class="card" style="padding:12px 16px;">
+            <div class="card-label">Очередь</div>
+            <div class="card-title">Негативные отзывы ожидают ответа</div>
+            <div class="card-body" style="font-size:12px;">1★ → 2★ → 3★, сортировка по приоритету</div>
+          </div>
+        </div>
+        <div>
+          <h3>Еженедельный вид</h3>
+          <ul class="list" style="margin-bottom:16px;">
+            <li><span class="dot"></span><strong>Жалобы после тура</strong> — тренды по темам</li>
+            <li><span class="dot"></span><strong>Выручка по каналу</strong> — GR vs OTA vs Direct</li>
+            <li><span class="dot"></span><strong>Топ причин отмен</strong> — круговая диаграмма</li>
+            <li><span class="dot"></span><strong>Статистика менеджеров</strong> — скорость, конверсия, отмены</li>
+            <li><span class="dot"></span><strong>Roadmap</strong> — что шипим, когда</li>
+          </ul>
+          <h3>Ключевые требования к UX</h3>
+          <ul class="list">
+            <li><span class="dot"></span>5 минут — не 40. Максимум сканируемость</li>
+            <li><span class="dot"></span>Drill-down: кликнул на "плохая погода" → видишь всех с именами и датами</li>
+            <li><span class="dot"></span>Mobile-first: Дима смотрит на ходу</li>
+            <li><span class="dot"></span>Real-time: обновление каждые 5–10 минут</li>
+            <li><span class="dot"></span>Никакого жаргона "вина" — нейтральные формулировки</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SLIDE 7: ТОП АВТОМАТИЗАЦИИ — ПРИОРИТЕТ 1 ═══ -->
+  <section class="slide" data-slide="6">
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="grid-lines"></div>
+    <div class="content-wide">
+      <div class="tag">Раздел 3 — Автоматизации · Приоритет HIGH</div>
+      <h2>Топ-5: <em>критические автоматизации</em></h2>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:20px;">
+
+        <div class="row-item">
+          <div class="row-num">01</div>
+          <div>
+            <div class="row-title">Авто-ввод OTA-букингов и обновление календаря</div>
+            <div class="row-sub">Viator, Klook, GetMyBoat → авто-push в Odoo/Respond.io · Экономия: 30–40 мин/смена</div>
+            <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap;">
+              <span class="module-tag m-booking">Booking Engine</span>
+              <span class="module-tag m-ops">Ops Manager</span>
+            </div>
+          </div>
+          <div><span class="badge high">HIGH</span></div>
+        </div>
+
+        <div class="row-item">
+          <div class="row-num">02</div>
+          <div>
+            <div class="row-title">Real-time интеграция статуса платежей</div>
+            <div class="row-sub">Bank API/webhook → авто-статус брони → авто-инвойс · Экономия: 20–30 мин/смена</div>
+            <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap;">
+              <span class="module-tag m-finance">Finance</span>
+              <span class="module-tag m-booking">Booking Engine</span>
+            </div>
+          </div>
+          <div><span class="badge high">HIGH</span></div>
+        </div>
+
+        <div class="row-item">
+          <div class="row-num">03</div>
+          <div>
+            <div class="row-title">Авто-синхронизация availability (сайт ↔ календарь)</div>
+            <div class="row-sub">Единый источник правды · Авто-закрытие shared при max pax · Экономия: 20–30 мин/смена</div>
+            <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap;">
+              <span class="module-tag m-ops">Ops Manager</span>
+              <span class="module-tag m-booking">Booking Engine</span>
+            </div>
+          </div>
+          <div><span class="badge high">HIGH</span></div>
+        </div>
+
+        <div class="row-item">
+          <div class="row-num">04</div>
+          <div>
+            <div class="row-title">Умный multi-platform follow-up</div>
+            <div class="row-sub">Ссылка отправлена → не оплачено 1ч → авто-напоминание. Тихий гость 2ч → мягкий follow-up · Экономия: 15–20 мин/смена</div>
+            <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap;">
+              <span class="module-tag m-crm">WhatsApp Bot</span>
+              <span class="module-tag m-booking">Booking Engine</span>
+            </div>
+          </div>
+          <div><span class="badge high">HIGH</span></div>
+        </div>
+
+        <div class="row-item">
+          <div class="row-num">05</div>
+          <div>
+            <div class="row-title">Трекинг причин отмен + дашборд</div>
+            <div class="row-sub">Dropdown: болезнь / плохая погода / нашли дешевле / no-show / операционная причина · % по причинам, по рынкам, по каналам</div>
+            <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap;">
+              <span class="module-tag m-ops">Ops Manager</span>
+              <span class="module-tag m-finance">Finance</span>
+            </div>
+          </div>
+          <div><span class="badge high">HIGH</span></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SLIDE 8: ТОП АВТОМАТИЗАЦИИ — ПРИОРИТЕТ 2-3 ═══ -->
+  <section class="slide" data-slide="7">
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="grid-lines"></div>
+    <div class="content-wide">
+      <div class="tag">Раздел 3 — Автоматизации · Приоритет MEDIUM</div>
+      <h2>Следующие <em>5 автоматизаций</em></h2>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:20px;">
+
+        <div class="row-item">
+          <div class="row-num">06</div>
+          <div>
+            <div class="row-title">Умные опции итинерария и маршрутизация кастомных запросов</div>
+            <div class="row-sub">Готовые шаблоны маршрутов → мгновенный ответ на стандартные правки. Сложное → авто-бриф гиду · Экономия: 1–2 ч на 5 кастомных запросов</div>
+            <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap;">
+              <span class="module-tag m-crm">WhatsApp Bot</span>
+              <span class="module-tag m-ops">Ops Manager</span>
+            </div>
+          </div>
+          <div><span class="badge mid">MEDIUM</span></div>
+        </div>
+
+        <div class="row-item">
+          <div class="row-num">07</div>
+          <div>
+            <div class="row-title">Предтурные коммуникации (авто-напоминания + OTA API)</div>
+            <div class="row-sub">Авто-триггер email + WhatsApp за 48ч/24ч/6ч. Запрос отзыва после тура · Экономия: 10–15 мин/тур</div>
+            <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap;">
+              <span class="module-tag m-crm">WhatsApp Bot</span>
+              <span class="module-tag m-ops">Ops Manager</span>
+            </div>
+          </div>
+          <div><span class="badge mid">MEDIUM</span></div>
+        </div>
+
+        <div class="row-item">
+          <div class="row-num">08</div>
+          <div>
+            <div class="row-title">Генерация платёжной ссылки прямо в CRM</div>
+            <div class="row-sub">Убрать ручной логин на сайт. Кнопка в Odoo/Respond.io → одним кликом гостю · Экономия: 5 мин/бронь × 10–15 ручных/нед</div>
+            <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap;">
+              <span class="module-tag m-finance">Finance</span>
+              <span class="module-tag m-booking">Booking Engine</span>
+            </div>
+          </div>
+          <div><span class="badge mid">MEDIUM</span></div>
+        </div>
+
+        <div class="row-item">
+          <div class="row-num">09</div>
+          <div>
+            <div class="row-title">Авто-проверка ограничений возраста и ёмкости</div>
+            <div class="row-sub">Правила в CRM и на сайте: возраст <8 → рекомендация upgrade. Предупреждение менеджеру при edge cases</div>
+            <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap;">
+              <span class="module-tag m-booking">Booking Engine</span>
+              <span class="module-tag m-ops">Ops Manager</span>
+            </div>
+          </div>
+          <div><span class="badge mid">MEDIUM</span></div>
+        </div>
+
+        <div class="row-item">
+          <div class="row-num">10</div>
+          <div>
+            <div class="row-title">Агрегация отзывов + AI-черновики ответов</div>
+            <div class="row-sub">Viator, Google, Klook, TripAdvisor, Facebook → единая очередь. AI пишет черновик → менеджер правит и отправляет · Экономия: 10–15 мин/день</div>
+            <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap;">
+              <span class="module-tag m-review">Review Engine</span>
+            </div>
+          </div>
+          <div><span class="badge low">LOW</span></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SLIDE 9: МАППИНГ МОДУЛЕЙ ═══ -->
+  <section class="slide" data-slide="8">
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="grid-lines"></div>
+    <div class="content-wide">
+      <div class="tag">Раздел 4 — BLUUU OS модули</div>
+      <h2>Где каждая <em>автоматизация живёт</em></h2>
+      <div class="cards cards-3" style="margin-top:24px;gap:14px;">
+
+        <div class="card accent">
+          <div class="card-label">Модуль 1</div>
+          <div class="card-title" style="font-size:17px;">🔵 Booking Engine</div>
+          <ul class="list" style="margin-top:10px;">
+            <li><span class="dot"></span>OTA авто-ввод (01)</li>
+            <li><span class="dot"></span>Авто-availability (03)</li>
+            <li><span class="dot"></span>Smart follow-up (04)</li>
+            <li><span class="dot"></span>Payment link widget (08)</li>
+            <li><span class="dot"></span>Upsell-логика (группа ≥6 / ребёнок <8)</li>
+          </ul>
+          <div style="font-size:11px;color:var(--text3);margin-top:10px;font-family:'JetBrains Mono',monospace;">KPI: конверсия · время до брони · OTA-ошибки</div>
+        </div>
+
+        <div class="card blue-accent">
+          <div class="card-label blue">Модуль 2</div>
+          <div class="card-title" style="font-size:17px;">💬 WhatsApp CRM Bot</div>
+          <ul class="list" style="margin-top:10px;">
+            <li><span class="dot"></span>Квалификация гостей (уже идёт)</li>
+            <li><span class="dot"></span>Авто-availability в боте (01)</li>
+            <li><span class="dot"></span>Кастомные маршруты (06)</li>
+            <li><span class="dot"></span>Предтурные напоминания (07)</li>
+            <li><span class="dot"></span>Шаблоны политик (дети, комиссии, мантарей)</li>
+          </ul>
+          <div style="font-size:11px;color:var(--text3);margin-top:10px;font-family:'JetBrains Mono',monospace;">KPI: ответ в секундах · escalation rate</div>
+        </div>
+
+        <div class="card amber-accent">
+          <div class="card-label amber">Модуль 3</div>
+          <div class="card-title" style="font-size:17px;">⚙️ Ops Manager</div>
+          <ul class="list" style="margin-top:10px;">
+            <li><span class="dot"></span>Трекинг причин отмен (05)</li>
+            <li><span class="dot"></span>Предтурные коммуникации (07)</li>
+            <li><span class="dot"></span>Дашборд реального времени (Дима)</li>
+            <li><span class="dot"></span>Статус поставщиков (фото, транспорт, F&B)</li>
+          </ul>
+          <div style="font-size:11px;color:var(--text3);margin-top:10px;font-family:'JetBrains Mono',monospace;">KPI: cancel rate · cancel reasons · supplier status</div>
+        </div>
+
+        <div class="card purple-accent">
+          <div class="card-label purple">Модуль 4</div>
+          <div class="card-title" style="font-size:17px;">💰 Finance & Revenue</div>
+          <ul class="list" style="margin-top:10px;">
+            <li><span class="dot"></span>Real-time платежи (02)</li>
+            <li><span class="dot"></span>Трекинг рефандов/рескедулов</li>
+            <li><span class="dot"></span>Revenue по каналам</li>
+            <li><span class="dot"></span>Скидки: авто-применение (high season)</li>
+          </ul>
+          <div style="font-size:11px;color:var(--text3);margin-top:10px;font-family:'JetBrains Mono',monospace;">KPI: refund rate · revenue by channel · discount usage</div>
+        </div>
+
+        <div class="card red-accent">
+          <div class="card-label red">Модуль 5</div>
+          <div class="card-title" style="font-size:17px;">⭐ Review Engine</div>
+          <ul class="list" style="margin-top:10px;">
+            <li><span class="dot"></span>Агрегация: Viator, Google, Klook, TripAdvisor, Facebook</li>
+            <li><span class="dot"></span>Единая очередь: 1★ → 2★ → 3★</li>
+            <li><span class="dot"></span>AI-черновик ответа (10)</li>
+            <li><span class="dot"></span>Трекинг: дата, рефанд, удалён/остался</li>
+          </ul>
+          <div style="font-size:11px;color:var(--text3);margin-top:10px;font-family:'JetBrains Mono',monospace;">KPI: avg response time · negative review rate</div>
+        </div>
+
+        <div class="card" style="border-color:rgba(255,255,255,0.12);background:rgba(255,255,255,0.02);">
+          <div class="card-label" style="color:var(--text3);">Связь модулей</div>
+          <div class="card-title" style="font-size:15px;">OTA → Booking → Finance → Ops → Review</div>
+          <div class="card-body" style="margin-top:10px;">Один поток данных без ручных переключений. Гость бронирует на Viator → система сама прогоняет по всем модулям.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SLIDE 10: ДАШБОРД ДЕТАЛИ ═══ -->
+  <section class="slide" data-slide="9">
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="grid-lines"></div>
+    <div class="content-wide">
+      <div class="tag">Раздел 5 — Dashboard Specs</div>
+      <h2>Дашборд: <em>5 минут вместо 40</em></h2>
+      <div class="col-layout" style="margin-top:24px;">
+        <div>
+          <h3>Ежедневный вид — карточки</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
+            <div style="background:var(--teal-dim);border:1px solid var(--teal-border);border-radius:10px;padding:14px;">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--teal);">3.2 мин</div>
+              <div style="font-size:12px;color:var(--text2);">Среднее время ответа</div>
+            </div>
+            <div style="background:rgba(74,158,255,0.08);border:1px solid rgba(74,158,255,0.2);border-radius:10px;padding:14px;">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--blue);">68%</div>
+              <div style="font-size:12px;color:var(--text2);">Конверсия сегодня</div>
+            </div>
+            <div style="background:rgba(255,92,92,0.07);border:1px solid rgba(255,92,92,0.2);border-radius:10px;padding:14px;">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--red);">4.1%</div>
+              <div style="font-size:12px;color:var(--text2);">Отмены сегодня</div>
+            </div>
+            <div style="background:rgba(245,166,35,0.07);border:1px solid rgba(245,166,35,0.2);border-radius:10px;padding:14px;">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--amber);">2</div>
+              <div style="font-size:12px;color:var(--text2);">Эскалации сегодня</div>
+            </div>
+          </div>
+          <div class="card" style="padding:14px;">
+            <div class="card-label">Upsell трекер</div>
+            <div style="display:flex;gap:16px;margin-top:8px;">
+              <div><div style="font-size:20px;font-weight:700;color:var(--teal);">12</div><div style="font-size:11px;color:var(--text3);">предложено</div></div>
+              <div><div style="font-size:20px;font-weight:700;color:var(--teal2);">5</div><div style="font-size:11px;color:var(--text3);">принято</div></div>
+              <div><div style="font-size:20px;font-weight:700;color:var(--amber);">42%</div><div style="font-size:11px;color:var(--text3);">conversion</div></div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3>Еженедельный анализ</h3>
+          <div class="card accent" style="margin-bottom:12px;padding:14px;">
+            <div class="card-label">Причины отмен — неделя</div>
+            <div style="margin-top:10px;">
+              <div class="progress-row"><div class="progress-label" style="font-size:11px;">Болезнь гостя</div><div class="progress-bar"><div class="progress-fill" style="width:35%"></div></div><div class="progress-val">35%</div></div>
+              <div class="progress-row"><div class="progress-label" style="font-size:11px;">Плохая погода</div><div class="progress-bar"><div class="progress-fill" style="width:25%;background:var(--amber)"></div></div><div class="progress-val" style="color:var(--amber)">25%</div></div>
+              <div class="progress-row"><div class="progress-label" style="font-size:11px;">Нашли дешевле</div><div class="progress-bar"><div class="progress-fill" style="width:20%;background:var(--red)"></div></div><div class="progress-val" style="color:var(--red)">20%</div></div>
+              <div class="progress-row"><div class="progress-label" style="font-size:11px;">No-show</div><div class="progress-bar"><div class="progress-fill" style="width:12%;background:var(--blue)"></div></div><div class="progress-val" style="color:var(--blue)">12%</div></div>
+              <div class="progress-row"><div class="progress-label" style="font-size:11px;">Операционная</div><div class="progress-bar"><div class="progress-fill" style="width:8%;background:var(--text3)"></div></div><div class="progress-val" style="color:var(--text3)">8%</div></div>
+            </div>
+          </div>
+          <h3>Требования UX</h3>
+          <ul class="list">
+            <li><span class="dot"></span><strong>Drill-down</strong>: клик на причину → список гостей с именами и датами</li>
+            <li><span class="dot"></span><strong>Mobile-first</strong>: Дима смотрит на телефоне в движении</li>
+            <li><span class="dot"></span><strong>Real-time</strong>: обновление каждые 5–10 минут</li>
+            <li><span class="dot amber"></span><strong>Нейтральные формулировки</strong>: без слова "вина"</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SLIDE 11: QUICK WINS ═══ -->
+  <section class="slide" data-slide="10">
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="grid-lines"></div>
+    <div class="content-wide">
+      <div class="tag">Раздел 6 — Quick Wins</div>
+      <h2>5 вещей, которые можно <em>сделать в этом месяце</em></h2>
+      <div class="cards cards-3" style="margin-top:20px;gap:12px;">
+
+        <div class="card accent">
+          <div class="card-label">QW 1 · 1 неделя</div>
+          <div class="card-title">Dropdown причин отмены</div>
+          <div class="card-body" style="margin-top:8px;">Добавить поле в CRM: 6–7 вариантов. Только конфиг, без бэкенда. Немедленно даёт данные Диме.</div>
+          <div style="margin-top:10px;display:flex;gap:8px;align-items:center;">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--teal);">~5 мин/нед сохраняет</span>
+            <span class="badge high" style="font-size:9px;">Данные ценны</span>
+          </div>
+        </div>
+
+        <div class="card blue-accent">
+          <div class="card-label blue">QW 2 · 1 неделя</div>
+          <div class="card-title">Шаблоны политик в боте</div>
+          <div class="card-body" style="margin-top:8px;">«Дети дешевле?» / «Комиссия?» / «Мантарей гарантия?» → стандартный ответ. Чистый контент, ноль разработки.</div>
+          <div style="margin-top:10px;display:flex;gap:8px;align-items:center;">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--blue);">~2–3 ч/нед сохраняет</span>
+          </div>
+        </div>
+
+        <div class="card amber-accent">
+          <div class="card-label amber">QW 3 · 1 неделя</div>
+          <div class="card-title">Консолидация шаблонов предтурных напоминаний</div>
+          <div class="card-body" style="margin-top:8px;">Централизовать в Respond.io + кнопка "Отправить всем завтра". High season: 50 гостей одним кликом.</div>
+          <div style="margin-top:10px;display:flex;gap:8px;align-items:center;">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--amber);">~3.5 ч/нед сохраняет</span>
+          </div>
+        </div>
+
+        <div class="card accent">
+          <div class="card-label">QW 4 · 2 недели</div>
+          <div class="card-title">Платёжная ссылка в CRM</div>
+          <div class="card-body" style="margin-top:8px;">Убрать вход на сайт вручную. Кнопка в Odoo/Respond.io: данные заполняются автоматически. Простая API-интеграция.</div>
+          <div style="margin-top:10px;display:flex;gap:8px;align-items:center;">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--teal);">50–75 мин/нед сохраняет</span>
+          </div>
+        </div>
+
+        <div class="card blue-accent">
+          <div class="card-label blue">QW 5 · 2–3 недели</div>
+          <div class="card-title">Синхронизация availability (сайт ↔ календарь)</div>
+          <div class="card-body" style="margin-top:8px;">Флаг расхождений в реальном времени. Красный алерт если лодка недоступна на сайте но свободна в календаре.</div>
+          <div style="margin-top:10px;display:flex;gap:8px;align-items:center;">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--blue);">~20 мин/смена сохраняет</span>
+          </div>
+        </div>
+
+        <div class="card" style="background:rgba(0,196,160,0.05);border-color:rgba(0,196,160,0.2);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:24px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:36px;font-weight:700;color:var(--teal);margin-bottom:8px;">~10 ч</div>
+          <div style="font-size:14px;color:var(--text2);">в неделю освобождается</div>
+          <div style="font-size:12px;color:var(--text3);margin-top:6px;">только от 5 quick wins</div>
+          <div style="width:40px;height:1px;background:var(--teal-border);margin:12px auto;"></div>
+          <div style="font-size:12px;color:var(--teal);">Все 5 — без новой разработки</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SLIDE 12: РОАДМАП ═══ -->
+  <section class="slide" data-slide="11">
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+    <div class="grid-lines"></div>
+    <div class="content-wide">
+      <div class="tag">Итого — Roadmap</div>
+      <h2><em>План</em> внедрения</h2>
+      <div class="timeline" style="margin-top:24px;max-width:900px;">
+        <div class="tl-row">
+          <div class="tl-week">Нед 1–2</div>
+          <div class="tl-items">
+            <div class="tl-item"><strong>Dropdown</strong> причин отмены в CRM</div>
+            <div class="tl-item"><strong>Шаблоны политик</strong> в боте (дети, комиссии, мантарей)</div>
+            <div class="tl-item"><strong>Предтурные напоминания</strong> — bulk send в Respond.io</div>
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-week">Нед 2–4</div>
+          <div class="tl-items">
+            <div class="tl-item"><strong>Платёжная ссылка</strong> в CRM (убрать вход на сайт)</div>
+            <div class="tl-item"><strong>Availability sync</strong> сайт ↔ календарь</div>
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-week">Мес 2</div>
+          <div class="tl-items">
+            <div class="tl-item"><strong>OTA авто-ввод</strong> — Viator/Klook API</div>
+            <div class="tl-item"><strong>Smart follow-up</strong> — конфиг в Respond.io</div>
+            <div class="tl-item"><strong>Bank API</strong> — real-time статус платежей</div>
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-week">Мес 3</div>
+          <div class="tl-items">
+            <div class="tl-item"><strong>Дашборд GR</strong> — Дима видит всё за 5 мин</div>
+            <div class="tl-item"><strong>Итинерарий-шаблоны</strong> — кастомные маршруты без Geebran</div>
+            <div class="tl-item"><strong>Review Engine</strong> — агрегация + AI-черновики</div>
+          </div>
+        </div>
+      </div>
+      <div class="cards cards-3" style="margin-top:28px;gap:14px;">
+        <div class="card accent" style="text-align:center;">
+          <div class="card-num">~10 ч</div>
+          <div class="card-body">в неделю освобождается уже в первый месяц (5 quick wins)</div>
+        </div>
+        <div class="card amber-accent" style="text-align:center;">
+          <div class="card-num amber">0</div>
+          <div class="card-body">новой разработки для первых 3 quick wins — только конфиг</div>
+        </div>
+        <div class="card blue-accent" style="text-align:center;">
+          <div class="card-num" style="color:var(--blue);">4</div>
+          <div class="card-body">GR-менеджера × меньше ручной работы = пространство для роста</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const nav = document.getElementById('nav');
+  const curEl = document.getElementById('cur');
+  const totEl = document.getElementById('tot');
+  let cur = 0;
+
+  totEl.textContent = slides.length;
+
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'nav-dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    nav.appendChild(d);
+  });
+
+  function goTo(n) {
+    if (n < 0 || n >= slides.length) return;
+    slides[cur].classList.remove('active');
+    slides[cur].classList.add('exit');
+    setTimeout(() => slides[cur - (n > cur ? 0 : 0)].classList.remove('exit'), 450);
+    const prev = cur;
+    cur = n;
+    slides[cur].classList.add('active');
+    setTimeout(() => slides[prev].classList.remove('exit'), 450);
+    document.querySelectorAll('.nav-dot').forEach((d, i) => d.classList.toggle('active', i === cur));
+    curEl.textContent = cur + 1;
+  }
+
+  function next() { goTo(cur + 1); }
+  function prev() { goTo(cur - 1); }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); next(); }
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); prev(); }
+  });
+
+  let tx = 0;
+  document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+  document.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - tx;
+    if (Math.abs(dx) > 50) dx < 0 ? next() : prev();
+  }, { passive: true });
+</script>
+</body>
+</html>
