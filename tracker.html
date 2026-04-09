@@ -11,23 +11,23 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --bg: #000;
-  --surface: #111113;
-  --surface2: #1a1a1d;
-  --surface3: #222225;
-  --border: rgba(255,255,255,0.06);
-  --border-strong: rgba(255,255,255,0.1);
-  --text: #f5f5f7;
-  --text2: rgba(255,255,255,0.6);
-  --text3: rgba(255,255,255,0.35);
-  --red: #ff453a;
-  --orange: #ff9f0a;
-  --yellow: #ffd60a;
-  --blue: #0a84ff;
-  --purple: #bf5af2;
-  --green: #30d158;
-  --teal: #64d2ff;
-  --font: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --bg: #f5f5f7;
+  --surface: #fff;
+  --surface2: #fafafa;
+  --surface3: #f0f0f2;
+  --border: rgba(0,0,0,0.06);
+  --border-strong: rgba(0,0,0,0.12);
+  --text: #1d1d1f;
+  --text2: rgba(0,0,0,0.5);
+  --text3: rgba(0,0,0,0.28);
+  --red: #ff3b30;
+  --orange: #ff9500;
+  --yellow: #e08600;
+  --blue: #007aff;
+  --purple: #af52de;
+  --green: #34c759;
+  --teal: #5ac8fa;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
   --font-brand: 'PetrovSans', var(--font);
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
@@ -42,19 +42,20 @@ body { min-height: 100dvh; }
   position: sticky; top: 0; z-index: 100;
   display: flex; align-items: center; justify-content: space-between;
   padding: calc(12px + var(--safe-top)) 24px 12px;
-  background: rgba(0,0,0,0.75);
+  background: rgba(245,245,247,0.82);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   backdrop-filter: saturate(180%) blur(20px);
   border-bottom: 0.5px solid var(--border);
 }
 .hdr-left { display: flex; align-items: center; gap: 16px; }
-.brand { font-family: var(--font-brand); font-weight: 700; font-size: 20px; letter-spacing: -0.02em; }
+.brand { font-family: var(--font-brand); font-weight: 700; font-size: 20px; letter-spacing: -0.02em; color: var(--text); }
 .hdr-pills { display: flex; gap: 8px; flex-wrap: wrap; }
 .hdr-pill {
   display: flex; align-items: center; gap: 5px;
   font-size: 12px; font-weight: 500; color: var(--text2);
   padding: 4px 10px; border-radius: 8px;
-  background: var(--surface2);
+  background: var(--surface);
+  box-shadow: 0 0.5px 1px rgba(0,0,0,0.04);
 }
 .hdr-pill b { color: var(--text); font-variant-numeric: tabular-nums; }
 .hdr-pill .dot { width: 6px; height: 6px; border-radius: 50%; }
@@ -87,6 +88,7 @@ body { min-height: 100dvh; }
 .stat-card {
   background: var(--surface); border-radius: 12px; padding: 14px 12px;
   border: 0.5px solid var(--border);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
 }
 .stat-card .num { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; line-height: 1; font-variant-numeric: tabular-nums; }
 .stat-card .lab { font-size: 11px; color: var(--text2); margin-top: 4px; }
@@ -99,7 +101,7 @@ body { min-height: 100dvh; }
 .tl-item:last-child { border-bottom: none; }
 .tl-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 4px; flex-shrink: 0; }
 .tl-body { flex: 1; min-width: 0; }
-.tl-who { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tl-who { font-size: 13px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .tl-what { font-size: 12px; color: var(--text2); line-height: 1.3; margin-top: 2px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .tl-date { font-size: 11px; color: var(--text3); margin-top: 3px; font-variant-numeric: tabular-nums; }
 
@@ -109,7 +111,7 @@ body { min-height: 100dvh; }
   padding: 9px 0; border-bottom: 0.5px solid var(--border);
 }
 .proj-item:last-child { border-bottom: none; }
-.proj-name { font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.proj-name { font-size: 13px; font-weight: 500; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .proj-bar-wrap { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 .proj-bar { width: 48px; height: 4px; border-radius: 2px; background: var(--surface3); overflow: hidden; }
 .proj-bar-fill { height: 100%; border-radius: 2px; }
@@ -127,7 +129,7 @@ body { min-height: 100dvh; }
   font-size: 12px; font-weight: 600; flex-shrink: 0;
 }
 .team-info { flex: 1; min-width: 0; }
-.team-name { font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.team-name { font-size: 13px; font-weight: 500; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .team-tasks { font-size: 11px; color: var(--text3); }
 
 /* ─── CENTER: TASKS ─── */
@@ -153,35 +155,36 @@ body { min-height: 100dvh; }
 .card {
   background: var(--surface); border-radius: 12px;
   padding: 16px; border: 0.5px solid var(--border);
-  cursor: default; transition: border-color 0.15s, background 0.15s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+  cursor: default; transition: border-color 0.15s, box-shadow 0.15s;
   display: flex; flex-direction: column; gap: 8px;
 }
-.card:hover { border-color: var(--border-strong); background: var(--surface2); }
+.card:hover { border-color: var(--border-strong); box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
 
 .card-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.card-who { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card-who { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .card-deadline {
   flex-shrink: 0; font-size: 11px; font-weight: 500;
   padding: 3px 8px; border-radius: 6px; white-space: nowrap;
   font-variant-numeric: tabular-nums;
 }
-.card-deadline.overdue { background: rgba(255,69,58,0.12); color: var(--red); }
-.card-deadline.today { background: rgba(255,214,10,0.12); color: var(--yellow); }
-.card-deadline.soon { background: rgba(255,159,10,0.1); color: var(--orange); }
-.card-deadline.normal { background: rgba(255,255,255,0.05); color: var(--text3); }
+.card-deadline.overdue { background: rgba(255,59,48,0.1); color: var(--red); }
+.card-deadline.today { background: rgba(224,134,0,0.1); color: var(--yellow); }
+.card-deadline.soon { background: rgba(255,149,0,0.08); color: var(--orange); }
+.card-deadline.normal { background: rgba(0,0,0,0.04); color: var(--text3); }
 .card-deadline.none { display: none; }
 
 .card-what { font-size: 13px; color: var(--text2); line-height: 1.4; }
 
 .card-meta { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
 .pill { font-size: 10px; font-weight: 500; padding: 2px 7px; border-radius: 5px; letter-spacing: 0.01em; }
-.pill-project { background: rgba(255,255,255,0.05); color: var(--text3); }
-.pill-high { background: rgba(255,69,58,0.08); color: var(--red); }
-.pill-medium { background: rgba(255,159,10,0.06); color: var(--orange); }
-.pill-low { background: rgba(255,255,255,0.04); color: var(--text3); }
+.pill-project { background: rgba(0,0,0,0.04); color: var(--text3); }
+.pill-high { background: rgba(255,59,48,0.08); color: var(--red); }
+.pill-medium { background: rgba(255,149,0,0.06); color: var(--orange); }
+.pill-low { background: rgba(0,0,0,0.03); color: var(--text3); }
 
 .card-notes {
-  font-size: 12px; color: var(--text3); line-height: 1.35;
+  font-size: 12px; color: var(--text2); line-height: 1.35;
   padding-top: 8px; border-top: 0.5px solid var(--border);
   display: none;
 }
@@ -212,8 +215,8 @@ body { min-height: 100dvh; }
 /* Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.15); }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.2); }
 </style>
 <link rel="preconnect" href="https://rsms.me"><link href="https://rsms.me/inter/inter.css" rel="stylesheet">
 </head>
@@ -223,14 +226,14 @@ body { min-height: 100dvh; }
 
 <script>
 const STATUS = {
-  urgent:      { label: 'Горит',         color: 'var(--red)',    hex: '#ff453a' },
-  waiting:     { label: 'Ждёт ответа',  color: 'var(--orange)', hex: '#ff9f0a' },
-  in_progress: { label: 'В работе',      color: 'var(--blue)',   hex: '#0a84ff' },
-  blocked:     { label: 'Заблокировано', color: 'var(--purple)', hex: '#bf5af2' },
-  done:        { label: 'Закрыто',       color: 'var(--green)',  hex: '#30d158' }
+  urgent:      { label: 'Горит',         color: 'var(--red)' },
+  waiting:     { label: 'Ждёт ответа',  color: 'var(--orange)' },
+  in_progress: { label: 'В работе',      color: 'var(--blue)' },
+  blocked:     { label: 'Заблокировано', color: 'var(--purple)' },
+  done:        { label: 'Закрыто',       color: 'var(--green)' }
 };
 const ORDER = ['urgent','waiting','in_progress','blocked','done'];
-const COLORS = ['#ff453a','#0a84ff','#bf5af2','#30d158','#ff9f0a','#64d2ff','#ffd60a','#ff375f'];
+const COLORS = ['#ff3b30','#007aff','#af52de','#34c759','#ff9500','#5ac8fa','#e08600','#ff2d55'];
 
 function parseDate(s) { if (!s) return null; const p=s.split('-').map(Number); return new Date(p[0],p[1]-1,p[2]); }
 function today() { const d=new Date(); d.setHours(0,0,0,0); return d; }
@@ -239,7 +242,6 @@ function esc(s) { if(!s) return ''; const d=document.createElement('div'); d.tex
 
 const MO = ['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
 function fmtShort(s) { const d=parseDate(s); if(!d) return ''; return d.getDate()+' '+MO[d.getMonth()]; }
-function fmtFull(s) { const d=parseDate(s); if(!d) return ''; return d.getDate()+' '+MO[d.getMonth()]+' '+d.getFullYear(); }
 
 function deadlineChip(t) {
   if (!t.deadline) return { text:'', cls:'none' };
@@ -259,12 +261,10 @@ function render(data) {
   const tasks = data.tasks || [];
   if (!tasks.length) { document.getElementById('app').innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:80vh;color:var(--text3)">Нет задач</div>'; return; }
 
-  // Groups
   const groups = {}; ORDER.forEach(s => groups[s]=[]);
   tasks.forEach(t => { if(groups[t.status]) groups[t.status].push(t); });
   const counts = {}; ORDER.forEach(s => counts[s]=groups[s].length);
 
-  // Projects
   const projMap = {};
   tasks.forEach(t => {
     const p = t.project || 'Без проекта';
@@ -274,7 +274,6 @@ function render(data) {
   });
   const projects = Object.entries(projMap).sort((a,b)=>b[1].total-a[1].total);
 
-  // Team
   const teamMap = {};
   tasks.forEach(t => {
     const a = t.assignee || '?';
@@ -283,14 +282,12 @@ function render(data) {
   });
   const team = Object.entries(teamMap).sort((a,b)=>b[1].active-a[1].active);
 
-  // Upcoming (deadlines within 7 days, sorted)
   const upcoming = tasks
     .filter(t => t.deadline && t.status!=='done')
     .map(t => ({...t, diff: diffDays(t.deadline)}))
     .filter(t => t.diff !== null && t.diff <= 7)
     .sort((a,b) => a.diff - b.diff);
 
-  // Updated
   let upd = '';
   if (data.lastUpdated) {
     const d = new Date(data.lastUpdated);
@@ -300,7 +297,6 @@ function render(data) {
 
   let h = '';
 
-  // ─── HEADER ───
   h += `<div class="hdr">
     <div class="hdr-left">
       <div class="brand">Command Center</div>
@@ -315,13 +311,10 @@ function render(data) {
     <div class="hdr-time">${upd}</div>
   </div>`;
 
-  // ─── 3 COLUMNS ───
   h += '<div class="layout">';
 
-  // ─── LEFT SIDEBAR ───
+  // LEFT
   h += '<div class="col-l">';
-
-  // Stats
   const overdue = tasks.filter(t=>t.deadline && t.status!=='done' && diffDays(t.deadline)<0).length;
   const todayCount = tasks.filter(t=>t.deadline && t.status!=='done' && diffDays(t.deadline)===0).length;
   h += `<div class="widget">
@@ -334,7 +327,6 @@ function render(data) {
     </div>
   </div>`;
 
-  // Upcoming timeline
   if (upcoming.length) {
     h += '<div class="widget"><div class="w-title">Ближайшие дедлайны</div>';
     upcoming.forEach(t => {
@@ -351,10 +343,9 @@ function render(data) {
     });
     h += '</div>';
   }
+  h += '</div>';
 
-  h += '</div>'; // col-l
-
-  // ─── CENTER ───
+  // CENTER
   h += '<div class="col-c">';
   ORDER.forEach(status => {
     const items = groups[status];
@@ -387,15 +378,12 @@ function render(data) {
         ${t.notes ? `<div class="card-notes">${esc(t.notes)}</div>` : ''}
       </div>`;
     });
-
     h += '</div></div>';
   });
-  h += '</div>'; // col-c
+  h += '</div>';
 
-  // ─── RIGHT SIDEBAR ───
+  // RIGHT
   h += '<div class="col-r">';
-
-  // Projects
   h += '<div class="widget"><div class="w-title">Проекты</div>';
   projects.forEach(([name, d]) => {
     const pct = d.total ? Math.round(d.done/d.total*100) : 0;
@@ -410,13 +398,12 @@ function render(data) {
   });
   h += '</div>';
 
-  // Team
   h += '<div class="widget"><div class="w-title">Команда</div>';
   team.forEach(([name, d]) => {
     const col = hashColor(name);
     const initials = name.split(/[\s()]+/).filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('');
     h += `<div class="team-item">
-      <div class="team-avatar" style="background:${col}22;color:${col}">${initials}</div>
+      <div class="team-avatar" style="background:${col}18;color:${col}">${initials}</div>
       <div class="team-info">
         <div class="team-name">${esc(name)}</div>
         <div class="team-tasks">${d.active} активн. · ${d.done} закр.</div>
@@ -425,9 +412,8 @@ function render(data) {
   });
   h += '</div>';
 
-  h += '</div>'; // col-r
-
-  h += '</div>'; // layout
+  h += '</div>';
+  h += '</div>';
 
   document.getElementById('app').innerHTML = h;
 }
