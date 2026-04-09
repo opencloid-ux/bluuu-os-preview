@@ -1,594 +1,533 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Command Center</title>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-        @font-face {
-            font-family: 'PetrovSans';
-            src: url('fonts/PetrovSans-Regular.woff') format('woff');
-            font-weight: 400;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Command Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-        @font-face {
-            font-family: 'PetrovSans';
-            src: url('fonts/PetrovSans-Bold.woff') format('woff');
-            font-weight: 700;
-        }
+:root {
+  --bg: #000000;
+  --surface: #1c1c1e;
+  --surface-hover: #2c2c2e;
+  --surface-elevated: #3a3a3c;
+  --separator: rgba(255,255,255,0.08);
+  --separator-bold: rgba(255,255,255,0.12);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255,255,255,0.55);
+  --text-tertiary: rgba(255,255,255,0.3);
+  --red: #ff453a;
+  --orange: #ff9f0a;
+  --blue: #0a84ff;
+  --purple: #bf5af2;
+  --green: #30d158;
+  --red-bg: rgba(255,69,58,0.12);
+  --orange-bg: rgba(255,159,10,0.12);
+  --blue-bg: rgba(10,132,255,0.12);
+  --purple-bg: rgba(191,90,242,0.12);
+  --green-bg: rgba(48,209,88,0.12);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --radius-pill: 100px;
+}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+html { 
+  background: var(--bg); 
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-        html, body {
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-        }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', system-ui, sans-serif;
+  min-height: 100dvh;
+  padding: 0;
+}
 
-        body {
-            background-color: #06060a;
-            color: #e8e8ed;
-            font-family: system-ui, -apple-system, sans-serif;
-            font-size: 14px;
-            line-height: 1.5;
-        }
+/* ===== Header ===== */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 16px 20px;
+  background: rgba(0,0,0,0.72);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 0.5px solid var(--separator);
+}
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 24px;
-        }
+.header-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
 
-        /* Header Bar */
-        .header {
-            margin-bottom: 32px;
-        }
+.header-title {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
 
-        .header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-            margin-bottom: 20px;
-        }
+.header-updated {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
 
-        .title {
-            font-family: 'PetrovSans', system-ui, -apple-system, sans-serif;
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: #6b6b80;
-        }
+/* Stats */
+.stats {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
 
-        .last-updated {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 12px;
-            color: #44445a;
-        }
+.stat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 500;
+  background: var(--surface);
+  color: var(--text-secondary);
+  transition: background 0.2s;
+}
 
-        /* Stats Pills */
-        .stats {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
+.stat-pill .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
 
-        .stat-pill {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 14px;
-            background-color: #0d0d14;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 20px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 12px;
-            color: #e8e8ed;
-        }
+.stat-pill .count {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
 
-        .stat-label {
-            color: #6b6b80;
-            font-size: 11px;
-        }
+/* ===== Content ===== */
+.content {
+  padding: 8px 20px 40px;
+}
 
-        /* Section */
-        .section {
-            margin-bottom: 24px;
-        }
+/* ===== Sections ===== */
+.section {
+  margin-bottom: 8px;
+}
 
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 0;
-            cursor: pointer;
-            user-select: none;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-            margin-bottom: 12px;
-            transition: opacity 200ms ease;
-        }
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 0;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+}
 
-        .section-header:hover {
-            opacity: 0.8;
-        }
+.section-header:hover .section-label {
+  color: var(--text-primary);
+}
 
-        .section-toggle {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 20px;
-            height: 20px;
-            opacity: 0.6;
-            transition: transform 200ms cubic-bezier(0.25, 0.1, 0.25, 1);
-        }
+.section-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
 
-        .section.collapsed .section-toggle {
-            transform: rotate(-90deg);
-        }
+.section-label {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+  transition: color 0.2s;
+}
 
-        .section-label {
-            font-family: 'PetrovSans', system-ui, -apple-system, sans-serif;
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: #e8e8ed;
-        }
+.section-count {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  margin-left: 2px;
+}
 
-        .section-count {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 11px;
-            color: #6b6b80;
-            margin-left: auto;
-        }
+.section-chevron {
+  margin-left: auto;
+  color: var(--text-tertiary);
+  font-size: 12px;
+  transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
 
-        .section-content {
-            max-height: 10000px;
-            overflow: hidden;
-            transition: max-height 300ms cubic-bezier(0.25, 0.1, 0.25, 1);
-        }
+.section.collapsed .section-chevron {
+  transform: rotate(-90deg);
+}
 
-        .section.collapsed .section-content {
-            max-height: 0;
-        }
+.section-body {
+  overflow: hidden;
+  transition: max-height 0.35s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.25s;
+  max-height: 2000px;
+  opacity: 1;
+}
 
-        /* Task Row */
-        .task-row {
-            display: grid;
-            grid-template-columns: 3px 1fr;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-            transition: background-color 200ms cubic-bezier(0.25, 0.1, 0.25, 1);
-            padding: 12px 0;
-        }
+.section.collapsed .section-body {
+  max-height: 0;
+  opacity: 0;
+}
 
-        .task-row:hover {
-            background-color: #14141f;
-        }
+/* ===== Task List ===== */
+.task-list {
+  background: var(--surface);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
 
-        .task-status-bar {
-            width: 3px;
-            margin-right: 16px;
-            background-color: #ef4444;
-        }
+/* ===== Task Row ===== */
+.task-row {
+  display: flex;
+  align-items: flex-start;
+  padding: 14px 16px;
+  gap: 12px;
+  border-bottom: 0.5px solid var(--separator);
+  transition: background 0.15s;
+  cursor: default;
+}
 
-        .task-status-bar.waiting {
-            background-color: #f59e0b;
-        }
+.task-row:last-child {
+  border-bottom: none;
+}
 
-        .task-status-bar.in-progress {
-            background-color: #3b82f6;
-        }
+.task-row:hover {
+  background: var(--surface-hover);
+}
 
-        .task-status-bar.blocked {
-            background-color: #8b5cf6;
-        }
+/* Status bar */
+.task-status-bar {
+  width: 3px;
+  min-height: 36px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
 
-        .task-status-bar.done {
-            background-color: #10b981;
-        }
+/* Task main content */
+.task-main {
+  flex: 1;
+  min-width: 0;
+}
 
-        .task-content {
-            display: grid;
-            grid-template-columns: auto 1fr auto auto auto auto auto;
-            gap: 16px;
-            align-items: center;
-        }
+.task-top {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 3px;
+  flex-wrap: wrap;
+}
 
-        .task-assignee {
-            font-size: 15px;
-            font-weight: 600;
-            color: #e8e8ed;
-            white-space: nowrap;
-            min-width: max-content;
-        }
+.task-assignee {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
 
-        .task-description {
-            font-size: 14px;
-            color: #6b6b80;
-            word-break: break-word;
-        }
+.task-desc {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
 
-        .task-project {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 10px;
-            padding: 4px 10px;
-            background-color: rgba(255, 255, 255, 0.04);
-            border-radius: 4px;
-            color: #6b6b80;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            white-space: nowrap;
-        }
+.task-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
 
-        .task-dates {
-            display: flex;
-            gap: 16px;
-            align-items: center;
-        }
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
 
-        .task-date {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 12px;
-            color: #44445a;
-            white-space: nowrap;
-        }
+.tag-project {
+  background: var(--surface-hover);
+  color: var(--text-secondary);
+}
 
-        .task-days {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 12px;
-            white-space: nowrap;
-            min-width: 60px;
-            text-align: right;
-        }
+.tag-priority-high {
+  background: var(--red-bg);
+  color: var(--red);
+}
 
-        .task-days.overdue {
-            color: #ef4444;
-        }
+.tag-priority-medium {
+  background: var(--orange-bg);
+  color: var(--orange);
+}
 
-        .task-days.normal {
-            color: #44445a;
-        }
+.tag-priority-low {
+  background: var(--surface-hover);
+  color: var(--text-tertiary);
+}
 
-        .task-priority {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 10px;
-            padding: 4px 10px;
-            border-radius: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            white-space: nowrap;
-            font-weight: 600;
-        }
+.task-date {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
 
-        .task-priority.high {
-            background-color: rgba(239, 68, 68, 0.1);
-            color: #ef4444;
-        }
+.task-days {
+  font-size: 12px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
 
-        .task-priority.medium {
-            background-color: rgba(245, 158, 11, 0.1);
-            color: #f59e0b;
-        }
+.task-days.overdue {
+  color: var(--red);
+}
 
-        .task-priority.low {
-            background-color: rgba(16, 185, 129, 0.1);
-            color: #10b981;
-        }
+.task-days.normal {
+  color: var(--text-tertiary);
+}
 
-        .task-notes {
-            font-size: 12px;
-            color: #6b6b80;
-            grid-column: 2 / -1;
-            margin-top: 4px;
-            font-style: italic;
-        }
+.task-days.today {
+  color: var(--green);
+}
 
-        /* Empty State */
-        .empty-state {
-            padding: 60px 24px;
-            text-align: center;
-            color: #44445a;
-            font-size: 14px;
-        }
+.task-notes {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  margin-top: 4px;
+  line-height: 1.35;
+}
 
-        /* Responsive */
-        @media (max-width: 1200px) {
-            .task-content {
-                grid-template-columns: 1fr;
-                gap: 8px;
-            }
+/* ===== Empty State ===== */
+.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40vh;
+  color: var(--text-tertiary);
+  font-size: 15px;
+  font-weight: 400;
+}
 
-            .task-row {
-                grid-template-columns: 3px auto 1fr;
-            }
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+  .header { padding: 14px 16px; }
+  .header-title { font-size: 22px; }
+  .content { padding: 4px 16px 32px; }
+  .task-row { padding: 12px 14px; }
+  .task-meta-row { gap: 8px; }
+  .header-top { flex-direction: column; gap: 4px; }
+}
 
-            .task-assignee {
-                font-size: 14px;
-            }
+/* ===== Fade-in ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-            .task-dates {
-                grid-column: 1 / -1;
-                gap: 12px;
-                flex-wrap: wrap;
-            }
-        }
+.task-list {
+  animation: fadeUp 0.4s cubic-bezier(0.25, 0.1, 0.25, 1) both;
+}
 
-        @media (max-width: 768px) {
-            .container {
-                padding: 16px;
-            }
-
-            .header-top {
-                flex-direction: column;
-                gap: 12px;
-                padding-bottom: 16px;
-            }
-
-            .section-header {
-                padding: 10px 0;
-                margin-bottom: 10px;
-            }
-
-            .task-assignee {
-                font-size: 14px;
-            }
-
-            .task-description {
-                font-size: 13px;
-            }
-
-            .task-priority, .task-project {
-                font-size: 9px;
-            }
-        }
-
-        /* Loading state */
-        .loading {
-            padding: 40px 24px;
-            text-align: center;
-            color: #44445a;
-        }
-
-        /* Utility */
-        .hidden {
-            display: none !important;
-        }
-    </style>
+.section:nth-child(2) .task-list { animation-delay: 0.06s; }
+.section:nth-child(3) .task-list { animation-delay: 0.12s; }
+.section:nth-child(4) .task-list { animation-delay: 0.18s; }
+.section:nth-child(5) .task-list { animation-delay: 0.24s; }
+</style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <div class="header-top">
-                <div class="title">COMMAND CENTER</div>
-                <div class="last-updated" id="lastUpdated">Loading...</div>
-            </div>
-            <div class="stats" id="stats"></div>
-        </div>
 
-        <!-- Content -->
-        <div id="content"></div>
+<div id="app"></div>
+
+<script>
+const STATUS_CONFIG = {
+  urgent:      { label: 'Горит',           color: 'var(--red)',    bg: 'var(--red-bg)',    icon: '●' },
+  waiting:     { label: 'Ждёт ответа',    color: 'var(--orange)', bg: 'var(--orange-bg)', icon: '●' },
+  in_progress: { label: 'В работе',        color: 'var(--blue)',   bg: 'var(--blue-bg)',   icon: '●' },
+  blocked:     { label: 'Заблокировано',   color: 'var(--purple)', bg: 'var(--purple-bg)', icon: '●' },
+  done:        { label: 'Закрыто',         color: 'var(--green)',  bg: 'var(--green-bg)',  icon: '●' }
+};
+
+const PRIORITY_LABELS = { high: 'High', medium: 'Medium', low: 'Low' };
+const STATUS_ORDER = ['urgent', 'waiting', 'in_progress', 'blocked', 'done'];
+
+function parseDate(s) {
+  if (!s) return null;
+  const [y, m, d] = s.split('-').map(Number);
+  return new Date(y, m - 1, d);
+}
+
+function today() {
+  const d = new Date();
+  d.setHours(0, 0, 0, 0);
+  return d;
+}
+
+function daysDiff(dateStr) {
+  const d = parseDate(dateStr);
+  if (!d) return null;
+  const t = today();
+  return Math.round((d - t) / 86400000);
+}
+
+function formatDateShort(dateStr) {
+  const d = parseDate(dateStr);
+  if (!d) return '—';
+  const months = ['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
+  return `${d.getDate()} ${months[d.getMonth()]}`;
+}
+
+function daysLabel(task) {
+  if (task.deadline) {
+    const diff = daysDiff(task.deadline);
+    if (diff === null) return { text: '', cls: 'normal' };
+    if (diff < 0) return { text: `${Math.abs(diff)} дн. просрочено`, cls: 'overdue' };
+    if (diff === 0) return { text: 'сегодня', cls: 'today' };
+    if (diff === 1) return { text: 'завтра', cls: 'normal' };
+    return { text: `${diff} дн.`, cls: 'normal' };
+  }
+  // No deadline — show days since created
+  const diff = daysDiff(task.created);
+  if (diff === null) return { text: '', cls: 'normal' };
+  return { text: `${Math.abs(diff)} дн. назад`, cls: 'normal' };
+}
+
+function renderApp(data) {
+  const tasks = data.tasks || [];
+  
+  if (tasks.length === 0) {
+    document.getElementById('app').innerHTML = '<div class="empty">Нет активных задач</div>';
+    return;
+  }
+
+  const grouped = {};
+  STATUS_ORDER.forEach(s => grouped[s] = []);
+  tasks.forEach(t => {
+    if (grouped[t.status]) grouped[t.status].push(t);
+  });
+
+  const counts = {
+    total: tasks.length,
+    urgent: grouped.urgent.length,
+    waiting: grouped.waiting.length,
+    active: grouped.in_progress.length,
+    done: grouped.done.length
+  };
+
+  // Updated timestamp
+  let updatedStr = '';
+  if (data.lastUpdated) {
+    const d = new Date(data.lastUpdated);
+    updatedStr = d.toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric' }) 
+      + ', ' + d.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+  }
+
+  let html = `
+    <div class="header">
+      <div class="header-top">
+        <div class="header-title">Command Center</div>
+        <div class="header-updated">${updatedStr}</div>
+      </div>
+      <div class="stats">
+        <span class="stat-pill"><span class="count">${counts.total}</span> всего</span>
+        <span class="stat-pill"><span class="dot" style="background:var(--red)"></span><span class="count">${counts.urgent}</span></span>
+        <span class="stat-pill"><span class="dot" style="background:var(--orange)"></span><span class="count">${counts.waiting}</span></span>
+        <span class="stat-pill"><span class="dot" style="background:var(--blue)"></span><span class="count">${counts.active}</span></span>
+        <span class="stat-pill"><span class="dot" style="background:var(--green)"></span><span class="count">${counts.done}</span></span>
+      </div>
     </div>
+    <div class="content">
+  `;
 
-    <script>
-        // Parse date safely, avoiding timezone issues
-        function parseDate(dateString) {
-            if (!dateString) return null;
-            // Split manually to avoid timezone conversion
-            const parts = dateString.split('-');
-            if (parts.length !== 3) return null;
-            const year = parseInt(parts[0], 10);
-            const month = parseInt(parts[1], 10);
-            const day = parseInt(parts[2], 10);
-            if (isNaN(year) || isNaN(month) || isNaN(day)) return null;
-            // Create date at midnight UTC-0 conceptually, then work with it locally
-            const date = new Date(year, month - 1, day);
-            return date;
-        }
+  STATUS_ORDER.forEach(status => {
+    const items = grouped[status];
+    if (items.length === 0) return;
+    
+    const cfg = STATUS_CONFIG[status];
+    const collapsed = status === 'done' ? ' collapsed' : '';
 
-        // Calculate days between two dates
-        function daysBetween(date1, date2) {
-            if (!date1 || !date2) return null;
-            const ms = date2.getTime() - date1.getTime();
-            return Math.floor(ms / (1000 * 60 * 60 * 24));
-        }
+    html += `
+      <div class="section${collapsed}">
+        <div class="section-header" onclick="toggleSection(this)">
+          <span class="section-indicator" style="background:${cfg.color}"></span>
+          <span class="section-label">${cfg.label}</span>
+          <span class="section-count">${items.length}</span>
+          <span class="section-chevron">▼</span>
+        </div>
+        <div class="section-body">
+          <div class="task-list">
+    `;
 
-        // Format date for display
-        function formatDate(dateString) {
-            if (!dateString) return '—';
-            const date = parseDate(dateString);
-            if (!date) return dateString;
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const day = String(date.getDate()).padStart(2, '0');
-            return `${year}-${month}-${day}`;
-        }
+    items.forEach(task => {
+      const dl = daysLabel(task);
+      const priorityClass = `tag-priority-${task.priority}`;
+      
+      html += `
+        <div class="task-row">
+          <div class="task-status-bar" style="background:${cfg.color}"></div>
+          <div class="task-main">
+            <div class="task-top">
+              <span class="task-assignee">${task.assignee}</span>
+              <span class="task-desc">${task.task}</span>
+            </div>
+            <div class="task-meta-row">
+              ${task.project ? `<span class="tag tag-project">${task.project}</span>` : ''}
+              <span class="tag ${priorityClass}">${PRIORITY_LABELS[task.priority] || task.priority}</span>
+              <span class="task-date">${formatDateShort(task.created)}</span>
+              ${task.deadline ? `<span class="task-date">→ ${formatDateShort(task.deadline)}</span>` : ''}
+              ${dl.text ? `<span class="task-days ${dl.cls}">${dl.text}</span>` : ''}
+            </div>
+            ${task.notes ? `<div class="task-notes">${task.notes}</div>` : ''}
+          </div>
+        </div>
+      `;
+    });
 
-        // Status labels and emojis
-        const statusInfo = {
-            urgent: { label: 'ГОРИТ', emoji: '🔴' },
-            waiting: { label: 'ЖДЁТ ОТВЕТА', emoji: '⏰' },
-            in_progress: { label: 'В РАБОТЕ', emoji: '🔵' },
-            blocked: { label: 'ЗАБЛОКИРОВАНО', emoji: '⛔' },
-            done: { label: 'ЗАКРЫТО', emoji: '✅' }
-        };
+    html += `
+          </div>
+        </div>
+      </div>
+    `;
+  });
 
-        const statusOrder = ['urgent', 'waiting', 'in_progress', 'blocked', 'done'];
+  html += '</div>';
+  document.getElementById('app').innerHTML = html;
+}
 
-        // Load and render data
-        async function loadData() {
-            try {
-                const response = await fetch('./tracker-data.json');
-                if (!response.ok) throw new Error(`HTTP ${response.status}`);
-                const data = await response.json();
-                renderUI(data);
-            } catch (error) {
-                console.error('Failed to load tracker data:', error);
-                document.getElementById('content').innerHTML = 
-                    '<div class="empty-state">Ошибка загрузки данных</div>';
-            }
-        }
+function toggleSection(el) {
+  el.parentElement.classList.toggle('collapsed');
+}
 
-        function renderUI(data) {
-            // Update last updated
-            const lastUpdated = document.getElementById('lastUpdated');
-            if (data.lastUpdated) {
-                const date = new Date(data.lastUpdated);
-                const timeStr = date.toLocaleString('ru-RU', {
-                    year: 'numeric',
-                    month: '2-digit',
-                    day: '2-digit',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                });
-                lastUpdated.textContent = timeStr;
-            }
+async function init() {
+  try {
+    const r = await fetch('./tracker-data.json?' + Date.now());
+    const data = await r.json();
+    renderApp(data);
+  } catch (e) {
+    document.getElementById('app').innerHTML = `<div class="empty">Ошибка загрузки: ${e.message}</div>`;
+  }
+}
 
-            // Group tasks by status
-            const grouped = {};
-            statusOrder.forEach(status => {
-                grouped[status] = [];
-            });
-
-            const tasks = data.tasks || [];
-            tasks.forEach(task => {
-                if (grouped[task.status]) {
-                    grouped[task.status].push(task);
-                }
-            });
-
-            // Calculate stats
-            const stats = {
-                total: tasks.length,
-                urgent: grouped.urgent.length,
-                waiting: grouped.waiting.length,
-                in_progress: grouped.in_progress.length,
-                done: grouped.done.length
-            };
-
-            // Render stats
-            renderStats(stats);
-
-            // Render sections
-            const content = document.getElementById('content');
-            if (tasks.length === 0) {
-                content.innerHTML = '<div class="empty-state">Нет активных задач</div>';
-                return;
-            }
-
-            let html = '';
-            statusOrder.forEach(status => {
-                const sectionTasks = grouped[status];
-                if (sectionTasks.length === 0) return;
-
-                const info = statusInfo[status];
-                const isCollapsed = status === 'done';
-                
-                html += `
-                    <div class="section ${isCollapsed ? 'collapsed' : ''}">
-                        <div class="section-header">
-                            <div class="section-toggle">${info.emoji}</div>
-                            <div class="section-label">${info.label}</div>
-                            <div class="section-count">${sectionTasks.length}</div>
-                        </div>
-                        <div class="section-content">
-                            ${sectionTasks.map(task => renderTask(task)).join('')}
-                        </div>
-                    </div>
-                `;
-            });
-
-            content.innerHTML = html;
-
-            // Attach section toggle listeners
-            document.querySelectorAll('.section-header').forEach(header => {
-                header.addEventListener('click', function() {
-                    this.closest('.section').classList.toggle('collapsed');
-                });
-            });
-        }
-
-        function renderTask(task) {
-            const deadlineDate = parseDate(task.deadline);
-            const now = new Date();
-            now.setHours(0, 0, 0, 0); // Set to midnight
-
-            let daysText = '—';
-            let daysClass = 'normal';
-            if (deadlineDate) {
-                const days = daysBetween(now, deadlineDate);
-                if (days < 0) {
-                    daysText = `⚠ ${Math.abs(days)} д.`;
-                    daysClass = 'overdue';
-                } else if (days === 0) {
-                    daysText = 'Сегодня';
-                } else {
-                    daysText = `+${days} д.`;
-                }
-            }
-
-            const statusBar = task.status.replace('_', '-');
-            const formattedCreated = formatDate(task.created);
-            const formattedDeadline = formatDate(task.deadline);
-
-            let html = `
-                <div class="task-row">
-                    <div class="task-status-bar ${statusBar}"></div>
-                    <div class="task-content">
-                        <div class="task-assignee">${escapeHtml(task.assignee)}</div>
-                        <div class="task-description">${escapeHtml(task.task)}</div>
-                        <div class="task-project">${escapeHtml(task.project)}</div>
-                        <div class="task-date">${formattedCreated}</div>
-                        <div class="task-date">${formattedDeadline}</div>
-                        <div class="task-days ${daysClass}">${daysText}</div>
-                        <div class="task-priority ${task.priority}">${task.priority.toUpperCase()}</div>
-            `;
-
-            if (task.notes) {
-                html += `<div class="task-notes">${escapeHtml(task.notes)}</div>`;
-            }
-
-            html += `
-                    </div>
-                </div>
-            `;
-
-            return html;
-        }
-
-        function renderStats(stats) {
-            const statsContainer = document.getElementById('stats');
-            const pills = [
-                { label: 'Total', count: stats.total },
-                { label: '🔴 Urgent', count: stats.urgent },
-                { label: '⏰ Waiting', count: stats.waiting },
-                { label: '🔵 Active', count: stats.in_progress },
-                { label: '✅ Done', count: stats.done }
-            ];
-
-            statsContainer.innerHTML = pills.map(pill => `
-                <div class="stat-pill">
-                    <span class="stat-label">${pill.label}</span>
-                    <span>${pill.count}</span>
-                </div>
-            `).join('');
-        }
-
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-
-        // Load on ready
-        document.addEventListener('DOMContentLoaded', loadData);
-    </script>
+init();
+</script>
 </body>
 </html>
