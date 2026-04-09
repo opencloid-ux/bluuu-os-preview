@@ -538,6 +538,7 @@
         }
 
         function isOverdue(deadline) {
+            if (!deadline) return false;
             const deadlineDate = new Date(deadline);
             const today = new Date();
             return deadlineDate < today;
@@ -568,7 +569,7 @@
 
         // Render functions
         function renderTaskCard(task) {
-            const overdue = isOverdue(task.deadline);
+            const overdue = task.deadline ? isOverdue(task.deadline) : false;
             const daysText = overdue ? getOverdueText(task.deadline) : getDaysText(task.created);
 
             return `
