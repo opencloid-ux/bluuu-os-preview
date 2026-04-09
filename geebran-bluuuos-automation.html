@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLUUU OS — Автоматизация для отдела гидов</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0a0f1e; --navy-3: #141e35;
+    --teal: #00c4a0; --teal-dim: rgba(0,196,160,0.12); --teal-glow: rgba(0,196,160,0.25);
+    --white: #f0f4ff; --muted: rgba(240,244,255,0.45);
+    --border: rgba(240,244,255,0.08); --card: rgba(255,255,255,0.04);
+    --red: #ff5a5a; --yellow: #ffbe00; --indigo: #6366f1;
+  }
+  html, body { width:100%; height:100%; background:var(--navy); font-family:'Outfit',sans-serif; color:var(--white); overflow:hidden; -webkit-font-smoothing:antialiased; }
+  .deck { width:100vw; height:100vh; position:relative; }
+  .slide { position:absolute; inset:0; display:flex; flex-direction:column; padding:clamp(2rem,5vw,4rem) clamp(2rem,7vw,7rem); opacity:0; pointer-events:none; transition:opacity .5s ease,transform .5s cubic-bezier(.16,1,.3,1); transform:translateX(40px); overflow:hidden; }
+  .slide.active { opacity:1; pointer-events:all; transform:translateX(0); }
+  .slide.prev { opacity:0; transform:translateX(-40px); }
+  .slide::before { content:''; position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse 60% 50% at 80% 20%,rgba(0,196,160,.06) 0%,transparent 70%),radial-gradient(ellipse 50% 60% at 10% 80%,rgba(99,102,241,.05) 0%,transparent 70%); }
+  .slide::after { content:''; position:absolute; inset:0; pointer-events:none; background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px); background-size:80px 80px; mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 100%); }
+  .nav { position:fixed; bottom:2rem; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:1rem; background:rgba(14,22,40,.85); backdrop-filter:blur(16px); border:1px solid var(--border); border-radius:100px; padding:.6rem 1.2rem; z-index:100; }
+  .nav button { background:none; border:none; color:var(--muted); cursor:pointer; font-size:1.1rem; padding:.3rem .6rem; border-radius:50px; transition:color .2s,background .2s; font-family:'Outfit',sans-serif; }
+  .nav button:hover { color:var(--white); background:var(--card); }
+  .dots { display:flex; gap:6px; align-items:center; }
+  .dot { width:6px; height:6px; border-radius:50%; background:var(--border); cursor:pointer; transition:background .3s,transform .3s; }
+  .dot.active { background:var(--teal); transform:scale(1.4); }
+  .counter { font-size:.75rem; color:var(--muted); font-family:'JetBrains Mono',monospace; min-width:3ch; text-align:center; }
+  .progress { position:fixed; top:0; left:0; height:2px; background:linear-gradient(90deg,var(--teal),var(--indigo)); z-index:100; transition:width .5s cubic-bezier(.16,1,.3,1); box-shadow:0 0 12px var(--teal-glow); }
+  .eyebrow { font-size:.7rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--teal); margin-bottom:1rem; display:flex; align-items:center; gap:.5rem; position:relative; z-index:1; }
+  .eyebrow::before { content:''; display:block; width:2rem; height:1px; background:var(--teal); }
+  h2 { font-size:clamp(1.8rem,4vw,3rem); font-weight:700; line-height:1.1; letter-spacing:-.02em; position:relative; z-index:1; }
+  .accent { color:var(--teal); }
+  p.lead { font-size:clamp(1rem,2vw,1.25rem); color:var(--muted); line-height:1.7; max-width:58ch; position:relative; z-index:1; margin-top:1.25rem; }
+  .card { background:var(--card); border:1px solid var(--border); border-radius:1.25rem; padding:1.5rem; position:relative; z-index:1; }
+  .card.teal-glow { border-color:rgba(0,196,160,.25); box-shadow:0 0 30px var(--teal-dim); }
+  .card.indigo-glow { border-color:rgba(99,102,241,.25); box-shadow:0 0 30px rgba(99,102,241,.1); }
+  .card.red-glow { border-color:rgba(255,90,90,.25); box-shadow:0 0 30px rgba(255,90,90,.08); }
+  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; position:relative; z-index:1; }
+  .grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1rem; position:relative; z-index:1; }
+  .grid-asym { display:grid; grid-template-columns:1.4fr 1fr; gap:1.5rem; position:relative; z-index:1; }
+  .stat { display:flex; flex-direction:column; gap:.25rem; }
+  .stat-num { font-size:2.5rem; font-weight:800; line-height:1; color:var(--teal); }
+  .stat-label { font-size:.8rem; color:var(--muted); font-weight:500; }
+  .badge { display:inline-flex; align-items:center; font-size:.7rem; font-weight:600; letter-spacing:.08em; padding:.25rem .7rem; border-radius:100px; text-transform:uppercase; }
+  .badge.red { background:rgba(255,90,90,.12); color:var(--red); border:1px solid rgba(255,90,90,.25); }
+  .badge.yellow { background:rgba(255,190,0,.1); color:var(--yellow); border:1px solid rgba(255,190,0,.25); }
+  .badge.green { background:var(--teal-dim); color:var(--teal); border:1px solid rgba(0,196,160,.25); }
+  .badge.indigo { background:rgba(99,102,241,.1); color:var(--indigo); border:1px solid rgba(99,102,241,.25); }
+  .flow { display:flex; flex-direction:column; }
+  .flow-item { display:flex; align-items:flex-start; gap:1rem; padding:.85rem 0; border-bottom:1px solid var(--border); }
+  .flow-item:last-child { border-bottom:none; }
+  .flow-num { width:28px; height:28px; min-width:28px; border-radius:50%; background:var(--teal-dim); border:1px solid rgba(0,196,160,.3); display:flex; align-items:center; justify-content:center; font-size:.68rem; font-weight:700; color:var(--teal); font-family:'JetBrains Mono',monospace; }
+  .flow-num.red { background:rgba(255,90,90,.12); border-color:rgba(255,90,90,.3); color:var(--red); }
+  .flow-text { font-size:.9rem; color:var(--white); line-height:1.5; padding-top:3px; }
+  .flow-text small { display:block; color:var(--muted); font-size:.78rem; margin-top:.15rem; }
+  .divider { width:100%; height:1px; background:var(--border); margin:1.25rem 0; position:relative; z-index:1; }
+  .mono { font-family:'JetBrains Mono',monospace; }
+  @keyframes pulse-ring { 0%{transform:scale(1);opacity:.6} 100%{transform:scale(2);opacity:0} }
+  .pulse-dot { position:relative; display:inline-block; width:10px; height:10px; }
+  .pulse-dot::before { content:''; position:absolute; inset:0; border-radius:50%; background:var(--teal); animation:pulse-ring 1.5s ease-out infinite; }
+  .pulse-dot::after { content:''; position:absolute; inset:0; border-radius:50%; background:var(--teal); }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+  .slide.active .animate { animation:fadeUp .5s cubic-bezier(.16,1,.3,1) both; }
+  .slide.active .animate:nth-child(1){animation-delay:.05s}.slide.active .animate:nth-child(2){animation-delay:.12s}.slide.active .animate:nth-child(3){animation-delay:.19s}.slide.active .animate:nth-child(4){animation-delay:.26s}.slide.active .animate:nth-child(5){animation-delay:.33s}.slide.active .animate:nth-child(6){animation-delay:.40s}
+  .watermark { position:fixed; bottom:5.5rem; right:2rem; font-size:.65rem; color:rgba(240,244,255,.18); font-family:'JetBrains Mono',monospace; letter-spacing:.1em; text-transform:uppercase; z-index:50; }
+  #s1 { justify-content:center; }
+  .cover-tag { display:inline-flex; align-items:center; gap:.5rem; border:1px solid var(--border); padding:.4rem .9rem; border-radius:100px; font-size:.72rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:2rem; position:relative; z-index:1; }
+  .cover-company { font-size:.75rem; font-weight:600; letter-spacing:.25em; text-transform:uppercase; color:var(--teal); position:relative; z-index:1; margin-bottom:.75rem; }
+  .cover-title .line1 { display:block; color:var(--muted); font-weight:300; font-size:clamp(1.5rem,4vw,2.5rem); }
+  .cover-title .line2 { display:block; font-size:clamp(3rem,8vw,6.5rem); font-weight:800; letter-spacing:-.04em; line-height:.9; position:relative; z-index:1; }
+  .cover-sub { margin-top:2rem; max-width:52ch; font-size:1.05rem; color:var(--muted); line-height:1.6; position:relative; z-index:1; }
+  .cover-footer { display:flex; gap:2.5rem; margin-top:3rem; position:relative; z-index:1; }
+  .deco-ring { position:absolute; right:-5rem; top:50%; transform:translateY(-50%); width:40vw; height:40vw; border-radius:50%; border:1px solid var(--border); pointer-events:none; }
+  .deco-ring::after { content:''; position:absolute; inset:10%; border-radius:50%; border:1px solid rgba(99,102,241,.15); }
+  .row-item { display:flex; justify-content:space-between; align-items:center; padding:.55rem 0; border-bottom:1px solid var(--border); font-size:.85rem; }
+  .row-item:last-child { border-bottom:none; }
+  .before-after { display:grid; grid-template-columns:1fr auto 1fr; gap:1rem; align-items:center; position:relative; z-index:1; }
+  .ba-arrow { color:var(--teal); font-size:1.4rem; text-align:center; }
+  @media(max-width:768px){.grid-2,.grid-3,.grid-asym,.before-after{grid-template-columns:1fr}.slide{padding:1.5rem}.cover-title .line2{font-size:3rem}.ba-arrow{display:none}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="deck">
+
+<!-- SLIDE 1: COVER -->
+<div class="slide active" id="s1">
+  <div class="deco-ring"></div>
+  <div class="cover-tag animate"><span class="pulse-dot"></span>Апрель 2026 · Внутренний документ</div>
+  <div class="cover-company animate">BLUUU OS</div>
+  <div class="cover-title animate">
+    <span class="line1">автоматизация</span>
+    <span class="line2">Отдел гидов<span class="accent">.</span></span>
+  </div>
+  <p class="cover-sub animate">Что система должна взять на себя, чтобы Гибрин перестал быть диспетчером и стал лидером команды из 40 гидов.</p>
+  <div class="cover-footer animate">
+    <div class="stat"><span class="stat-num">2+ ч</span><span class="stat-label">рутины в день — вручную</span></div>
+    <div class="stat"><span class="stat-num">40</span><span class="stat-label">гидов под управлением</span></div>
+    <div class="stat"><span class="stat-num">6</span><span class="stat-label">модулей автоматизации</span></div>
+  </div>
+</div>
+
+<!-- SLIDE 2: ТЕКУЩАЯ БОЛЬ -->
+<div class="slide" id="s2">
+  <div class="eyebrow animate">Диагноз</div>
+  <h2 class="animate">Гибрин — менеджер,<br>застрявший в <span class="accent">механике.</span></h2>
+  <p class="lead animate" style="margin-bottom:1.5rem;">Вместо развития команды он тратит 2+ часа в день на задачи, которые система должна делать за него автоматически.</p>
+  <div class="grid-2 animate" style="flex:1;align-content:start;">
+    <div class="card red-glow">
+      <div style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-bottom:1rem;">Что делается вручную</div>
+      <div class="flow">
+        <div class="flow-item"><div class="flow-num red">!</div><div class="flow-text">Рассылка обедов в 3 чата<small>Одна и та же информация — 3 раза вручную ежедневно. ~35 мин</small></div></div>
+        <div class="flow-item"><div class="flow-num red">!</div><div class="flow-text">Ретрибуция Nusa Penida — 5 шагов<small>Пересчёт → сообщение поставщику → подтверждение → трекинг</small></div></div>
+        <div class="flow-item"><div class="flow-num red">!</div><div class="flow-text">Расписание гидов — в голове<small>4 тира, язык, специализация, личность, тип тура — никакой системы</small></div></div>
+        <div class="flow-item"><div class="flow-num red">!</div><div class="flow-text">Dietary restrictions теряются в тексте<small>Гид узнаёт о веган/халяль только в лаунже — не при составлении расписания</small></div></div>
+        <div class="flow-item"><div class="flow-num red">!</div><div class="flow-text">Отзывы читаются вручную 3–4 раза/мес<small>Без системы трекинга влияния гидов на оценки</small></div></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:1rem;">
+      <div class="card">
+        <div style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem;">Реальная цена рутины</div>
+        <div style="display:flex;flex-direction:column;gap:.5rem;">
+          <div class="row-item"><span>Рассылка обедов</span><span class="mono" style="color:var(--red);">~35 мин/день</span></div>
+          <div class="row-item"><span>Ретрибуция NP</span><span class="mono" style="color:var(--red);">~20 мин/день</span></div>
+          <div class="row-item"><span>Dietary/pax сверка</span><span class="mono" style="color:var(--yellow);">~15 мин/день</span></div>
+          <div class="row-item"><span>Ручной трекинг отзывов</span><span class="mono" style="color:var(--yellow);">~30 мин/нед</span></div>
+          <div class="row-item"><span>Составление расписания</span><span class="mono" style="color:var(--yellow);">~45 мин/день</span></div>
+          <div style="padding-top:.75rem;border-top:1px solid rgba(0,196,160,.25);display:flex;justify-content:space-between;font-size:.9rem;font-weight:600;"><span>Итого в день</span><span style="color:var(--red);">~2.5 ч</span></div>
+        </div>
+      </div>
+      <div class="card teal-glow">
+        <div style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:.5rem;">После автоматизации</div>
+        <div style="font-size:2rem;font-weight:800;color:var(--teal);">~15 мин</div>
+        <div style="font-size:.82rem;color:var(--muted);margin-top:.25rem;">Всё то же самое — контроль вместо исполнения</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 3: МОДУЛЬ 1 — РАСПИСАНИЕ -->
+<div class="slide" id="s3">
+  <div class="eyebrow animate">Модуль 1</div>
+  <h2 class="animate">Digital Guide Scheduler<span class="accent">.</span></h2>
+  <p class="lead animate">Расписание всех 40 гидов — в системе, не в голове Гибрина. Автоматические предложения на основе тира, языка, специализации, истории.</p>
+  <div class="grid-asym animate" style="flex:1;align-content:start;margin-top:1.5rem;">
+    <div class="card teal-glow">
+      <div style="font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:1.25rem;">Что строит система</div>
+      <div class="flow">
+        <div class="flow-item"><div class="flow-num">1</div><div class="flow-text">Профиль каждого гида<small>Тир (1–4), язык, специализация, рейтинг по отзывам, физсостояние, dietary-инфо</small></div></div>
+        <div class="flow-item"><div class="flow-num">2</div><div class="flow-text">Автоматические предложения назначения<small>На основе параметров тура: тип, язык группы, нужный тир — система предлагает 3 варианта</small></div></div>
+        <div class="flow-item"><div class="flow-num">3</div><div class="flow-text">Уведомление гидов автоматически<small>После подтверждения Гибрина → WhatsApp уведомление конкретному гиду</small></div></div>
+        <div class="flow-item"><div class="flow-num">4</div><div class="flow-text">Дедлайн явки 21:00 — с алертом<small>Если гид не подтвердил до 21:00 → автоматический алерт Гибрину</small></div></div>
+        <div class="flow-item"><div class="flow-num">5</div><div class="flow-text">Экстренная замена — one-tap<small>Список ближайших к Serangan доступных гидов — по нажатию кнопки</small></div></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:1rem;">
+      <div class="card">
+        <div style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem;">Параметры профиля гида</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:.82rem;">
+          <div style="display:flex;justify-content:space-between;padding:.3rem 0;border-bottom:1px solid var(--border);"><span>Тир</span><span class="badge green">1 / 2 / 3 / 4</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.3rem 0;border-bottom:1px solid var(--border);"><span>Языки</span><span style="color:var(--muted);font-size:.78rem;">EN / RU / DE / FR / …</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.3rem 0;border-bottom:1px solid var(--border);"><span>Специализация</span><span style="color:var(--muted);font-size:.78rem;">Snorkel / Private / Kids</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.3rem 0;border-bottom:1px solid var(--border);"><span>Рейтинг (авто)</span><span style="color:var(--teal);font-family:'JetBrains Mono',monospace;">из отзывов</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.3rem 0;"><span>Локация</span><span style="color:var(--muted);font-size:.78rem;">близость к Serangan</span></div>
+        </div>
+      </div>
+      <div class="card indigo-glow">
+        <div style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--indigo);margin-bottom:.5rem;">Экономия</div>
+        <div style="font-size:1.8rem;font-weight:800;color:var(--indigo);">~45 мин/день</div>
+        <div style="font-size:.8rem;color:var(--muted);margin-top:.2rem;">Составление расписания: с 45 до ~5 мин</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 4: МОДУЛЬ 2 — ОБЕДЫ -->
+<div class="slide" id="s4">
+  <div class="eyebrow animate">Модуль 2</div>
+  <h2 class="animate">One-Click Lunch Broadcast<span class="accent">.</span></h2>
+  <p class="lead animate">Одно нажатие — система отправляет нужную информацию во все 3 заведения одновременно, с dietary-ограничениями, авто-подтверждением и трекингом инвойсов.</p>
+  <div class="grid-2 animate" style="flex:1;align-content:start;margin-top:1.5rem;">
+    <div class="card teal-glow">
+      <div style="font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:1.25rem;">Автоматический сценарий</div>
+      <div class="flow">
+        <div class="flow-item"><div class="flow-num">1</div><div class="flow-text">Расписание подтверждено до 09:00<small>Гибрин нажимает «Подтвердить» в системе</small></div></div>
+        <div class="flow-item"><div class="flow-num">2</div><div class="flow-text">Система считает кол-во гидов по заведениям<small>Amarta / Khamara / La Bianca — по типу тура</small></div></div>
+        <div class="flow-item"><div class="flow-num">3</div><div class="flow-text">Dietary restrictions — из профилей гидов<small>Веган / халяль — автоматически в сообщении</small></div></div>
+        <div class="flow-item"><div class="flow-num">4</div><div class="flow-text">Одна кнопка → рассылка в 3 чата<small>Форматированное сообщение под каждое заведение</small></div></div>
+        <div class="flow-item"><div class="flow-num">5</div><div class="flow-text">Подтверждение от заведения → в систему<small>Алерт если нет ответа до 10:30</small></div></div>
+        <div class="flow-item"><div class="flow-num">6</div><div class="flow-text">Инвойс → автосверка с дневным счётом<small>Больше никаких задержек оплаты 2+ месяца</small></div></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:1rem;">
+      <div class="card">
+        <div style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem;">Пример авто-сообщения</div>
+        <div style="background:var(--navy-3);border-radius:.75rem;padding:1rem;">
+          <div style="font-size:.7rem;color:var(--muted);margin-bottom:.4rem;">BLUUU OS · 09:15 · Auto</div>
+          <p style="font-size:.82rem;line-height:1.6;">Amarta — сегодня: <strong>14 гидов</strong>.<br>Обед около 13:30.<br>Dietary: 1 vegan, 2 halal.<br>Пожалуйста подтвердите.</p>
+        </div>
+        <div style="margin-top:.5rem;font-size:.75rem;color:var(--muted);">Аналогично в Khamara и La Bianca — одновременно</div>
+      </div>
+      <div class="card">
+        <div style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;">До / после</div>
+        <div style="display:flex;gap:1.5rem;align-items:center;padding:.5rem 0;">
+          <div style="text-align:center;"><div style="font-size:2rem;font-weight:800;color:var(--red);">35 мин</div><div style="font-size:.75rem;color:var(--muted);">сейчас</div></div>
+          <div style="color:var(--teal);font-size:1.5rem;">→</div>
+          <div style="text-align:center;"><div style="font-size:2rem;font-weight:800;color:var(--teal);">10 сек</div><div style="font-size:.75rem;color:var(--muted);">после</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 5: МОДУЛЬ 3 — РЕТРИБУЦИЯ NP -->
+<div class="slide" id="s5">
+  <div class="eyebrow animate">Модуль 3</div>
+  <h2 class="animate">Ретрибуция Nusa Penida<span class="accent"> — авто.</span></h2>
+  <p class="lead animate">5 ручных шагов ежедневно превращаются в автоматический процесс с нулевым участием Гибрина — только контроль исключений.</p>
+  <div class="grid-2 animate" style="flex:1;align-content:start;margin-top:1.5rem;">
+    <div class="card red-glow" style="border-color:rgba(255,90,90,.2);">
+      <div style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-bottom:1rem;">Как сейчас (5 шагов вручную)</div>
+      <div class="flow">
+        <div class="flow-item"><div class="flow-num red">1</div><div class="flow-text">Посчитать кол-во гидов на NP<small>Вручную из расписания</small></div></div>
+        <div class="flow-item"><div class="flow-num red">2</div><div class="flow-text">Посчитать сумму ретрибуции<small>Формула × кол-во гидов</small></div></div>
+        <div class="flow-item"><div class="flow-num red">3</div><div class="flow-text">Написать поставщику в WhatsApp<small>Вручную, каждый день</small></div></div>
+        <div class="flow-item"><div class="flow-num red">4</div><div class="flow-text">Дождаться подтверждения<small>И не забыть — нет трекинга</small></div></div>
+        <div class="flow-item"><div class="flow-num red">5</div><div class="flow-text">Зафиксировать в учёте<small>Ручная запись → accounting</small></div></div>
+      </div>
+    </div>
+    <div class="card teal-glow">
+      <div style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem;">Как будет (BLUUU OS)</div>
+      <div class="flow">
+        <div class="flow-item"><div class="flow-num">1</div><div class="flow-text">Расписание подтверждено<small>Система сама знает сколько гидов на NP</small></div></div>
+        <div class="flow-item"><div class="flow-num">2</div><div class="flow-text">Авто-расчёт суммы<small>Формула захардкожена — никаких ручных вычислений</small></div></div>
+        <div class="flow-item"><div class="flow-num">3</div><div class="flow-text">Авто-сообщение поставщику<small>Шаблонное WhatsApp-сообщение, отправляется само</small></div></div>
+        <div class="flow-item"><div class="flow-num">4</div><div class="flow-text">Статус подтверждения — в дашборде<small>Нет ответа → алерт Гибрину через 30 мин</small></div></div>
+        <div class="flow-item"><div class="flow-num">5</div><div class="flow-text">Авто-запись в Finance модуль<small>Ежедневный расход по NP — без ручного ввода</small></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 6: МОДУЛЬ 4 — SAFETY TRAINING TRACKER -->
+<div class="slide" id="s6">
+  <div class="eyebrow animate">Модуль 4</div>
+  <h2 class="animate">Safety Training Tracker<span class="accent">.</span></h2>
+  <p class="lead animate">40 гидов, 5 тренингов в год, 5 групп по 8 человек. Система ведёт трекинг кто обучен, кто нет, когда истекает сертификат и кто следующий на очереди.</p>
+  <div class="grid-2 animate" style="flex:1;align-content:start;margin-top:1.5rem;">
+    <div class="card teal-glow">
+      <div style="font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:1.25rem;">Что отслеживает система</div>
+      <div class="flow">
+        <div class="flow-item"><div class="flow-num">1</div><div class="flow-text">Профиль обучения каждого гида<small>Какие тренинги пройдены, даты, статус сертификатов</small></div></div>
+        <div class="flow-item"><div class="flow-num">2</div><div class="flow-text">Расписание тренингов по группам<small>Группы A–E по 8 человек, ротация по неделям</small></div></div>
+        <div class="flow-item"><div class="flow-num">3</div><div class="flow-text">Напоминания для гидов и Гибрина<small>За 7 дней и за 1 день до тренинга — авто-уведомления</small></div></div>
+        <div class="flow-item"><div class="flow-num">4</div><div class="flow-text">Подтверждение явки<small>Гид подтверждает участие через BLUUU OS / WhatsApp</small></div></div>
+        <div class="flow-item"><div class="flow-num">5</div><div class="flow-text">Истечение сертификатов — алерт заранее<small>CPR истекает через 30 дней → автоматический алерт</small></div></div>
+        <div class="flow-item"><div class="flow-num">6</div><div class="flow-text">Compliance dashboard<small>% гидов с актуальными сертификатами — в реальном времени</small></div></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:1rem;">
+      <div class="card">
+        <div style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem;">Программа тренингов (стандарт)</div>
+        <div style="display:flex;flex-direction:column;gap:.3rem;font-size:.8rem;">
+          <div class="row-item"><span>Basic Sea Survival</span><span class="badge green">1× / год</span></div>
+          <div class="row-item"><span>First Aid / CPR</span><span class="badge green">1× / год + refresher 6 мес</span></div>
+          <div class="row-item"><span>Marine Emergency Protocols</span><span class="badge yellow">2× / год</span></div>
+          <div class="row-item"><span>Snorkeling Safety & Guest Mgmt</span><span class="badge yellow">1× / квартал</span></div>
+          <div class="row-item"><span>Communication Under Pressure</span><span class="badge indigo">1× / квартал</span></div>
+        </div>
+      </div>
+      <div class="card indigo-glow">
+        <div style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--indigo);margin-bottom:.5rem;">Группы в высокий сезон</div>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.4rem;font-size:.78rem;text-align:center;">
+          <div style="background:rgba(99,102,241,.1);border-radius:.5rem;padding:.4rem;border:1px solid rgba(99,102,241,.2);">A<br><span style="color:var(--muted);">8 гидов</span></div>
+          <div style="background:rgba(99,102,241,.1);border-radius:.5rem;padding:.4rem;border:1px solid rgba(99,102,241,.2);">B<br><span style="color:var(--muted);">8 гидов</span></div>
+          <div style="background:rgba(99,102,241,.1);border-radius:.5rem;padding:.4rem;border:1px solid rgba(99,102,241,.2);">C<br><span style="color:var(--muted);">8 гидов</span></div>
+          <div style="background:rgba(99,102,241,.1);border-radius:.5rem;padding:.4rem;border:1px solid rgba(99,102,241,.2);">D<br><span style="color:var(--muted);">8 гидов</span></div>
+          <div style="background:rgba(99,102,241,.1);border-radius:.5rem;padding:.4rem;border:1px solid rgba(99,102,241,.2);">E<br><span style="color:var(--muted);">8 гидов</span></div>
+        </div>
+        <div style="font-size:.75rem;color:var(--muted);margin-top:.6rem;">1 группа / неделю · не пересекается с высоким сезоном</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 7: МОДУЛЬ 5 — BRIEFING + GROOMING -->
+<div class="slide" id="s7">
+  <div class="eyebrow animate">Модуль 5</div>
+  <h2 class="animate">Pre-Shift Briefing<br><span class="accent">+ Grooming Tracker.</span></h2>
+  <p class="lead animate">Система поддерживает ежедневный брифинг: чеклист формы, фокус дня, учёт явки, фиксация отклонений — без бумаги и WhatsApp.</p>
+  <div class="grid-2 animate" style="flex:1;align-content:start;margin-top:1.5rem;">
+    <div class="card teal-glow">
+      <div style="font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:1.25rem;">Инструменты брифинга в BLUUU OS</div>
+      <div class="flow">
+        <div class="flow-item"><div class="flow-num">1</div><div class="flow-text">Чеклист внешнего вида — на экране<small>Форма, обувь, бейдж, волосы — Гибрин отмечает прямо на телефоне</small></div></div>
+        <div class="flow-item"><div class="flow-num">2</div><div class="flow-text">Фокус дня — авто-саджест<small>Система предлагает тему на основе данных: мало отзывов → «Сегодня фокус на review»</small></div></div>
+        <div class="flow-item"><div class="flow-num">3</div><div class="flow-text">Явка на брифинге — отметка<small>Кто присутствовал — в системе, история хранится</small></div></div>
+        <div class="flow-item"><div class="flow-num">4</div><div class="flow-text">Нарушение формы — фиксация<small>Отметка → попадает в профиль гида → влияет на рейтинг</small></div></div>
+        <div class="flow-item"><div class="flow-num">5</div><div class="flow-text">Buddy check — назначение пар<small>Система ротирует пары гидов для взаимопроверки формы</small></div></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:1rem;">
+      <div class="card">
+        <div style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem;">Grooming Standards (база)</div>
+        <div style="display:flex;flex-direction:column;gap:.3rem;font-size:.82rem;">
+          <div class="row-item"><span>Форма</span><span style="color:var(--teal);font-size:.78rem;">Чистая, выглаженная, правильная</span></div>
+          <div class="row-item"><span>Обувь</span><span style="color:var(--teal);font-size:.78rem;">Фирменная, чистая</span></div>
+          <div class="row-item"><span>Бейдж</span><span style="color:var(--teal);font-size:.78rem;">На месте, видимый</span></div>
+          <div class="row-item"><span>Волосы</span><span style="color:var(--teal);font-size:.78rem;">Убраны, аккуратно</span></div>
+          <div class="row-item"><span>Гигиена</span><span style="color:var(--teal);font-size:.78rem;">Без запаха табака перед гостями</span></div>
+        </div>
+      </div>
+      <div class="card indigo-glow">
+        <div style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--indigo);margin-bottom:.5rem;">История брифингов</div>
+        <div style="font-size:.82rem;color:var(--muted);line-height:1.6;">Все отметки → история в профиле гида. Видно кто систематически опаздывает, кто нарушает форму, кто пропускает. Без таблиц и бумаги.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 8: МОДУЛЬ 6 — PERFORMANCE DASHBOARD -->
+<div class="slide" id="s8">
+  <div class="eyebrow animate">Модуль 6</div>
+  <h2 class="animate">Guide Performance<span class="accent"> Dashboard.</span></h2>
+  <p class="lead animate">Гибрин видит рейтинг каждого гида в реальном времени — без ручного чтения отзывов 3–4 раза в месяц. Данные из всех OTA автоматически.</p>
+  <div class="grid-3 animate" style="flex:1;align-content:start;margin-top:1.5rem;">
+    <div class="card teal-glow">
+      <div style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem;">Метрики на гида</div>
+      <div style="display:flex;flex-direction:column;gap:.4rem;font-size:.82rem;">
+        <div class="row-item"><span>Avg. review score</span></div>
+        <div class="row-item"><span>Кол-во отзывов (мес)</span></div>
+        <div class="row-item"><span>Явка на брифингах (%)</span></div>
+        <div class="row-item"><span>Нарушения формы</span></div>
+        <div class="row-item"><span>Тренинги (актуально?)</span></div>
+        <div class="row-item"><span>Тирная прогрессия</span></div>
+      </div>
+    </div>
+    <div class="card indigo-glow">
+      <div style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--indigo);margin-bottom:1rem;">Авто-инсайты</div>
+      <div style="display:flex;flex-direction:column;gap:.6rem;font-size:.82rem;color:var(--muted);">
+        <div style="padding:.5rem;background:var(--teal-dim);border-radius:.5rem;color:var(--white);font-size:.78rem;">Budi: 3 отзыва за неделю, avg 4.9 — готов к Tier 2</div>
+        <div style="padding:.5rem;background:rgba(255,90,90,.08);border-radius:.5rem;color:var(--white);font-size:.78rem;">Rio: 2 нарушения формы за 5 дней — обратить внимание</div>
+        <div style="padding:.5rem;background:rgba(255,190,0,.08);border-radius:.5rem;color:var(--white);font-size:.78rem;">Group D: CPR сертификат истекает через 14 дней</div>
+      </div>
+    </div>
+    <div class="card">
+      <div style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;">Tier progression</div>
+      <div style="display:flex;flex-direction:column;gap:.4rem;font-size:.82rem;">
+        <div class="row-item"><span>Tier 4 → 3</span><span style="color:var(--muted);font-size:.75rem;">авто-алерт Гибрину</span></div>
+        <div class="row-item"><span>Tier 3 → 2</span><span style="color:var(--yellow);font-size:.75rem;">Гибрин утверждает</span></div>
+        <div class="row-item"><span>Tier 2 → 1</span><span style="color:var(--teal);font-size:.75rem;">Гибрин + Алекс</span></div>
+      </div>
+      <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);">
+        <div style="font-size:.75rem;color:var(--muted);">Решения о повышении — за Гибрином.<br>Данные для решений — в системе.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 9: ДОРОЖНАЯ КАРТА ВНЕДРЕНИЯ -->
+<div class="slide" id="s9">
+  <div class="eyebrow animate">Дорожная карта</div>
+  <h2 class="animate">3 месяца к<span class="accent"> освобождению.</span></h2>
+  <p class="lead animate">Приоритизация по максимальному высвобождению времени Гибрина. Начинаем с болью, которая убивает больше всего часов.</p>
+  <div class="grid-3 animate" style="flex:1;align-content:start;margin-top:1.5rem;">
+    <div class="card teal-glow">
+      <div style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem;">Месяц 1 — Стабилизация</div>
+      <div style="font-size:1.5rem;font-weight:800;color:var(--teal);margin-bottom:.75rem;">−35 мин/день</div>
+      <div class="flow">
+        <div class="flow-item"><div class="flow-num">1</div><div class="flow-text">Digital Scheduler MVP<small>Профили гидов + ручное расписание в системе</small></div></div>
+        <div class="flow-item"><div class="flow-num">2</div><div class="flow-text">One-Click Lunch Broadcast<small>Главная экономия. Приоритет #1</small></div></div>
+        <div class="flow-item"><div class="flow-num">3</div><div class="flow-text">Алерты 21:00 + замены<small>Авто-уведомления при отсутствии подтверждения</small></div></div>
+      </div>
+    </div>
+    <div class="card indigo-glow">
+      <div style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--indigo);margin-bottom:1rem;">Месяц 2 — Стандарт</div>
+      <div style="font-size:1.5rem;font-weight:800;color:var(--indigo);margin-bottom:.75rem;">−45 мин/день</div>
+      <div class="flow">
+        <div class="flow-item"><div class="flow-num">4</div><div class="flow-text">NP Retribution Automation<small>5 шагов → 0 шагов для Гибрина</small></div></div>
+        <div class="flow-item"><div class="flow-num">5</div><div class="flow-text">Briefing Checklist + Grooming<small>Чеклист брифинга в приложении</small></div></div>
+        <div class="flow-item"><div class="flow-num">6</div><div class="flow-text">Safety Training Tracker<small>Группы, расписание, уведомления</small></div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;">Месяц 3 — Масштаб</div>
+      <div style="font-size:1.5rem;font-weight:800;color:var(--white);margin-bottom:.75rem;">−30 мин/день</div>
+      <div class="flow">
+        <div class="flow-item"><div class="flow-num">7</div><div class="flow-text">Performance Dashboard<small>Авто-аналитика по отзывам и тирам</small></div></div>
+        <div class="flow-item"><div class="flow-num">8</div><div class="flow-text">AI-предложения расписания<small>Система рекомендует гидов на туры сама</small></div></div>
+        <div class="flow-item"><div class="flow-num">9</div><div class="flow-text">Отчёты Гибрину — авто<small>Еженедельный дайджест по команде</small></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 10: ИТОГ -->
+<div class="slide" id="s10">
+  <div class="eyebrow animate">Результат</div>
+  <h2 class="animate">Гибрин-лидер.<br>Не <span class="accent">диспетчер.</span></h2>
+  <p class="lead animate">После внедрения BLUUU OS он тратит на операционную механику 15 минут в день. Остальное — развитие команды, брифинги, стандарты, лидерство.</p>
+  <div class="grid-2 animate" style="flex:1;align-content:start;margin-top:1.5rem;">
+    <div class="card teal-glow">
+      <div style="font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:1.25rem;">Что высвобождается</div>
+      <div style="display:flex;flex-direction:column;gap:.4rem;">
+        <div class="row-item"><span>Рассылка обедов</span><span style="display:flex;gap:.5rem;align-items:center;"><span style="color:var(--red);text-decoration:line-through;font-size:.8rem;">35 мин</span><span style="color:var(--teal);font-size:.9rem;font-weight:600;">→ 10 сек</span></span></div>
+        <div class="row-item"><span>Ретрибуция NP</span><span style="display:flex;gap:.5rem;align-items:center;"><span style="color:var(--red);text-decoration:line-through;font-size:.8rem;">20 мин</span><span style="color:var(--teal);font-size:.9rem;font-weight:600;">→ 0</span></span></div>
+        <div class="row-item"><span>Составление расписания</span><span style="display:flex;gap:.5rem;align-items:center;"><span style="color:var(--red);text-decoration:line-through;font-size:.8rem;">45 мин</span><span style="color:var(--teal);font-size:.9rem;font-weight:600;">→ 5 мин</span></span></div>
+        <div class="row-item"><span>Dietary/pax сверка</span><span style="display:flex;gap:.5rem;align-items:center;"><span style="color:var(--red);text-decoration:line-through;font-size:.8rem;">15 мин</span><span style="color:var(--teal);font-size:.9rem;font-weight:600;">→ авто</span></span></div>
+        <div class="row-item"><span>Чтение отзывов</span><span style="display:flex;gap:.5rem;align-items:center;"><span style="color:var(--red);text-decoration:line-through;font-size:.8rem;">30 мин/нед</span><span style="color:var(--teal);font-size:.9rem;font-weight:600;">→ дашборд</span></span></div>
+        <div style="border-top:1px solid rgba(0,196,160,.25);padding-top:.75rem;margin-top:.5rem;display:flex;justify-content:space-between;font-weight:700;">
+          <span>Итого в день</span>
+          <span><span style="color:var(--red);text-decoration:line-through;margin-right:.5rem;">2.5 ч</span><span style="color:var(--teal);">→ ~15 мин</span></span>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:1rem;">
+      <div class="card">
+        <div style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem;">Что делает с освободившимся временем</div>
+        <div style="display:flex;flex-direction:column;gap:.5rem;font-size:.85rem;">
+          <div style="display:flex;gap:.75rem;align-items:flex-start;"><span style="color:var(--teal);">→</span><span>Ежедневный брифинг с командой — 20 мин лидерства</span></div>
+          <div style="display:flex;gap:.75rem;align-items:flex-start;"><span style="color:var(--teal);">→</span><span>1:1 с гидами — развитие, проблемы, мотивация</span></div>
+          <div style="display:flex;gap:.75rem;align-items:flex-start;"><span style="color:var(--teal);">→</span><span>Организация safety-тренингов по группам</span></div>
+          <div style="display:flex;gap:.75rem;align-items:flex-start;"><span style="color:var(--teal);">→</span><span>Развитие hospitality-культуры в команде</span></div>
+          <div style="display:flex;gap:.75rem;align-items:flex-start;"><span style="color:var(--teal);">→</span><span>Анализ данных → решения по тирам</span></div>
+        </div>
+      </div>
+      <div class="card indigo-glow">
+        <div style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--indigo);margin-bottom:.5rem;">Эффект для бизнеса</div>
+        <div style="font-size:.85rem;color:var(--muted);line-height:1.7;">Лучшие гиды → лучшие отзывы → выше рейтинг → больше букингов. BLUUU OS превращает Гибрина из бутылочного горлышка в мультипликатор результата.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /deck -->
+
+<div class="watermark">BLUUU OS · Confidential · 2026</div>
+
+<nav class="nav">
+  <button onclick="go(-1)">&#8592;</button>
+  <div class="dots" id="dots"></div>
+  <div class="counter" id="counter">1/10</div>
+  <button onclick="go(1)">&#8594;</button>
+</nav>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let cur = 0;
+  const dotsEl = document.getElementById('dots');
+  const counterEl = document.getElementById('counter');
+  const progressEl = document.getElementById('progress');
+
+  function buildDots() {
+    dotsEl.innerHTML = '';
+    slides.forEach((_, i) => {
+      const d = document.createElement('div');
+      d.className = 'dot' + (i === 0 ? ' active' : '');
+      d.onclick = () => goTo(i);
+      dotsEl.appendChild(d);
+    });
+  }
+
+  function goTo(n) {
+    slides[cur].classList.remove('active');
+    slides[cur].classList.add('prev');
+    setTimeout(() => slides[cur].classList.remove('prev'), 600);
+    cur = (n + total) % total;
+    slides[cur].classList.add('active');
+    dotsEl.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === cur));
+    counterEl.textContent = (cur + 1) + '/' + total;
+    progressEl.style.width = ((cur + 1) / total * 100) + '%';
+  }
+
+  function go(dir) { goTo(cur + dir); }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') go(-1);
+  });
+
+  let startX = 0;
+  document.addEventListener('touchstart', e => { startX = e.touches[0].clientX; });
+  document.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 50) go(dx < 0 ? 1 : -1);
+  });
+
+  buildDots();
+  progressEl.style.width = (1 / total * 100) + '%';
+</script>
+</body>
+</html>
