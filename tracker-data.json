@@ -1,4 +1,203 @@
 {
-  "lastUpdated": "2026-04-09T13:04:00+08:00",
-  "tasks": []
+  "lastUpdated": "2026-04-09T13:20:00+08:00",
+  "tasks": [
+    {
+      "id": "t001",
+      "assignee": "Cosmos (агентство)",
+      "task": "Финальный план фотошута Эльдорадо",
+      "project": "Фотошут Эльдорадо",
+      "created": "2026-04-09",
+      "deadline": "2026-04-11",
+      "status": "waiting",
+      "priority": "high",
+      "notes": "Подтвердить и получить финальный план съёмки на 12 апреля"
+    },
+    {
+      "id": "t002",
+      "assignee": "Диана (Osmos Production)",
+      "task": "Подтвердить организацию съёмки 12 апреля",
+      "project": "Фотошут Эльдорадо",
+      "created": "2026-04-09",
+      "deadline": "2026-04-10",
+      "status": "waiting",
+      "priority": "high",
+      "notes": "Уточнить, смогут ли организовать всё на 12-е"
+    },
+    {
+      "id": "t003",
+      "assignee": "Алекс",
+      "task": "Закупить белую униформу для гидов + рубашку капитана с вышивкой",
+      "project": "Фотошут Эльдорадо",
+      "created": "2026-04-09",
+      "deadline": "2026-04-11",
+      "status": "urgent",
+      "priority": "high",
+      "notes": "Белая униформа гидов, белая рубашка капитана с embroidery синим логотипом"
+    },
+    {
+      "id": "t004",
+      "assignee": "Саша Александр (Fortune Daccia)",
+      "task": "Статус готовности лодки Эльдорадо к 12 апреля",
+      "project": "Фотошут Эльдорадо",
+      "created": "2026-04-09",
+      "deadline": "2026-04-10",
+      "status": "waiting",
+      "priority": "high",
+      "notes": "Были проблемы с лодкой — устранены? Готова к 12-му?"
+    },
+    {
+      "id": "t005",
+      "assignee": "Дима",
+      "task": "Статус тестирования AI-ботов и готовность менеджеров к запуску",
+      "project": "Respond.io CRM",
+      "created": "2026-04-09",
+      "deadline": "2026-04-10",
+      "status": "waiting",
+      "priority": "high",
+      "notes": "Запуск CRM Respond.io"
+    },
+    {
+      "id": "t006",
+      "assignee": "Zeta Media",
+      "task": "Контроль настройки Respond.io, отвечать на вопросы",
+      "project": "Respond.io CRM",
+      "created": "2026-04-09",
+      "deadline": null,
+      "status": "in_progress",
+      "priority": "high",
+      "notes": "Оперативно отвечать на вопросы настройщиков"
+    },
+    {
+      "id": "t007",
+      "assignee": "GetFound",
+      "task": "Запуск Meta + TikTok рекламы",
+      "project": "Реклама GetFound",
+      "created": "2026-04-09",
+      "deadline": "2026-04-10",
+      "status": "waiting",
+      "priority": "high",
+      "notes": "Обещали запуск Meta и TikTok на 10 апреля"
+    },
+    {
+      "id": "t008",
+      "assignee": "GetFound",
+      "task": "Стоимость SEO и Google Ads для подписания договора",
+      "project": "Реклама GetFound",
+      "created": "2026-04-09",
+      "deadline": null,
+      "status": "waiting",
+      "priority": "medium",
+      "notes": "Нужна стоимость для подписания контракта"
+    },
+    {
+      "id": "t009",
+      "assignee": "David",
+      "task": "Согласие владельца на аренду 3-й части здания, цена и условия",
+      "project": "Расширение офиса",
+      "created": "2026-04-09",
+      "deadline": null,
+      "status": "waiting",
+      "priority": "medium",
+      "notes": "Уточнить у владельца: согласие, цена, условия оплаты"
+    },
+    {
+      "id": "t010",
+      "assignee": "Дайя",
+      "task": "Напомнить о проекте кафе в лаундже",
+      "project": "Кафе Blue Lounge",
+      "created": "2026-04-09",
+      "deadline": "2026-04-16",
+      "status": "waiting",
+      "priority": "medium",
+      "notes": "Депозит оплачен, обещала вернуться через неделю"
+    },
+    {
+      "id": "t011",
+      "assignee": "Ника",
+      "task": "Рабочая версия лендинга — завтра",
+      "project": "Дизайн сайта",
+      "created": "2026-04-09",
+      "deadline": "2026-04-10",
+      "status": "in_progress",
+      "priority": "high",
+      "notes": "Завтра — первая рабочая версия, к вечеру — вторая версия лендинга"
+    },
+    {
+      "id": "t012",
+      "assignee": "Ника",
+      "task": "Весь сайт (shared + private страницы) — через неделю",
+      "project": "Дизайн сайта",
+      "created": "2026-04-09",
+      "deadline": "2026-04-16",
+      "status": "in_progress",
+      "priority": "high",
+      "notes": "Полный сайт: shared и private страницы"
+    },
+    {
+      "id": "t013",
+      "assignee": "Веда",
+      "task": "Прислать интервью для BLUUU OS",
+      "project": "BLUUU OS",
+      "created": "2026-04-09",
+      "deadline": "2026-04-10",
+      "status": "waiting",
+      "priority": "medium",
+      "notes": "Напомнить завтра"
+    },
+    {
+      "id": "t014",
+      "assignee": "Райан",
+      "task": "Прислать Google Drive с интервью водителей",
+      "project": "BLUUU OS",
+      "created": "2026-04-09",
+      "deadline": "2026-04-10",
+      "status": "waiting",
+      "priority": "medium",
+      "notes": "Напомнить завтра"
+    },
+    {
+      "id": "t015",
+      "assignee": "Geebran",
+      "task": "Прислать Google Drive с интервью гидов",
+      "project": "BLUUU OS",
+      "created": "2026-04-09",
+      "deadline": "2026-04-10",
+      "status": "waiting",
+      "priority": "medium",
+      "notes": "Напомнить завтра"
+    },
+    {
+      "id": "t016",
+      "assignee": "Алекс",
+      "task": "BLUUU OS — минимум 1 час ежедневно",
+      "project": "BLUUU OS",
+      "created": "2026-04-09",
+      "deadline": null,
+      "status": "in_progress",
+      "priority": "high",
+      "notes": "Анализ интервью, развитие проекта. Ежедневный блок."
+    },
+    {
+      "id": "t017",
+      "assignee": "Артур + Семён",
+      "task": "Статус API-интеграции TripAdvisor, Klook, GYG, Airbnb",
+      "project": "API-интеграция OTA",
+      "created": "2026-04-09",
+      "deadline": null,
+      "status": "in_progress",
+      "priority": "high",
+      "notes": "Периодически узнавать статус, сложности, прогресс"
+    },
+    {
+      "id": "t018",
+      "assignee": "Алекс",
+      "task": "Напомнить TripAdvisor прислать API-ключи",
+      "project": "API-интеграция OTA",
+      "created": "2026-04-09",
+      "deadline": "2026-04-10",
+      "status": "waiting",
+      "priority": "high",
+      "notes": "Завтра написать в TripAdvisor"
+    }
+  ]
 }
