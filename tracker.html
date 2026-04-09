@@ -12,10 +12,9 @@
 :root {
   --bg: #f2f2f7;
   --surface: #fff;
-  --surface-hover: #fafafe;
-  --grouped-bg: #fff;
-  --border: rgba(60,60,67,0.06);
-  --separator: rgba(60,60,67,0.1);
+  --grouped: #fff;
+  --sep: rgba(60,60,67,0.1);
+  --sep-light: rgba(60,60,67,0.06);
   --text: #1c1c1e;
   --text2: #3a3a3c;
   --text3: #8e8e93;
@@ -29,15 +28,16 @@
   --green: #34c759;
   --teal: #5ac8fa;
   --pink: #ff2d55;
-  --font: -apple-system, 'SF Pro Display', 'SF Pro Text', 'Inter', BlinkMacSystemFont, 'Helvetica Neue', system-ui, sans-serif;
+  --font: -apple-system, 'SF Pro Display', 'SF Pro Text', 'Inter', system-ui, sans-serif;
   --font-brand: 'PetrovSans', var(--font);
   --sidebar: 300px;
-  --radius: 14px;
-  --card-shadow: 0 0.5px 1px rgba(0,0,0,0.03), 0 1px 3px rgba(0,0,0,0.04);
-  --card-shadow-hover: 0 1px 4px rgba(0,0,0,0.05), 0 4px 16px rgba(0,0,0,0.06);
+  --r: 14px;
+  --shadow: 0 0.5px 1px rgba(0,0,0,0.03), 0 1px 3px rgba(0,0,0,0.04);
+  --shadow-up: 0 1px 4px rgba(0,0,0,0.05), 0 4px 16px rgba(0,0,0,0.06);
+  --bot: kai_bluuu_bot;
 }
 
-html { background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-family: var(--font); font-size: 15px; line-height: 1.47; }
+html { background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; font-family: var(--font); font-size: 15px; line-height: 1.47; }
 body { min-height: 100dvh; }
 
 /* ─── HEADER ─── */
@@ -48,35 +48,43 @@ body { min-height: 100dvh; }
   background: rgba(242,242,247,0.72);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   backdrop-filter: saturate(180%) blur(20px);
-  border-bottom: 0.33px solid var(--separator);
+  border-bottom: 0.33px solid var(--sep);
 }
 .hdr-left { display: flex; align-items: center; gap: 20px; }
-.brand { font-family: var(--font-brand); font-weight: 700; font-size: 22px; letter-spacing: -0.03em; color: var(--text); }
+.brand { font-family: var(--font-brand); font-weight: 700; font-size: 22px; letter-spacing: -0.03em; }
 .hdr-stats { display: flex; gap: 6px; flex-wrap: wrap; }
 .hdr-stat {
   display: flex; align-items: center; gap: 5px;
   font-size: 13px; font-weight: 500; color: var(--text3);
   padding: 5px 12px; border-radius: 20px;
-  background: var(--surface);
-  box-shadow: var(--card-shadow);
+  background: var(--surface); box-shadow: var(--shadow);
 }
 .hdr-stat b { color: var(--text); font-weight: 600; font-variant-numeric: tabular-nums; }
 .hdr-stat .dot { width: 7px; height: 7px; border-radius: 50%; }
-.hdr-time { font-size: 13px; color: var(--text4); font-weight: 400; }
+.hdr-time { font-size: 13px; color: var(--text4); }
+
+/* ─── FAB ─── */
+.fab {
+  position: fixed; bottom: 28px; right: 28px; z-index: 200;
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--blue); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; font-weight: 300; line-height: 1;
+  box-shadow: 0 4px 16px rgba(0,122,255,0.3), 0 2px 6px rgba(0,0,0,0.1);
+  cursor: pointer; transition: transform 0.15s, box-shadow 0.15s;
+  text-decoration: none; border: none;
+}
+.fab:hover { transform: scale(1.08); box-shadow: 0 6px 24px rgba(0,122,255,0.35); }
+.fab:active { transform: scale(0.95); }
 
 /* ─── LAYOUT ─── */
 .layout {
   display: grid;
   grid-template-columns: var(--sidebar) 1fr var(--sidebar);
-  gap: 0;
   min-height: calc(100dvh - 56px);
 }
-
-/* Sidebars */
 .col-l, .col-r { padding: 24px 20px; overflow-y: auto; }
-.col-l { background: var(--bg); }
-.col-r { background: var(--bg); }
-.col-c { padding: 24px 28px; overflow-y: auto; background: var(--bg); }
+.col-c { padding: 24px 28px; overflow-y: auto; }
 
 /* ─── iOS GROUPED SECTIONS ─── */
 .widget { margin-bottom: 28px; }
@@ -86,84 +94,62 @@ body { min-height: 100dvh; }
   padding: 0 16px 8px;
 }
 .w-group {
-  background: var(--grouped-bg);
-  border-radius: var(--radius);
-  box-shadow: var(--card-shadow);
-  overflow: hidden;
+  background: var(--grouped); border-radius: var(--r);
+  box-shadow: var(--shadow); overflow: hidden;
 }
 
 /* Stat cards */
 .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .stat-card {
-  background: var(--surface); border-radius: var(--radius); padding: 18px 16px;
-  box-shadow: var(--card-shadow);
-  display: flex; flex-direction: column; gap: 2px;
+  background: var(--surface); border-radius: var(--r); padding: 18px 16px;
+  box-shadow: var(--shadow);
 }
-.stat-card .num {
-  font-size: 34px; font-weight: 700; letter-spacing: -0.03em; line-height: 1;
-  font-variant-numeric: tabular-nums;
-}
-.stat-card .lab { font-size: 13px; color: var(--text3); font-weight: 400; margin-top: 2px; }
+.stat-card .num { font-size: 34px; font-weight: 700; letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+.stat-card .lab { font-size: 13px; color: var(--text3); margin-top: 2px; }
 
-/* Timeline items (inside grouped) */
-.tl-row {
-  display: flex; align-items: flex-start; gap: 12px;
-  padding: 13px 16px;
-}
-.tl-row + .tl-row { border-top: 0.33px solid var(--separator); }
-.tl-indicator { width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+/* Timeline */
+.tl-row { display: flex; align-items: flex-start; gap: 12px; padding: 13px 16px; }
+.tl-row + .tl-row { border-top: 0.33px solid var(--sep); }
+.tl-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
 .tl-content { flex: 1; min-width: 0; }
 .tl-name { font-size: 15px; font-weight: 600; color: var(--text); line-height: 1.2; }
-.tl-desc {
-  font-size: 13px; color: var(--text3); line-height: 1.3; margin-top: 2px;
-  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-}
+.tl-desc { font-size: 13px; color: var(--text3); line-height: 1.3; margin-top: 2px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .tl-when { font-size: 12px; color: var(--text4); margin-top: 3px; }
 
 /* Project rows */
-.proj-row {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 12px 16px; gap: 12px;
-}
-.proj-row + .proj-row { border-top: 0.33px solid var(--separator); }
-.proj-label { font-size: 15px; font-weight: 400; color: var(--text); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.proj-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; gap: 12px; }
+.proj-row + .proj-row { border-top: 0.33px solid var(--sep); }
+.proj-label { font-size: 15px; color: var(--text); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .proj-track { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 .proj-bar { width: 56px; height: 4px; border-radius: 2px; background: var(--bg); overflow: hidden; }
 .proj-fill { height: 100%; border-radius: 2px; transition: width 0.3s; }
 .proj-frac { font-size: 13px; color: var(--text4); font-variant-numeric: tabular-nums; min-width: 26px; text-align: right; }
 
-/* Team rows */
-.team-row {
-  display: flex; align-items: center; gap: 12px;
-  padding: 10px 16px;
-}
-.team-row + .team-row { border-top: 0.33px solid var(--separator); }
-.team-av {
-  width: 32px; height: 32px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 13px; font-weight: 600; flex-shrink: 0;
-}
+/* Team */
+.team-row { display: flex; align-items: center; gap: 12px; padding: 10px 16px; }
+.team-row + .team-row { border-top: 0.33px solid var(--sep); }
+.team-av { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; flex-shrink: 0; }
 .team-detail { flex: 1; min-width: 0; }
-.team-n { font-size: 15px; font-weight: 500; color: var(--text); line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.team-n { font-size: 15px; font-weight: 500; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .team-sub { font-size: 13px; color: var(--text4); }
 
-/* ─── CENTER: TASK SECTIONS ─── */
-.section { margin-bottom: 28px; }
+/* ─── TASK SECTIONS ─── */
+.section { margin-bottom: 28px; animation: slideUp 0.35s cubic-bezier(0.4,0,0.2,1) both; }
+.section:nth-child(2) { animation-delay: 0.06s; }
+.section:nth-child(3) { animation-delay: 0.12s; }
+.section:nth-child(4) { animation-delay: 0.18s; }
+.section:nth-child(5) { animation-delay: 0.24s; }
+
 .sec-header {
   display: flex; align-items: center; gap: 8px;
   padding: 0 4px 10px;
   cursor: pointer; -webkit-user-select: none; user-select: none;
 }
-.sec-indicator { width: 9px; height: 9px; border-radius: 50%; }
+.sec-dot { width: 9px; height: 9px; border-radius: 50%; }
 .sec-title { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: -0.01em; color: var(--text3); }
-.sec-count { font-size: 13px; font-weight: 400; color: var(--text4); }
-.sec-chevron {
-  margin-left: auto; width: 20px; height: 20px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px; color: var(--text4); transition: transform 0.25s;
-}
+.sec-count { font-size: 13px; color: var(--text4); }
+.sec-chevron { margin-left: auto; font-size: 12px; color: var(--text4); transition: transform 0.25s; }
 .section.collapsed .sec-chevron { transform: rotate(-90deg); }
-
 .sec-grid {
   display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 12px;
   overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.3s;
@@ -171,27 +157,22 @@ body { min-height: 100dvh; }
 }
 .section.collapsed .sec-grid { max-height: 0; opacity: 0; }
 
-/* Task cards */
+/* ─── TASK CARD ─── */
 .task {
-  background: var(--surface); border-radius: var(--radius);
-  padding: 18px 18px 16px;
-  box-shadow: var(--card-shadow);
-  cursor: default;
-  transition: box-shadow 0.2s, transform 0.15s;
+  background: var(--surface); border-radius: var(--r);
+  padding: 18px; box-shadow: var(--shadow);
+  cursor: pointer; transition: box-shadow 0.2s, transform 0.15s;
   display: flex; flex-direction: column; gap: 6px;
+  position: relative;
 }
-.task:hover { box-shadow: var(--card-shadow-hover); transform: translateY(-1px); }
+.task:hover { box-shadow: var(--shadow-up); transform: translateY(-1px); }
 .task:active { transform: translateY(0); }
 
 .task-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-.task-assignee {
-  font-size: 17px; font-weight: 600; letter-spacing: -0.02em; color: var(--text);
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.3;
-}
+.task-assignee { font-size: 17px; font-weight: 600; letter-spacing: -0.02em; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.3; }
 .task-chip {
   flex-shrink: 0; font-size: 12px; font-weight: 500;
-  padding: 4px 10px; border-radius: 8px; white-space: nowrap;
-  font-variant-numeric: tabular-nums;
+  padding: 4px 10px; border-radius: 8px; white-space: nowrap; font-variant-numeric: tabular-nums;
 }
 .task-chip.overdue { background: rgba(255,59,48,0.1); color: var(--red); }
 .task-chip.today { background: rgba(255,159,10,0.1); color: var(--yellow); }
@@ -200,27 +181,61 @@ body { min-height: 100dvh; }
 .task-chip.none { display: none; }
 
 .task-desc { font-size: 15px; color: var(--text2); line-height: 1.4; }
-
 .task-tags { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-top: 2px; }
-.tag {
-  font-size: 12px; font-weight: 500; padding: 3px 9px; border-radius: 6px;
-}
+.tag { font-size: 12px; font-weight: 500; padding: 3px 9px; border-radius: 6px; }
 .tag-proj { background: rgba(142,142,147,0.08); color: var(--text3); }
 .tag-high { background: rgba(255,59,48,0.07); color: var(--red); }
 .tag-medium { background: rgba(255,149,0,0.06); color: var(--orange); }
 .tag-low { background: rgba(142,142,147,0.06); color: var(--text4); }
 
-.task-extra {
-  font-size: 13px; color: var(--text3); line-height: 1.4;
-  padding-top: 10px; margin-top: 4px; border-top: 0.33px solid var(--separator);
-  display: none;
+/* ─── EXPANDED CARD: ACTIONS ─── */
+.task-expand {
+  display: none; flex-direction: column; gap: 10px;
+  padding-top: 12px; margin-top: 6px;
+  border-top: 0.33px solid var(--sep);
 }
-.task.open .task-extra { display: block; }
+.task.open .task-expand { display: flex; }
+
+.task-notes { font-size: 13px; color: var(--text3); line-height: 1.4; }
+
+.task-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.act {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 13px; font-weight: 500;
+  padding: 8px 14px; border-radius: 10px;
+  text-decoration: none; border: none; cursor: pointer;
+  transition: transform 0.1s, opacity 0.15s;
+  -webkit-user-select: none; user-select: none;
+}
+.act:active { transform: scale(0.95); }
+
+.act-done { background: rgba(52,199,89,0.12); color: var(--green); }
+.act-done:hover { background: rgba(52,199,89,0.18); }
+.act-progress { background: rgba(0,122,255,0.1); color: var(--blue); }
+.act-progress:hover { background: rgba(0,122,255,0.16); }
+.act-waiting { background: rgba(255,149,0,0.1); color: var(--orange); }
+.act-waiting:hover { background: rgba(255,149,0,0.16); }
+.act-blocked { background: rgba(175,82,222,0.1); color: var(--purple); }
+.act-blocked:hover { background: rgba(175,82,222,0.16); }
+.act-note { background: rgba(142,142,147,0.08); color: var(--text3); }
+.act-note:hover { background: rgba(142,142,147,0.14); }
+.act-ping { background: rgba(255,45,85,0.1); color: var(--pink); }
+.act-ping:hover { background: rgba(255,45,85,0.16); }
+
+/* ─── TOAST ─── */
+.toast {
+  position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px);
+  background: var(--text); color: #fff; font-size: 14px; font-weight: 500;
+  padding: 12px 24px; border-radius: 14px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.25s, transform 0.25s;
+  z-index: 300;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
 
 /* ─── RESPONSIVE ─── */
-@media (max-width: 1200px) {
-  :root { --sidebar: 260px; }
-}
+@media (max-width: 1200px) { :root { --sidebar: 260px; } }
 @media (max-width: 1000px) {
   .layout { grid-template-columns: 240px 1fr; }
   .col-r { display: none; }
@@ -230,69 +245,94 @@ body { min-height: 100dvh; }
   .col-l { display: none; }
   .col-c { padding: 16px; }
   .hdr { padding: 12px 16px; flex-wrap: wrap; gap: 8px; }
-  .hdr-stats { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; }
+  .hdr-stats { overflow-x: auto; flex-wrap: nowrap; }
   .sec-grid { grid-template-columns: 1fr; }
+  .fab { bottom: 20px; right: 20px; width: 50px; height: 50px; font-size: 24px; }
 }
 
-/* Animations */
 @keyframes slideUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-.section { animation: slideUp 0.35s cubic-bezier(0.4,0,0.2,1) both; }
-.section:nth-child(2) { animation-delay: 0.06s; }
-.section:nth-child(3) { animation-delay: 0.12s; }
-.section:nth-child(4) { animation-delay: 0.18s; }
-.section:nth-child(5) { animation-delay: 0.24s; }
 
-/* Scrollbar — macOS style */
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 4px; border: 2px solid transparent; background-clip: content-box; }
-::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.2); background-clip: content-box; }
 </style>
 <link rel="preconnect" href="https://rsms.me"><link href="https://rsms.me/inter/inter.css" rel="stylesheet">
 </head>
 <body>
 
 <div id="app"></div>
+<div class="toast" id="toast"></div>
 
 <script>
+const BOT = 'kai_bluuu_bot';
 const STATUS = {
-  urgent:      { label: 'Горит',         color: 'var(--red)' },
-  waiting:     { label: 'Ждёт ответа',  color: 'var(--orange)' },
-  in_progress: { label: 'В работе',      color: 'var(--blue)' },
-  blocked:     { label: 'Заблокировано', color: 'var(--purple)' },
-  done:        { label: 'Готово',        color: 'var(--green)' }
+  urgent:      { label: 'Горит',        color: 'var(--red)' },
+  waiting:     { label: 'Ждёт ответа', color: 'var(--orange)' },
+  in_progress: { label: 'В работе',     color: 'var(--blue)' },
+  blocked:     { label: 'Заблокировано',color: 'var(--purple)' },
+  done:        { label: 'Готово',       color: 'var(--green)' }
 };
 const ORDER = ['urgent','waiting','in_progress','blocked','done'];
 const PAL = ['#ff3b30','#007aff','#af52de','#34c759','#ff9500','#5ac8fa','#5856d6','#ff2d55'];
 
-function parseDate(s) { if(!s) return null; const p=s.split('-').map(Number); return new Date(p[0],p[1]-1,p[2]); }
-function today() { const d=new Date(); d.setHours(0,0,0,0); return d; }
-function diffDays(s) { const d=parseDate(s); if(!d) return null; return Math.round((d-today())/864e5); }
-function esc(s) { if(!s) return ''; const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+function parseDate(s){if(!s)return null;const p=s.split('-').map(Number);return new Date(p[0],p[1]-1,p[2])}
+function today(){const d=new Date();d.setHours(0,0,0,0);return d}
+function diffDays(s){const d=parseDate(s);if(!d)return null;return Math.round((d-today())/864e5)}
+function esc(s){if(!s)return'';const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+const MO=['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
+function fmt(s){const d=parseDate(s);if(!d)return'';return d.getDate()+' '+MO[d.getMonth()]}
 
-const MO = ['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
-function fmt(s) { const d=parseDate(s); if(!d) return ''; return d.getDate()+' '+MO[d.getMonth()]; }
-
-function chip(t) {
-  if(!t.deadline) return {text:'',cls:'none'};
-  const diff=diffDays(t.deadline); if(diff===null) return {text:'',cls:'none'};
+function chipInfo(t){
+  if(!t.deadline)return{text:'',cls:'none'};
+  const diff=diffDays(t.deadline);if(diff===null)return{text:'',cls:'none'};
   const l=fmt(t.deadline);
-  if(diff<0) return {text:l+' · просрочено',cls:'overdue'};
-  if(diff===0) return {text:l+' · сегодня',cls:'today'};
-  if(diff===1) return {text:l+' · завтра',cls:'soon'};
-  if(diff<=3) return {text:l+' · через '+diff+' дн.',cls:'soon'};
-  return {text:l,cls:'normal'};
+  if(diff<0)return{text:l+' · просрочено',cls:'overdue'};
+  if(diff===0)return{text:l+' · сегодня',cls:'today'};
+  if(diff===1)return{text:l+' · завтра',cls:'soon'};
+  if(diff<=3)return{text:l+' · через '+diff+' дн.',cls:'soon'};
+  return{text:l,cls:'normal'};
 }
 
-function hcol(s) { let h=0; for(let i=0;i<s.length;i++) h=s.charCodeAt(i)+((h<<5)-h); return PAL[Math.abs(h)%PAL.length]; }
+function hcol(s){let h=0;for(let i=0;i<s.length;i++)h=s.charCodeAt(i)+((h<<5)-h);return PAL[Math.abs(h)%PAL.length]}
 
-function render(data) {
+// ─── Telegram Deep Link ───
+function tgLink(text){
+  return 'https://t.me/'+BOT+'?start='+encodeURIComponent(btoa(unescape(encodeURIComponent(text))));
+}
+function tgCmd(text){
+  // Universal: tries tg:// first (app), falls back to https://t.me
+  return 'tg://resolve?domain='+BOT+'&text='+encodeURIComponent(text);
+}
+
+function sendToKai(text, label){
+  // Copy command to clipboard as backup
+  navigator.clipboard && navigator.clipboard.writeText(text);
+  // Open Telegram
+  window.open(tgCmd(text), '_blank');
+  showToast('📨 Откроется Telegram → отправь команду');
+}
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  clearTimeout(t._tm);
+  t._tm=setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// ─── Task ID: short hash from assignee+task ───
+function taskId(t){
+  const s=(t.assignee||'')+(t.task||'');
+  let h=0;for(let i=0;i<s.length;i++)h=((h<<5)-h)+s.charCodeAt(i);
+  return Math.abs(h).toString(36).slice(0,6);
+}
+
+function render(data){
   const tasks=data.tasks||[];
-  if(!tasks.length) { document.getElementById('app').innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:80vh;color:var(--text4);font-size:17px;font-weight:500">Задач пока нет</div>'; return; }
+  if(!tasks.length){document.getElementById('app').innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:80vh;color:var(--text4);font-size:17px">Задач пока нет</div>';return}
 
-  const groups={}; ORDER.forEach(s=>groups[s]=[]);
-  tasks.forEach(t=>{if(groups[t.status]) groups[t.status].push(t)});
-  const counts={}; ORDER.forEach(s=>counts[s]=groups[s].length);
+  const groups={};ORDER.forEach(s=>groups[s]=[]);
+  tasks.forEach(t=>{if(groups[t.status])groups[t.status].push(t)});
+  const counts={};ORDER.forEach(s=>counts[s]=groups[s].length);
 
   const projMap={};
   tasks.forEach(t=>{const p=t.project||'Другое';if(!projMap[p])projMap[p]={total:0,done:0};projMap[p].total++;if(t.status==='done')projMap[p].done++});
@@ -328,7 +368,6 @@ function render(data) {
 
   // ─── LEFT ───
   h+='<div class="col-l">';
-
   const overdue=tasks.filter(t=>t.deadline&&t.status!=='done'&&diffDays(t.deadline)<0).length;
   const todayN=tasks.filter(t=>t.deadline&&t.status!=='done'&&diffDays(t.deadline)===0).length;
   h+=`<div class="widget">
@@ -347,7 +386,7 @@ function render(data) {
       const c=t.diff<0?'var(--red)':t.diff===0?'var(--yellow)':t.diff<=2?'var(--orange)':'var(--text4)';
       const w=t.diff<0?'просрочено':t.diff===0?'сегодня':t.diff===1?'завтра':fmt(t.deadline);
       h+=`<div class="tl-row">
-        <div class="tl-indicator" style="background:${c}"></div>
+        <div class="tl-dot" style="background:${c}"></div>
         <div class="tl-content">
           <div class="tl-name">${esc(t.assignee)}</div>
           <div class="tl-desc">${esc(t.task)}</div>
@@ -362,13 +401,13 @@ function render(data) {
   // ─── CENTER ───
   h+='<div class="col-c">';
   ORDER.forEach(status=>{
-    const items=groups[status]; if(!items.length) return;
+    const items=groups[status];if(!items.length)return;
     const cfg=STATUS[status];
     const collapsed=status==='done'?' collapsed':'';
 
     h+=`<div class="section${collapsed}">
       <div class="sec-header" onclick="tog(this)">
-        <span class="sec-indicator" style="background:${cfg.color}"></span>
+        <span class="sec-dot" style="background:${cfg.color}"></span>
         <span class="sec-title">${cfg.label}</span>
         <span class="sec-count">${items.length}</span>
         <span class="sec-chevron">▼</span>
@@ -376,8 +415,26 @@ function render(data) {
       <div class="sec-grid">`;
 
     items.forEach(t=>{
-      const c=chip(t);
+      const c=chipInfo(t);
       const pri='tag-'+(t.priority||'low');
+      const id=taskId(t);
+      const name=t.assignee||'задача';
+      const short=(t.task||'').slice(0,40);
+
+      // Build action buttons based on current status
+      let actions='<div class="task-actions">';
+      if(status!=='done')
+        actions+=`<button class="act act-done" onclick="event.stopPropagation();sendToKai('✅ Готово: ${esc(name)} — ${esc(short)}','Готово')">✅ Готово</button>`;
+      if(status!=='in_progress'&&status!=='done')
+        actions+=`<button class="act act-progress" onclick="event.stopPropagation();sendToKai('🔄 В работе: ${esc(name)} — ${esc(short)}','В работе')">🔄 В работе</button>`;
+      if(status!=='waiting'&&status!=='done')
+        actions+=`<button class="act act-waiting" onclick="event.stopPropagation();sendToKai('⏳ Жду ответа: ${esc(name)} — ${esc(short)}','Жду')">⏳ Жду</button>`;
+      if(status!=='blocked'&&status!=='done')
+        actions+=`<button class="act act-blocked" onclick="event.stopPropagation();sendToKai('🚫 Заблокировано: ${esc(name)} — ${esc(short)}','Заблок')">🚫 Заблок</button>`;
+      actions+=`<button class="act act-ping" onclick="event.stopPropagation();sendToKai('📢 Пингани: ${esc(name)} — ${esc(short)}','Пинг')">📢 Пинг</button>`;
+      actions+=`<button class="act act-note" onclick="event.stopPropagation();sendToKai('📝 Заметка: ${esc(name)} — ${esc(short)}: ','Заметка')">📝 Заметка</button>`;
+      actions+='</div>';
+
       h+=`<div class="task" onclick="this.classList.toggle('open')">
         <div class="task-head">
           <div class="task-assignee">${esc(t.assignee)}</div>
@@ -388,7 +445,10 @@ function render(data) {
           ${t.project?`<span class="tag tag-proj">${esc(t.project)}</span>`:''}
           <span class="tag ${pri}">${esc(t.priority||'')}</span>
         </div>
-        ${t.notes?`<div class="task-extra">${esc(t.notes)}</div>`:''}
+        <div class="task-expand">
+          ${t.notes?`<div class="task-notes">${esc(t.notes)}</div>`:''}
+          ${actions}
+        </div>
       </div>`;
     });
     h+='</div></div>';
@@ -397,17 +457,13 @@ function render(data) {
 
   // ─── RIGHT ───
   h+='<div class="col-r">';
-
   h+='<div class="widget"><div class="w-label">Проекты</div><div class="w-group">';
   projects.forEach(([name,d])=>{
     const pct=d.total?Math.round(d.done/d.total*100):0;
     const c=hcol(name);
     h+=`<div class="proj-row">
       <div class="proj-label">${esc(name)}</div>
-      <div class="proj-track">
-        <div class="proj-bar"><div class="proj-fill" style="width:${pct}%;background:${c}"></div></div>
-        <div class="proj-frac">${d.done}/${d.total}</div>
-      </div>
+      <div class="proj-track"><div class="proj-bar"><div class="proj-fill" style="width:${pct}%;background:${c}"></div></div><div class="proj-frac">${d.done}/${d.total}</div></div>
     </div>`;
   });
   h+='</div></div>';
@@ -418,16 +474,16 @@ function render(data) {
     const ini=name.split(/[\s()]+/).filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('');
     h+=`<div class="team-row">
       <div class="team-av" style="background:${c}14;color:${c}">${ini}</div>
-      <div class="team-detail">
-        <div class="team-n">${esc(name)}</div>
-        <div class="team-sub">${d.active} активн.${d.done?' · '+d.done+' закр.':''}</div>
-      </div>
+      <div class="team-detail"><div class="team-n">${esc(name)}</div><div class="team-sub">${d.active} активн.${d.done?' · '+d.done+' закр.':''}</div></div>
     </div>`;
   });
   h+='</div></div>';
+  h+='</div>';
 
   h+='</div>';
-  h+='</div>';
+
+  // FAB: add new task
+  h+=`<a class="fab" onclick="sendToKai('➕ Новая задача: ','Новая')" title="Добавить задачу">+</a>`;
 
   document.getElementById('app').innerHTML=h;
 }
@@ -435,7 +491,7 @@ function render(data) {
 function tog(el){el.parentElement.classList.toggle('collapsed')}
 
 fetch('./tracker-data.json?'+Date.now()).then(r=>r.json()).then(render).catch(e=>{
-  document.getElementById('app').innerHTML=`<div style="display:flex;align-items:center;justify-content:center;height:80vh;color:var(--text4);font-size:15px">Ошибка: ${e.message}</div>`;
+  document.getElementById('app').innerHTML=`<div style="display:flex;align-items:center;justify-content:center;height:80vh;color:var(--text4)">Ошибка: ${e.message}</div>`;
 });
 </script>
 </body>
