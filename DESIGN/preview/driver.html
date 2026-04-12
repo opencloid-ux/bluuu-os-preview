@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<title>BLUUU OS — Водитель</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
+<style>
+/* ── DARK THEME ── */
+:root {
+  --bg:#080e14; --sf:#0d1520; --sf2:#111d2c;
+  --bdr:rgba(255,255,255,.06); --bdr2:rgba(255,255,255,.1);
+  --p:#14b8c8; --pd:#0e8a97; --p-glow:rgba(20,184,200,.15);
+  --sec:#ffb35f;
+  --ok:#10d984; --ok-bg:rgba(16,217,132,.1);
+  --warn:#f6c244; --warn-bg:rgba(246,194,68,.1);
+  --err:#f24a4a; --err-bg:rgba(242,74,74,.1);
+  --info:#3b82f6; --info-bg:rgba(59,130,246,.1);
+  --txt:#e8f0f8; --txt2:#6b8094; --txt3:#3d5166;
+  --glass:rgba(255,255,255,.03); --glass-bdr:rgba(255,255,255,.07);
+  --radius:14px; --radius-sm:8px;
+  --shadow:0 4px 24px rgba(0,0,0,.4),0 1px 0 rgba(255,255,255,.04) inset;
+}
+/* ── LIGHT THEME ── */
+[data-theme="light"] {
+  --bg:#f0f4f8; --sf:#ffffff; --sf2:#f8fafc;
+  --bdr:rgba(0,0,0,.08); --bdr2:rgba(0,0,0,.14);
+  --p:#0ea5e9; --pd:#0284c7; --p-glow:rgba(14,165,233,.12);
+  --ok:#059669; --ok-bg:rgba(5,150,105,.08);
+  --warn:#d97706; --warn-bg:rgba(217,119,6,.08);
+  --err:#dc2626; --err-bg:rgba(220,38,38,.08);
+  --info:#2563eb; --info-bg:rgba(37,99,235,.08);
+  --txt:#0f172a; --txt2:#64748b; --txt3:#94a3b8;
+  --glass:rgba(255,255,255,.6); --glass-bdr:rgba(0,0,0,.08);
+  --shadow:0 2px 12px rgba(0,0,0,.08),0 1px 0 rgba(255,255,255,.8) inset;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s;}
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;background:rgba(8,14,20,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr);z-index:100;display:flex;align-items:center;height:52px;transition:background .3s;}
+[data-theme="light"] .nav{background:rgba(255,255,255,.92);}
+.nav-logo{padding:0 18px;font-weight:800;font-size:15px;color:var(--p);border-right:1px solid var(--bdr);height:100%;display:flex;align-items:center;flex-shrink:0;letter-spacing:-.3px;}
+.nav-logo sup{color:var(--txt3);font-weight:400;font-size:9px;margin-left:4px;letter-spacing:.5px;text-transform:uppercase;}
+.nav-tabs{display:flex;height:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.nav-tabs::-webkit-scrollbar{display:none;}
+.ntab{display:flex;align-items:center;padding:0 14px;font-size:12px;font-weight:500;color:var(--txt2);text-decoration:none;white-space:nowrap;border-bottom:1px solid transparent;height:100%;flex-shrink:0;transition:all .15s;letter-spacing:.01em;}
+.ntab:hover{color:var(--txt);background:var(--glass);}
+.ntab.active{color:var(--p);border-bottom-color:var(--p);font-weight:600;}
+.nav-r{margin-left:auto;display:flex;align-items:center;gap:8px;padding:0 16px;flex-shrink:0;}
+.theme-btn{width:28px;height:28px;border-radius:var(--radius-sm);background:var(--sf2);border:1px solid var(--bdr2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;transition:all .2s;flex-shrink:0;}
+.theme-btn:hover{border-color:var(--p);background:var(--p-glow);}
+.clk{font-size:11px;color:var(--txt3);font-family:'Roboto Mono',monospace;}
+.ava{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--pd));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;color:#fff;flex-shrink:0;}
+/* PAGE */
+.page{padding:68px 24px 48px;max-width:1440px;margin:0 auto;}
+/* CARDS */
+.card{background:var(--sf);border:1px solid var(--bdr);border-radius:var(--radius);box-shadow:var(--shadow);position:relative;overflow:hidden;transition:border-color .2s,box-shadow .2s;}
+.card:hover{border-color:var(--bdr2);}
+.card-accent::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--p) 50%,transparent);opacity:.5;}
+/* SECTION LABEL */
+.sec-label{font-size:11px;font-weight:600;color:var(--txt3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px;}
+/* KPI */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px;}
+@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:500px){.kpi-grid{grid-template-columns:1fr;}}
+.kpi-card{padding:20px;display:flex;flex-direction:column;gap:6px;}
+.kpi-top{display:flex;align-items:center;justify-content:space-between;}
+.kpi-lbl{font-size:11px;font-weight:600;color:var(--txt3);text-transform:uppercase;letter-spacing:.08em;}
+.kpi-val{font-size:30px;font-weight:800;font-family:'Roboto Mono',monospace;color:var(--txt);line-height:1;}
+.kpi-sub{font-size:12px;color:var(--txt2);}
+.badge{display:inline-flex;align-items:center;gap:3px;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap;}
+.badge-ok{background:var(--ok-bg);color:var(--ok);}
+.badge-warn{background:var(--warn-bg);color:var(--warn);}
+.badge-err{background:var(--err-bg);color:var(--err);}
+.badge-info{background:var(--info-bg);color:var(--info);}
+.badge-muted{background:var(--sf2);color:var(--txt2);}
+/* PROGRESS */
+.pbar-wrap{height:4px;background:var(--sf2);border-radius:2px;overflow:hidden;margin-top:6px;}
+.pbar{height:100%;border-radius:2px;background:var(--p);box-shadow:0 0 8px var(--p);}
+/* HERO */
+.hero{display:flex;align-items:flex-start;justify-content:space-between;padding:20px 0 16px;flex-wrap:wrap;gap:8px;}
+/* PICKUP CARD */
+.pickup-card{background:var(--sf);border:1px solid var(--bdr);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:12px;position:relative;overflow:hidden;transition:border-color .2s;}
+.pickup-card:hover{border-color:var(--bdr2);}
+.pickup-card.is-next{border-color:rgba(59,130,246,.3);}
+.pickup-card.is-done{opacity:.7;}
+.pickup-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;}
+.pickup-time{font-size:20px;font-weight:800;font-family:'Roboto Mono',monospace;color:var(--p);}
+.pickup-body{display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;}
+@media(max-width:600px){.pickup-body{grid-template-columns:1fr;}}
+.pickup-field{display:flex;flex-direction:column;gap:2px;}
+.pickup-field-lbl{font-size:10px;font-weight:600;color:var(--txt3);text-transform:uppercase;letter-spacing:.07em;}
+.pickup-field-val{font-size:13px;color:var(--txt);font-weight:500;}
+.pickup-actions{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--radius-sm);font-size:12px;font-weight:600;cursor:pointer;border:none;transition:all .2s;font-family:Inter,sans-serif;}
+.btn-primary{background:var(--p);color:#fff;}
+.btn-primary:hover{background:var(--pd);}
+.btn-outline{background:transparent;color:var(--txt2);border:1px solid var(--bdr2);}
+.btn-outline:hover{color:var(--txt);border-color:var(--p);}
+.btn-done{background:var(--ok-bg);color:var(--ok);border:1px solid rgba(16,217,132,.2);}
+.btn-done:disabled{opacity:.5;cursor:not-allowed;}
+/* PULSE */
+.pulse-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--info);margin-right:4px;animation:pulse 1.5s infinite;}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(59,130,246,.5);}50%{box-shadow:0 0 0 5px rgba(59,130,246,0);}}
+/* WEEK TABLE */
+.week-table{width:100%;border-collapse:collapse;}
+.week-table th,.week-table td{padding:8px 10px;text-align:center;font-size:12px;border-bottom:1px solid var(--bdr);}
+.week-table th{font-size:10px;font-weight:600;color:var(--txt3);text-transform:uppercase;letter-spacing:.07em;}
+.week-table tr:last-child td{border-bottom:none;}
+.week-table td.today{background:var(--p-glow);color:var(--p);font-weight:700;border-radius:4px;}
+/* STATS GRID */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+@media(max-width:700px){.stats-grid{grid-template-columns:repeat(2,1fr);}}
+.stat-card{background:var(--sf);border:1px solid var(--bdr);border-radius:var(--radius);padding:16px 20px;box-shadow:var(--shadow);}
+.stat-val{font-size:28px;font-weight:800;font-family:'Roboto Mono',monospace;color:var(--p);line-height:1.1;}
+.stat-lbl{font-size:11px;color:var(--txt2);margin-top:4px;}
+/* SUMMARY GRID */
+.summary-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;}
+@media(max-width:800px){.summary-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:500px){.summary-grid{grid-template-columns:repeat(2,1fr);}}
+.summary-item{display:flex;flex-direction:column;gap:4px;}
+.summary-lbl{font-size:10px;font-weight:600;color:var(--txt3);text-transform:uppercase;letter-spacing:.07em;}
+.summary-val{font-size:22px;font-weight:800;font-family:'Roboto Mono',monospace;color:var(--txt);}
+.summary-sub{font-size:11px;color:var(--txt2);}
+.cb-btn{position:fixed;bottom:24px;right:24px;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--pd));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 20px rgba(20,184,200,.4);z-index:1000;transition:transform .2s,box-shadow .2s;}
+.cb-btn:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(20,184,200,.6);}
+.cb-btn .cb-dot{position:absolute;top:2px;right:2px;width:12px;height:12px;background:var(--ok);border-radius:50%;border:2px solid var(--bg);animation:cbpulse 2s infinite;}
+@keyframes cbpulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.7;transform:scale(1.2);}}
+.cb-window{position:fixed;bottom:88px;right:24px;width:360px;height:520px;background:var(--sf);border:1px solid var(--glass-bdr);border-radius:var(--radius);box-shadow:0 20px 60px rgba(0,0,0,.5);z-index:999;display:flex;flex-direction:column;overflow:hidden;opacity:0;transform:translateY(20px) scale(.95);transition:opacity .25s,transform .25s;pointer-events:none;}
+.cb-window.open{opacity:1;transform:translateY(0) scale(1);pointer-events:all;}
+.cb-head{padding:16px 18px;background:var(--sf2);border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:12px;flex-shrink:0;}
+.cb-ava{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--pd));display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.cb-head-info{flex:1;}.cb-head-name{font-size:14px;font-weight:700;color:var(--txt);}.cb-head-status{font-size:11px;color:var(--ok);margin-top:1px;}
+.cb-close{width:28px;height:28px;border-radius:50%;background:var(--glass);border:1px solid var(--bdr);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--txt2);transition:background .15s;}
+.cb-close:hover{background:var(--sf2);}
+.cb-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth;}
+.cb-msgs::-webkit-scrollbar{width:4px;}.cb-msgs::-webkit-scrollbar-track{background:transparent;}.cb-msgs::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:2px;}
+.cb-msg{display:flex;gap:8px;animation:msgIn .2s ease;}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.cb-msg.user{flex-direction:row-reverse;}
+.cb-bubble{max-width:80%;padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.5;}
+.cb-msg.bot .cb-bubble{background:var(--sf2);border:1px solid var(--bdr);color:var(--txt);border-bottom-left-radius:4px;}
+.cb-msg.user .cb-bubble{background:var(--p);color:#fff;border-bottom-right-radius:4px;}
+.cb-msg-ava{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;margin-top:auto;}
+.cb-msg.bot .cb-msg-ava{background:linear-gradient(135deg,var(--p),var(--pd));color:#fff;font-weight:700;}
+.cb-msg.user .cb-msg-ava{background:var(--sf2);border:1px solid var(--bdr);}
+.cb-typing{display:flex;gap:4px;padding:10px 14px;background:var(--sf2);border:1px solid var(--bdr);border-radius:14px;border-bottom-left-radius:4px;width:fit-content;}
+.cb-typing span{width:6px;height:6px;background:var(--txt3);border-radius:50%;animation:cbdot 1.2s infinite;}
+.cb-typing span:nth-child(2){animation-delay:.2s;}.cb-typing span:nth-child(3){animation-delay:.4s;}
+@keyframes cbdot{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-6px);}}
+.cb-suggestions{padding:8px 16px;display:flex;gap:6px;flex-wrap:wrap;flex-shrink:0;border-top:1px solid var(--bdr);}
+.cb-chip{padding:5px 11px;background:var(--sf2);border:1px solid var(--bdr);border-radius:20px;font-size:11px;color:var(--txt2);cursor:pointer;transition:all .15s;white-space:nowrap;}
+.cb-chip:hover{background:var(--p-glow);border-color:var(--p);color:var(--p);}
+.cb-input-wrap{padding:12px 16px;border-top:1px solid var(--bdr);display:flex;gap:8px;flex-shrink:0;background:var(--sf2);}
+.cb-input{flex:1;background:var(--sf);border:1px solid var(--bdr);border-radius:var(--radius-sm);padding:9px 13px;font-size:13px;color:var(--txt);outline:none;font-family:inherit;transition:border-color .15s;}
+.cb-input:focus{border-color:var(--p);}
+.cb-send{width:36px;height:36px;border-radius:var(--radius-sm);background:var(--p);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:background .15s;flex-shrink:0;}
+.cb-send:hover{background:var(--pd);}
+@media(max-width:480px){.cb-window{width:calc(100vw - 20px);right:10px;bottom:76px;height:480px;}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">BLUUU<sup>OS</sup></div>
+  <div class="nav-tabs">
+    <a class="ntab" href="index.html">Alex CEO</a>
+    <a class="ntab" href="karim.html">Карим</a>
+    <a class="ntab" href="widia.html">Widia</a>
+    <a class="ntab" href="dima.html">Дима</a>
+    <a class="ntab" href="geebran.html">Geebran</a>
+    <a class="ntab" href="david.html">David</a>
+    <a class="ntab" href="finance.html">Finance</a>
+    <a class="ntab" href="booking.html">Booking</a>
+    <a class="ntab" href="guide.html">Гид</a>
+    <a class="ntab active" href="driver.html">Водитель</a>
+    <a class="ntab" href="drivers-manager.html">Диспетчер</a>
+  </div>
+  <div class="nav-r">
+    <span class="clk" id="clk">00:00</span>
+    <div class="theme-btn" id="theme-btn" title="Тема">☀️</div>
+    <div class="ava">DW</div>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div>
+      <div style="font-size:26px;font-weight:800;letter-spacing:-.5px;">Dewa Putra — Водитель</div>
+      <div style="font-size:13px;color:var(--txt2);margin-top:4px;">BLUUU Tours · <span id="dateStr">...</span> · рабочий день</div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <span class="badge badge-info"><span class="pulse-dot"></span>В пути</span>
+      <span class="badge badge-ok">1/4 выполнено</span>
+    </div>
+  </div>
+
+  <!-- Сводка дня -->
+  <div style="margin-bottom:16px;">
+    <div class="sec-label">Сводка дня</div>
+    <div class="card card-accent" style="padding:24px;">
+      <div class="summary-grid">
+        <div class="summary-item">
+          <div class="summary-lbl">Пикапов</div>
+          <div class="summary-val" style="color:var(--txt);">4</div>
+          <div class="summary-sub">всего сегодня</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-lbl">Выполнено</div>
+          <div class="summary-val" style="color:var(--ok);">1</div>
+          <div class="summary-sub">завершено</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-lbl">В пути</div>
+          <div class="summary-val" style="color:var(--info);">1</div>
+          <div class="summary-sub">текущий</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-lbl">Ожидается</div>
+          <div class="summary-val" style="color:var(--warn);">2</div>
+          <div class="summary-sub">предстоит</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-lbl">Первый пикап</div>
+          <div class="summary-val" style="color:var(--p);font-size:20px;">06:15</div>
+          <div class="summary-sub">начало дня</div>
+        </div>
+      </div>
+      <div style="margin-top:16px;">
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--txt3);margin-bottom:6px;">
+          <span>Прогресс дня</span>
+          <span>1 / 4 (25%)</span>
+        </div>
+        <div class="pbar-wrap" style="height:6px;">
+          <div class="pbar" style="width:25%;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Список пикапов -->
+  <div style="margin-bottom:16px;">
+    <div class="sec-label">Список пикапов</div>
+
+    <!-- Пикап 1 — ВЫПОЛНЕН -->
+    <div class="pickup-card is-done">
+      <div class="pickup-header">
+        <div class="pickup-time">06:15</div>
+        <span class="badge badge-ok">Выполнен</span>
+      </div>
+      <div class="pickup-body">
+        <div class="pickup-field">
+          <div class="pickup-field-lbl">Адрес</div>
+          <div class="pickup-field-val">Villa Seminyak, Jl. Kayu Aya No. 12, Seminyak</div>
+        </div>
+        <div class="pickup-field">
+          <div class="pickup-field-lbl">Гость</div>
+          <div class="pickup-field-val">Sarah &amp; James Johnson · 2 чел.</div>
+        </div>
+        <div class="pickup-field">
+          <div class="pickup-field-lbl">Телефон</div>
+          <div class="pickup-field-val" style="font-family:'Roboto Mono',monospace;font-size:12px;">+1 555 234 5678</div>
+        </div>
+        <div class="pickup-field">
+          <div class="pickup-field-lbl">Тур · Лодка</div>
+          <div class="pickup-field-val">Nusa Penida Full Day · Lady Manta</div>
+        </div>
+      </div>
+      <div class="pickup-actions">
+        <button class="btn btn-done" disabled>&#10003; Выполнено</button>
+      </div>
+    </div>
+
+    <!-- Пикап 2 — СЛЕДУЮЩИЙ -->
+    <div class="pickup-card is-next" id="pickup-2">
+      <div class="pickup-header">
+        <div class="pickup-time">07:00</div>
+        <span class="badge badge-info" id="badge-2"><span class="pulse-dot"></span>Следующий</span>
+      </div>
+      <div class="pickup-body">
+        <div class="pickup-field">
+          <div class="pickup-field-lbl">Адрес</div>
+          <div class="pickup-field-val">Kuta Beach Hotel, Jl. Pantai Kuta No. 8</div>
+        </div>
+        <div class="pickup-field">
+          <div class="pickup-field-lbl">Гость</div>
+          <div class="pickup-field-val">Familie Schmidt · 4 чел.</div>
+        </div>
+        <div class="pickup-field">
+          <div class="pickup-field-lbl">Телефон</div>
+          <div class="pickup-field-val" style="font-family:'Roboto Mono',monospace;font-size:12px;">+49 176 12345678</div>
+        </div>
+        <div class="pickup-field">
+          <div class="pickup-field-lbl">Тур · Лодка</div>
+          <div class="pickup-field-val">Snorkeling Premium · Blue Wave</div>
+        </div>
+      </div>
+      <div class="pickup-actions">
+        <button class="btn btn-outline" onclick="window.open('https://maps.google.com/?q=Kuta+Beach+Hotel+Bali','_blank')">Маршрут</button>
+        <button class="btn btn-primary" id="btn-done-2" onclick="markDone(2)">Отметить выполненным</button>
+      </div>
+    </div>
+
+    <!-- Пикап 3 — ОЖИДАЕТ -->
+    <div class="pickup-card" id="pickup-3">
+      <div class="pickup-header">
+        <div class="pickup-time">07:30</div>
+        <span class="badge badge-muted" id="badge-3">Ожидает</span>
+      </div>
+      <div class="pickup-body">
+        <div class="pickup-field">
+          <div class="pickup-field-lbl">Адрес</div>
+          <div class="pickup-field-val">Legian Beach Resort, Jl. Padma Utara</div>
+        </div>
+        <div class="pickup-field">
+          <div class="pickup-field-lbl">Гость</div>
+          <div class="pickup-field-val">Yuki Tanaka · 1 чел.</div>
+        </div>
+        <div class="pickup-field">
+          <div class="pickup-field-lbl">Телефон</div>
+          <div class="pickup-field-val" style="font-family:'Roboto Mono',monospace;font-size:12px;">+81 90 1234 5678</div>
+        </div>
+        <div class="pickup-field">
+          <div class="pickup-field-lbl">Тур · Лодка</div>
+          <div class="pickup-field-val">Manta Ray Tour · Coral Queen</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Пикап 4 — ОЖИДАЕТ -->
+    <div class="pickup-card" id="pickup-4">
+      <div class="pickup-header">
+        <div class="pickup-time">08:00</div>
+        <span class="badge badge-muted" id="badge-4">Ожидает</span>
+      </div>
+      <div class="pickup-body">
+        <div class="pickup-field">
+          <div class="pickup-field-lbl">Адрес</div>
+          <div class="pickup-field-val">Nusa Dua Marriott, Kawasan Wisata</div>
+        </div>
+        <div class="pickup-field">
+          <div class="pickup-field-lbl">Гость</div>
+          <div class="pickup-field-val">Chen Wei &amp; Liu Fang · 2 чел.</div>
+        </div>
+        <div class="pickup-field">
+          <div class="pickup-field-lbl">Телефон</div>
+          <div class="pickup-field-val" style="font-family:'Roboto Mono',monospace;font-size:12px;">+86 138 0013 8000</div>
+        </div>
+        <div class="pickup-field">
+          <div class="pickup-field-lbl">Тур · Лодка</div>
+          <div class="pickup-field-val">Private Charter · Sea Spirit</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Расписание недели -->
+  <div style="margin-bottom:16px;">
+    <div class="sec-label">Расписание недели</div>
+    <div class="card" style="padding:20px;">
+      <table class="week-table">
+        <thead>
+          <tr>
+            <th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th><th>Пт</th><th>Сб</th><th>Вс</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>4</td>
+            <td>3</td>
+            <td>5</td>
+            <td class="today">4<br><span style="font-size:9px;font-weight:700;">TODAY</span></td>
+            <td>2</td>
+            <td>6</td>
+            <td style="color:var(--txt3);">Выходной</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Мои показатели -->
+  <div style="margin-bottom:16px;">
+    <div class="sec-label">Мои показатели</div>
+    <div class="stats-grid">
+      <div class="stat-card card-accent">
+        <div class="stat-val">67</div>
+        <div class="stat-lbl">пикапов всего</div>
+      </div>
+      <div class="stat-card card-accent">
+        <div class="stat-val">97%</div>
+        <div class="stat-lbl">вовремя</div>
+      </div>
+      <div class="stat-card card-accent">
+        <div class="stat-val" style="color:var(--warn);">4.9</div>
+        <div class="stat-lbl">рейтинг (звезды)</div>
+      </div>
+      <div class="stat-card card-accent">
+        <div class="stat-val">780</div>
+        <div class="stat-lbl">км пробег</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// Clock + date
+function tick(){
+  var n=new Date();
+  var h=String(n.getHours()).padStart(2,'0'),m=String(n.getMinutes()).padStart(2,'0'),s=String(n.getSeconds()).padStart(2,'0');
+  var clk=document.getElementById('clk');
+  if(clk) clk.textContent=h+':'+m+':'+s;
+  var days=['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'];
+  var months=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+  var ds=document.getElementById('dateStr');
+  if(ds) ds.textContent=days[n.getDay()]+', '+n.getDate()+' '+months[n.getMonth()]+' '+n.getFullYear();
+}
+tick(); setInterval(tick,1000);
+
+// Theme
+(function(){
+  var saved=localStorage.getItem('bluuu-theme')||'dark';
+  if(saved==='light') document.documentElement.setAttribute('data-theme','light');
+  var btn=document.getElementById('theme-btn');
+  if(btn) btn.textContent=saved==='light'?'🌙':'☀️';
+  if(btn) btn.addEventListener('click',function(){
+    var cur=document.documentElement.getAttribute('data-theme');
+    if(cur==='light'){
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('bluuu-theme','dark');
+      btn.textContent='☀️';
+    } else {
+      document.documentElement.setAttribute('data-theme','light');
+      localStorage.setItem('bluuu-theme','light');
+      btn.textContent='🌙';
+    }
+  });
+})();
+
+// Mark done
+function markDone(id){
+  var card=document.getElementById('pickup-'+id);
+  var badge=document.getElementById('badge-'+id);
+  var btnDone=document.getElementById('btn-done-'+id);
+  if(!card) return;
+  // Update badge
+  badge.className='badge badge-ok';
+  badge.innerHTML='&#10003; Выполнен';
+  // Add done class
+  card.classList.add('is-done');
+  card.classList.remove('is-next');
+  card.style.borderColor='';
+  // Replace actions
+  var actions=card.querySelector('.pickup-actions');
+  if(actions){
+    actions.innerHTML='<button class="btn btn-done" disabled>&#10003; Выполнено</button>';
+  }
+}
+</script>
+
+<button class="cb-btn" id="cbBtn">✦<span class="cb-dot"></span></button>
+<div class="cb-window" id="cbWin">
+  <div class="cb-head">
+    <div class="cb-ava">🤖</div>
+    <div class="cb-head-info">
+      <div class="cb-head-name">BLUUU AI</div>
+      <div class="cb-head-status">● онлайн · знает данные страницы</div>
+    </div>
+    <div class="cb-close" id="cbClose">✕</div>
+  </div>
+  <div class="cb-msgs" id="cbMsgs"></div>
+  <div class="cb-suggestions"><button class="cb-chip">Мои поездки</button><button class="cb-chip">Следующий маршрут</button><button class="cb-chip">Статус</button><button class="cb-chip">Детали гостей</button></div>
+  <div class="cb-input-wrap">
+    <input class="cb-input" id="cbInput" placeholder="Спроси что-нибудь..." autocomplete="off"/>
+    <button class="cb-send" id="cbSend">➤</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  var BTN=document.getElementById('cbBtn'),WIN=document.getElementById('cbWin'),MSGS=document.getElementById('cbMsgs'),INPUT=document.getElementById('cbInput');
+  var qa={'поездки': '6 поездок. 2 завершены, 1 активная, 3 предстоящие.', 'следующая': 'Ubud Villa, 07:15. 3 гостя. Маршрут: Ubud → Порт Санур (42 мин).', 'статус': 'В пути к следующему пикапу. Местоположение: шоссе Gianyar.', 'маршрут': 'Ubud (07:15) → Санур → Кута (09:30) → Санур → Семиньяк (14:00) → Санур.', 'км': 'Пройдено: 87 км. Ещё: 134 км. Итого: ~220 км.'},chips=['Мои поездки', 'Следующий маршрут', 'Статус', 'Детали гостей'],greet='6 поездок сегодня. Следующая: пикап Ubud Villa в 07:15, 3 гостя. До выезда ~40 мин.',isOpen=false,isBusy=false;
+  function toggle(){isOpen=!isOpen;WIN.classList.toggle('open',isOpen);BTN.style.fontSize=isOpen?'18px':'22px';BTN.firstChild.textContent=isOpen?'✕':'✦';if(isOpen&&MSGS.children.length===0){setTimeout(function(){addMsg(greet,'bot');},400);}}
+  BTN.addEventListener('click',toggle);
+  document.getElementById('cbClose').addEventListener('click',function(){isOpen=false;WIN.classList.remove('open');BTN.style.fontSize='22px';BTN.firstChild.textContent='✦';});
+  function addMsg(t,r){var w=document.createElement('div');w.className='cb-msg '+r;var a=document.createElement('div');a.className='cb-msg-ava';a.textContent=r==='bot'?'AI':'You';var b=document.createElement('div');b.className='cb-bubble';b.innerHTML=t.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');w.appendChild(r==='bot'?a:b);w.appendChild(r==='bot'?b:a);MSGS.appendChild(w);MSGS.scrollTop=MSGS.scrollHeight;}
+  function showTyping(){var t=document.createElement('div');t.className='cb-msg bot';t.id='cbt';var a=document.createElement('div');a.className='cb-msg-ava';a.textContent='AI';var b=document.createElement('div');b.className='cb-typing';b.innerHTML='<span></span><span></span><span></span>';t.appendChild(a);t.appendChild(b);MSGS.appendChild(t);MSGS.scrollTop=MSGS.scrollHeight;return t;}
+  function reply(msg){var m=msg.toLowerCase();for(var k in qa){if(m.indexOf(k)!==-1)return qa[k];}if(/привет|hello|hi/.test(m))return 'Привет! Чем помочь?';if(/спасибо|thanks/.test(m))return 'Пожалуйста! Ещё вопросы?';return 'Попробуй спросить о: '+chips.slice(0,3).join(', ')+'.';}
+  function send(){var msg=INPUT.value.trim();if(!msg||isBusy)return;addMsg(msg,'user');INPUT.value='';isBusy=true;var t=showTyping();setTimeout(function(){t.remove();addMsg(reply(msg),'bot');isBusy=false;},600+Math.random()*700);}
+  document.getElementById('cbSend').addEventListener('click',send);
+  INPUT.addEventListener('keydown',function(e){if(e.key==='Enter')send();});
+  document.querySelectorAll('.cb-chip').forEach(function(c){c.addEventListener('click',function(){INPUT.value=c.textContent;send();});});
+})();</script>
+</body>
+</html>

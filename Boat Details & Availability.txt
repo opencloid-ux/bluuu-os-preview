@@ -1,0 +1,688 @@
+[вопрос] - Do you have photos/videos of the boat? (Exterior/Interior)
+(В КОММО ЕСТЬ ТРИГГЕР ЗАПУСКАЮЩИЙ БОТА С ФОТОГРАФИЯМИ РАЗНЫХ ЛОДОК)
+
+[вопрос] - Does the boat have a toilet?
+
+Of course, all our boats are equipped with small toilets.
+
+[вопрос] - Is there a toilet/bathroom on the boat?
+
+Of course, all our boats are equipped with small toilets.
+
+[вопрос] - Does the boat have life jackets? (Adults/Kids/Toddlers)
+
+Of course, we have life jackets for every guest.
+
+[вопрос] - Are life vests guaranteed?
+
+Of course, we have life jackets for every guest.
+
+[вопрос] - Does the boat have shade/sheltered seating?
+
+Each boat has a cabin where you can stay protected from the sun. Some boats also have a rooftop with a canopy.
+
+[вопрос] - Is there shade/sunroof/sun shade?
+
+Each boat has a cabin where you can stay protected from the sun. Some boats also have a rooftop with a canopy.
+
+[вопрос] - Does the boat have a music system/speakers? Can we connect our own?
+
+We provide portable JBL speakers for every trip.
+
+[вопрос] - Does the boat have a ladder/swimming platform for water access?
+
+Yes, of course, each boat is equipped with ladders to make it easy and comfortable to get back on the boat from the water.
+
+[вопрос] - Does the boat have a sundeck or front seating?
+
+Some boats have a rooftop with a canopy and front seating. Please take a look at the photos of our boats on our website and let us know which one is the best fit for your trip.
+
+[вопрос] - Does the boat have a kitchen/fridge/cooler?
+
+Each boat is equipped with an ice box to keep your drinks cold.
+
+[вопрос] - Does the boat have WiFi?
+
+Unfortunately, at the moment our boats do not have Wi-Fi, as the signal between Bali and Nusa Penida is unstable and there is currently no provider that can offer reliable internet service on this route.
+
+[вопрос] - Is the boat air-conditioned?
+
+Only yachts with enclosed cabins are equipped with air conditioning.
+
+[вопрос] - Does the boat have a flybridge?
+
+Most of our boats have a skybridge. Please take a look at the photos of our boats on our website before making a booking
+
+[вопрос] - Are there cabins/changing rooms/showers onboard?
+
+Unfortunately, at the moment our boats are not equipped with changing rooms or showers, but you are welcome to change or take a shower at our new office before and after the trip.
+
+[вопрос] - How fast can the boat go?
+
+The average speed is 18–25 knots, depending on the boat.
+
+[вопрос] - Is the boat stable?
+
+Of course, all boats are stable and built to meet all safety standards for a secure trip.
+
+[вопрос] - Is the boat ride bumpy/rough?
+
+It depends on the weather, but even if the ride gets bumpy, it’s still safe.
+
+[вопрос] - How safe is the vessel?
+
+All our boats are built to the highest safety standards and operated by licensed captains with many years of experience.
+
+[вопрос] - Is snorkeling gear provided? (Masks/Fins/Wetsuits/Regular fins included?)
+
+Of course, we provide all the necessary snorkeling equipment (USA quality).
+
+[вопрос] - Are towels provided?
+
+Of course, we provide towels for every guest.
+
+[вопрос] - Are drinks/snacks/food provided? Can we bring our own? (Alcohol/Hard liquor/Snacks)
+
+Fruits and drinking water are provided on board. Lunch is included in all tours for each guest and will be served at a restaurant on Nusa Penida or Lembongan, depending on the type of tour you choose. If you book a private tour, you’re welcome to bring any alcoholic beverages. For shared tours, only beer is allowed. You can also bring any food or snacks with you on any tour.
+
+[вопрос] - Is there drinking water provided?
+
+Yes, of course, drinking water is provided.
+
+[вопрос] - Is a GoPro/drone available?
+
+Underwater GoPro footage is included in all our tours. If you book a Premium Shared or Premium Private tour, we will also provide a photographer who will take photos of you on the boat as well. If you’d like drone photos and videos, we can arrange that too—just make sure to book it together with your tour for an additional fee.
+
+[вопрос] - Is fishing equipment provided?
+
+We can provide gear for fun fishing.
+
+[вопрос] - Are blankets provided?
+
+Blankets are not included in the tour, but if you book a Premium Shared, Private or Premium Private tour, we will provide high-quality ponchos for your comfort.
+
+[вопрос] - Are ice/cups/champagne flutes provided?
+
+Ice is available for every guest in the ice box on all boats. We also provide paper cups, and if you need champagne flutes, please let us know by including that information when making your booking.
+
+[вопрос] - Are charging plugs available?
+
+Unfortunately, at the moment most of our boats do not have power outlets, so we recommend bringing a power bank with you.
+
+[вопрос] - Does it include lunch?
+
+Lunch is included in all tours for each guest and will be served at a restaurant on Nusa Penida or Lembongan, depending on the type of tour you choose.
+
+[вопрос] - Does it have a table?
+
+Most of our boats are equipped with tables. Please check the interior photos of the boats on our website before making your booking.
+
+[вопрос] - Is there a photographer?
+
+If you book a Premium Shared or Premium Private tour, we will also provide a photographer who will take photos of you on the boat. For standard Private Tour and Shared Tour, a photographer is not included, but you can book one separately for an additional fee during the booking process.
+
+[вопрос] - Do you have prescription masks?
+
+Unfortunately, at the moment we do not have prescription masks available.
+
+[вопрос] - Do you have floats/noodles for less confident swimmers?
+
+Floating beanbags are available for private tours, and life jackets and lifebuoys are available on all boats for all types of tours.
+
+[вопрос] - Is first aid available?
+
+Each boat is equipped with a first aid kit, and all our guides are certified in first aid.
+
+[вопрос] - How are the captains licensed?
+
+All our captains are licensed and hold certifications issued by the Indonesian Ministry of Transportation.
+
+[вопрос] - Is there a bar on the boat?
+
+At the moment, our boats do not have a bar. However, if you book a private tour, you can purchase delicious and refreshing premixed cocktails or other beverages—just add them during the booking process on our website.
+
+[вопрос] - Is there a sitting area/space at the back?
+
+Yes, all boats have rear seating.
+
+[вопрос] - Is there secure storage area for bags/luggage?
+
+Yes, the boat has a designated space for luggage, but space is limited, so please let us know how much luggage you have and what size it is.
+
+[вопрос] - Is snorkeling included?
+
+Of course, snorkeling is included in all our tours except for the all-day land tour on Nusa Penida.
+
+[вопрос] - Is scuba gear available for rent?
+
+We do not offer scuba equipment for rent, but if you book a scuba tour with us, we will provide all the necessary high-quality equipment.
+
+[вопрос] - Is there a wetsuit to borrow?
+
+Of course, you can add a wetsuit during the booking process on our website.
+
+[вопрос] - What is the boat condition?
+
+All our boats are in excellent condition and undergo regular maintenance.
+
+[вопрос] - Is it safe for kids/children?
+
+It is absolutely safe for kids and children—our guides will give them special attention during snorkeling. However, we would like to remind you that parents are ultimately responsible for their children, so we always ask our guests to keep an eye on their kids throughout the tour.
+
+[вопрос] - Is it wheelchair accessible?
+
+Unfortunately, at the moment wheelchairs are not accessible due to safety regulations.
+
+[вопрос] - Is swimming possible?
+
+Of course, that’s exactly why we’re heading out to sea on a boat :)
+
+[вопрос] - What is the difference between a speedboat and a yacht?
+
+The biggest difference is, of course, the size. Yachts are also typically equipped with enclosed cabins and air conditioning.
+
+[вопрос] - What is a classic boat like?
+
+Our classic boat is 12 meters long and can accommodate up to 13 guests. You can view photos and other specifications of this boat on our website.
+
+[вопрос] - What is the standard boat like?
+
+Our standard boat is 12 meters long and can accommodate up to 13 guests. You can view photos and other specifications of this boat on our website.
+
+[вопрос] - What water toys are available?
+
+At the moment, we only provide floating beanbags for private tours.
+
+[вопрос] - What is yacht AR 55?
+
+It’s a beautiful 17-meter yacht that can accommodate 18 passengers and features a flybridge. For more details and photos, please check our website.
+
+[вопрос] - What is the chances of seeing manta?
+
+Mantas are wild creatures, so their appearance cannot be guaranteed, but the chances of seeing them are very high. We know the locations where they most frequently appear and always take our guests to those spots.
+
+[вопрос] - What is the snorkelling likely to be like in typical January weather?
+
+The weather in Bali and Nusa Penida is completely unpredictable, and even the nearest forecast can turn out to be inaccurate. That’s why we don’t make assumptions in advance and always check the weather conditions at all points of our tour right before the trip.
+
+[вопрос] - Is Yacht F 13 air-conditioned inside?
+
+Yes, the F-13 has air conditioning and an enclosed cabin.
+
+[вопрос] - Will the boat have a sun deck like the photos?
+
+All our boats look exactly like they do in the photos, so if you booked a boat and it has a sundeck in the photo, rest assured—it’s definitely there :)
+
+# Booking & Availability
+[вопрос] - Can I book for one/two persons?
+
+Yes, of course, you can book for just one person or as a couple.
+
+[вопрос] - Can we book online?
+
+Of course, you can book through our website. We have a user-friendly booking engine with plenty of helpful tips along the way—everything is designed to make your booking experience as smooth and comfortable as possible.
+
+[вопрос] - Can we change the date?
+
+You can change the date of your trip only if it’s allowed under our cancellation policy. For Shared, Premium Shared, Private, and Premium Private tours, you can reschedule your trip no later than 24 hours before the boat's departure. Please note that the cancellation policy may vary depending on the boat you’ve booked, so we recommend reviewing this information on our website in advance.
+
+[вопрос] - Can we customize the itinerary? (e.g., West area snorkeling, shorter duration)
+
+If you book any private tour, you can modify the itinerary. However, please keep in mind that the trip time is limited, so we cannot guarantee that the requested itinerary will be approved.
+
+[вопрос] - Do you offer private boat tours to Nusa Penida?
+
+Yes, we have a wide selection of boats for private tours to Nusa Penida. You can choose the one that suits you best on our website.
+
+[вопрос] - Do you offer shared tours?
+
+Yes, of course, you can book a shared tour on our website. If you're looking for even more comfort, we recommend booking the Premium Shared option. Please check out these options on our website.
+
+[вопрос] - Do you have catamarans available?
+
+Yes, we have the ANC catamaran, which is 25 meters long and can accommodate up to 45 people.
+
+[вопрос] - Do you have luxury/premium boats available?
+
+Yes, of course, we have a selection of premium-class boats and yachts.
+
+[вопрос] - Do you have speed boats?
+
+Yes, we have over 30 speedboats in our fleet.
+
+[вопрос] - Do you have sailing yachts?
+
+At the moment, we do not have any sailing yachts in our fleet, but we do have a wide selection of speedboats. If you're interested, please check out all the available options on our website.
+
+[вопрос] - Do you have a boat suitable for open sea/rough conditions?
+
+All our boats are built to meet safety standards and are capable of handling challenging sea conditions.
+
+[вопрос] - Do you have jet skis available?
+
+At the moment, we do not offer jet skis.
+
+[вопрос] - Can we see the boat before departure?
+
+It’s not possible to view the boat in person before the trip, as they are either out on tours or moored at sea near the port. We recommend checking the high-quality photos on our website to choose and book the boat you like.
+
+[вопрос] - Can we book directly with you?
+
+Yes, of course, our manager will be happy to assist you with the booking!
+
+[вопрос] - Can we rent a small boat to explore beaches?
+
+Unfortunately, our boats are not able to dock directly on the beaches of Nusa Penida. However, if you’d like to visit them, we recommend doing so by car—we can arrange a land tour for you.
+
+[вопрос] - Can we just do a sightseeing boat ride?
+
+Yes, of course! If you don’t want to swim or snorkel, you can simply enjoy a scenic boat ride around the beautiful spots near Nusa Penida.
+
+[вопрос] - Can we take two yachts for 13 people?
+
+Technically, yes, you can book two boats for 13 people, but most of our boats can accommodate 13–14 passengers, so you may only need to book one boat for your group.
+
+[вопрос] - Do you have a boat for Nusa Penida to Kelingking Beach and back?
+
+Unfortunately, our boats are not able to dock directly on the beaches of Nusa Penida. However, if you’d like to visit Kelingking, we recommend doing so by car—we can arrange a land tour for you.
+
+[вопрос] - Can the boat type be changed?
+
+Yes, you can change the type of boat as long as it’s not restricted by our cancellation policy. Please note that prices may vary between boats, so additional charges may apply.
+
+[вопрос] - Can I get a private boat tour only one way to Penida?
+
+Yes, you can stay on Nusa Penida after the tour. We’ll drop you off at Toya Pakeh harbor, from where you can reach any part of the island by local taxi or scooter.
+
+[вопрос] - Can you do scuba diving off your boats?
+
+Yes, we offer scuba diving tours. You can view the available options and make a booking on our website.
+
+[вопрос] - Can fishing and snorkeling be done on the same day?
+
+At the moment, we do not offer dedicated fishing tours, but if you’d like to do some fun fishing during a snorkeling tour, we can provide the gear (additional charges may apply).
+
+[вопрос] - Are kids allowed? Is it suitable for kids/elderly/pregnant women?
+
+Due to safety protocols and our insurance policy, all types of shared tours are only available to guests aged between 8 and 70 years. If you book any type of private tour, there is no minimum age requirement; however, insurance only covers children from 8 years old, and the maximum permitted age is 75. Pregnant guests are allowed to join the tour only up to the 32nd week of pregnancy.
+
+[вопрос] - Can elderly people go?
+
+Due to safety protocols and our insurance policy, all types of shared tours are only available to guests aged between 8 and 70 years. If you book any type of private tour, there is no minimum age requirement; however, insurance only covers children from 8 years old, and the maximum permitted age is 75.
+
+[вопрос] - Are there options for smaller kids?
+
+Due to safety protocols and our insurance policy, all types of shared tours are only available to guests aged between 8 and 70 years. If you book any type of private tour, there is no minimum age requirement; however, insurance only covers children from 8 years old, and the maximum permitted age is 75.
+
+[вопрос] - Do you have snorkeling gear for young children?
+
+Yes, we do have snorkeling equipment for children, but please note that there is a minimum size, and it may be too large for your child. Kindly provide more details so we can advise accordingly.
+
+[вопрос] - Are wetsuits available?
+
+Yes, of course, wetsuits are available—you can easily add them during the booking process.
+
+[вопрос] - Can you provide each of us with a jet ski?
+
+Unfortunately, jet skis are currently not available for booking.
+
+[вопрос] - Can you provide jet skis for group activity?
+
+Unfortunately, jet skis are currently not available for booking.
+
+[вопрос] - Can we sit on the front cushions while driving?
+
+For guest safety, sitting at the front of the boat is not allowed during the trip from Bali to Nusa Penida and back. However, you are welcome to sit there during stops or while traveling between snorkeling spots, weather permitting.
+
+[вопрос] - How many people will be on the shared boat/land tour?
+
+On our shared tours, the maximum number of guests is 14.
+
+[вопрос] - How many guides per boat?
+
+There will be one or two guides on the tour, depending on the number of guests.
+
+[вопрос] - Is alcohol served?
+
+If you book a private tour, you are welcome to bring your own alcohol or purchase it through our website during the booking process. For shared tours, only beer is allowed, which you can either bring with you or buy at our office before the trip.
+
+[вопрос] - Do your private boats have a pool/good sound system?
+
+At the moment, we do not have any boats with a pool. However, each boat used for private tours is equipped with a large JBL speaker.
+
+[вопрос] - Is the meeting point still at Seagrass?
+
+We’ve moved to a new office in Serangan—it’s much bigger and more comfortable! :)
+Here’s our new location: [https://maps.app.goo.gl/dEUEvi6HFaG6kGFp7](https://maps.app.goo.gl/dEUEvi6HFaG6kGFp7)
+
+[вопрос] - How do I book once decided?
+
+You can book the tour or boat you like directly on our website—it's easy and convenient.
+
+[вопрос] - If we want to book, do I contact you here or use the link?
+
+You can book the tour or boat you like directly on our website—it's easy and convenient.
+
+[вопрос] - What is the shared deposit? 50% or full payment?
+
+Both options are available—it's entirely up to you. You can either pay the full amount in advance or pay 50% upfront and settle the remaining balance at our office right before the tour.
+
+[вопрос] - What is the maximum booking time?
+
+The checkout time on our website is limited to 10 minutes.
+
+[вопрос] - What is the difference between shared and premium shared?
+
+With the Premium Shared tour, you get a higher-class boat, an onboard photographer, an upgraded lunch at a better restaurant, and three bottles of Prosecco shared among all guests at a secret spot on the way back to Bali 😎
+
+[вопрос] - Is your company on Viator/Klook?
+
+Yes, of course! You can find us on Viator, Klook, and other online booking platforms.
+
+[вопрос] - Is it possible to book a tour to Nusa Penida without land tours, just snorkeling?
+
+Yes, that option is only available if you book a private tour.
+
+[вопрос] - Is the little star boat fits 5-8 people?
+
+Yes, the maximum capacity of our Little Star is 8 people.
+
+[вопрос] - Is the mixed tour (snorkeling + land) available for a private boat?
+
+Yes, of course! You can book a private tour either with or without a land tour included.
+
+[вопрос] - Is the private tour available with diving?
+
+Yes, we offer private diving tours.
+
+[вопрос] - Is there a 3-hour tour or only 8-hour?
+
+Our itinerary is designed to give you time to enjoy snorkeling and visit a restaurant for lunch, so 8 hours is the ideal duration for our route. If you’d like to shorten it, please share the details with us so we can check if it’s possible to arrange.
+
+[вопрос] - What is the maximum number of days before I can book?
+
+You can book the tour you like at any time.
+
+[вопрос] - Is it possible to start at 10 am?
+
+If you book a private tour, you can depart at 10 AM. However, please note that our boats must return to Bali no later than 5:30 PM, so you may need to skip some snorkeling spots due to the shorter time frame.
+
+[вопрос] - Is it possible to have a hotel transfer for extra charge?
+
+Yes, of course! You can book a transfer from your accommodation and back on our website. The cost starts from IDR 300,000 one way per car (up to 5 people).
+
+[вопрос] - Is the round-trip hotel-boat transportation included?
+
+Unfortunately, transfers are not included. However, you can book a transfer from your accommodation and back on our website. The cost starts from IDR 300,000 one way per car (up to 5 people).
+
+
+# Itinerary & Activities
+
+[вопрос] - What is the itinerary?
+
+Shared tour options include an itinerary with snorkeling at four spots, including the chance to swim with the amazing mantas, lunch at a restaurant in Nusa Penida, and a land tour to the famous Kelingking Cliff.
+For private tours, we offer an itinerary focused solely on snorkeling. You also have the option to add a land tour to enjoy the scenic views of Nusa Penida.
+For guests who aren’t interested in sea adventures, we offer an itinerary with a full-day land tour in Nusa Penida.
+
+[вопрос] - What is the itinerary for the private boat?
+
+For private tours, we offer an itinerary focused solely on snorkeling, including the chance to swim with the amazing mantas, and lunch at a restaurant in Nusa Penida. You also have the option to add a land tour to enjoy the scenic views of Nusa Penida.
+
+[вопрос] - What time does the tour start and end?
+
+Standard Shared tours depart at 8:00 AM, while Premium Shared tours depart at 8:30 AM.
+Private tours depart between 9:00 and 10:00 AM, depending on the boat you book.
+
+[вопрос] - What time should we be ready?
+
+If you booked a Shared tour, we recommend being ready by 6:30 AM.
+For Premium Shared tours, please be ready by 7:00 AM.
+If you booked a Private tour, the departure time depends on the boat you reserved, but we recommend being ready to leave for our office no later than 7:30 AM.
+Please note that if your accommodation is far from our office, your pickup or departure time may vary. So kindly provide your details in advance so we can advise you accordingly.
+
+[вопрос] - Does the package include land tours?
+
+Shared tour options include an itinerary with snorkeling at four spots, including the chance to swim with the amazing mantas, lunch at a restaurant in Nusa Penida, and a land tour to the famous Kelingking Cliff.
+For private tours, we offer an itinerary focused solely on snorkeling. You also have the option to add a land tour to enjoy the scenic views of Nusa Penida.
+For guests who aren’t interested in sea adventures, we offer an itinerary with a full-day land tour in Nusa Penida.
+
+[вопрос] - What is there to do on a land tour?
+
+If you booked a Shared tour, the land tour will take you to Kelingking Cliff.
+
+If you booked a Private tour, there are several land tour options available:
+
+1. Kelingking Cliff only
+2. West Tour – includes Kelingking Cliff and Broken Beach
+3. East Tour – includes Diamond Beach
+4. East & West Combo – includes Kelingking Cliff, Broken Beach, Diamond Beach, and Tree Houses.
+
+You can choose the option that best suits your interests.
+
+[вопрос] - Will we have time to go to bungee jumping?
+
+Unfortunately, bungee jumping is not included in our tour due to safety reasons.
+
+[вопрос] - Is lunch included somewhere?
+
+Of course, lunch is included in the tour. The restaurant depends on the type of tour you’ve booked.
+
+[вопрос] - Will the tour need physical effort?
+
+Our tours do not require intense physical effort; however, if you have health issues or chronic conditions that may interfere with water activities, we recommend refraining from joining the tour for your safety.
+
+[вопрос] - What kind of itinerary is suitable for toddlers?
+
+For safety reasons, toddlers are only allowed on private tours, where you can slightly adjust the itinerary to suit your group’s preferences. Please take a look at the available itineraries on our website and let us know which one works best for you and your little one.
+
+[вопрос] - What is your recommendation for lunch?
+
+The restaurant depends on the type of tour you’ve booked. Lunch for Shared tours is served at Amarta Restaurant, while Premium Shared tours include lunch at La Rossa.
+Private tours enjoy lunch at either Khamara or La Bianca, depending on the selected itinerary.
+
+[вопрос] - How long is the boat trip/ferry ride? Is it rough?
+
+Our tours last between 8 to 9 hours, depending on the type of tour and the selected itinerary.
+
+[вопрос] - Can the boat start from Bali, go to Nusa Penida, and return to Bali?
+
+Yes, of course—all our tours start from Bali and return to the same location afterward.
+
+[вопрос] - Do you offer sunset cruises?
+
+At the moment, 4-hour sunset cruises are only available on the JA20 yacht and the ANC catamaran.
+
+
+# Photos & Specific Boat Requests
+
+
+Please take a look at the high-quality photos of our boats on our website.
+
+[вопрос] - Can you send the boat options/PDF?
+
+You can view all the boats with photos and specifications on our website.
+
+[вопрос] - Can you supply more photos than on the website?
+
+At the moment, we don’t have any additional photos— all available photos can be found on our website.
+
+[вопрос] - Would you have pictures of the boat?
+
+Please take a look at the high-quality photos of our boats on our website.
+
+(ЛИБО ЗДЕСЬ ТАКЖЕ МОЖНО ИСПОЛЬЗОВАТЬ НАШИХ БОТОВ В КОММО С ПОМОЩЬЮ ТРИГГЕРОВ, ТАМ ДОСТУПНЫ ВСЕ ФОТОГРАФИИ ВСЕХ ЛОДОК И ЯХТ)
+
+[вопрос] - What boats have speakers?
+
+We provide portable JBL speakers on all our boats.
+
+[вопрос] - Which boats do you have for private transfer Jimbaran-Gili?
+
+Unfortunately, at the moment we do not offer tours to the Gili Islands, but you can book a tour to Nusa Penida with us.
+
+[вопрос] - What is the largest/biggest boat you have?
+
+The largest boat at the moment is the ANC catamaran. It can accommodate up to 45 people.
+
+[вопрос] - Is there a boat that can accommodate 15-20 people?
+
+Yes, of course. For a group of 15–20 people, the following boats are suitable: JA20, Lux Yacht 017, Lux Yacht AR55, ANC Catamaran, Premium Yacht AZ50, Lux Yacht BM55, Debil Luxury, or QR18 Boat.
+
+[вопрос] - Is there a boat that can go to Gili?
+
+Unfortunately, at the moment we do not offer tours to the Gili Islands, but you can book a tour to Nusa Penida with us.
+
+[вопрос] - Is there a Small Private Boat route from Amed to Gili Trawangan?
+
+Unfortunately, at the moment we do not offer tours to the Gili Islands, but you can book a tour to Nusa Penida with us.
+
+[вопрос] - Is there a private boat available for Lombok?
+
+Unfortunately, at the moment we do not offer tours to Lombok, but you can book a tour to Nusa Penida with us.
+
+[вопрос] - Would it be possible to have a catamaran?
+
+Yes, of course! We have the ANC catamaran, which can accommodate up to 45 people.
+
+[вопрос] - Is it possible to rent a boat from Amed/Nusa Lembongan?
+
+At the moment, our boats depart only from Serangan Harbor, so unfortunately, we cannot pick you up from Amed. However, if you’d like to start the tour from Lembongan, this can be arranged for an additional fee (the cost depends on the boat you choose).
+
+[вопрос] - Is it possible to rent a private boat with skipper for 4 hours?
+
+At the moment, 4-hour sunset tours are only available on the JA20 boat and the ANC catamaran.
+
+[вопрос] - What is your better diving tour?
+
+We offer both standard and premium diving tours for beginners as well as advanced divers.
+
+# Safety & Policies
+[вопрос] - Are trips ever canceled due to safety/weather?
+
+If the weather is bad on the day of the tour before the boat departs, we will cancel the tour and offer guests either an alternative date or a full refund.
+
+[вопрос] - What safety equipment is on board?
+
+Life jackets, lifebuoys, and a first aid kit are always available on board.
+
+[вопрос] - Is the boat equipped with GPS tracker?
+
+All our boats are equipped with GPS trackers.
+
+[вопрос] - Will we get seasick?
+
+Seasickness varies from person to person, so it's difficult for us to predict whether you’ll experience it during the tour. We always offer seasickness medication before the tour, and you can also ask your guide at any time during the day—they will be happy to provide you with pills.
+
+[вопрос] - What about bad weather concerns?
+
+If the weather is bad on the day of the tour before the boat departs, we will cancel the tour and offer guests either an alternative date or a full refund.
+
+[вопрос] - Is the tour still on despite rain?
+
+If the weather is bad on the day of the tour before the boat departs, we will cancel the tour and offer guests either an alternative date or a full refund.
+
+# Logistics & Specifics
+[вопрос] - Where does the boat depart from? (e.g., Sanur, Bali, Nusa Dua)
+
+All our boats depart from Serangan Harbor.
+
+[вопрос] - Can you confirm who is picking us up and what time?
+
+If you booked car transfers with us, our driver will contact you the day before the tour (before 9 PM) to confirm the pickup location and time.
+
+[вопрос] - How close can online taxis get to departure?
+Online taxis (such as Gojek or Grab) can drop passengers off directly at our office, but unfortunately, due to a local village regulation, they are not allowed to pick up passengers from that location.
+
+[вопрос] - How far is boat pick up from Seminyak?
+
+Our office is located in Serangan, and the boats also depart from Serangan Harbor. The estimated travel time from Seminyak to our office is about 45–60 minutes, depending on traffic.
+
+[вопрос] - Do we have to pay the driver in cash or card?
+
+You can pay for your transfer at our office either in cash or by card.
+
+[вопрос] - Can we bring a bag?
+
+Yes, of course—you can bring a bag with you.
+
+[вопрос] - Does name have to match passport?
+
+Yes, your name must match your ID—this is a requirement from Serangan Harbor authorities.
+
+[вопрос] - Do you have transport?
+
+Yes, we can arrange transfers from your accommodation to our office and back. The price starts from IDR 300,000 one way per car (up to 5 people).
+
+[вопрос] - What is the name of the company office/address?
+
+Our company is called **Bluuu**, and our office is located in **Serangan**:
+
+📍 https://maps.app.goo.gl/dEUEvi6HFaG6kGFp7
+
+[вопрос] - Is the boat based in Nusa Dua?
+
+All our boats are based in Serangan.
+
+[вопрос] - Is the boat leaving from Sanur?
+
+All our boats depart from Serangan Harbor.
+
+[вопрос] - Is the office located at TJ Benoa?
+
+Our office is located in **Serangan**:
+
+📍 https://maps.app.goo.gl/dEUEvi6HFaG6kGFp7
+
+[вопрос] - Is it possible to help with transfer from villa to boat?
+
+Yes, we can arrange transfers from your accommodation to our office and back. The price starts from IDR 300,000 one way per car (up to 5 people).
+
+[вопрос] - Is it possible to leave for Nusa Penida from Uluwatu on shared tour?
+
+Unfortunately, we are unable to pick up guests from Uluwatu. All our boats depart from Serangan Harbor.
+
+[вопрос] - Is the trip from Bali to Penida?
+
+If you book a shared tour to Nusa Penida, departure is only from Bali, Serangan Harbor. However, if you book a private tour, we can also pick you up from Nusa Penida or Lembongan for an additional fee (depending on the boat you choose).
+
+[вопрос] - Is there a locker/place to store luggage?
+
+We do not have luggage lockers at the office, but you can bring your bags on the boat and store them in the cabin. However, space is limited, so please let us know the size and weight of your luggage in advance.
+
+[вопрос] - Is there one guide travelling with us?
+
+There is always one or two guides on our tours, depending on the number of passengers.
+
+
+# Confirmation & Miscellaneous
+
+[вопрос] - Do you have another local number?
+
+Here is our contact information:
+
++62 813-2605-1950 (For WhatsApp chats)
++62 813-7026-2777 (For local/international voice calls)
+
+[вопрос] - Do you know how to access the trip videos?
+
+Our team will send you a link to your content within three days after the tour.
+
+[вопрос] - Are you available for boat tours?
+
+Yes, absolutely! We are the largest boat tour operator in Bali, and we’ll be happy to help you book the best tour for you.
+
+[вопрос] - Do you do boat tours?
+
+Yes, absolutely! We are the largest boat tour operator in Bali, and we’ll be happy to help you book the best tour for you.
+
+[вопрос] - Do you have private? (Tours)
+
+Yes, of course! In addition to shared tours, we also offer private tours and a wide selection of boats.
+
+[вопрос] - Do you have time for a quick call?
+
+Yes, of course! You can call us at +62 813-7026-2777 (available from 9 AM to 9 PM Bali time, for local and international voice calls only).
+
+[вопрос] - What is the best email?
+
+Our email address is info@nusapenida.one 📧

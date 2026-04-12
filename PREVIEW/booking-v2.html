@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<title>BLUUU OS — Booking Engine</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#080e14;--sf:#0d1520;--sf2:#111d2c;--bdr:rgba(255,255,255,.06);--bdr2:rgba(255,255,255,.1);--p:#14b8c8;--pd:#0e8a97;--p-glow:rgba(20,184,200,.15);--sec:#ffb35f;--ok:#10d984;--ok-bg:rgba(16,217,132,.1);--warn:#f6c244;--warn-bg:rgba(246,194,68,.1);--err:#f24a4a;--err-bg:rgba(242,74,74,.1);--info:#3b82f6;--info-bg:rgba(59,130,246,.1);--txt:#e8f0f8;--txt2:#6b8094;--txt3:#3d5166;--glass:rgba(255,255,255,.03);--glass-bdr:rgba(255,255,255,.07);--radius:14px;--radius-sm:8px;--shadow:0 4px 24px rgba(0,0,0,.4),0 1px 0 rgba(255,255,255,.04) inset;}
+[data-theme="light"]{--bg:#f0f4f8;--sf:#ffffff;--sf2:#f8fafc;--bdr:rgba(0,0,0,.08);--bdr2:rgba(0,0,0,.14);--p:#0ea5e9;--pd:#0284c7;--p-glow:rgba(14,165,233,.12);--ok:#059669;--ok-bg:rgba(5,150,105,.08);--warn:#d97706;--warn-bg:rgba(217,119,6,.08);--err:#dc2626;--err-bg:rgba(220,38,38,.08);--info:#2563eb;--info-bg:rgba(37,99,235,.08);--txt:#0f172a;--txt2:#64748b;--txt3:#94a3b8;--glass:rgba(255,255,255,.6);--glass-bdr:rgba(0,0,0,.08);--shadow:0 2px 12px rgba(0,0,0,.08),0 1px 0 rgba(255,255,255,.8) inset;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s;}
+.nav{position:fixed;top:0;left:0;right:0;background:rgba(8,14,20,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr);z-index:100;display:flex;align-items:center;height:52px;transition:background .3s;}
+[data-theme="light"] .nav{background:rgba(255,255,255,.92);}
+.nav-logo{padding:0 18px;font-weight:800;font-size:15px;color:var(--p);border-right:1px solid var(--bdr);height:100%;display:flex;align-items:center;flex-shrink:0;letter-spacing:-.3px;}
+.nav-logo sup{color:var(--txt3);font-weight:400;font-size:9px;margin-left:4px;letter-spacing:.5px;text-transform:uppercase;}
+.nav-tabs{display:flex;height:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.nav-tabs::-webkit-scrollbar{display:none;}
+.ntab{display:flex;align-items:center;padding:0 14px;font-size:12px;font-weight:500;color:var(--txt2);text-decoration:none;white-space:nowrap;border-bottom:1px solid transparent;height:100%;flex-shrink:0;transition:all .15s;letter-spacing:.01em;}
+.ntab:hover{color:var(--txt);background:var(--glass);}
+.ntab.active{color:var(--p);border-bottom-color:var(--p);font-weight:600;}
+.nav-r{margin-left:auto;display:flex;align-items:center;gap:8px;padding:0 16px;flex-shrink:0;}
+.theme-btn{width:28px;height:28px;border-radius:var(--radius-sm);background:var(--sf2);border:1px solid var(--bdr2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;transition:all .2s;flex-shrink:0;}
+.theme-btn:hover{border-color:var(--p);background:var(--p-glow);}
+.clk{font-size:11px;color:var(--txt3);font-family:'Roboto Mono',monospace;}
+.ava{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--pd));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;color:#fff;flex-shrink:0;}
+.page{padding:68px 24px 48px;max-width:1440px;margin:0 auto;}
+.card{background:var(--sf);border:1px solid var(--bdr);border-radius:var(--radius);box-shadow:var(--shadow);position:relative;overflow:hidden;transition:border-color .2s,box-shadow .2s;}
+.card:hover{border-color:var(--bdr2);}
+.card-accent::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--p) 50%,transparent);opacity:.5;}
+.sec-label{font-size:11px;font-weight:600;color:var(--txt3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px;}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px;}
+@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:500px){.kpi-grid{grid-template-columns:1fr;}}
+.kpi-card{padding:20px;display:flex;flex-direction:column;gap:6px;}
+.kpi-top{display:flex;align-items:center;justify-content:space-between;}
+.kpi-lbl{font-size:11px;font-weight:600;color:var(--txt3);text-transform:uppercase;letter-spacing:.08em;}
+.kpi-val{font-size:30px;font-weight:800;font-family:'Roboto Mono',monospace;color:var(--txt);line-height:1;}
+.kpi-sub{font-size:12px;color:var(--txt2);}
+.badge{display:inline-flex;align-items:center;gap:3px;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap;}
+.badge-ok{background:var(--ok-bg);color:var(--ok);}
+.badge-warn{background:var(--warn-bg);color:var(--warn);}
+.badge-err{background:var(--err-bg);color:var(--err);}
+.badge-info{background:var(--info-bg);color:var(--info);}
+.badge-muted{background:var(--sf2);color:var(--txt2);}
+.pbar-wrap{height:4px;background:var(--sf2);border-radius:2px;overflow:hidden;margin-top:6px;}
+.pbar{height:100%;border-radius:2px;background:var(--p);box-shadow:0 0 8px var(--p);}
+.hero{display:flex;align-items:flex-start;justify-content:space-between;padding:20px 0 16px;flex-wrap:wrap;gap:8px;}
+.grid-2-65{display:grid;grid-template-columns:65% 1fr;gap:12px;margin-bottom:16px;}
+@media(max-width:900px){.grid-2-65{grid-template-columns:1fr;}}
+.data-table{width:100%;border-collapse:collapse;font-size:12px;}
+.data-table th{font-size:10px;font-weight:600;color:var(--txt3);text-transform:uppercase;letter-spacing:.06em;padding:8px 10px;border-bottom:1px solid var(--bdr);text-align:left;white-space:nowrap;}
+.data-table td{padding:9px 10px;border-bottom:1px solid var(--bdr);color:var(--txt);vertical-align:middle;}
+.data-table tr:last-child td{border-bottom:none;}
+.data-table tr:hover td{background:var(--glass);}
+.data-table td.mono{font-family:'Roboto Mono',monospace;font-size:11px;color:var(--txt2);}
+.funnel-wrap{display:flex;flex-direction:column;align-items:center;gap:0;padding:12px 0;}
+.funnel-level{display:flex;align-items:center;justify-content:center;border-radius:4px;font-size:12px;font-weight:600;color:#fff;height:40px;cursor:default;}
+.funnel-arrow{height:10px;width:2px;background:var(--bdr2);margin:0 auto;}
+.src-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--bdr);}
+.src-row:last-child{border-bottom:none;}
+.src-name{font-size:12px;font-weight:500;color:var(--txt);width:70px;flex-shrink:0;}
+.src-bar-bg{flex:1;height:8px;background:var(--sf2);border-radius:4px;overflow:hidden;}
+.src-bar{height:100%;border-radius:4px;}
+.src-pct{font-size:11px;font-family:'Roboto Mono',monospace;color:var(--txt2);width:36px;text-align:right;flex-shrink:0;}
+.avail-table{width:100%;border-collapse:collapse;font-size:11px;}
+.avail-table th{font-size:10px;font-weight:600;color:var(--txt3);text-transform:uppercase;letter-spacing:.05em;padding:8px 12px;border-bottom:1px solid var(--bdr);text-align:center;white-space:nowrap;}
+.avail-table th:first-child{text-align:left;}
+.avail-table td{padding:8px 12px;border-bottom:1px solid var(--bdr);text-align:center;font-family:'Roboto Mono',monospace;font-weight:600;font-size:12px;}
+.avail-table tr:last-child td{border-bottom:none;}
+.avail-table td:first-child{text-align:left;font-family:Inter,sans-serif;font-weight:500;font-size:12px;color:var(--txt2);white-space:nowrap;}
+.av-g{color:var(--ok);background:var(--ok-bg);border-radius:6px;}
+.av-y{color:var(--warn);background:var(--warn-bg);border-radius:6px;}
+.av-r{color:var(--err);background:var(--err-bg);border-radius:6px;}
+.pending-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:0;}
+@media(max-width:1100px){.pending-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:700px){.pending-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:450px){.pending-grid{grid-template-columns:1fr;}}
+.remind-btn{width:100%;padding:7px 0;border-radius:var(--radius-sm);background:var(--warn-bg);border:1px solid var(--warn);color:var(--warn);font-size:11px;font-weight:600;cursor:pointer;transition:all .2s;letter-spacing:.02em;font-family:inherit;}
+.remind-btn:hover{background:var(--warn);color:#1a1a1a;}
+.cb-btn{position:fixed;bottom:24px;right:24px;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--pd));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 20px rgba(20,184,200,.4);z-index:1000;transition:transform .2s,box-shadow .2s;}
+.cb-btn:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(20,184,200,.6);}
+.cb-btn .cb-dot{position:absolute;top:2px;right:2px;width:12px;height:12px;background:var(--ok);border-radius:50%;border:2px solid var(--bg);animation:cbpulse 2s infinite;}
+@keyframes cbpulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.7;transform:scale(1.2);}}
+.cb-window{position:fixed;bottom:88px;right:24px;width:360px;height:520px;background:var(--sf);border:1px solid var(--glass-bdr);border-radius:var(--radius);box-shadow:0 20px 60px rgba(0,0,0,.5);z-index:999;display:flex;flex-direction:column;overflow:hidden;opacity:0;transform:translateY(20px) scale(.95);transition:opacity .25s,transform .25s;pointer-events:none;}
+.cb-window.open{opacity:1;transform:translateY(0) scale(1);pointer-events:all;}
+.cb-head{padding:16px 18px;background:var(--sf2);border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:12px;flex-shrink:0;}
+.cb-ava{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--pd));display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.cb-head-info{flex:1;}.cb-head-name{font-size:14px;font-weight:700;color:var(--txt);}.cb-head-status{font-size:11px;color:var(--ok);margin-top:1px;}
+.cb-close{width:28px;height:28px;border-radius:50%;background:var(--glass);border:1px solid var(--bdr);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--txt2);transition:background .15s;}
+.cb-close:hover{background:var(--sf2);}
+.cb-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth;}
+.cb-msgs::-webkit-scrollbar{width:4px;}.cb-msgs::-webkit-scrollbar-track{background:transparent;}.cb-msgs::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:2px;}
+.cb-msg{display:flex;gap:8px;animation:msgIn .2s ease;}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.cb-msg.user{flex-direction:row-reverse;}
+.cb-bubble{max-width:80%;padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.5;}
+.cb-msg.bot .cb-bubble{background:var(--sf2);border:1px solid var(--bdr);color:var(--txt);border-bottom-left-radius:4px;}
+.cb-msg.user .cb-bubble{background:var(--p);color:#fff;border-bottom-right-radius:4px;}
+.cb-msg-ava{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;margin-top:auto;}
+.cb-msg.bot .cb-msg-ava{background:linear-gradient(135deg,var(--p),var(--pd));color:#fff;font-weight:700;}
+.cb-msg.user .cb-msg-ava{background:var(--sf2);border:1px solid var(--bdr);}
+.cb-typing{display:flex;gap:4px;padding:10px 14px;background:var(--sf2);border:1px solid var(--bdr);border-radius:14px;border-bottom-left-radius:4px;width:fit-content;}
+.cb-typing span{width:6px;height:6px;background:var(--txt3);border-radius:50%;animation:cbdot 1.2s infinite;}
+.cb-typing span:nth-child(2){animation-delay:.2s;}.cb-typing span:nth-child(3){animation-delay:.4s;}
+@keyframes cbdot{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-6px);}}
+.cb-suggestions{padding:8px 16px;display:flex;gap:6px;flex-wrap:wrap;flex-shrink:0;border-top:1px solid var(--bdr);}
+.cb-chip{padding:5px 11px;background:var(--sf2);border:1px solid var(--bdr);border-radius:20px;font-size:11px;color:var(--txt2);cursor:pointer;transition:all .15s;white-space:nowrap;}
+.cb-chip:hover{background:var(--p-glow);border-color:var(--p);color:var(--p);}
+.cb-input-wrap{padding:12px 16px;border-top:1px solid var(--bdr);display:flex;gap:8px;flex-shrink:0;background:var(--sf2);}
+.cb-input{flex:1;background:var(--sf);border:1px solid var(--bdr);border-radius:var(--radius-sm);padding:9px 13px;font-size:13px;color:var(--txt);outline:none;font-family:inherit;transition:border-color .15s;}
+.cb-input:focus{border-color:var(--p);}
+.cb-send{width:36px;height:36px;border-radius:var(--radius-sm);background:var(--p);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:background .15s;flex-shrink:0;}
+.cb-send:hover{background:var(--pd);}
+@media(max-width:480px){.cb-window{width:calc(100vw - 20px);right:10px;bottom:76px;height:480px;}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-logo">BLUUU<sup>OS</sup></div>
+  <div class="nav-tabs">
+    <a class="ntab" href="index.html">Alex CEO</a>
+    <a class="ntab" href="karim.html">Карим</a>
+    <a class="ntab" href="widia.html">Widia</a>
+    <a class="ntab" href="dima.html">Дима</a>
+    <a class="ntab" href="geebran.html">Geebran</a>
+    <a class="ntab" href="david.html">David</a>
+    <a class="ntab" href="finance.html">Finance</a>
+    <a class="ntab active" href="booking.html">Booking</a>
+    <a class="ntab" href="guide.html">Гид</a>
+    <a class="ntab" href="driver.html">Водитель</a>
+    <a class="ntab" href="drivers-manager.html">Диспетчер</a>
+  </div>
+  <div class="nav-r">
+    <span class="clk" id="clk">00:00</span>
+    <div class="theme-btn" id="theme-btn" title="Тема">☀️</div>
+    <div class="ava">A</div>
+  </div>
+</nav>
+
+<div class="page">
+
+  <div style="background:rgba(246,194,68,0.1);border:1px solid rgba(246,194,68,0.4);border-radius:10px;padding:14px 18px;margin-bottom:16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+    <span style="font-size:20px;">⚠️</span>
+    <div style="flex:1;"><div style="font-size:13px;font-weight:700;color:#f6c244;">47 слотов ожидают ручного закрытия в OTA</div><div style="font-size:12px;color:var(--txt2);margin-top:3px;">Viator 18 · Klook 12 · GYG 9 · Airbnb 8</div></div>
+    <button onclick="alert('Aline Dashboard...')" style="background:#f6c244;color:#0e1823;border:none;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;">→ Aline Dashboard</button>
+  </div>
+
+  <div class="hero">
+    <div>
+      <div style="font-size:26px;font-weight:800;letter-spacing:-.5px;">Booking Engine</div>
+      <div style="font-size:13px;color:var(--txt2);margin-top:4px;">BLUUU Tours · управление бронированиями</div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <span class="badge badge-ok">● 32 брони сегодня</span>
+      <span class="badge badge-warn">● 5 ожидают оплаты</span>
+    </div>
+  </div>
+
+  <!-- KPI -->
+  <div class="kpi-grid">
+    <div class="card card-accent kpi-card">
+      <div class="kpi-top"><span class="kpi-lbl">Броней сегодня</span><span class="badge badge-ok">↑ ok</span></div>
+      <div class="kpi-val" style="color:var(--p);">32</div>
+      <div class="kpi-sub">за последние 24 ч</div>
+    </div>
+    <div class="card card-accent kpi-card">
+      <div class="kpi-top"><span class="kpi-lbl">Конверсия</span><span class="badge badge-ok">● ok</span></div>
+      <div class="kpi-val">6.8<span style="font-size:16px;font-weight:600;">%</span></div>
+      <div class="kpi-sub">посетители → брони</div>
+    </div>
+    <div class="card card-accent kpi-card">
+      <div class="kpi-top"><span class="kpi-lbl">Средний чек</span><span class="badge badge-muted">IDR</span></div>
+      <div class="kpi-val">1.4<span style="font-size:16px;font-weight:600;">M</span></div>
+      <div class="kpi-sub">Rp за бронирование</div>
+    </div>
+    <div class="card card-accent kpi-card">
+      <div class="kpi-top"><span class="kpi-lbl">Pending</span><span class="badge badge-warn">● warn</span></div>
+      <div class="kpi-val" style="color:var(--warn);">5</div>
+      <div class="kpi-sub">ожидают оплаты</div>
+    </div>
+  </div>
+
+  <!-- Funnel -->
+  <div class="card" style="padding:20px;margin-bottom:16px;">
+    <div class="sec-label">Воронка бронирований</div>
+    <div class="funnel-wrap">
+      <div class="funnel-level" style="width:100%;background:linear-gradient(90deg,#14b8c8,#0e8a97);">Посетители — 1,240 &nbsp;(100%)</div>
+      <div class="funnel-arrow"></div>
+      <div class="funnel-level" style="width:88%;background:linear-gradient(90deg,#3b82f6,#2563eb);">Просмотры туров — 487 &nbsp;(39%)</div>
+      <div class="funnel-arrow"></div>
+      <div class="funnel-level" style="width:68%;background:linear-gradient(90deg,#8b5cf6,#6d28d9);">Начали бронь — 203 &nbsp;(42%)</div>
+      <div class="funnel-arrow"></div>
+      <div class="funnel-level" style="width:46%;background:linear-gradient(90deg,#f6c244,#d97706);">Оплатили — 89 &nbsp;(44%)</div>
+      <div class="funnel-arrow"></div>
+      <div class="funnel-level" style="width:43%;background:linear-gradient(90deg,#10d984,#059669);">Confirmed — 84 &nbsp;(94%)</div>
+    </div>
+    <div style="display:flex;justify-content:center;gap:20px;margin-top:10px;flex-wrap:wrap;">
+      <span style="font-size:11px;color:var(--p);">■ Посетители 100%</span>
+      <span style="font-size:11px;color:var(--info);">■ Просмотры 39%</span>
+      <span style="font-size:11px;color:#8b5cf6;">■ Начали бронь 42%</span>
+      <span style="font-size:11px;color:var(--warn);">■ Оплатили 44%</span>
+      <span style="font-size:11px;color:var(--ok);">■ Confirmed 94%</span>
+    </div>
+  </div>
+
+  <!-- Bookings + Sources -->
+  <div class="grid-2-65">
+    <div class="card" style="padding:20px;">
+      <div class="sec-label">Последние бронирования</div>
+      <div style="overflow-x:auto;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>ID</th><th>Гость</th><th>Тур</th><th>Дата</th><th style="text-align:center;">Гостей</th><th style="text-align:right;">Сумма</th><th>Канал</th><th>Статус</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="mono">#4821</td><td style="font-weight:500;">Sarah Johnson</td><td style="color:var(--txt2);">Nusa Penida FD</td><td class="mono">03 апр</td><td class="mono" style="text-align:center;">2</td><td class="mono" style="text-align:right;">1.7M</td><td><span class="badge badge-info">Viator</span></td><td><span class="badge badge-ok">● Confirmed</span></td></tr>
+            <tr><td class="mono">#4820</td><td style="font-weight:500;">Familie Schmidt</td><td style="color:var(--txt2);">Snorkeling Prem</td><td class="mono">03 апр</td><td class="mono" style="text-align:center;">4</td><td class="mono" style="text-align:right;">2.6M</td><td><span class="badge badge-muted">Direct</span></td><td><span class="badge badge-ok">● Confirmed</span></td></tr>
+            <tr><td class="mono">#4819</td><td style="font-weight:500;">Yuki Tanaka</td><td style="color:var(--txt2);">Manta Ray Tour</td><td class="mono">03 апр</td><td class="mono" style="text-align:center;">1</td><td class="mono" style="text-align:right;">750K</td><td><span class="badge badge-info">Klook</span></td><td><span class="badge badge-ok">● Confirmed</span></td></tr>
+            <tr><td class="mono">#4818</td><td style="font-weight:500;">Chen Wei</td><td style="color:var(--txt2);">Private Charter</td><td class="mono">04 апр</td><td class="mono" style="text-align:center;">2</td><td class="mono" style="text-align:right;">3.5M</td><td><span class="badge badge-ok">WhatsApp</span></td><td><span class="badge badge-warn">● Pending</span></td></tr>
+            <tr><td class="mono">#4817</td><td style="font-weight:500;">Raj Sharma</td><td style="color:var(--txt2);">Snorkeling Ess</td><td class="mono">04 апр</td><td class="mono" style="text-align:center;">3</td><td class="mono" style="text-align:right;">1.35M</td><td><span class="badge badge-muted">GYG</span></td><td><span class="badge badge-ok">● Confirmed</span></td></tr>
+            <tr><td class="mono">#4816</td><td style="font-weight:500;">Anna Müller</td><td style="color:var(--txt2);">Nusa Penida FD</td><td class="mono">04 апр</td><td class="mono" style="text-align:center;">2</td><td class="mono" style="text-align:right;">1.7M</td><td><span class="badge badge-info">Viator</span></td><td><span class="badge badge-warn">● Pending</span></td></tr>
+            <tr><td class="mono">#4815</td><td style="font-weight:500;">Park Jimin</td><td style="color:var(--txt2);">Manta Ray Tour</td><td class="mono">05 апр</td><td class="mono" style="text-align:center;">2</td><td class="mono" style="text-align:right;">1.5M</td><td><span class="badge badge-muted">Direct</span></td><td><span class="badge badge-ok">● Confirmed</span></td></tr>
+            <tr><td class="mono">#4814</td><td style="font-weight:500;">Tom Baker</td><td style="color:var(--txt2);">Snorkeling Prem</td><td class="mono">05 апр</td><td class="mono" style="text-align:center;">2</td><td class="mono" style="text-align:right;">1.3M</td><td><span class="badge badge-info">Klook</span></td><td><span class="badge badge-ok">● Confirmed</span></td></tr>
+            <tr><td class="mono">#4813</td><td style="font-weight:500;">Liu Fang</td><td style="color:var(--txt2);">Private Charter</td><td class="mono">06 апр</td><td class="mono" style="text-align:center;">4</td><td class="mono" style="text-align:right;">7M</td><td><span class="badge badge-ok">WhatsApp</span></td><td><span class="badge badge-warn">● Pending</span></td></tr>
+            <tr><td class="mono">#4812</td><td style="font-weight:500;">Иванов И.</td><td style="color:var(--txt2);">Nusa Penida FD</td><td class="mono">06 апр</td><td class="mono" style="text-align:center;">3</td><td class="mono" style="text-align:right;">2.55M</td><td><span class="badge badge-muted">Direct</span></td><td><span class="badge badge-err">● Cancelled</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card" style="padding:20px;">
+      <div class="sec-label">Источники броней</div>
+      <div style="margin-top:4px;">
+        <div class="src-row"><div class="src-name">Direct</div><div class="src-bar-bg"><div class="src-bar" style="width:35%;background:var(--p);"></div></div><div class="src-pct">35%</div></div>
+        <div class="src-row"><div class="src-name">Viator</div><div class="src-bar-bg"><div class="src-bar" style="width:28%;background:var(--info);"></div></div><div class="src-pct">28%</div></div>
+        <div class="src-row"><div class="src-name">WhatsApp</div><div class="src-bar-bg"><div class="src-bar" style="width:18%;background:var(--ok);"></div></div><div class="src-pct">18%</div></div>
+        <div class="src-row"><div class="src-name">Klook</div><div class="src-bar-bg"><div class="src-bar" style="width:12%;background:#8b5cf6;"></div></div><div class="src-pct">12%</div></div>
+        <div class="src-row"><div class="src-name">GYG</div><div class="src-bar-bg"><div class="src-bar" style="width:7%;background:var(--warn);"></div></div><div class="src-pct">7%</div></div>
+      </div>
+      <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--bdr);">
+        <div class="sec-label">Итого (10 броней)</div>
+        <div style="font-size:28px;font-weight:800;font-family:'Roboto Mono',monospace;color:var(--p);">18.7M</div>
+        <div style="font-size:12px;color:var(--txt2);margin-top:4px;">IDR · выручка за период</div>
+        <div class="pbar-wrap" style="height:6px;"><div class="pbar" style="width:74%;"></div></div>
+        <div style="font-size:11px;color:var(--txt3);margin-top:6px;">74% от дневного плана</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Availability Matrix -->
+  <div class="card" style="padding:20px;margin-bottom:16px;">
+    <div class="sec-label">Матрица доступности — свободных мест</div>
+    <div style="overflow-x:auto;">
+      <table class="avail-table">
+        <thead>
+          <tr>
+            <th>Тур</th>
+            <th>Пн 7</th><th>Вт 8</th><th>Ср 9</th><th>Чт 10</th><th>Пт 11</th><th>Сб 12</th><th>Вс 13</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Nusa Penida FD</td>
+            <td class="av-g">14</td><td class="av-g">12</td><td class="av-y">8</td><td class="av-y">7</td><td class="av-r">3</td><td class="av-r">2</td><td class="av-g">15</td>
+          </tr>
+          <tr>
+            <td>Snorkeling Premium</td>
+            <td class="av-g">16</td><td class="av-y">9</td><td class="av-y">6</td><td class="av-g">11</td><td class="av-y">8</td><td class="av-r">4</td><td class="av-r">1</td>
+          </tr>
+          <tr>
+            <td>Snorkeling Essential</td>
+            <td class="av-y">10</td><td class="av-g">18</td><td class="av-g">14</td><td class="av-y">9</td><td class="av-y">6</td><td class="av-r">3</td><td class="av-r">2</td>
+          </tr>
+          <tr>
+            <td>Manta Ray Tour</td>
+            <td class="av-r">4</td><td class="av-r">2</td><td class="av-y">7</td><td class="av-g">12</td><td class="av-g">15</td><td class="av-y">9</td><td class="av-y">8</td>
+          </tr>
+          <tr>
+            <td>Private Charter</td>
+            <td class="av-g">2</td><td class="av-g">4</td><td class="av-r">1</td><td class="av-r">0</td><td class="av-g">3</td><td class="av-r">1</td><td class="av-g">4</td>
+          </tr>
+          <tr>
+            <td>Sunset Cruise</td>
+            <td class="av-g">20</td><td class="av-g">18</td><td class="av-g">16</td><td class="av-y">8</td><td class="av-r">4</td><td class="av-r">2</td><td class="av-g">22</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="display:flex;gap:20px;margin-top:12px;flex-wrap:wrap;">
+      <span style="font-size:11px;color:var(--ok);">■ Свободно &gt;10</span>
+      <span style="font-size:11px;color:var(--warn);">■ Мало (5–10)</span>
+      <span style="font-size:11px;color:var(--err);">■ Критично &lt;5</span>
+    </div>
+  </div>
+
+  <!-- Pending Payments -->
+  <div style="margin-bottom:16px;">
+    <div class="sec-label">Ожидают оплаты</div>
+    <div class="pending-grid">
+      <div class="card card-accent" style="padding:16px;display:flex;flex-direction:column;gap:8px;">
+        <div style="font-size:13px;font-weight:600;">Chen Wei</div>
+        <div style="font-size:12px;color:var(--txt2);">Private Charter</div>
+        <div style="font-size:20px;font-weight:800;font-family:'Roboto Mono',monospace;color:var(--warn);">3.5M</div>
+        <div style="font-size:11px;color:var(--txt3);">Дедлайн: 04 апр 14:00</div>
+        <button class="remind-btn">Напомнить</button>
+      </div>
+      <div class="card card-accent" style="padding:16px;display:flex;flex-direction:column;gap:8px;">
+        <div style="font-size:13px;font-weight:600;">Anna Müller</div>
+        <div style="font-size:12px;color:var(--txt2);">Nusa Penida FD</div>
+        <div style="font-size:20px;font-weight:800;font-family:'Roboto Mono',monospace;color:var(--warn);">1.7M</div>
+        <div style="font-size:11px;color:var(--txt3);">Дедлайн: 04 апр 18:00</div>
+        <button class="remind-btn">Напомнить</button>
+      </div>
+      <div class="card card-accent" style="padding:16px;display:flex;flex-direction:column;gap:8px;">
+        <div style="font-size:13px;font-weight:600;">Liu Fang</div>
+        <div style="font-size:12px;color:var(--txt2);">Private Charter</div>
+        <div style="font-size:20px;font-weight:800;font-family:'Roboto Mono',monospace;color:var(--warn);">7M</div>
+        <div style="font-size:11px;color:var(--txt3);">Дедлайн: 06 апр 12:00</div>
+        <button class="remind-btn">Напомнить</button>
+      </div>
+      <div class="card card-accent" style="padding:16px;display:flex;flex-direction:column;gap:8px;">
+        <div style="font-size:13px;font-weight:600;">Kim Soo-jin</div>
+        <div style="font-size:12px;color:var(--txt2);">Snorkeling Prem</div>
+        <div style="font-size:20px;font-weight:800;font-family:'Roboto Mono',monospace;color:var(--warn);">1.3M</div>
+        <div style="font-size:11px;color:var(--txt3);">Дедлайн: 07 апр 10:00</div>
+        <button class="remind-btn">Напомнить</button>
+      </div>
+      <div class="card card-accent" style="padding:16px;display:flex;flex-direction:column;gap:8px;">
+        <div style="font-size:13px;font-weight:600;">Marco Bianchi</div>
+        <div style="font-size:12px;color:var(--txt2);">Manta Ray Tour</div>
+        <div style="font-size:20px;font-weight:800;font-family:'Roboto Mono',monospace;color:var(--warn);">1.5M</div>
+        <div style="font-size:11px;color:var(--txt3);">Дедлайн: 07 апр 16:00</div>
+        <button class="remind-btn">Напомнить</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function tick(){var n=new Date();var h=String(n.getHours()).padStart(2,'0'),m=String(n.getMinutes()).padStart(2,'0'),s=String(n.getSeconds()).padStart(2,'0');var clk=document.getElementById('clk');if(clk)clk.textContent=h+':'+m+':'+s;}
+tick();setInterval(tick,1000);
+(function(){var saved=localStorage.getItem('bluuu-theme')||'dark';if(saved==='light')document.documentElement.setAttribute('data-theme','light');var btn=document.getElementById('theme-btn');if(btn)btn.textContent=saved==='light'?'🌙':'☀️';if(btn)btn.addEventListener('click',function(){var cur=document.documentElement.getAttribute('data-theme');if(cur==='light'){document.documentElement.removeAttribute('data-theme');localStorage.setItem('bluuu-theme','dark');btn.textContent='☀️';}else{document.documentElement.setAttribute('data-theme','light');localStorage.setItem('bluuu-theme','light');btn.textContent='🌙';}});})();
+</script>
+
+<button class="cb-btn" id="cbBtn">✦<span class="cb-dot"></span></button>
+<div class="cb-window" id="cbWin">
+  <div class="cb-head">
+    <div class="cb-ava">🤖</div>
+    <div class="cb-head-info">
+      <div class="cb-head-name">BLUUU AI</div>
+      <div class="cb-head-status">● онлайн · знает данные страницы</div>
+    </div>
+    <div class="cb-close" id="cbClose">✕</div>
+  </div>
+  <div class="cb-msgs" id="cbMsgs"></div>
+  <div class="cb-suggestions"><button class="cb-chip">Бронирования</button><button class="cb-chip">Заполняемость</button><button class="cb-chip">Свободные места</button><button class="cb-chip">Отмены</button></div>
+  <div class="cb-input-wrap">
+    <input class="cb-input" id="cbInput" placeholder="Спроси что-нибудь..." autocomplete="off"/>
+    <button class="cb-send" id="cbSend">➤</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  var BTN=document.getElementById('cbBtn'),WIN=document.getElementById('cbWin'),MSGS=document.getElementById('cbMsgs'),INPUT=document.getElementById('cbInput');
+  var qa={'бронирования': 'Сегодня: 18 новых. Подтверждено 15, ожидают 3. Отмен: 1.', 'заполняемость': '84%. Premium — 96%, Essential — 71%.', 'места': 'Завтра: 23 свободных. Nusa Penida FD: 4, Manta Ray: 8.', 'отмены': '1 отмена (Smith, 2 чел.). Возврат 50%. Слот передан.', 'завтра': 'Завтра: 12 туров, 156 гостей. Прогноз: 89% загрузки.', 'каналы': 'Viator 8, Klook 4, сайт 3, WhatsApp 3.'},chips=['Бронирования', 'Заполняемость', 'Свободные места', 'Отмены'],greet='18 новых бронирований сегодня. Заполняемость: 84%. Свободных мест на завтра: 23.',isOpen=false,isBusy=false;
+  function toggle(){isOpen=!isOpen;WIN.classList.toggle('open',isOpen);BTN.style.fontSize=isOpen?'18px':'22px';BTN.firstChild.textContent=isOpen?'✕':'✦';if(isOpen&&MSGS.children.length===0){setTimeout(function(){addMsg(greet,'bot');},400);}}
+  BTN.addEventListener('click',toggle);
+  document.getElementById('cbClose').addEventListener('click',function(){isOpen=false;WIN.classList.remove('open');BTN.style.fontSize='22px';BTN.firstChild.textContent='✦';});
+  function addMsg(t,r){var w=document.createElement('div');w.className='cb-msg '+r;var a=document.createElement('div');a.className='cb-msg-ava';a.textContent=r==='bot'?'AI':'You';var b=document.createElement('div');b.className='cb-bubble';b.innerHTML=t.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');w.appendChild(r==='bot'?a:b);w.appendChild(r==='bot'?b:a);MSGS.appendChild(w);MSGS.scrollTop=MSGS.scrollHeight;}
+  function showTyping(){var t=document.createElement('div');t.className='cb-msg bot';t.id='cbt';var a=document.createElement('div');a.className='cb-msg-ava';a.textContent='AI';var b=document.createElement('div');b.className='cb-typing';b.innerHTML='<span></span><span></span><span></span>';t.appendChild(a);t.appendChild(b);MSGS.appendChild(t);MSGS.scrollTop=MSGS.scrollHeight;return t;}
+  function reply(msg){var m=msg.toLowerCase();for(var k in qa){if(m.indexOf(k)!==-1)return qa[k];}if(/привет|hello|hi/.test(m))return 'Привет! Чем помочь?';if(/спасибо|thanks/.test(m))return 'Пожалуйста! Ещё вопросы?';return 'Попробуй спросить о: '+chips.slice(0,3).join(', ')+'.';}
+  function send(){var msg=INPUT.value.trim();if(!msg||isBusy)return;addMsg(msg,'user');INPUT.value='';isBusy=true;var t=showTyping();setTimeout(function(){t.remove();addMsg(reply(msg),'bot');isBusy=false;},600+Math.random()*700);}
+  document.getElementById('cbSend').addEventListener('click',send);
+  INPUT.addEventListener('keydown',function(e){if(e.key==='Enter')send();});
+  document.querySelectorAll('.cb-chip').forEach(function(c){c.addEventListener('click',function(){INPUT.value=c.textContent;send();});});
+})();</script>
+</body>
+</html>

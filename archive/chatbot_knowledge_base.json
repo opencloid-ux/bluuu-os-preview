@@ -1,0 +1,1258 @@
+{
+  "meta": {
+    "company": "nusapenida.one",
+    "business": "Nusa Penida boat tours from Bali — shared & private, all-inclusive",
+    "departure_point": "Serangan Harbor, Bali",
+    "boat_departure_time": "08:30 AM",
+    "harbor_arrival": "08:00 AM (30 min briefing before departure)",
+    "return_time": "~17:30 (back to Bali), ~18:00 (hotel drop-off)",
+    "whatsapp_support": "24/7 via WhatsApp",
+    "driver_contact_time": "By 21:00 (9 PM) the evening before the tour",
+    "transfer_cost": "+IDR 300,000 per person (round trip)",
+    "languages": [
+      "English",
+      "Indonesian"
+    ],
+    "total_qa_pairs_extracted": 381026,
+    "training_source": "536,163 real guest messages from Kommo CRM"
+  },
+  "facts": {
+    "pricing": {
+      "_note": "PRICING REMOVED — to be loaded from price list Excel file",
+      "_status": "PENDING",
+      "_price_check_url": "https://bluuu.tours/nusa-penida/private-tours/premium-private-tour-nusa-penida",
+      "bot_behavior": "Never quote any number. Send guest to: https://bluuu.tours/nusa-penida/private-tours/premium-private-tour-nusa-penida"
+    },
+    "whats_included": [
+      "Professional English-speaking guide",
+      "Full snorkeling equipment (mask, fins, life vest)",
+      "Towels",
+      "Drinking water",
+      "Full Indonesian lunch",
+      "Tea & coffee at Serangan office before departure",
+      "Life jackets"
+    ],
+    "not_included": [
+      "Hotel pickup/drop-off (optional, +IDR 300K)",
+      "Alcoholic beverages (available to purchase on board)",
+      "Optional snacks (available on board)"
+    ],
+    "standard_itinerary": [
+      "07:00 — Hotel pickup (optional, +IDR 300K)",
+      "08:00 — Arrive Serangan Harbor, briefing & gear",
+      "08:30 — Boat departs for Nusa Penida",
+      "09:30 — Snorkeling: SD Point",
+      "10:30 — Snorkeling: Wall Point",
+      "11:30 — Snorkeling: Bali Hai",
+      "12:30 — Lunch on board (included)",
+      "13:00 — Kelingking Cliff viewpoint (land tour)",
+      "14:30 — Broken Beach & Angel Billabong",
+      "16:30 — Manta Ray snorkeling (Manta Point)",
+      "17:00 — Return to Bali (Serangan Harbor)",
+      "17:30 — Hotel drop-off (optional, +IDR 300K)"
+    ],
+    "cancellation_policy": {
+      "24h_plus": "Full refund if cancelled 24+ hours before tour start",
+      "within_24h": "No refund for any reason within 24 hours of departure",
+      "weather_by_operator": "Full refund OR free reschedule if WE cancel due to weather",
+      "note": "Refunds processed minus payment platform fees where applicable"
+    },
+    "transfer_logistics": {
+      "driver_contact": "Driver contacts guest via WhatsApp by 21:00 the evening before",
+      "typical_pickup_times": {
+        "Kuta / Legian": "07:30",
+        "Seminyak": "07:15",
+        "Canggu": "07:00",
+        "Nusa Dua / Jimbaran": "07:15",
+        "Sanur": "07:45",
+        "Ubud": "06:30",
+        "Uluwatu / Bukit": "06:55"
+      },
+      "if_no_contact": "If no WhatsApp from driver by 21:00 — contact us immediately",
+      "areas_covered": "Seminyak, Kuta, Legian, Canggu, Ubud, Nusa Dua, Jimbaran, Sanur, Uluwatu and more"
+    },
+    "dietary": {
+      "options": [
+        "Vegetarian",
+        "Vegan",
+        "Halal",
+        "Gluten-free"
+      ],
+      "how_to_request": "Mention dietary requirement at time of booking or message us before the tour",
+      "on_board": "Snacks, cold beverages, and beers available for purchase"
+    },
+    "boat_types": {
+      "shared_standard": "Up to 13 guests per boat, affordable, same experience",
+      "shared_premium": "Smaller group, bigger boat, more comfort",
+      "private_charter": "Entire boat for your group, custom itinerary, 2-25+ guests"
+    },
+    "what_to_bring": [
+      "Swimwear (wear under clothes)",
+      "Reef-safe sunscreen / sunblock",
+      "Change of clothes & flip-flops",
+      "Motion sickness tablets (if prone)",
+      "Cash IDR (for optional extras on board)",
+      "Waterproof phone case or camera",
+      "Sunglasses & hat",
+      "NO passport required for Nusa Penida day tours"
+    ],
+    "manta_rays": {
+      "location": "Manta Point, Nusa Penida",
+      "frequency": "Very high — one of the best manta ray spots in the world",
+      "guarantee": "Cannot be 100% guaranteed as wildlife, but sightings are very common",
+      "alternative": "If mantas not present, guides explore nearby alternative spots"
+    },
+    "children": {
+      "policy": "Children are welcome on tours",
+      "note": "Inform us at booking if bringing babies or very young children",
+      "life_jacket": "Child-size life jackets available"
+    },
+    "sea_sickness": {
+      "advice": "Take motion sickness tablets 30-60 minutes before boarding if prone",
+      "sea_conditions": "We monitor conditions — rough weather = cancellation",
+      "brands": "Antimo or Dramamine tablets widely available in Bali pharmacies"
+    }
+  },
+  "intents": {
+    "price_payment": {
+      "label": "Price & Payment",
+      "description": "Questions about tour costs, pricing, discounts, promo codes, payment methods",
+      "priority": "HIGH",
+      "example_count_in_data": 28702,
+      "examples": [],
+      "_note": "Examples removed — pricing handled by human team",
+      "bot_behavior": "Escalate immediately to human agent"
+    },
+    "pickup_transfer": {
+      "label": "Pickup Time & Transfer",
+      "description": "Questions about pickup time, driver contact, hotel transfer service",
+      "priority": "HIGH",
+      "example_count_in_data": 31653,
+      "examples": [
+        {
+          "q": "What time is the pick up?",
+          "a": "Schmidt, we’re excited that you booked a tour with us on TripAdvisor! We cannot wait to have you on board and happy to assist you! 📣 Just to be sure - you booked Shared Boat Tour at 19.08.2025 08:00 for 2 guests. Please don't hesitate to ask any questions ☀️ Regards, Valiant"
+        },
+        {
+          "q": "Hi, can I please arrange pick up and drop off for our booking?",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. Just wanted to reach out and check if you were still interested in booking a tour with us or need further information regarding what we offer. Please feel free to reach out anytime. Me and my team will be happy to assist. Thank you!"
+        },
+        {
+          "q": "I’ve filled the form :) confirming the driver will pick us up at 6:30am tomorrow morning?",
+          "a": "🔆 We're so excited to welcome you to Day Trip Bali! Get ready for an unforgettable adventure! 📝 Before we set off, we need a quick favor. Please take a few minutes to register online: https://nusapenida.one/confirm/17798531 This helps us: 🎫 Prepare your boarding pass and insurance 🚤 Finalize your tour details for a smooth start ℹ Share some tips to make your day even better! ⏩ It's quick and easy, and it ensures your tour is absolutely perfect. See you soon!"
+        },
+        {
+          "q": "Hi! Sorry, we're in route to somewhere. We think that day we're just gonna get it transferred to the island. And then do a tour from the island instead.",
+          "a": "Full Day Tour Nusa Penida 📅 Itinerary: 06:30 am – Pick-up (+300k IDR) 07:30 am – Meeting and briefing 08:00 am – 🛥️ Departure 08:30 am – 🤿 Bali Hai 09:30 am – 🤿 SD Point 10:30 am – 🤿 Wall Point 11:30 am – 🍽️ Lunch (included) 01:00 pm – 🚗 Kelingking Cliff 02:30 pm – 🤿 Crystal Bay 03:30 pm – 🤿 Swim with Manta Rays 04:30 pm – 🛥️ Return to Bali 05:00 pm – Drop-off (+300k IDR) ✅ All-Inclusive Package: 🔹 Land Tour 🔹 Professional Guide 🔹 Underwater GoPro Footage 🔹 Snorkeling Equipment 🔹 All Entrance Tickets 🔹 Drinking Water 🔹 Towels ⚠️ The itinerary can be changed depending on the weather conditions."
+        },
+        {
+          "q": "We will just get a transfer over. Thanks though!",
+          "a": "🔆 We're so excited to welcome you to Day Trip Bali! Get ready for an unforgettable adventure! 📝 Before we set off, we need a quick favor. Please take a few minutes to register online: https://nusapenida.one/confirm/17542365 This helps us: 🎫 Prepare your boarding pass and insurance 🚤 Finalize your tour details for a smooth start ℹ Share some tips to make your day even better! ⏩ It's quick and easy, and it ensures your tour is absolutely perfect. See you soon!"
+        },
+        {
+          "q": "Can we arrange pick up from grand Hyatt nusa dua?",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. Just wanted to reach out and check if you were still interested in booking a tour with us or need further information regarding what we offer. Please feel free to reach out anytime. Me and my team will be happy to assist. Thank you!"
+        },
+        {
+          "q": "Pickup: Beyond Heaven Bali 01",
+          "a": "For self-drive, meet us at our office in Serangan at 7.30 AM. Boat will scheduled to depart at 8.00 AM. 📍Jl. Tukad Punggawa No.238, Serangan https://maps.app.goo.gl/epP2DNF6ayrZJEL1A 📣 We kindly ask our guests to arrive on time, as we won't be able to wait for late arrivals."
+        },
+        {
+          "q": "is Morgan Vosbikian. we have a boat tour tomorrow. can we change the pickup location? we are now at Amandari in Ubud.",
+          "a": "Hello! We’ve just sent you an email with an online check-in form for your tour tomorrow. Completing it will help us prepare your documents and insurance, speed up the boarding process, and save you from waiting in line for registration. 😊 If you don’t see the email, please check your spam folder. If it’s not there, let us know, and we’ll send you the link here on WhatsApp. Thank you!"
+        },
+        {
+          "q": "What time should I be ready tomorrow morning for pick up at my hotel?",
+          "a": "We’re excited that you have decided to book with our company! You are booking Shared Boat Tour on 22.05.2025 08:00 for 1 guest If everything is correct and you agree with the Cancellation Policy, please make a payment via this link: https://checkout.xendit.co/web/682dd3d515761cecd82b0057 Total 2,136,000 Rp. Once the deposit is paid, you will receive a booking confirmation to your email. ℹ️ Rest payment (if applicable) can be made in cash or by card on the morning of the tour."
+        },
+        {
+          "q": "Can u confirm hotel pickup name and time",
+          "a": "Good evening, this is the manager of Day Trip Bali. Please check the number of customers we are bringing to Khamara tomorrow using this link: https://manage.baliboat.tours/rest/k (please note that this calendar only displays information for the next day and will no longer be valid after 12 AM) Our guide will also provide detailed information before arrival. Thank you!"
+        },
+        {
+          "q": "Hi - I want to book the shared nusa penida tour. But I am coming from ubud. Is there round trip transportation?",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. We have received your booking on Getyourguide and are happy to assist you here. Please let us know if you would have any questions. Thanks!"
+        },
+        {
+          "q": "Yes! Perfect. What time and where in sanur point works best for you?",
+          "a": "Hello! We’ve just sent you an email with an online check-in form for your tour tomorrow. Completing it will help us prepare your documents and insurance, speed up the boarding process, and save you from waiting in line for registration. 😊 If you don’t see the email, please check your spam folder. If it’s not there, let us know, and we’ll send you the link here on WhatsApp. Thank you!"
+        },
+        {
+          "q": "Do u do hotel pick up as well??",
+          "a": "Pick up will be approximately at 7.00 AM, but for best timing, our driver will contact you this evening between 7:00 PM and 9:00 PM. If you haven’t heard from the driver by 9:00 PM, please let us know here so we can assist you further."
+        },
+        {
+          "q": "Pick up time from Hotel please?",
+          "a": "Many thanks, your Private Boat Tour on 26.06.2025 09:00 for 4 guests is confirmed! ⚠️ Please be noted that our office closed after 6 PM, and transfers and any changes can be organized only before this time."
+        },
+        {
+          "q": "completed the online form, if you can confirm. Can we also sign up for your transportation from our hotel?",
+          "a": "Many thanks, your Private Boat Tour on 26.06.2025 09:00 for 4 guests is confirmed! ⚠️ Please be noted that our office closed after 6 PM, and transfers and any changes can be organized only before this time."
+        }
+      ]
+    },
+    "itinerary_details": {
+      "label": "Itinerary & What's Included",
+      "description": "Questions about tour stops, inclusions, land tour, schedule",
+      "priority": "HIGH",
+      "example_count_in_data": 18509,
+      "examples": [
+        {
+          "q": "With this included",
+          "a": "Your transfer has been confirmed! Pick Up : - Drop Off : Vivara Bali Private Pool Villas & Spa Retreat, Jl. Karang Mas, Jimbaran, South Kuta, Badung Regency, Bali 80361 🔹 Transfer is non-refundable if used and the tour is canceled due to weather. 🚗 The driver will contact you via WhatsApp the evening before the tour. ⚠️ If you haven’t heard from the driver by 9 PM, please contact us. 💵 Transfer payment (if applicable) can be made on the tour morning."
+        },
+        {
+          "q": "And please confirm whether the itinerary changes depending on the restaurant we chose",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. Just wanted to reach out and check if you were still interested in booking a tour with us or need further information regarding what we offer. Please feel free to reach out anytime. Me and my team will be happy to assist. Thank you!"
+        },
+        {
+          "q": "What happens if it rains? Am I able to reschedule?",
+          "a": "🔆 We're so excited to welcome you to Day Trip Bali! Get ready for an unforgettable adventure! 📝 Before we set off, we need a quick favor. Please take a few minutes to register online: https://nusapenida.one/confirm/17798531 This helps us: 🎫 Prepare your boarding pass and insurance 🚤 Finalize your tour details for a smooth start ℹ Share some tips to make your day even better! ⏩ It's quick and easy, and it ensures your tour is absolutely perfect. See you soon!"
+        },
+        {
+          "q": "Isn't the last snorkeling spot the manta rays?",
+          "a": "Full Day Tour Nusa Penida 📅 Itinerary: 06:30 am – Pick-up (+300k IDR) 07:30 am – Meeting and briefing 08:00 am – 🛥️ Departure 08:30 am – 🤿 Bali Hai 09:30 am – 🤿 SD Point 10:30 am – 🤿 Wall Point 11:30 am – 🍽️ Lunch (included) 01:00 pm – 🚗 Kelingking Cliff 02:30 pm – 🤿 Crystal Bay 03:30 pm – 🤿 Swim with Manta Rays 04:30 pm – 🛥️ Return to Bali 05:00 pm – Drop-off (+300k IDR) ✅ All-Inclusive Package: 🔹 Land Tour 🔹 Professional Guide 🔹 Underwater GoPro Footage 🔹 Snorkeling Equipment 🔹 All Entrance Tickets 🔹 Drinking Water 🔹 Towels ⚠️ The itinerary can be changed depending on the weather conditions."
+        },
+        {
+          "q": "And I heard that the wave/ current in the manta ray area is a big strong, will your stuff be able to assist my son? Because I cannot take care both of my kids myself",
+          "a": "🔆 We're so excited to welcome you to Day Trip Bali! Get ready for an unforgettable adventure! 📝 Before we set off, we need a quick favor. Please take a few minutes to register online: https://nusapenida.one/confirm/17540413 This helps us: 🎫 Prepare your boarding pass and insurance 🚤 Finalize your tour details for a smooth start ℹ Share some tips to make your day even better! ⏩ It's quick and easy, and it ensures your tour is absolutely perfect. See you soon!"
+        },
+        {
+          "q": "Looking to book with you on the 23rd June for snorkeling tour. We have 5 people , We need to be picked up from Jayakarta. Please let me know if this is possible , Thank you Tracey Carlin",
+          "a": "🕒 To qualify for a full refund, kindly cancel at least 24 hours before the experience's scheduled start time. ⚠️ Please note that refunds will be processed for the net amount received, after deducting any applicable fees and commissions charged by payment platforms. ❗ If you cancel within 24 hours of the experience's start time for ANY reason, whether due to health reasons, booking errors, or other unforeseen circumstances, we regret that refunds or rescheduling WON’T be possible. ❌ If you decide to cancel the tour after it has started (due to feeling unwell or any other reason), a refund is not possible. 🗣️ Our company reserves the right to refuse guests if they are sick, drunk, in poor condition, or have abused others before the trip. We regret that refunds or rescheduling in such cases WON'T be possible. 📌 If you've booked this experience through alternative online platforms such as TripAdvisor, Airbnb, or others, please note that ALL changes, cancellations, and refunds must be managed exclusively through the source where your booking was made. 🔄 Changes made within 24 hours of the experience's start time cannot be guaranteed. 🕐 Please note that all cutoff times are determined by the local time of the experience (GMT+8). 👥 This experience (shared option) has a minimum traveler requirement, and if it's canceled due to not meeting this minimum, we'll offer you an alternative date or experience, or provide a full refund. 🚗 The cars transportation service (pick up and drop off) becomes non-refundable once it has been utilized, even if the tour gets canceled due to inclement weather. ⛈️ Please note that sightings of manta rays are not guaranteed, as they are wild animals and their behavior is unpredictable. Additionally, the itinerary may be subject to change by our crew due to weather and sea conditions, such as rain or significant swell. In such cases, an alternative itinerary will be offered. No refund will be provided if there are no manta rays or if the itinerary is changed due to weather. 🌦️ This experience is weather-dependent, and in case of cancellation due to poor weather conditions, we'll gladly offer you an alternative date or a full refund* * When referring to \"Poor Weather,\" it pertains to instances where the Port Authority does not grant permission to commence the tour due to adverse conditions such as big waves or strong winds."
+        },
+        {
+          "q": "and also if its possible to chnage around the itinerary and start off with manta point rather than doing it in the afternoon on the way back",
+          "a": "Hey there! I'm Valiant, the manager at Day Trip Bali 👋 Just wanted to let you know that we've got your request and I'm here to help you with your booking. Let me check your previous messages and I will get back to you shortly."
+        },
+        {
+          "q": "and if the lady manta, sanjaya, honeymilk have toilets on board",
+          "a": "Hey there! I'm Valiant, the manager at Day Trip Bali 👋 Just wanted to let you know that we've got your request and I'm here to help you with your booking. Let me check your previous messages and I will get back to you shortly."
+        },
+        {
+          "q": "Please confirm for 25th. 33 pax. FULL DAY + MANTA BAY. Standard lunch",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. Just wanted to reach out and check if you were still interested in booking a tour with us or need further information regarding what we offer. Please feel free to reach out anytime. Me and my team will be happy to assist. Thank you!"
+        },
+        {
+          "q": "Ok we will go with the snorkelling only option with lunch to Nusa Lembongan right?",
+          "a": "🔆 We're so excited to welcome you to Day Trip Bali! Get ready for an unforgettable adventure! 📝 Before we set off, we need a quick favor. Please take a few minutes to register online: https://nusapenida.one/confirm/18143685 This helps us: 🎫 Prepare your boarding pass and insurance 🚤 Finalize your tour details for a smooth start ℹ Share some tips to make your day even better! ⏩ It's quick and easy, and it ensures your tour is absolutely perfect. See you soon!"
+        },
+        {
+          "q": "https://www.tripadvisor.com/AttractionProductReview-g2538506-d17829580-Nusa_Penida_by_Private_Boat_Snorkeling_4_spots_Swim_with_Mantas_Land_Tour-Nusa_Pe.html",
+          "a": "We only have 4 hours and 8 hours package.4 hours will be a short cruise around Serangan and Nusa Dua area in Bali, and only available on Luxury JA20 yacht and catamaran option. Will cost 29,720,000 IDR with JA20 and 33,020,000 IDR with ANC catamaran option."
+        },
+        {
+          "q": "1. I think you ight want to include the boat, because the one they chose is Sanjay O5, Premium Motorboat, 13m * and other details like; 18 -18/07/2025 09:00 - 18:00, 9 hrs Serangan port, Bali, ID * B2B Client Identification Ref. No. KBC01.118071025 2. The Rest, you've added as blank, perhaps add the remaining 50% amount there, and the time before which it must be paid, like (a week before charter date)",
+          "a": "Your transfer has been confirmed! Pick Up : W hotel in Seminyak Drop Off : W hotel in Seminyak 🔹 The car transportation service is non-refundable if guests have already used it and the tour is canceled due to bad weather conditions. 🚗 The driver will get in touch with you via WhatsApp the evening before the tour. ⚠️ Please reach out to us if you haven't heard from the driver after 9 PM. 💵 Payment for the transfer (if any) can be made on the morning of the tour."
+        },
+        {
+          "q": "We just booked this, which boat is included in this package?",
+          "a": "🔆 We're so excited to welcome you to Day Trip Bali! Get ready for an unforgettable adventure! 📝 Before we set off, we need a quick favor. Please take a few minutes to register online: https://nusapenida.one/confirm/18126309 This helps us: 🎫 Prepare your boarding pass and insurance 🚤 Finalize your tour details for a smooth start ℹ Share some tips to make your day even better! ⏩ It's quick and easy, and it ensures your tour is absolutely perfect. See you soon!"
+        },
+        {
+          "q": "Untuk Yang normal apa dapat juga go pro video documentation pada saat snorkeling?",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. Just wanted to reach out and check if you were still interested in booking a tour with us or need further information regarding what we offer. Please feel free to reach out anytime. Me and my team will be happy to assist. Thank you!"
+        },
+        {
+          "q": "Untuk Pro Photographer apa termasuk video juga kak? dan video saat snorkeling?",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. Just wanted to reach out and check if you were still interested in booking a tour with us or need further information regarding what we offer. Please feel free to reach out anytime. Me and my team will be happy to assist. Thank you!"
+        }
+      ]
+    },
+    "booking": {
+      "label": "Booking & Availability",
+      "description": "Questions about how to book, availability, confirmation, vouchers",
+      "priority": "HIGH",
+      "example_count_in_data": 31789,
+      "examples": [
+        {
+          "q": "I do not receive the confirmation of the trip by mail",
+          "a": "We can include the land tour part, and the price will be [price — ask our team] 📅 Itinerary: 08:00 am – Pick-up (+300k IDR) 09:00 am – 🛥️ Departure 09:30 am – 🤿 Bali Hai 10:30 am – 🤿 SD Point 11:30 am – 🤿 Wall Point 12:30 pm – 🍽️ Lunch (included) 02:00 pm – 🚗 Kelingking Cliff 03:30 pm – 🤿 Crystal Bay 04:30 pm – 🤿 Swim with Manta Rays 05:00 pm – Return to Bali 05:30 pm – Drop Off (+300k IDR) ✅ All-Inclusive Package: 🔹 Private Boat 🔹 Professional Guide 🔹 Underwater GoPro Footage 🔹 Snorkeling Equipment 🔹 All Entrance Tickets 🔹 Drinking Water 🔹 Towels ⚠️ The itinerary can be changed depending on the weather conditions."
+        },
+        {
+          "q": "Halo, is a small yatch for 16 pax available the day 25th?",
+          "a": "Full Day East & West Tour 📅 Itinerary: 07:00 am – Pick-up (+300k IDR) 08:00 am – Meeting and briefing 08:30 am – 🛥️ Departure 09:30 am – 🚗 Kelingking Cliff 11:30 am – 🚗 Broken Beach 12:30 pm – 🍽️ Lunch (included) 01:30 pm – 🚗 Diamond Beach 03:30 pm – 🚗 Tree Houses 05:00 pm – 🛥️ Return to Bali 05:30 pm – Drop-off (+300k IDR) ✅ All-Inclusive Package: 🔹 Land Tour 🔹 Professional Guide 🔹 All Entrance Tickets 🔹 Drinking Water ⚠️ Be aware of poor traffic conditions and road conditions in Nusa Penida, as they can affect timing."
+        },
+        {
+          "q": "thank you!! shall we pay by cash or will debit card be available?",
+          "a": "Your transfer has been confirmed! Pick Up : Pondok Bagus Guesthouse - Jl. Subak Canggu, Canggu, Kec. Kuta Utara, Kabupaten Badung, Bali 80361. Drop Off : Pondok Bagus Guesthouse - Jl. Subak Canggu, Canggu, Kec. Kuta Utara, Kabupaten Badung, Bali 80361. 🔹 Transfer is non-refundable if used and the tour is canceled due to weather. 🚗 The driver will contact you via WhatsApp the evening before the tour. ⚠️ If you haven’t heard from the driver by 9 PM, please contact us. 💵 Transfer payment (if applicable) can be made on the tour morning."
+        },
+        {
+          "q": "Is there any availability for tomorrow for one person for shared nusa penida tour?",
+          "a": "Good evening, this is the manager of Day Trip Bali. Please check the number of customers we are bringing to Khamara tomorrow using this link: https://manage.baliboat.tours/rest/k (please note that this calendar only displays information for the next day and will no longer be valid after 12 AM) Our guide will also provide detailed information before arrival. Thank you!"
+        },
+        {
+          "q": "Don’t know what you are on about we have booked and payed as per instructions on internet so sort it out yourself",
+          "a": "🔆 We're so excited to welcome you to Day Trip Bali! Get ready for an unforgettable adventure! 📝 Before we set off, we need a quick favor. Please take a few minutes to register online: https://nusapenida.one/confirm/18074061 This helps us: 🎫 Prepare your boarding pass and insurance 🚤 Finalize your tour details for a smooth start ℹ Share some tips to make your day even better! ⏩ It's quick and easy, and it ensures your tour is absolutely perfect. See you soon!"
+        },
+        {
+          "q": "I will confirm soon. He just landed in Bali",
+          "a": "Premium Full Day Tour Nusa Penida 📅 Itinerary: 08:00 am – Meeting and briefing 08:30 am – 🛥️ Departure 09:00 am – 🤿 Bali Hai 10:00 am – 🤿 SD Point 11:00 am – 🤿 Wall Point 12:00 pm – 🍽️ Lunch (included) 01:30 pm – 🚗 Kelingking Cliff 03:00 pm – 🤿 Crystal Bay 04:00 pm – 🤿 Swim with Manta Rays 05:00 pm – ☀️ Secret spot 05:30 pm – 🛥️ Return to Bali ✅ Premium package includes: 🔹 Premium boat 🔹 Welcome drink 🔹 Complimentary Prosecco and juice 🔹 Drinking Water 🔹 Land Tour 🔹 Professional Guides 🔹 Underwater GoPro Footage 🔹 Professional photographer 🔹 Snorkeling Equipment 🔹 Hoodie towels 🔹 All Entrance Tickets ⚠️ The itinerary can be changed depending on the weather conditions."
+        },
+        {
+          "q": "I also want to confirm that I paid the amount in full. It said I owed virtually the entire amount which cannot be correct.",
+          "a": "Premium Full Day Tour Nusa Penida 📅 Itinerary: 07:00 am – Pick-up (+300k IDR) 08:00 am – Meeting and briefing 08:30 am – 🛥️ Departure 09:00 am – 🤿 Bali Hai 10:00 am – 🤿 SD Point 11:00 am – 🤿 Wall Point 12:00 pm – 🍽️ Lunch (included) 01:30 pm – 🚗 Kelingking Cliff 03:00 pm – 🤿 Crystal Bay 04:00 pm – 🤿 Swim with Manta Rays 05:00 pm – ☀️ Secret spot 05:30 pm – 🛥️ Return to Bali 06:00 pm – Drop-off (+300k IDR) ✅ Premium package includes: 🔹 Premium boat 🔹 Welcome drink 🔹 Complimentary Prosecco and juice 🔹 Drinking Water 🔹 Land Tour 🔹 Professional Guides 🔹 Underwater GoPro Footage 🔹 Professional photographer 🔹 Snorkeling Equipment 🔹 Hoodie towels 🔹 All Entrance Tickets ⚠️ The itinerary can be changed depending on the weather conditions."
+        },
+        {
+          "q": "I’m trying to book the shared standard day trip to Nusa Penida Island for the 26th of May, 3 people",
+          "a": "🔆 We're so excited to welcome you to Day Trip Bali! Get ready for an unforgettable adventure! 📝 Before we set off, we need a quick favor. Please take a few minutes to register online: https://nusapenida.one/confirm/17797817 This helps us: 🎫 Prepare your boarding pass and insurance 🚤 Finalize your tour details for a smooth start ℹ Share some tips to make your day even better! ⏩ It's quick and easy, and it ensures your tour is absolutely perfect. See you soon!"
+        },
+        {
+          "q": "Yes. Confirmed",
+          "a": "Your transfer has been confirmed! Pick Up : Apurva Kempinski in Nusa dua Drop Off : Apurva Kempinski in Nusa dua 🔹 Transfer is non-refundable if used and the tour is canceled due to weather. 🚗 The driver will contact you via WhatsApp the evening before the tour. ⚠️ If you haven’t heard from the driver by 9 PM, please contact us. 💵 Transfer payment (if applicable) can be made on the tour morning."
+        },
+        {
+          "q": "I'm sorry but there will now only be 1 person on this outing. Please cancel Craig Atchison booking. Thank you.",
+          "a": "Hello! We’ve just sent you an email with an online check-in form for your tour tomorrow. Completing it will help us prepare your documents and insurance, speed up the boarding process, and save you from waiting in line for registration. 😊 If you don’t see the email, please check your spam folder. If it’s not there, let us know, and we’ll send you the link here on WhatsApp. Thank you!"
+        },
+        {
+          "q": "We already book a boat today We do just 1 day on the Island thank you",
+          "a": "Land Tour (East & West) Itinerary 08:30 am Departure from Bali 09:30 am Car Tour to Kelingking Cliff 11:30 am Car Tour to Broken Beach and Angel Billabong 12:30 pm Lunch (Included in Amarta Penida) 01:30 pm Car Tour to Diamond Beach 03:30 pm Car Tour to Tree Houses 05:30 pm Return to start point"
+        },
+        {
+          "q": "Hi! There is no Mail, in Spam there is nothing too. Please check, the Booking confirmation arrived properly 🙏🏻",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. Just wanted to reach out and check if you were still interested in booking a tour with us or need further information regarding what we offer. Please feel free to reach out anytime. Me and my team will be happy to assist. Thank you!"
+        },
+        {
+          "q": "i booked it already",
+          "a": "📅 Itinerary: 09:00 am – 🛥️ Departure 09:30 am – 🤿 Bali Hai 10:30 am – 🤿 SD Point 11:30 am – 🤿 Wall Point 12:30 pm – 🍽️ Lunch (included) 02:30 pm – 🤿 Crystal Bay 03:30 pm – 🤿 Swim with Manta Rays 04:30 pm – Return to Bali ✅ All-Inclusive Package: 🔹 Private Boat 🔹 Professional Guide 🔹 Underwater GoPro Footage 🔹 Snorkeling Equipment 🔹 All Entrance Tickets 🔹 Drinking Water 🔹 Towels ⚠️ The itinerary can be changed depending on the weather conditions."
+        },
+        {
+          "q": "I want to book a tour to Nusa Penida",
+          "a": "We’re excited that you have decided to book with our company! You are booking Shared Boat Tour on 26.05.2025 08:00 for 2 guests If everything is correct and you agree with the Cancellation Policy, please make a payment via this link: https://checkout.xendit.co/web/682be5dcd730ec7e2ff3f26f Total 3,440,000 Rp. Deposit 1,720,000 Rp. Once the deposit is paid, you will receive a booking confirmation to your email. ℹ️ Rest payment (if applicable) can be made in cash or by card on the morning of the tour."
+        },
+        {
+          "q": "I didn't receive the email, can you confirm what email you sent it to?",
+          "a": "Full Day Tour Nusa Penida (SHARE TOUR) 📅 Itinerary: 06:30 am – Pick-up (+300k IDR) 07:30 am – Meeting and briefing 08:00 am – 🛥️ Departure 08:30 am – 🤿 Bali Hai 09:30 am – 🤿 SD Point 10:30 am – 🤿 Wall Point 11:30 am – 🍽️ Lunch (included) 01:00 pm – 🚗 Kelingking Cliff 02:30 pm – 🤿 Crystal Bay 03:30 pm – 🤿 Swim with Manta Rays 04:30 pm – 🛥️ Return to Bali 05:00 pm – Drop-off (+300k IDR) ✅ All-Inclusive Package: 🔹 Land Tour 🔹 Professional Guide 🔹 Underwater GoPro Footage 🔹 Snorkeling Equipment 🔹 All Entrance Tickets 🔹 Drinking Water 🔹 Towels ⚠️ The itinerary can be changed depending on the weather conditions."
+        }
+      ]
+    },
+    "weather": {
+      "label": "Weather & Sea Conditions",
+      "description": "Questions about weather forecast, rain, rough seas, cancellations due to weather",
+      "priority": "HIGH",
+      "example_count_in_data": 3842,
+      "examples": [
+        {
+          "q": "Hey! Just checking how the weather is tomorrow as it is currently raining… if it is raining tomorrow morning does it get cancelled?",
+          "a": "Hey there! I'm Valiant, the manager at Day Trip Bali 👋 Just wanted to let you know that we've got your request and I'm here to help you with your booking. Let me check your previous messages and I will get back to you shortly."
+        },
+        {
+          "q": "didn’t come through can you send it through what’s app?",
+          "a": "Hello! We’ve just sent you an email with an online check-in form for your tour tomorrow. Completing it will help us prepare your documents and insurance, speed up the boarding process, and save you from waiting in line for registration. 😊 If you don’t see the email, please check your spam folder. If it’s not there, let us know, and we’ll send you the link here on WhatsApp. Thank you!"
+        },
+        {
+          "q": "would you send it through WhatsApp?",
+          "a": "If you'd like to do land tour East itinerary, there won't be enough time to do diving activities. For people in Lembongan, we need to arrange extra shuttle boat and it will cost an extra 300,000 [price — ask our team] Let me check with our team for best timing for East land tour with some groups starting from Lembongan. Will update you as soon as possible."
+        },
+        {
+          "q": "What happens if it rains heavy",
+          "a": "Private Day Tour to Nusa Penida 📅 Itinerary: 08:00 am – Pick-up (+300k IDR) 09:00 am – 🛥️ Departure 09:30 am – 🤿 Bali Hai 10:30 am – 🤿 SD Point 11:30 am – 🤿 Wall Point 12:30 pm – 🍽️ Lunch (included) 02:30 pm – 🤿 Crystal Bay 03:30 pm – 🤿 Swim with Manta Rays 04:30 pm – Return to Bali 05:00 pm – Drop Off (+300k IDR) ✅ All-Inclusive Package: 🔹 Private Boat 🔹 Professional Guide 🔹 Underwater GoPro Footage 🔹 Snorkeling Equipment 🔹 All Entrance Tickets 🔹 Drinking Water 🔹 Towels ⚠️ The itinerary can be changed depending on the weather conditions."
+        },
+        {
+          "q": "how is the situation of the sea? am a but scared with the kids, I read that there are a big waves and is not really safe",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. Just wanted to reach out and check if you were still interested in booking a tour with us or need further information regarding what we offer. Please feel free to reach out anytime. Me and my team will be happy to assist. Thank you!"
+        },
+        {
+          "q": "Great thank you and will you cancel if bad weather as I saw the awful news with the boat that capsized and someone drowned",
+          "a": "Your transfer has been confirmed! Pick Up : jimbaran puri Drop Off : jimbaran puri 🔹 The car transportation service is non-refundable if guests have already used it and the tour is canceled due to bad weather conditions. 🚗 The driver will get in touch with you via WhatsApp the evening before the tour. ⚠️ Please reach out to us if you haven't heard from the driver after 9 PM. 💵 Payment for the transfer (if any) can be made on the morning of the tour."
+        },
+        {
+          "q": "Okay but how is the weather now?",
+          "a": "Good morning. To reschedule the tour last minute, it's really not possible. At the moment, the tour still runs normally, later if the harbor master doesn't allow us to go on the trip, we will give option to our guests to reschedule or refund for the tour"
+        },
+        {
+          "q": "If it’s okay we can push through",
+          "a": "Hey there! I'm Valiant, the manager at Day Trip Bali 👋 Just wanted to let you know that we've got your request and I'm here to help you with your booking. Let me check your previous messages and I will get back to you shortly."
+        },
+        {
+          "q": "What if the tour was cancelled due to weather conditons and we have not used the drop-off, should we still pay?",
+          "a": "Your transfer has been confirmed! Pick Up : N/A Drop Off : Jimbaran Bay Beach Resort & Spa, Jl. Pantai Kedonganan No.888, Kedonganan, Kuta, Badung Regency, Bali 80361 🔹 The car transportation service is non-refundable if guests have already used it and the tour is canceled due to bad weather conditions. 🚗 The driver will get in touch with you via WhatsApp the evening before the tour. ⚠️ Please reach out to us if you haven't heard from the driver after 9 PM. 💵 Payment for the transfer (if any) can be made on the morning of the tour."
+        },
+        {
+          "q": "Hello, I've had a look in my emails and I can't find the email you mentioned. Please could you resend the online check in form through here? Thanks",
+          "a": "Many thanks, your Private Boat Tour on 01.06.2025 09:00 for 14 guests is confirmed! ⚠️ Please be noted that our office closed after 6 PM, and transfers and any changes can be organized only before this time."
+        },
+        {
+          "q": "So if not good weather can move at 14 right",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. Just wanted to reach out and check if you were still interested in booking a tour with us or need further information regarding what we offer. Please feel free to reach out anytime. Me and my team will be happy to assist. Thank you!"
+        },
+        {
+          "q": "Hello, we are checking the weather forecast and it seems that Tuesday will be cloudy while Thursday is announced as more sunny. Do you have the same forecast? Is it reliable? Would you advise switching our outing from Tuesday to Thursday if possible? Many thanks, Joseph & Sarah",
+          "a": "Your transfer has been confirmed! Pick Up : Villa Alam Biru II, Jl. Bumi Ayu II No. 8, Denpasar, Bali 80227, Indonesia Drop Off : Villa Alam Biru II, Jl. Bumi Ayu II No. 8, Denpasar, Bali 80227, Indonesia 🔹 The car transportation service is non-refundable if guests have already used it and the tour is canceled due to bad weather conditions. 🚗 The driver will get in touch with you via WhatsApp the evening before the tour. ⚠️ Please reach out to us if you haven't heard from the driver after 9 PM."
+        },
+        {
+          "q": "Or is there a boat tour where the seas are not rough",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. Just wanted to reach out and check if you were still interested in booking a tour with us or need further information regarding what we offer. Please feel free to reach out anytime. Me and my team will be happy to assist. Thank you!"
+        },
+        {
+          "q": "Also they had concerns regarding the rough sea. Is there an option to visit Nusa Penida and avoid the rough sea.",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. Just wanted to reach out and check if you were still interested in booking a tour with us or need further information regarding what we offer. Please feel free to reach out anytime. Me and my team will be happy to assist. Thank you!"
+        },
+        {
+          "q": "we would. Just checking with recent rain is the water very harsh on boat?",
+          "a": "Hello! We just wanted to follow up as we haven’t received payment for your tour. Please let us know if you’d like to proceed with the payment so we can secure your booking. Kindly note that bookings are only confirmed once payment is made. Spots fill up quickly, and delays in payment may result in losing your requested tour date."
+        }
+      ]
+    },
+    "cancellation": {
+      "label": "Cancellation & Refund Policy",
+      "description": "Questions about cancelling bookings, refund policy, rescheduling",
+      "priority": "HIGH",
+      "example_count_in_data": 3305,
+      "examples": [
+        {
+          "q": "Cancellation ?",
+          "a": "Private Day Tour to Nusa Penida 📅 Itinerary: 08:00 am – Pick-up (+300k IDR) 09:00 am – 🛥️ Departure 09:30 am – 🤿 Bali Hai 10:30 am – 🤿 SD Point 11:30 am – 🤿 Wall Point 12:30 pm – 🍽️ Lunch (included) 02:30 pm – 🤿 Crystal Bay 03:30 pm – 🤿 Swim with Manta Rays 04:30 pm – Return to Bali 05:00 pm – Drop Off (+300k IDR) ✅ All-Inclusive Package: 🔹 Private Boat 🔹 Professional Guide 🔹 Underwater GoPro Footage 🔹 Snorkeling Equipment 🔹 All Entrance Tickets 🔹 Drinking Water 🔹 Towels ⚠️ The itinerary can be changed depending on the weather conditions."
+        },
+        {
+          "q": "Ok they processed the refund. 3 to 7 day though grrr..",
+          "a": "Full Day Tour Nusa Penida 📅 Itinerary: 06:30 am – Pick-up (+300k IDR) 07:30 am – Meeting and briefing 08:00 am – 🛥️ Departure 08:30 am – 🤿 Bali Hai 09:30 am – 🤿 SD Point 10:30 am – 🤿 Wall Point 11:30 am – 🍽️ Lunch (included) 01:00 pm – 🚗 Kelingking Cliff 02:30 pm – 🤿 Crystal Bay 03:30 pm – 🤿 Swim with Manta Rays 04:30 pm – 🛥️ Return to Bali 05:00 pm – Drop-off (+300k IDR) ✅ All-Inclusive Package: 🔹 Land Tour 🔹 Professional Guide 🔹 Underwater GoPro Footage 🔹 Snorkeling Equipment 🔹 All Entrance Tickets 🔹 Drinking Water 🔹 Towels ⚠️ The itinerary can be changed depending on the weather conditions."
+        },
+        {
+          "q": "Give me refund then",
+          "a": "Hello, this is the manager of Day Trip Bali, a boat tour company. We have received your contact details from our guide, who informed us that you are interested in booking a tour with us. Please let us know which tour and date you have in mind, and I will be happy to assist you with the booking process. Thank you 🙏🏻"
+        },
+        {
+          "q": "I am not canceled with the policy….i am just stating we will not be getting on the boat",
+          "a": "🕒 To qualify for a full refund, kindly cancel at least 15 days before the experience's scheduled start time. ❗ If you cancel within 14 days of the experience's start time for ANY reason, whether due to health reasons, booking errors, or other unforeseen circumstances, we regret that refunds or rescheduling WON’T be possible. 🗣️ Our company reserves the right to refuse guests if they are sick, drunk, in poor condition, or have abused others before the trip. We regret that refunds or rescheduling in such cases WON'T be possible. ❌ If you decide to cancel the tour after it has started (due to feeling unwell or any other reason), a refund is not possible.📌 If you've booked this experience through alternative online platforms such as TripAdvisor, Airbnb, or others, please note that ALL changes, cancellations, and refunds must be managed exclusively through the source where your booking was made. 🔄 Changes made within 14 days of the experience's start time cannot be guaranteed. 🕐 Please note that all cutoff times are determined by the local time of the experience (GMT+8). 🚗 The cars transportation service (pick up and drop off) becomes non-refundable once it has been utilized, even if the tour gets canceled due to inclement weather. Please note that sightings of manta rays are not guaranteed, as they are wild animals and their behavior is unpredictable. Additionally, the itinerary may be subject to change by our crew due to weather and sea conditions, such as rain or significant swell. In such cases, an alternative itinerary will be offered. No refund will be provided if there are no manta rays or if the itinerary is changed due to weather. 🌦️ This experience is weather-dependent, and in case of cancellation due to poor weather conditions, we'll gladly offer you an alternative date or a full refund* * When referring to \"Poor Weather,\" it pertains to instances where the Port Authority does not grant permission to commence the tour due to adverse conditions such as big waves or strong winds."
+        },
+        {
+          "q": "How do I request refund?",
+          "a": "Kieler, we’re excited that you booked a tour with us on TripAdvisor! We cannot wait to have you on board and happy to assist you! 📣 Just to be sure - you booked Premium Shared Boat Tour at 08.05.2025 08:30 for 2 guests. Please don't hesitate to ask any questions ☀️ Regards, Mario"
+        },
+        {
+          "q": "No I don’t want a shared tour. I’d like to cancel. It is very misleading to call it a premium private boat.",
+          "a": "You have booked a shared group tour on our private boat. This means that while the tour will take place on our private vessel, you will be sharing the experience with other guests who have also booked this shared tour."
+        },
+        {
+          "q": "unfortunately, our plans changed and we will have to cancel",
+          "a": "Pick up will be around 6.40 AM. Our driver will contact you this evening between 7:00 PM and 9:00 PM. If you haven’t heard from the driver by 9:00 PM, please let us know here so we can assist you further."
+        },
+        {
+          "q": "Can do any refund on the one can’t join due to health condition ?",
+          "a": "Nee, we’re excited that you booked a tour with us on TripAdvisor! We cannot wait to have you on board and happy to assist you! 📣 Just to be sure - you booked a Shared Boat Tour at 02.05.2025 08:00 for 2 guests. Please don't hesitate to ask any questions ☀️ Regards, Mario"
+        },
+        {
+          "q": "I am a little nervous now :/ would it be possible to get a refund?",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. We have received your booking on Getyourguide and are happy to assist you here. Please let us know if you would have any questions. Thanks!"
+        },
+        {
+          "q": "Hi! I ended up having to cancel the boat tower. My mom unfortunately passed away today. Thank you for reaching out!",
+          "a": "Hello! We’ve just sent you an email with an online check-in form for your tour tomorrow. Completing it will help us prepare your documents and insurance, speed up the boarding process, and save you from waiting in line for registration. 😊 If you don’t see the email, please check your spam folder. If it’s not there, let us know, and we’ll send you the link here on WhatsApp. Thank you!"
+        },
+        {
+          "q": "bs di refund apa gak",
+          "a": "Hello! Thanks for reaching out to us! Kindly note that our office is closed due to the holiday of Galungan. Please leave your requests, and we'll attend to them promptly on April 24. For urgent matters, please reply with the word \"emergency,\" and we'll respond as soon as possible. Thank you! Day Trip Bali team🐠"
+        },
+        {
+          "q": "Would we be able to cancel?",
+          "a": "Hello! Thanks for reaching out to us! Kindly note that our office is closed due to the holiday of Galungan. Please leave your requests, and we'll attend to them promptly on April 24. For urgent matters, please reply with the word \"emergency,\" and we'll respond as soon as possible. Thank you! Day Trip Bali team🐠"
+        },
+        {
+          "q": "Is that possible to cancel from your end ? To be refunded ?",
+          "a": "Hello! Thanks for reaching out to us! Kindly note that our office is closed due to the holiday of Galungan. Please leave your requests, and we'll attend to them promptly on April 24. For urgent matters, please reply with the word \"emergency,\" and we'll respond as soon as possible. Thank you! Day Trip Bali team🐠"
+        },
+        {
+          "q": "Yes please refund",
+          "a": "Hello! We’ve just sent you an email with an online check-in form for your tour tomorrow. Completing it will help us prepare your documents and insurance, speed up the boarding process, and save you from waiting in line for registration. 😊 If you don’t see the email, please check your spam folder. If it’s not there, let us know, and we’ll send you the link here on WhatsApp. Thank you!"
+        },
+        {
+          "q": "Oh okay. I’d just like a refund thank you.",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. Just wanted to reach out and check if you were still interested in booking a tour with us or need further information regarding what we offer. Please feel free to reach out anytime. Me and my team will be happy to assist. Thank you!"
+        }
+      ]
+    },
+    "food_dietary": {
+      "label": "Food & Dietary Needs",
+      "description": "Questions about lunch, dietary restrictions, vegetarian, halal, gluten-free",
+      "priority": "MEDIUM",
+      "example_count_in_data": 9839,
+      "examples": [
+        {
+          "q": "where will lunch be",
+          "a": "Hello! Just a quick follow-up — we haven’t received the payment for your tour yet. If you’d like to go ahead and confirm the booking, let us know and we’ll guide you through the next steps. Please keep in mind that bookings are only confirmed once payment is completed. Tours can fill up quickly, so a delay might mean your preferred date becomes unavailable. Looking forward to hearing from you! 😊"
+        },
+        {
+          "q": "could you please share with me the options for lunch?",
+          "a": "Hello. Nemo just informed us that you were planning to add an extra hour for sunset. Sunset will be around Serangan area and if you'd like to add it it would be an additional 2,500,000 IDR per hour. Kindly update us if you'd maybe want to add this, so we can inform our team. Thanks in advance."
+        },
+        {
+          "q": "I am great thank you Yudha! How are you? Yes we are currently looking at 26th June 2025 😊 Thank you!",
+          "a": "Modi, we’re excited that you booked a tour with us on Klook! We cannot wait to have you on board and happy to assist you! 📣 Just to be sure - you booked Premium Shared Boat Tour on 27.05.2025 08:30 for 2 guests. Please don't hesitate to ask any questions ☀️ Thanks, Edward"
+        },
+        {
+          "q": "What restaurant are we stopping for lunch",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. Just wanted to reach out and check if you were still interested in booking a tour with us or need further information regarding what we offer. Please feel free to reach out anytime. Me and my team will be happy to assist. Thank you!"
+        },
+        {
+          "q": "10 seater or 9 seater?",
+          "a": "Hello! We’ve just sent you an email with an online check-in form for your tour tomorrow. Completing it will help us prepare your documents and insurance, speed up the boarding process, and save you from waiting in line for registration. 😊 If you don’t see the email, please check your spam folder. If it’s not there, let us know, and we’ll send you the link here on WhatsApp. Thank you!"
+        },
+        {
+          "q": "Mau sewa kapal utk 8 orang snorkling + west trip + lunch. BRP ?",
+          "a": "Hey! 👋 Just wanted to let you know we've upgraded you to our Premium Shared Tour for tomorrow - completely free! 🎉 Get ready for an awesome experience with a premium boat, pro photographer on board, welcome drinks & fresh juices, 3 bottles of prosecco for your group, an extra hour with a secret sunset spot, and cozy hoodie towels! 🤩 We'd also love it if you could share your experience with a review afterwards (our guides will give you the link). Thanks and see you tomorrow! 😊"
+        },
+        {
+          "q": "Okay great",
+          "a": "🔆 We're so excited to welcome you to Day Trip Bali! Get ready for an unforgettable adventure! 📝 Before we set off, we need a quick favor. Please take a few minutes to register online: https://nusapenida.one/confirm/17691707 This helps us: 🎫 Prepare your boarding pass and insurance 🚤 Finalize your tour details for a smooth start ℹ Share some tips to make your day even better! ⏩ It's quick and easy, and it ensures your tour is absolutely perfect. See you soon!"
+        },
+        {
+          "q": "you drop us at Warung Nia Balinese Food & Pork Ribs",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. Just wanted to reach out and check if you were still interested in booking a tour with us or need further information regarding what we offer. Please feel free to reach out anytime. Me and my team will be happy to assist. Thank you!"
+        },
+        {
+          "q": "Hello, Very excited for our day trip. Can you please advise if you have alcohol options on board? Also if you have some pictures of the boat that would be great. 😊",
+          "a": "Your transfer has been confirmed! Pick Up : Apurva Kempinski Drop Off : Apurva Kempinski 🔹 The car transportation service is non-refundable if guests have already used it and the tour is canceled due to bad weather conditions. 🚗 The driver will get in touch with you via WhatsApp the evening before the tour. ⚠️ Please reach out to us if you haven't heard from the driver after 9 PM. 💵 Payment for the transfer (if any) can be made on the morning of the tour."
+        },
+        {
+          "q": "What are the lunch stop options?",
+          "a": "Many thanks, your Private Boat Tour on 29.05.2025 09:00 for 6 guests is confirmed! ⚠️ Please be noted that our office closed after 6 PM, and transfers and any changes can be organized only before this time."
+        },
+        {
+          "q": "That’s great, thanks so much for your help 😀",
+          "a": "Your transfer has been confirmed! Pick Up : Double Six Hotel Seminyak Drop Off : Double Six Hotel Seminyak 🔹 The car transportation service is non-refundable if guests have already used it and the tour is canceled due to bad weather conditions. 🚗 The driver will get in touch with you via WhatsApp the evening before the tour. ⚠️ Please reach out to us if you haven't heard from the driver after 9 PM. 💵 Payment for the transfer (if any) can be made on the morning of the tour."
+        },
+        {
+          "q": "Great thank you - we will fill out the forms today",
+          "a": "Honey Milk boat that I share to you before can take 14 guests max on board. Price will be 22.285.500 IDR for 14 guests. 📅 Itinerary: 08:00 am – Pick-up (+300k IDR/car) 09:00 am – 🛥️ Departure 09:30 am – 🤿 Bali Hai 10:30 am – 🤿 SD Point 11:30 pm – 🤿 Wall Point 12:30 pm – 🍽️ Lunch (included) 02:30 pm – 🤿 Crystal Bay 03:30 pm – 🤿 Swim with Manta Rays 04:30 pm – Return to Bali 05:00 pm – Drop Off (+300k IDR/car) ✅ All-Inclusive Package: 🔹 Private Boat 🔹 Professional Guide 🔹 Underwater GoPro Footage 🔹 Snorkeling Equipment 🔹 All Entrance Tickets 🔹 Drinking Water 🔹 Towels ⚠️ The itinerary can be changed depending on the weather conditions."
+        },
+        {
+          "q": "Sounds great",
+          "a": "Hey! 👋 Just wanted to let you know we've upgraded you to our Premium Shared Tour for tomorrow - completely free! 🎉 Get ready for an awesome experience with a premium boat, pro photographer on board, welcome drinks & fresh juices, 3 bottles of prosecco for your group, an extra hour with a secret sunset spot, and cozy hoodie towels! 🤩 We'd also love it if you could share your experience with a review afterwards (our guides will give you the link). Thanks and see you tomorrow! 😊"
+        },
+        {
+          "q": "Great thank you!",
+          "a": "Bleasdale, we’re excited that you booked a tour with us on TripAdvisor! We cannot wait to have you on board and happy to assist you! 📣 Just to be sure - you booked Shared Boat Tour at 11.07.2025 08:00 for 3 guests. Please don't hesitate to ask any questions ☀️ Regards, Hardi"
+        },
+        {
+          "q": "great thanks!",
+          "a": "Many thanks, your Premium Private Tour on 26.05.2025 09:00 for 2 guests is confirmed! ⚠️ Please be noted that our office closed after 6 PM, and transfers and any changes can be organized only before this time."
+        }
+      ]
+    },
+    "group_private": {
+      "label": "Group Size & Private Tours",
+      "description": "Questions about private charter, group bookings, boat capacity",
+      "priority": "MEDIUM",
+      "example_count_in_data": 9197,
+      "examples": [
+        {
+          "q": "Yes, I did, just for invoicing purpose and client identification. They are to only be contacted a week before their charter arrival. Until then, we are the point of contact and can mediate in between. Thank you for your kind understanding. If the client have some questions, I will let you know. and on the other hand, if you need some information or formalities, like ID copies, passenger lists or so to obtain permits or to comply with the local port's guidelines, pls let me know, I will get them for you. Thank you 🙂",
+          "a": "Hello! Just a quick follow-up — we haven’t received the payment for your tour yet. If you’d like to go ahead and confirm the booking, let us know and we’ll guide you through the next steps. Please keep in mind that bookings are only confirmed once payment is completed. Tours can fill up quickly, so a delay might mean your preferred date becomes unavailable. Looking forward to hearing from you! 😊"
+        },
+        {
+          "q": "When you say a private tour, do you mean, it would just be the boat and the two of us?",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. Just wanted to reach out and check if you were still interested in booking a tour with us or need further information regarding what we offer. Please feel free to reach out anytime. Me and my team will be happy to assist. Thank you!"
+        },
+        {
+          "q": "This will be a private boat with a small groupfrom Bali and not a ferry,right?",
+          "a": "Full Day Tour Nusa Penida 📅 Itinerary: 06:30 am – Pick-up (+300k IDR) 07:30 am – Meeting and briefing 08:00 am – 🛥️ Departure 08:30 am – 🤿 Bali Hai 09:30 am – 🤿 SD Point 10:30 am – 🤿 Wall Point 11:30 am – 🍽️ Lunch (included) 01:00 pm – 🚗 Kelingking Cliff 02:30 pm – 🤿 Crystal Bay 03:30 pm – 🤿 Swim with Manta Rays 04:30 pm – 🛥️ Return to Bali 05:00 pm – Drop-off (+300k IDR) ✅ All-Inclusive Package: 🔹 Land Tour 🔹 Professional Guide 🔹 Underwater GoPro Footage 🔹 Snorkeling Equipment 🔹 All Entrance Tickets 🔹 Drinking Water 🔹 Towels ⚠️ The itinerary can be changed depending on the weather conditions."
+        },
+        {
+          "q": "Private sunset tour is what I am looking for",
+          "a": "Premium Full Day Tour Nusa Penida 📅 Itinerary: 08:00 am – Meeting and briefing 08:30 am – 🛥️ Departure 09:00 am – 🤿 Bali Hai 10:00 am – 🤿 SD Point 11:00 am – 🤿 Wall Point 12:00 pm – 🍽️ Lunch (included) 01:30 pm – 🚗 Kelingking Cliff 03:00 pm – 🤿 Crystal Bay 04:00 pm – 🤿 Swim with Manta Rays 05:00 pm – ☀️ Secret spot 05:30 pm – 🛥️ Return to Bali ✅ Premium package includes: 🔹 Premium boat 🔹 Welcome drink 🔹 Complimentary Prosecco and juice 🔹 Drinking Water 🔹 Land Tour 🔹 Professional Guides 🔹 Underwater GoPro Footage 🔹 Professional photographer 🔹 Snorkeling Equipment 🔹 Hoodie towels 🔹 All Entrance Tickets ⚠️ The itinerary can be changed depending on the weather conditions."
+        },
+        {
+          "q": "Hello. Inquiring about a private charter for May 27th. We will be staying in Nusa Lembongan and want to see Nusa Penida. 6 guests total.",
+          "a": "Full Day Boat & Kelingking Cliff Tour 📅 Itinerary: 09:00 am – 🛥️ Departure 09:30 am – 🤿 Bali Hai 10:30 am – 🤿 SD Point 11:30 am – 🤿 Wall Point 12:30 pm – 🍽️ Lunch (included) 02:00 pm – 🚗 Kelingking Cliff 03:30 pm – 🤿 Crystal Bay 04:30 pm – 🤿 Swim with Manta Rays 05:00 pm – Return to Bali ⚠️ The itinerary can be changed depending on the weather conditions."
+        },
+        {
+          "q": "Also, because of our group size, will we have our own private boat for this tour?",
+          "a": "Galgali, we’re excited that you booked a tour with us on TripAdvisor! We cannot wait to have you on board and happy to assist you! 📣 Just to be sure - you booked Private Boat Tour at 26.05.2025 09:00 for 13 guests. Please don't hesitate to ask any questions ☀️ Regards, Hardi"
+        },
+        {
+          "q": "Bukan maksudnya dia Charter 2 hari Pulang pergi",
+          "a": "Private Day Tour to Nusa Penida 📅 Itinerary: 08:00 am – Pick-up (+300k IDR) 09:00 am – 🛥️ Departure 09:30 am – 🤿 Bali Hai 10:30 am – 🤿 SD Point 11:30 am – 🤿 Wall Point 12:30 pm – 🍽️ Lunch (included) 02:30 pm – 🤿 Crystal Bay 03:30 pm – 🤿 Swim with Manta Rays 04:30 pm – Return to Bali 05:00 pm – Drop Off (+300k IDR) ✅ All-Inclusive Package: 🔹 Private Boat 🔹 Professional Guide 🔹 Underwater GoPro Footage 🔹 Snorkeling Equipment 🔹 All Entrance Tickets 🔹 Drinking Water 🔹 Towels ⚠️ The itinerary can be changed depending on the weather conditions."
+        },
+        {
+          "q": "kl yg private",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. Just wanted to reach out and check if you were still interested in booking a tour with us or need further information regarding what we offer. Please feel free to reach out anytime. Me and my team will be happy to assist. Thank you!"
+        },
+        {
+          "q": "Private boat",
+          "a": "Hi, we just wanted to follow up regarding that we haven't received payment on your tour, please inform us if you would like to proceed with the payment so we can secure your booking. Please note booking is only confirmed when payment is made. Due to high season, we book out fast so you might not get the date of tour you inquired if payment is late."
+        },
+        {
+          "q": "Hey guys, i reached out to you via a group chat with my boyfriend",
+          "a": "We’re excited that you have decided to book with our company! You are booking a Private Boat Tour on 20.12.2025 08:30 for 23 guests on JA20 with a custom itinerary and hotel transfers If everything is correct and you agree with the Cancellation Policy, please make a payment via this link: https://checkout.xendit.co/web/682698720247346f225e6309 Total 52,160,000 Rp Deposit 26,080,000 Rp Once the deposit is paid, you will receive a booking confirmation to your email. ⚠️ Please note that card payments are subject to a 3% processing fee. ℹ️ Rest payment (if applicable) can be made in cash or by card on the morning of the tour."
+        },
+        {
+          "q": "Kami Dari Bali Paradise Group ingin Tanya private boat untuk ke Nusa Penida",
+          "a": "Hello! We just wanted to follow up as we haven’t received payment for your tour. Please let us know if you’d like to proceed with the payment so we can secure your booking. Kindly note that bookings are only confirmed once payment is made. Spots fill up quickly, and delays in payment may result in losing your requested tour date."
+        },
+        {
+          "q": "Thank you, its a bit expensive, for the group tour, we paid around 1.1 mln per person for a similar boat",
+          "a": "🔆 We're so excited to welcome you to Day Trip Bali! Get ready for an unforgettable adventure! 📝 Before we set off, we need a quick favor. Please take a few minutes to register online: https://nusapenida.one/confirm/16415759 This helps us: 🎫 Prepare your boarding pass and insurance 🚤 Finalize your tour details for a smooth start ℹ Share some tips to make your day even better! ⏩ It's quick and easy, and it ensures your tour is absolutely perfect. See you soon!"
+        },
+        {
+          "q": "Grandmas Plus Hotel Jalan Camplung Tanduk 99, 80361 Seminyak, Indonesia Solo passenger.",
+          "a": "Hello, this is the manager of Day Trip Bali, a boat tour company. We have received your contact details from our guide, who informed us that you are interested in booking a tour with us. Please let us know which tour and date you have in mind, and I will be happy to assist you with the booking process. Thank you 🙏🏻"
+        },
+        {
+          "q": "Ok so please send new link for both boats as only almond milk is showing",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. We have received your booking on Getyourguide and are happy to assist you here. Please let us know if you would have any questions. Thanks!"
+        },
+        {
+          "q": "if this is late but could we arrange for a private taxi to pick us up?",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. We have received your booking on Getyourguide and are happy to assist you here. Please let us know if you would have any questions. Thanks!"
+        }
+      ]
+    },
+    "hotel_pickup_area": {
+      "label": "Hotel Pickup by Area",
+      "description": "Questions about pickup from specific Bali areas/hotels",
+      "priority": "MEDIUM",
+      "example_count_in_data": 7615,
+      "examples": [
+        {
+          "q": "it’s 8 people on August 8th. I plan back to Bali-Jimbaran area.",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. Just wanted to reach out and check if you were still interested in booking a tour with us or need further information regarding what we offer. Please feel free to reach out anytime. Me and my team will be happy to assist. Thank you!"
+        },
+        {
+          "q": "Im staying at Alam Terrace Cottages, Jalan Bisma, 80571, Ubud",
+          "a": "we apologize for the delay on the additional cost for 2 people. It will be an additional 2,600,000 to add 2 more in your group. Please let us know if that is confirmed so we can update your booking."
+        },
+        {
+          "q": "Jalan Raya Basangkasa, Kecamatan Kuta, Bali 80361, Indonesia",
+          "a": "We are unable to fill the details in as it will need to be done by the agent itself. I checked and the boat you inquired about is still available. Please full it out as soon as you are able to so we can proceed with the booking."
+        },
+        {
+          "q": "Jl. Pantai Balangan, Badung, Jimbaran, Kuta Selatan, Bali, 80361 Uluwatu, Indonesia",
+          "a": "🔆 We're so excited to welcome you to Day Trip Bali! Get ready for an unforgettable adventure! 📝 Before we set off, we need a quick favor. Please take a few minutes to register online: https://nusapenida.one/confirm/18141303 This helps us: 🎫 Prepare your boarding pass and insurance 🚤 Finalize your tour details for a smooth start ℹ Share some tips to make your day even better! ⏩ It's quick and easy, and it ensures your tour is absolutely perfect. See you soon!"
+        },
+        {
+          "q": "We are staying in Canggu - would it still be 300.000 ?",
+          "a": "Full Day Boat & Kelingking Cliff Tour 📅 Itinerary: 09:00 am – 🛥️ Departure 09:30 am – 🤿 Bali Hai 10:30 am – 🤿 SD Point 11:30 am – 🤿 Wall Point 12:30 pm – 🍽️ Lunch (included) 02:00 pm – 🚗 Kelingking Cliff 03:30 pm – 🤿 Crystal Bay 04:30 pm – 🤿 Swim with Manta Rays 05:00 pm – Return to Bali ✅ All-Inclusive Package: 🔹 Private Boat 🔹 Professional Guide 🔹 Underwater GoPro Footage 🔹 Snorkeling Equipment 🔹 All Entrance Tickets 🔹 Drinking Water 🔹 Towels ⚠️ The itinerary can be changed depending on the weather conditions."
+        },
+        {
+          "q": "We are staying at Conrad Hotel - Nusa Dua",
+          "a": "Your transfer has been confirmed! Pick Up : Casa Sana, Jl. Labuansait, Pecatu, South Kuta, Badung Regency, Bali 80361 Drop Off : Casa Sana, Jl. Labuansait, Pecatu, South Kuta, Badung Regency, Bali 80361 🔹 The car transportation service is non-refundable if guests have already used it and the tour is canceled due to bad weather conditions. 🚗 The driver will get in touch with you via WhatsApp the evening before the tour. ⚠️ Please reach out to us if you haven't heard from the driver after 9 PM. 💵 Payment for the transfer (if any) can be made on the morning of the tour."
+        },
+        {
+          "q": "Sheraton kuta bali resort",
+          "a": "For the classic boat tour, it seems like the price here is a bit higher than on the website. I’m sure you’re looking at the standard itinerary one, which is snorkeling only without a land tour. The option I have includes a land tour, which is why the price is slightly higher. But if you’d rather not visit Kelilingking, we can definitely omit it. Just let me know!"
+        },
+        {
+          "q": "Jalan Bumbak No.22, Kecamatan Kuta Utara, Bali 80361, Indonesia",
+          "a": "Full Day Tour Nusa Penida 📅 Itinerary: 06:30 am – Pick-up (+300k IDR) 07:30 am – Meeting and briefing 08:00 am – 🛥️ Departure 08:30 am – 🤿 Bali Hai 09:30 am – 🤿 SD Point 10:30 am – 🤿 Wall Point 11:30 am – 🍽️ Lunch (included) 01:00 pm – 🚗 Kelingking Cliff 02:30 pm – 🤿 Crystal Bay 03:30 pm – 🤿 Swim with Manta Rays 04:30 pm – 🛥️ Return to Bali 05:00 pm – Drop-off (+300k IDR) ✅ All-Inclusive Package: 🔹 Land Tour 🔹 Professional Guide 🔹 Underwater GoPro Footage 🔹 Snorkeling Equipment 🔹 All Entrance Tickets 🔹 Drinking Water 🔹 Towels ⚠️ The itinerary can be changed depending on the weather conditions."
+        },
+        {
+          "q": "Are u able to collect me from my hotel?",
+          "a": "Great news both dates are available. Price will be 2.687.000 IDR for our Nusa Penida Premium Shared tour. We unfortunately don't have Lovina snorkeling tours as we focus on the Nusa Penida area. Which date will work best for you."
+        },
+        {
+          "q": "Seminyak square hotel",
+          "a": "🔆 We're so excited to welcome you to Day Trip Bali! Get ready for an unforgettable adventure! 📝 Before we set off, we need a quick favor. Please take a few minutes to register online: https://nusapenida.one/confirm/18084555 This helps us: 🎫 Prepare your boarding pass and insurance 🚤 Finalize your tour details for a smooth start ℹ Share some tips to make your day even better! ⏩ It's quick and easy, and it ensures your tour is absolutely perfect. See you soon!"
+        },
+        {
+          "q": "I believe it’s the The Samaya Seminyak Pool Villa",
+          "a": "Visit our website https://nusapenida.one/ to explore boat options and check availability. Simply input your date and guest count to view pricing. Should you have further inquiries, please don't hesitate to contact me."
+        },
+        {
+          "q": "We’re staying in Seminyak by the way",
+          "a": "On the 1st of June, for 22 people, we do have our JA20 available with prices starting from [price — ask our team] 📅 Itinerary: 08:00 am – Pick-up (+300k IDR) 09:00 am – 🛥️ Departure 09:30 am – 🤿 Bali Hai 10:30 am – 🤿 SD Point 11:30 am – 🤿 Wall Point 12:30 pm – 🍽️ Lunch (included) 02:30 pm – 🤿 Crystal Bay 03:30 pm – 🤿 Swim with Manta Rays 04:30 pm – Return to Bali 05:00 pm – Drop Off (+300k IDR) ✅ All-Inclusive Package: 🔹 Private Boat 🔹 Professional Guide 🔹 Underwater GoPro Footage 🔹 Snorkeling Equipment 🔹 All Entrance Tickets 🔹 Drinking Water 🔹 Towels ⚠️ The itinerary can be changed depending on the weather conditions."
+        },
+        {
+          "q": "Done 👍🏼. Can you pick us up from our hotel tomorrow? We're in the Alb1a Villas....",
+          "a": "Full Day Tour Nusa Penida 📅 Itinerary: 06:30 am – Pick-up (+300k IDR) 07:30 am – Meeting and briefing 08:00 am – 🛥️ Departure 08:30 am – 🤿 Bali Hai 09:30 am – 🤿 SD Point 10:30 am – 🤿 Wall Point 11:30 am – 🍽️ Lunch (included) 01:00 pm – 🚗 Kelingking Cliff 02:30 pm – 🤿 Crystal Bay 03:30 pm – 🤿 Swim with Manta Rays 04:30 pm – 🛥️ Return to Bali 05:00 pm – Drop-off (+300k IDR) ✅ All-Inclusive Package: 🔹 Land Tour 🔹 Professional Guide 🔹 Underwater GoPro Footage 🔹 Snorkeling Equipment 🔹 All Entrance Tickets 🔹 Drinking Water 🔹 Towels ⚠️ The itinerary can be changed depending on the weather conditions."
+        },
+        {
+          "q": "Four points Bali, Seminyak",
+          "a": "Hello! We’ve just sent you an email with an online check-in form for your tour tomorrow. Completing it will help us prepare your documents and insurance, speed up the boarding process, and save you from waiting in line for registration. 😊 If you don’t see the email, please check your spam folder. If it’s not there, let us know, and we’ll send you the link here on WhatsApp. Thank you!"
+        },
+        {
+          "q": "We are two people staying at the grand Hyatt nusa dua",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. We have received your booking on Getyourguide and are happy to assist you here. Please let us know if you would have any questions. Thanks!"
+        }
+      ]
+    },
+    "meeting_point": {
+      "label": "Meeting Point & Departure",
+      "description": "Questions about where to meet, Serangan Harbor, departure address",
+      "priority": "MEDIUM",
+      "example_count_in_data": 3800,
+      "examples": [
+        {
+          "q": "The hotel said \" Kindly to choose the boat company that port their boat at Banjarnyuh or Toyapakeh harbour. Both are the nearest harbor to our villas.\"",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. Just wanted to reach out and check if you were still interested in booking a tour with us or need further information regarding what we offer. Please feel free to reach out anytime. Me and my team will be happy to assist. Thank you!"
+        },
+        {
+          "q": "I will bring my suitcase with me to the meeting point office since I’m changing hotel tomorrow. I will check out at hotel in Seminyak and check in at Renaissance Bali Nusa Dua Resort tomorrow night after the day trip. So I will have to come to the serrangan port with my luggage. Is it ok to store the luggage at your office at serrangan port?",
+          "a": "🔆 We're so excited to welcome you to Day Trip Bali! Get ready for an unforgettable adventure! 📝 Before we set off, we need a quick favor. Please take a few minutes to register online: https://nusapenida.one/confirm/17816055 This helps us: 🎫 Prepare your boarding pass and insurance 🚤 Finalize your tour details for a smooth start ℹ Share some tips to make your day even better! ⏩ It's quick and easy, and it ensures your tour is absolutely perfect. See you soon!"
+        },
+        {
+          "q": "This is the address",
+          "a": "Full Day Tour Nusa Penida 📅 Itinerary: 06:30 am – Pick-up (+300k IDR) 07:30 am – Meeting and briefing 08:00 am – 🛥️ Departure 08:30 am – 🤿 Bali Hai 09:30 am – 🤿 SD Point 10:30 am – 🤿 Wall Point 11:30 am – 🍽️ Lunch (included) 01:00 pm – 🚗 Kelingking Cliff 02:30 pm – 🤿 Crystal Bay 03:30 pm – 🤿 Swim with Manta Rays 04:30 pm – 🛥️ Return to Bali 05:00 pm – Drop-off (+300k IDR) ✅ All-Inclusive Package: 🔹 Land Tour 🔹 Professional Guide 🔹 Underwater GoPro Footage 🔹 Snorkeling Equipment 🔹 All Entrance Tickets 🔹 Drinking Water 🔹 Towels ⚠️ The itinerary can be changed depending on the weather conditions."
+        },
+        {
+          "q": "And can I check if the roads to the meeting point is narrow? Can a hiace fit?",
+          "a": "Ozgencil, we’re excited that you booked a tour with us on TripAdvisor! We cannot wait to have you on board and happy to assist you! 📣 Just to be sure - you booked Premium Shared Boat Tour at 15.06.2025 08:30 for 2 guests. Please don't hesitate to ask any questions ☀️ Regards, Hardi"
+        },
+        {
+          "q": "Where is the pier for getting on the boat? Serangan? Sanur?",
+          "a": "Adams, we’re excited that you booked a tour with us on TripAdvisor! We cannot wait to have you on board and happy to assist you! 📣 Just to be sure - you booked Shared Boat Tour at 21.06.2025 08:00 for 3 guests. Please don't hesitate to ask any questions ☀️ Regards, Hardi"
+        },
+        {
+          "q": "Meeting point nya dimana ya?",
+          "a": "🔆 We're so excited to welcome you to Day Trip Bali! Get ready for an unforgettable adventure! 📝 Before we set off, we need a quick favor. Please take a few minutes to register online: https://nusapenida.one/confirm/18019385 This helps us: 🎫 Prepare your boarding pass and insurance 🚤 Finalize your tour details for a smooth start ℹ Share some tips to make your day even better! ⏩ It's quick and easy, and it ensures your tour is absolutely perfect. See you soon!"
+        },
+        {
+          "q": "Tamu kami sudah sampai di serangan kak",
+          "a": "🔆 We're so excited to welcome you to Day Trip Bali! Get ready for an unforgettable adventure! 📝 Before we set off, we need a quick favor. Please take a few minutes to register online: https://nusapenida.one/confirm/18019385 This helps us: 🎫 Prepare your boarding pass and insurance 🚤 Finalize your tour details for a smooth start ℹ Share some tips to make your day even better! ⏩ It's quick and easy, and it ensures your tour is absolutely perfect. See you soon!"
+        },
+        {
+          "q": "I sent the wrong address sorry we will be at",
+          "a": "Your transfer has been confirmed! Pick Up : The Akasha Canggu Luxury Villas (Request APV + Baby car seat) Drop Off : The Akasha Canggu Luxury Villas (Request APV + Baby car seat) 🔹 The car transportation service is non-refundable if guests have already used it and the tour is canceled due to bad weather conditions. 🚗 The driver will get in touch with you via WhatsApp the evening before the tour. ⚠️ Please reach out to us if you haven't heard from the driver after 9 PM. 💵 Payment for the transfer (if any) can be made on the morning of the tour."
+        },
+        {
+          "q": "19 June: Serangan - Penida 20 June: Penida - Serangan",
+          "a": "🔆 We're so excited to welcome you to Day Trip Bali! Get ready for an unforgettable adventure! 📝 Before we set off, we need a quick favor. Please take a few minutes to register online: https://nusapenida.one/confirm/18036957 This helps us: 🎫 Prepare your boarding pass and insurance 🚤 Finalize your tour details for a smooth start ℹ Share some tips to make your day even better! ⏩ It's quick and easy, and it ensures your tour is absolutely perfect. See you soon!"
+        },
+        {
+          "q": "Where is the meeting and briefing location? We'll get there ourselves on our scooters.",
+          "a": "🔆 We're so excited to welcome you to Day Trip Bali! Get ready for an unforgettable adventure! 📝 Before we set off, we need a quick favor. Please take a few minutes to register online: https://nusapenida.one/confirm/18021295 This helps us: 🎫 Prepare your boarding pass and insurance 🚤 Finalize your tour details for a smooth start ℹ Share some tips to make your day even better! ⏩ It's quick and easy, and it ensures your tour is absolutely perfect. See you soon!"
+        },
+        {
+          "q": "1) where we meet with your representative at serangan? 2) what should i take with me? 3) do u have towels there? 4) u provide with everything i will need? towels, etr 5) what shoes should i wear?",
+          "a": "🔆 We're so excited to welcome you to Day Trip Bali! Get ready for an unforgettable adventure! 📝 Before we set off, we need a quick favor. Please take a few minutes to register online: https://nusapenida.one/confirm/18021295 This helps us: 🎫 Prepare your boarding pass and insurance 🚤 Finalize your tour details for a smooth start ℹ Share some tips to make your day even better! ⏩ It's quick and easy, and it ensures your tour is absolutely perfect. See you soon!"
+        },
+        {
+          "q": "ada nomor contact person di meeting pointnya?",
+          "a": "🔆 We're so excited to welcome you to Day Trip Bali! Get ready for an unforgettable adventure! 📝 Before we set off, we need a quick favor. Please take a few minutes to register online: https://nusapenida.one/confirm/18012143 This helps us: 🎫 Prepare your boarding pass and insurance 🚤 Finalize your tour details for a smooth start ℹ Share some tips to make your day even better! ⏩ It's quick and easy, and it ensures your tour is absolutely perfect. See you soon!"
+        },
+        {
+          "q": "Thank you, it's done! We're coming to the meeting point tomorrow on our own. How do I know who my guide and excursion will be? Sincerely",
+          "a": "Your transfer has been confirmed! Pick Up : Royal Kamuela Villas & Suites at Monkey Forest, Ubud Drop Off : Royal Kamuela Villas & Suites at Monkey Forest, Ubud 🔹 The car transportation service is non-refundable if guests have already used it and the tour is canceled due to bad weather conditions. 🚗 The driver will get in touch with you via WhatsApp the evening before the tour. ⚠️ Please reach out to us if you haven't heard from the driver after 9 PM. 💵 Payment for the transfer (if any) can be made on the morning of the tour."
+        },
+        {
+          "q": "https://maps.apple.com/place?address=Jalan%20Camplung%20Tanduk%20No.%2010%0ASeminyak,%20Kabupaten%20Badung%0ABali%2080361%0AIndonesia&coordinate=-8.695398,115.162296&name=Hotel%20Indigo%20Bali%20Seminyak%20Beach&place-id=I4E8DEB06919E093&map=explore",
+          "a": "🔆 We're so excited to welcome you to Day Trip Bali! Get ready for an unforgettable adventure! 📝 Before we set off, we need a quick favor. Please take a few minutes to register online: https://nusapenida.one/confirm/17988383 This helps us: 🎫 Prepare your boarding pass and insurance 🚤 Finalize your tour details for a smooth start ℹ Share some tips to make your day even better! ⏩ It's quick and easy, and it ensures your tour is absolutely perfect. See you soon!"
+        },
+        {
+          "q": "I mistook the address",
+          "a": "The package you booked was for a standard one. Prosecco and Photographer only included on premium package. You can also see our boat option on our website, www.nusapenida.one. Happy to offer 10% discount if you book from the website."
+        }
+      ]
+    },
+    "what_to_bring": {
+      "label": "What to Bring / Pack",
+      "description": "Questions about what to bring, passport, towels, sunscreen",
+      "priority": "MEDIUM",
+      "example_count_in_data": 3979,
+      "examples": [
+        {
+          "q": "Next trip I will prepare for this trip",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. Just wanted to reach out and check if you were still interested in booking a tour with us or need further information regarding what we offer. Please feel free to reach out anytime. Me and my team will be happy to assist. Thank you!"
+        },
+        {
+          "q": "Thank you for following up but no we’re not interested in private packages",
+          "a": "For deposit we will require 50% deposit which you can pay via the booking link we send. Then the remainder you can pay with cash or card at our office. Or you can also choose to pay everything in full in advance."
+        },
+        {
+          "q": "premium private speedboat with fruits, juices snacks towels prosseco etc and all other things u mentioned",
+          "a": "Just to ensure I have the details correct it was for 6 adults and 6 kids. Can you advise once again which option you will book for as we have several options we discussed and the last option was the premium private tour."
+        },
+        {
+          "q": "Thanks! What do you recommend we bring vs wear",
+          "a": "If you need hotel transfers, we suggest booking our private transportation services for a smooth boarding process and punctual arrival. 🚗 Pick-up: 300.000 IDR/car 🚗 Drop-off: 300.000 IDR/car 🔹 Fits five adults (Avanza/APV) 📍 Prices may vary for distant locations ⚠️ Non-refundable after booking"
+        },
+        {
+          "q": "You are also providing similar packages",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. Just wanted to reach out and check if you were still interested in booking a tour with us or need further information regarding what we offer. Please feel free to reach out anytime. Me and my team will be happy to assist. Thank you!"
+        },
+        {
+          "q": "Passport copy of the owner",
+          "a": "Good evening, this is the manager of Day Trip Bali. Please check the number of customers we are bringing to Amarta tomorrow using this link: https://manage.baliboat.tours/rest/g (please note that this calendar only displays information for the next day and will no longer be valid after 12 AM) Our guide will also provide detailed information before arrival. Thank you!"
+        },
+        {
+          "q": "If no can we bring our own alcohol?",
+          "a": "For diving it will be not enough space for guide and diving tanks so I'm not recommend it to be honest cause it will be 12 and 13 guests each boat so it will affect all guests moving space becomes limited."
+        },
+        {
+          "q": "Complete package ?",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. Just wanted to reach out and check if you were still interested in booking a tour with us or need further information regarding what we offer. Please feel free to reach out anytime. Me and my team will be happy to assist. Thank you!"
+        },
+        {
+          "q": "Also, do we need to bring our boarding pass?",
+          "a": "Great news – kids are welcome on our Private Tours! We provide special snorkeling equipment and life jackets for kids. ⚠️ Please note that our insurance only covers individuals aged 8 and above. While we will ensure a smooth trip, we regret that we cannot take responsibility for your children during the tour."
+        },
+        {
+          "q": "What do we need to bring with us tomorrow that people forget to bring? I know swimsuits, water, etc.",
+          "a": "🔆 We're so excited to welcome you to Day Trip Bali! Get ready for an unforgettable adventure! 📝 Before we set off, we need a quick favor. Please take a few minutes to register online: https://nusapenida.one/confirm/18044945 This helps us: 🎫 Prepare your boarding pass and insurance 🚤 Finalize your tour details for a smooth start ℹ Share some tips to make your day even better! ⏩ It's quick and easy, and it ensures your tour is absolutely perfect. See you soon!"
+        },
+        {
+          "q": "I would like to ask about your Full Day Tour package",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. Just wanted to reach out and check if you were still interested in booking a tour with us or need further information regarding what we offer. Please feel free to reach out anytime. Me and my team will be happy to assist. Thank you!"
+        },
+        {
+          "q": "towel harus bawa lagi?",
+          "a": "🕒 To qualify for a full refund, kindly cancel at least 4 days before the experience's scheduled start time. ❗ Cancellations made after this deadline will incur a 30% charge. 🗣️ Our company reserves the right to refuse guests if they are sick, drunk, in poor condition, or have abused others before the trip. We regret that refunds or rescheduling in such cases WON'T be possible. ❌ If you decide to cancel the tour after it has started (due to feeling unwell or any other reason), a refund is not possible. 📌 If you've booked this experience through alternative online platforms such as TripAdvisor, Airbnb, or others, please note that ALL changes, cancellations, and refunds must be managed exclusively through the source where your booking was made. 🔄 Changes made within 4 days of the experience's start time cannot be guaranteed. 🕐 Please note that all cutoff times are determined by the local time of the experience (GMT+8). 🚗 The cars transportation service (pick up and drop off) becomes non-refundable once it has been utilized, even if the tour gets canceled due to inclement weather. ⛈️ Please note that sightings of manta rays are not guaranteed, as they are wild animals and their behavior is unpredictable. Additionally, the itinerary may be subject to change by our crew due to weather and sea conditions, such as rain or significant swell. In such cases, an alternative itinerary will be offered. No refund will be provided if there are no manta rays or if the itinerary is changed due to weather. 🌦️ This experience is weather-dependent, and in case of cancellation due to poor weather conditions, we'll gladly offer you an alternative date or a full refund* * When referring to \"Poor Weather,\" it pertains to instances where the Port Authority does not grant permission to commence the tour due to adverse conditions such as big waves or strong winds."
+        },
+        {
+          "q": "Ok thanks excited for it ! You have towels for us right ?",
+          "a": "Your transfer has been confirmed! Pick Up : Village Bali, Jl. Pemutih, Pecatu, Kec. Kuta Sel., Kabupaten Badung, Bali 80361 Drop Off : Village Bali, Jl. Pemutih, Pecatu, Kec. Kuta Sel., Kabupaten Badung, Bali 80361 🔹 The car transportation service is non-refundable if guests have already used it and the tour is canceled due to bad weather conditions. 🚗 The driver will get in touch with you via WhatsApp the evening before the tour. ⚠️ Please reach out to us if you haven't heard from the driver after 9 PM. 💵 Payment for the transfer (if any) can be made on the morning of the tour."
+        },
+        {
+          "q": "Can we bring our own booze 🍸",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. We have received your booking on Getyourguide and are happy to assist you here. Please let us know if you would have any questions. Thanks!"
+        },
+        {
+          "q": "Halo,do we need to take our passport tomorrow?",
+          "a": "Bullock, we’re excited that you booked a tour with us on TripAdvisor! We cannot wait to have you on board and happy to assist you! 📣 Just to be sure - you booked Premium Shared Boat Tour at 05.05.2025 08:30 for 2 guests. Please don't hesitate to ask any questions ☀️ Regards, Hardi"
+        }
+      ]
+    },
+    "payment_methods": {
+      "label": "Payment Methods",
+      "description": "Questions about how to pay, credit card, cash, online payment",
+      "priority": "MEDIUM",
+      "example_count_in_data": 2988,
+      "examples": [],
+      "_note": "Examples removed — pricing handled by human team",
+      "bot_behavior": "Escalate immediately to human agent"
+    },
+    "snorkeling": {
+      "label": "Snorkeling & Equipment",
+      "description": "Questions about snorkeling spots, equipment provided, swimming",
+      "priority": "MEDIUM",
+      "example_count_in_data": 4709,
+      "examples": [
+        {
+          "q": "Any equipment to add? Activities?",
+          "a": "🕒 To qualify for a full refund, kindly cancel at least 24 hours before the experience's scheduled start time. ⚠️ Please note that refunds will be processed for the net amount received, after deducting any applicable fees and commissions charged by payment platforms. ❗ If you cancel within 24 hours of the experience's start time for ANY reason, whether due to health reasons, booking errors, or other unforeseen circumstances, we regret that refunds or rescheduling WON’T be possible. ❌ If you decide to cancel the tour after it has started (due to feeling unwell or any other reason), a refund is not possible. 🗣️ Our company reserves the right to refuse guests if they are sick, drunk, in poor condition, or have abused others before the trip. We regret that refunds or rescheduling in such cases WON'T be possible. 📌 If you've booked this experience through alternative online platforms such as TripAdvisor, Airbnb, or others, please note that ALL changes, cancellations, and refunds must be managed exclusively through the source where your booking was made. 🔄 Changes made within 24 hours of the experience's start time cannot be guaranteed. 🕐 Please note that all cutoff times are determined by the local time of the experience (GMT+8). 👥 This experience (shared option) has a minimum traveler requirement, and if it's canceled due to not meeting this minimum, we'll offer you an alternative date or experience, or provide a full refund. 🚗 The cars transportation service (pick up and drop off) becomes non-refundable once it has been utilized, even if the tour gets canceled due to inclement weather. ⛈️ Please note that sightings of manta rays are not guaranteed, as they are wild animals and their behavior is unpredictable. Additionally, the itinerary may be subject to change by our crew due to weather and sea conditions, such as rain or significant swell. In such cases, an alternative itinerary will be offered. No refund will be provided if there are no manta rays or if the itinerary is changed due to weather. 🌦️ This experience is weather-dependent, and in case of cancellation due to poor weather conditions, we'll gladly offer you an alternative date or a full refund* * When referring to \"Poor Weather,\" it pertains to instances where the Port Authority does not grant permission to commence the tour due to adverse conditions such as big waves or strong winds."
+        },
+        {
+          "q": "Sure that’s fine",
+          "a": "Your transfer has been confirmed! Pick Up : Cicada Luxury Townhouses, Jl. Pura Telaga Waja, Petitenget Seminyak, Kerobokan Kelod, Kec. Kuta Utara, Kabupaten Badung, Bali 80363 Drop Off : Cicada Luxury Townhouses, Jl. Pura Telaga Waja, Petitenget Seminyak, Kerobokan Kelod, Kec. Kuta Utara, Kabupaten Badung, Bali 80363 🔹 Transfer is non-refundable if used and the tour is canceled due to weather. 🚗 The driver will contact you via WhatsApp the evening before the tour. ⚠️ If you haven’t heard from the driver by 9 PM, please contact us. 💵 Transfer payment (if applicable) can be made on the tour morning."
+        },
+        {
+          "q": "Ok sure that’s fine.",
+          "a": "Just to ensure I have the details correct it was for 6 adults and 6 kids. Can you advise once again which option you will book for as we have several options we discussed and the last option was the premium private tour."
+        },
+        {
+          "q": "That’s fine",
+          "a": "we apologize for the delay on the additional cost for 2 people. It will be an additional 2,600,000 to add 2 more in your group. Please let us know if that is confirmed so we can update your booking."
+        },
+        {
+          "q": "Hi, I’m sorry I didn’t see this message. Are we still okay if we finish it now? I understand it’s past 3pm",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. Just wanted to reach out and check if you were still interested in booking a tour with us or need further information regarding what we offer. Please feel free to reach out anytime. Me and my team will be happy to assist. Thank you!"
+        },
+        {
+          "q": "It’s a total of 20 people as the final head count",
+          "a": "Thank you so much for filling out the form, and yes, we are able to pick up and drop off you at your accommodation. Allow me to check the additional cost through the provided accommodation name will get back to you shortly"
+        },
+        {
+          "q": "Yes that will be fine. That way we know we will get there on time.",
+          "a": "🔆 We're so excited to welcome you to Day Trip Bali! Get ready for an unforgettable adventure! 📝 Before we set off, we need a quick favor. Please take a few minutes to register online: https://nusapenida.one/confirm/17904697 This helps us: 🎫 Prepare your boarding pass and insurance 🚤 Finalize your tour details for a smooth start ℹ Share some tips to make your day even better! ⏩ It's quick and easy, and it ensures your tour is absolutely perfect. See you soon!"
+        },
+        {
+          "q": "Can’t find link…",
+          "a": "Your transfer has been confirmed! Pick Up : Le Grande Hotel Bali Drop Off : Le Grande Hotel Bali 🔹 The car transportation service is non-refundable if guests have already used it and the tour is canceled due to bad weather conditions. 🚗 The driver will get in touch with you via WhatsApp the evening before the tour. ⚠️ Please reach out to us if you haven't heard from the driver after 9 PM. 💵 Payment for the transfer (if any) can be made on the morning of the tour."
+        },
+        {
+          "q": "Need one more day finalise it",
+          "a": "🔆 We're so excited to welcome you to Day Trip Bali! Get ready for an unforgettable adventure! 📝 Before we set off, we need a quick favor. Please take a few minutes to register online: https://nusapenida.one/confirm/18105509 This helps us: 🎫 Prepare your boarding pass and insurance 🚤 Finalize your tour details for a smooth start ℹ Share some tips to make your day even better! ⏩ It's quick and easy, and it ensures your tour is absolutely perfect. See you soon!"
+        },
+        {
+          "q": "Good morning and yes, we were able to find one. Thank you so much.",
+          "a": "Hey there! I'm Edward, the manager at Day Trip Bali 👋 Just wanted to let you know that we've got your request and I'm here to help you with your booking. For more information about our tours, please visit our website www.nusapenida.one."
+        },
+        {
+          "q": "That’s fine let’s try",
+          "a": "It's worked fine today so far with other payments, it's the only gateway that we use. Another payment option is Paypal, but for that we use a rate of 14.500 IDR = 1USD, it will be more expensive for you."
+        },
+        {
+          "q": "here is final details",
+          "a": "🔆 We're so excited to welcome you to Day Trip Bali! Get ready for an unforgettable adventure! 📝 Before we set off, we need a quick favor. Please take a few minutes to register online: https://nusapenida.one/confirm/18073937 This helps us: 🎫 Prepare your boarding pass and insurance 🚤 Finalize your tour details for a smooth start ℹ Share some tips to make your day even better! ⏩ It's quick and easy, and it ensures your tour is absolutely perfect. See you soon!"
+        },
+        {
+          "q": "Can u send it by tomorrow this time so that i can finish it off and board the flight",
+          "a": "Confirmation sent to Vijay on WhatsApp, I see that the email you put are same email for both booking, one day before tour our system will send check in reminder and you will get 2 emails for check in, please fill both details for you and Vijay."
+        },
+        {
+          "q": "Ours is SSI dive cert",
+          "a": "We’re excited that you have decided to book with our company! You are booking Private Boat Tour on 20.05.2025 08:30 for 2 guests If everything is correct and you agree with the Cancellation Policy, please make a payment via this link: https://checkout.xendit.co/web/6823fb534c8c71723fc950c0 Total 13,880,000 Rp Deposit 13,880,000 Rp Once the deposit is paid, you will receive a booking confirmation to your email. ⚠️ Please note that card payments are subject to a 3% processing fee. ℹ️ Rest payment (if applicable) can be made in cash or by card on the morning of the tour."
+        },
+        {
+          "q": "We want to dive",
+          "a": "Your transfer has been confirmed! Pick Up : N/A Drop Off : Jimbaran Bay Beach Resort & Spa, Jl. Pantai Kedonganan No.888, Kedonganan, Kuta, Badung Regency, Bali 80361 🔹 The car transportation service is non-refundable if guests have already used it and the tour is canceled due to bad weather conditions. 🚗 The driver will get in touch with you via WhatsApp the evening before the tour. ⚠️ Please reach out to us if you haven't heard from the driver after 9 PM. 💵 Payment for the transfer (if any) can be made on the morning of the tour."
+        }
+      ]
+    },
+    "children_babies": {
+      "label": "Children & Age Restrictions",
+      "description": "Questions about kids on the tour, minimum age, baby on board",
+      "priority": "MEDIUM",
+      "example_count_in_data": 2187,
+      "examples": [
+        {
+          "q": "3 dewasa +1 child saya pakai ARORA 20",
+          "a": "Below will be sample of itinerary for 4 hours package to cruise only around Serangan and Nusa Dua with our JA20 yacht : ITINERARY HALF DAY SUNSET CRUISE 3:30 PM : BOARDING AT HARBOUR 4:00 PM : DEPARTURE TO NUSA DUA 4:20 PM : ARRIVED AT NUSA DUA AREA 4:30 PM - 7:30 PM : FREE TIME 7:30 PM : BACK TO HARBOUR 8:00 PM : ARRIVED AT HARBOUR INCLUSION * WELCOME DRINK * CERTIFIED SKIPPER * CRUISING PERMIT * INSURANCE * FUEL * LIFE RAFT * LIFE JACKET * LIFT RING * POOL TOWEL * COFFEE & TEA * MINERAL WATER * SOFT DRINKS * SNACKS & FRUITS * SEA-SICK TABLETS"
+        },
+        {
+          "q": "Pls share details, we are 6adults and 1 kid",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. We have received your booking on Luxury Escapes and are happy to assist you here. Please let us know if you would have any questions. Thanks!"
+        },
+        {
+          "q": "One kid is 7",
+          "a": "🔆 We're so excited to welcome you to Day Trip Bali! Get ready for an unforgettable adventure! 📝 Before we set off, we need a quick favor. Please take a few minutes to register online: https://nusapenida.one/confirm/17999553 This helps us: 🎫 Prepare your boarding pass and insurance 🚤 Finalize your tour details for a smooth start ℹ Share some tips to make your day even better! ⏩ It's quick and easy, and it ensures your tour is absolutely perfect. See you soon!"
+        },
+        {
+          "q": "we are two adults & 2 kids (both 8 year old) and want visit Nusa Penida",
+          "a": "On the 9th of June, for 5 pax divers, we have our beginner diver package option available with the price of approximately 1,360.69 US Dollars 📅 Itinerary: 8:00 am – Pick-up (+300k IDR) 9 am – 🛥️ Departure 10:30 am – 🐳 Diving with Manta Rays (Manta Point) 12pm - 🌊 Diving at Crystal Bay 1:30 pm – 🍽️ Lunch (included) 3 pm - 🤿 Chilling and snorkeling at Bali Hai Lagoon 4 pm – 🛥️ Return to Bali 5 pm – Drop Off (+300k IDR) ✅ All-Inclusive Package: 🔹 Private Boat 🔹 Professional Guide 🔹 Underwater GoPro Footage 🔹 Diving Equipment 🔹 Snorkeling Equipment 🔹 All Entrance Tickets 🔹 Drinking Water 🔹 Towels ❗Open Water Diver PADI certification (or equivalent) is required for this activity. ⚠️ The itinerary can be changed depending on the weather conditions."
+        },
+        {
+          "q": "so we will be only 2 adult and one kid in this",
+          "a": "🕒 To qualify for a full refund, kindly cancel at least 24 hours before the experience's scheduled start time. ⚠️ Please note that refunds will be processed for the net amount received, after deducting any applicable fees and commissions charged by payment platforms. ❗ If you cancel within 24 hours of the experience's start time for ANY reason, whether due to health reasons, booking errors, or other unforeseen circumstances, we regret that refunds or rescheduling WON’T be possible. ❌ If you decide to cancel the tour after it has started (due to feeling unwell or any other reason), a refund is not possible. 🗣️ Our company reserves the right to refuse guests if they are sick, drunk, in poor condition, or have abused others before the trip. We regret that refunds or rescheduling in such cases WON'T be possible. 📌 If you've booked this experience through alternative online platforms such as TripAdvisor, Airbnb, or others, please note that ALL changes, cancellations, and refunds must be managed exclusively through the source where your booking was made. 🔄 Changes made within 24 hours of the experience's start time cannot be guaranteed. 🕐 Please note that all cutoff times are determined by the local time of the experience (GMT+8). 👥 This experience (shared option) has a minimum traveler requirement, and if it's canceled due to not meeting this minimum, we'll offer you an alternative date or experience, or provide a full refund. 🚗 The cars transportation service (pick up and drop off) becomes non-refundable once it has been utilized, even if the tour gets canceled due to inclement weather. ⛈️ Please note that sightings of manta rays are not guaranteed, as they are wild animals and their behavior is unpredictable. Additionally, the itinerary may be subject to change by our crew due to weather and sea conditions, such as rain or significant swell. In such cases, an alternative itinerary will be offered. No refund will be provided if there are no manta rays or if the itinerary is changed due to weather. 🌦️ This experience is weather-dependent, and in case of cancellation due to poor weather conditions, we'll gladly offer you an alternative date or a full refund* * When referring to \"Poor Weather,\" it pertains to instances where the Port Authority does not grant permission to commence the tour due to adverse conditions such as big waves or strong winds."
+        },
+        {
+          "q": "They have an 8 month old kid. Wanted to check if there are age restrictions for the trip.",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. Just wanted to reach out and check if you were still interested in booking a tour with us or need further information regarding what we offer. Please feel free to reach out anytime. Me and my team will be happy to assist. Thank you!"
+        },
+        {
+          "q": "I’m so sorry Jalan Sengkidu, Jl. Raya Candidasa, Sengkidu, Kec. Manggis, Kabupaten Karangasem, Bali 80871, Indonesia",
+          "a": "Cutler, we’re excited that you booked a tour with us on Klook! We cannot wait to have you on board and happy to assist you! 📣 Just to be sure - you booked Premium Shared Boat Tour on 27.05.2025 08:30 for 1 guests. Please don't hesitate to ask any questions ☀️ Thanks, Edward"
+        },
+        {
+          "q": "Kita 4 dewasa, 9 Youth dan 2 kids ( 10 dan 12 th )",
+          "a": "Your transfer has been confirmed! Pick Up : Villa Kanan, 8577+HF5, Gg. Kahyangan, Seminyak, Kuta, Badung Regency, Bali Drop Off : Villa Kanan, 8577+HF5, Gg. Kahyangan, Seminyak, Kuta, Badung Regency, Bali 🔹 The car transportation service is non-refundable if guests have already used it and the tour is canceled due to bad weather conditions. 🚗 The driver will get in touch with you via WhatsApp the evening before the tour. ⚠️ Please reach out to us if you haven't heard from the driver after 9 PM. 💵 Payment for the transfer (if any) can be made on the morning of the tour."
+        },
+        {
+          "q": "Yes my husband and baby will stay at the villa eventually!",
+          "a": "Good evening, this is the manager of Day Trip Bali. Please check the number of customers we are bringing to La Bianca tomorrow using this link: https://manage.baliboat.tours/rest/l (please note that this calendar only displays information for the next day and will no longer be valid after 12 AM) Our guide will also provide detailed information before arrival. Thank you!"
+        },
+        {
+          "q": "Can you make it 7 adults and 3 child masks?",
+          "a": "Good afternoon, Thomas. I hope you're doing well. This is Edward from Day Trip Bali, I hope you're excited about the tour on the 24th, I just want to confirm the number of guests attending, since you mentioned it may be 5 adults + 2 kids, please kindly let me know. Please excuse us for messaging you from a different number, there seems to be an issue with the other one ending with 1950."
+        },
+        {
+          "q": "Crispy Breaded Chicken Strip served with Aioli Sauce Garlic Butter Potato – Wedge-cut Potatoes in Garlic Butter Assorted Mixed Greens, Cucumber & Tomato with Red Namjin Dressing Baby Romaine topped with Croutons and served with Caesar Dressing Beef/ Stroganov – Sautéed Beef in a Creamy Stroganov Sauce Roasted Chicken Wings – Herb Garlic Seasoned Chicken Wings Sautéed Vegetables – Carrots, Beans & Broccoli with Garlic Seasoning Garlic Butter Fried Rice topped with Spring Onion Classic Italian Garlic Spaghetti Caramel Pudding Papaya, Watermelon, and Honey Melon",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. Just wanted to reach out and check if you were still interested in booking a tour with us or need further information regarding what we offer. Please feel free to reach out anytime. Me and my team will be happy to assist. Thank you!"
+        },
+        {
+          "q": "Sorry im wrong, its gonna be 6 adults and one kid (10years)",
+          "a": "For the standard package (except our catamaran option), lunch is always included and will be served at the restaurant in Penida (not the on board lunch, which is an extra). Snacks and fruits will be provided on boat. I was just giving you an option if you'd like to reduce the price, you can skip lunch at the restaurant in Penida."
+        },
+        {
+          "q": "So 15 adults and 2 children (5 years old & 7 years old)",
+          "a": "Hello! We’ve just sent you an email with an online check-in form for your tour tomorrow. Completing it will help us prepare your documents and insurance, speed up the boarding process, and save you from waiting in line for registration. 😊 If you don’t see the email, please check your spam folder. If it’s not there, let us know, and we’ll send you the link here on WhatsApp. Thank you!"
+        },
+        {
+          "q": "It’s tough for us to start early morning as we are traveling with a baby",
+          "a": "🕒 To qualify for a full refund, kindly cancel at least 24 hours before the experience's scheduled start time. ⚠️ Please note that refunds will be processed for the net amount received, after deducting any applicable fees and commissions charged by payment platforms. ❗ If you cancel within 24 hours of the experience's start time for ANY reason, whether due to health reasons, booking errors, or other unforeseen circumstances, we regret that refunds or rescheduling WON’T be possible. ❌ If you decide to cancel the tour after it has started (due to feeling unwell or any other reason), a refund is not possible. 🗣️ Our company reserves the right to refuse guests if they are sick, drunk, in poor condition, or have abused others before the trip. We regret that refunds or rescheduling in such cases WON'T be possible. 📌 If you've booked this experience through alternative online platforms such as TripAdvisor, Airbnb, or others, please note that ALL changes, cancellations, and refunds must be managed exclusively through the source where your booking was made. 🔄 Changes made within 24 hours of the experience's start time cannot be guaranteed. 🕐 Please note that all cutoff times are determined by the local time of the experience (GMT+8). 👥 This experience (shared option) has a minimum traveler requirement, and if it's canceled due to not meeting this minimum, we'll offer you an alternative date or experience, or provide a full refund. 🚗 The cars transportation service (pick up and drop off) becomes non-refundable once it has been utilized, even if the tour gets canceled due to inclement weather. ⛈️ Please note that sightings of manta rays are not guaranteed, as they are wild animals and their behavior is unpredictable. Additionally, the itinerary may be subject to change by our crew due to weather and sea conditions, such as rain or significant swell. In such cases, an alternative itinerary will be offered. No refund will be provided if there are no manta rays or if the itinerary is changed due to weather. 🌦️ This experience is weather-dependent, and in case of cancellation due to poor weather conditions, we'll gladly offer you an alternative date or a full refund* * When referring to \"Poor Weather,\" it pertains to instances where the Port Authority does not grant permission to commence the tour due to adverse conditions such as big waves or strong winds."
+        },
+        {
+          "q": "The kid is 6years old",
+          "a": "Also on your booking request you had requested pick up + drop from your hotel in Penida. As you are in Penida already the rates are different than car transfer from Bali. Allow me to check with our team in Penida for the rates."
+        }
+      ]
+    },
+    "shared_vs_private": {
+      "label": "Shared vs Private Boat",
+      "description": "Questions about the difference, how many strangers, upgrade options",
+      "priority": "LOW",
+      "example_count_in_data": 440,
+      "examples": [
+        {
+          "q": "Thank you. Could you also provide the pricing for the shared premium boat?",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. Just wanted to reach out and check if you were still interested in booking a tour with us or need further information regarding what we offer. Please feel free to reach out anytime. Me and my team will be happy to assist. Thank you!"
+        },
+        {
+          "q": "Thanks so much for the upgrade!",
+          "a": "Hey! 👋 Just wanted to let you know we've upgraded you to our Premium Shared Tour for tomorrow - completely free! 🎉 Get ready for an awesome experience with a premium boat, pro photographer on board, welcome drinks & fresh juices, 3 bottles of prosecco for your group, an extra hour with a secret sunset spot, and cozy hoodie towels! 🤩 We'd also love it if you could share your experience with a review afterwards (our guides will give you the link). Thanks and see you tomorrow! 😊"
+        },
+        {
+          "q": "I was looking on that shared 12 person per boat",
+          "a": "Sure. Happy to provide you with more package details. For 8 persons, we can recommend taking a private package. We offer equipment for non-swimmers, including buoys and life jackets. Our knowledgeable guides will provide clear instructions and accompany you in the water, ensuring that your snorkeling experience is enjoyable and safe. 😊🏊‍♂️"
+        },
+        {
+          "q": "Can I do the shared boat tour",
+          "a": "🔆 We're so excited to welcome you to Day Trip Bali! Get ready for an unforgettable adventure! 📝 Before we set off, we need a quick favor. Please take a few minutes to register online: https://nusapenida.one/confirm/17817509 This helps us: 🎫 Prepare your boarding pass and insurance 🚤 Finalize your tour details for a smooth start ℹ Share some tips to make your day even better! ⏩ It's quick and easy, and it ensures your tour is absolutely perfect. See you soon!"
+        },
+        {
+          "q": "are excited also. Yes that is correct premium shared boat for two guests",
+          "a": "🔆 We're so excited to welcome you to Day Trip Bali! Get ready for an unforgettable adventure! 📝 Before we set off, we need a quick favor. Please take a few minutes to register online: https://nusapenida.one/confirm/17809433 This helps us: 🎫 Prepare your boarding pass and insurance 🚤 Finalize your tour details for a smooth start ℹ Share some tips to make your day even better! ⏩ It's quick and easy, and it ensures your tour is absolutely perfect. See you soon!"
+        },
+        {
+          "q": "Thanks. Whays the difference between the standard shared tour and premium shared tour?",
+          "a": "🔆 We're so excited to welcome you to Day Trip Bali! Get ready for an unforgettable adventure! 📝 Before we set off, we need a quick favor. Please take a few minutes to register online: https://nusapenida.one/confirm/17030817 This helps us: 🎫 Prepare your boarding pass and insurance 🚤 Finalize your tour details for a smooth start ℹ Share some tips to make your day even better! ⏩ It's quick and easy, and it ensures your tour is absolutely perfect. See you soon!"
+        },
+        {
+          "q": "Do you have a spot for two people tomorrow on a shared boat? We have a flight from Denpasar at 8.30pm back to Australia but wondering if we can squeeze in?",
+          "a": "Your transfer has been confirmed! Pick Up : Pullman Bali Legian Beach, Jl. Melasti No.1, Legian, Kec. Kuta, Kabupaten Badung, Bali 80361 Drop Off : Pullman Bali Legian Beach, Jl. Melasti No.1, Legian, Kec. Kuta, Kabupaten Badung, Bali 80361 🔹 The car transportation service is non-refundable if guests have already used it and the tour is canceled due to bad weather conditions. 🚗 The driver will get in touch with you via WhatsApp the evening before the tour. ⚠️ Please reach out to us if you haven't heard from the driver after 9 PM. 💵 Payment for the transfer (if any) can be made on the morning of the tour."
+        },
+        {
+          "q": "Would like to upgrade to premium shared boat",
+          "a": "🔆 We're so excited to welcome you to Day Trip Bali! Get ready for an unforgettable adventure! 📝 Before we set off, we need a quick favor. Please take a few minutes to register online: https://nusapenida.one/confirm/17403595 This helps us: 🎫 Prepare your boarding pass and insurance 🚤 Finalize your tour details for a smooth start ℹ Share some tips to make your day even better! ⏩ It's quick and easy, and it ensures your tour is absolutely perfect. See you soon!"
+        },
+        {
+          "q": "Ah i was leaning more towards the premium shared boat! Is the boat the sanjaya as well for the premium shared option?",
+          "a": "We will only require 50% deposit to secure the date and boat. The remaining balance can be done on the date of the trip. Also I do apologize I must have misread your first questions when you had asked about \"how many people on the boat\" If you do choose the private option with Sanjaya O5, it will just be the 2 of you plus our guide and captain."
+        },
+        {
+          "q": "what’s the difference between the standard and premium tour?",
+          "a": "Thank you for reaching out with the information. We received the green light to depart this morning and proceeded as planned. Given the ever-changing nature of weather, we didn't anticipate it would worsen to this extent. We are currently awaiting further updates from our team and will inform you as soon as we have the final report."
+        },
+        {
+          "q": "Is it premium shared boat tomorrow?",
+          "a": "Hello! We’ve just sent you an email with an online check-in form for your tour tomorrow. Completing it will help us prepare your documents and insurance, speed up the boarding process, and save you from waiting in line for registration. 😊 If you don’t see the email, please check your spam folder. If it’s not there, let us know, and we’ll send you the link here on WhatsApp. Thank you!"
+        },
+        {
+          "q": "Yes that’s fine. Thank you for the upgrade. That’s really generous 🤍",
+          "a": "The pickup can be arranged with additional cost: 🚗 Pick-up: 300.000 IDR/car 🚗 Drop-off: 300.000 IDR/car 🔹 Fits five adults (Avanza/APV) 📍 Prices may vary for distant locations ⚠️ Non-refundable after booking"
+        },
+        {
+          "q": "Yes, the shared boat is for max 14 people and is a fast boat ?",
+          "a": "Lim, we’re excited that you booked a tour with us on TripAdvisor! We cannot wait to have you on board and happy to assist you! 📣 Just to be sure - you booked Shared Boat Tour at 03.02.2025 08:00 for 3 guests. Please don't hesitate to ask any questions ☀️"
+        },
+        {
+          "q": "Hello, I saw on get your guide that you also offer shared diving tour, do you think it would be possible to upgrade to this activity for tomorrow if you still have some vacancies? I have my open water certificate. Thanks in advance for tour answer",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. We have received your booking on Getyourguide and are happy to assist you here. Please let us know if you would have any questions. Thanks!"
+        },
+        {
+          "q": "we please upgrade please",
+          "a": "🔆 We're so excited to welcome you to Day Trip Bali! Get ready for an unforgettable adventure! 📝 Before we set off, we need a quick favor. Please take a few minutes to register online: https://nusapenida.one/confirm/16666485 This helps us: 🎫 Prepare your boarding pass and insurance 🚤 Finalize your tour details for a smooth start ℹ Share some tips to make your day even better! ⏩ It's quick and easy, and it ensures your tour is absolutely perfect. See you soon!"
+        }
+      ]
+    },
+    "duration": {
+      "label": "Tour Duration & Return Time",
+      "description": "Questions about how long the tour is, when it ends, return time",
+      "priority": "LOW",
+      "example_count_in_data": 608,
+      "examples": [
+        {
+          "q": "Hi, how long is the trip tomorrow?",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. Just wanted to reach out and check if you were still interested in booking a tour with us or need further information regarding what we offer. Please feel free to reach out anytime. Me and my team will be happy to assist. Thank you!"
+        },
+        {
+          "q": "Thank you! We ended up diving in Tulamben. Next time we come to Bali, we go to Nusa Penida",
+          "a": "🔆 We're so excited to welcome you to Day Trip Bali! Get ready for an unforgettable adventure! 📝 Before we set off, we need a quick favor. Please take a few minutes to register online: https://nusapenida.one/confirm/18044943 This helps us: 🎫 Prepare your boarding pass and insurance 🚤 Finalize your tour details for a smooth start ℹ Share some tips to make your day even better! ⏩ It's quick and easy, and it ensures your tour is absolutely perfect. See you soon!"
+        },
+        {
+          "q": "I already back in Yangon. Will talk to you next time.",
+          "a": "🔆 We're so excited to welcome you to Day Trip Bali! Get ready for an unforgettable adventure! 📝 Before we set off, we need a quick favor. Please take a few minutes to register online: https://nusapenida.one/confirm/18058629 This helps us: 🎫 Prepare your boarding pass and insurance 🚤 Finalize your tour details for a smooth start ℹ Share some tips to make your day even better! ⏩ It's quick and easy, and it ensures your tour is absolutely perfect. See you soon!"
+        },
+        {
+          "q": "How long does the boat trip typically last?",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. We have received your booking on Getyourguide and are happy to assist you here. Please let us know if you would have any questions. Thanks!"
+        },
+        {
+          "q": "I'm spending the night at D&D Homestay so I don't have to travel in the morning and can be on time. I thought it was so close to the meeting location that I could just walk there. Is that correct?",
+          "a": "Your transfer has been confirmed! Pick Up : AYODYA RESORT BALI, Jl. Pantai Mengiat No.4, Nusa Dua Beach, Nusa Dua, Kabupaten Badung, Bali 80363 Drop Off : AYODYA RESORT BALI, Jl. Pantai Mengiat No.4, Nusa Dua Beach, Nusa Dua, Kabupaten Badung, Bali 80363 🔹 The car transportation service is non-refundable if guests have already used it and the tour is canceled due to bad weather conditions. 🚗 The driver will get in touch with you via WhatsApp the evening before the tour. ⚠️ Please reach out to us if you haven't heard from the driver after 9 PM. 💵 Payment for the transfer (if any) can be made on the morning of the tour."
+        },
+        {
+          "q": "How long is the drive I believe it’s longer than 1 hour?",
+          "a": "Your transfer has been confirmed! Pick Up : Woywoy Escape Bukian, Banjar Dasong, Bukian, Payangan, Gianyar Regency, Bali 80572 Drop Off : Woywoy Escape Bukian, Banjar Dasong, Bukian, Payangan, Gianyar Regency, Bali 80572 🔹 The car transportation service is non-refundable if guests have already used it and the tour is canceled due to bad weather conditions. 🚗 The driver will get in touch with you via WhatsApp the evening before the tour. ⚠️ Please reach out to us if you haven't heard from the driver after 9 PM. 💵 Payment for the transfer (if any) can be made on the morning of the tour."
+        },
+        {
+          "q": "How long do I need to wait",
+          "a": "Hello! We’ve just sent you an email with an online check-in form for your tour tomorrow. Completing it will help us prepare your documents and insurance, speed up the boarding process, and save you from waiting in line for registration. 😊 If you don’t see the email, please check your spam folder. If it’s not there, let us know, and we’ll send you the link here on WhatsApp. Thank you!"
+        },
+        {
+          "q": "Oh I see, how long will that journey take?",
+          "a": "Your transfer has been confirmed! Pick Up : 84RH+WGQ, Jl. Pura Dalem, Canggu, Kec. Kuta Utara, Kabupaten Badung, Bali, Indonesia Drop Off : 84RH+WGQ, Jl. Pura Dalem, Canggu, Kec. Kuta Utara, Kabupaten Badung, Bali, Indonesia 🔹 The car transportation service is non-refundable if guests have already used it and the tour is canceled due to bad weather conditions. 🚗 The driver will get in touch with you via WhatsApp the evening before the tour. ⚠️ Please reach out to us if you haven't heard from the driver after 9 PM. 💵 Payment for the transfer (if any) can be made on the morning of the tour."
+        },
+        {
+          "q": "Please how long is the tour ?",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. We have received your booking on Getyourguide and are happy to assist you here. Please let us know if you would have any questions. Thanks!"
+        },
+        {
+          "q": "Yes that is correct . I was wondering the duration of the day?",
+          "a": "Michelle, we’re excited that you booked a tour with us on TripAdvisor! We cannot wait to have you on board and happy to assist you! 📣 Just to be sure - you booked 3-Premium Shared Boat Tour at 05.02.2025 08:00 for 2 guests. Please don't hesitate to ask any questions ☀️ Regards, Edward"
+        },
+        {
+          "q": "Hi. Thank you for your message - i was just wondering how long the day tour goes for ---- like expected return time?",
+          "a": "Yes, the boat trip includes health insurance with [price — ask our team] coverage. If you already have travel insurance, you may still be covered, but this is an additional benefit provided for your peace of mind during the trip."
+        },
+        {
+          "q": "You can send me anytime",
+          "a": "Hello! We just wanted to follow up as we haven’t received payment for your tour. Please let us know if you’d like to proceed with the payment so we can secure your booking. Kindly note that bookings are only confirmed once payment is made. Spots fill up quickly, and delays in payment may result in losing your requested tour date."
+        },
+        {
+          "q": "That is from which place? And how long is the drive?",
+          "a": "We’re excited that you have decided to book with our company! You are booking Private Boat Tour on 03.01.2025 10:00 for 6 guests. If everything is correct, you agree with the Cancellation Policy and you type \"I Confirm\" on the Liability insurance, please make a payment via this link: https://checkout.xendit.co/web/6767bad540a683c821984f38 Total 20,202,800 Rp Deposit 10101400 Rp Once the deposit is paid, you will receive a booking confirmation to your email. ⚠️ Please note that card payments are subject to a 3% processing fee. ℹ️ Rest payment (if applicable) can be made in cash or by card on the morning of the tour."
+        },
+        {
+          "q": "Fab! How long would it take?",
+          "a": "This is our standard private tour itinerary: 8:00 am – Pick-up (+300k IDR) 9 am – 🛥️ Departure 10 am – 🐳 Swim with Manta Rays (Manta Point) 11 am – 🤿 Crystal Bay 12 pm – 🤿 Gamat Bay 1 pm – 🍽️ Lunch (included) 3 pm - 🤿 Wall Point 4 pm –🤿 Mangrove Point 4:30 pm – Return to Bali 5 pm – Drop Off (+300k IDR) ✅ All-Inclusive Package: 🔹 Private Boat 🔹 Professional Guide 🔹 Underwater GoPro Footage 🔹 Snorkeling Equipment 🔹 All Entrance Tickets 🔹 Drinking Water 🔹 Towels ⚠️ The itinerary can be changed depending on the weather conditions."
+        },
+        {
+          "q": "Do you have any half-day trip, that we can get back at about 2-3 pm? Asking for the next time",
+          "a": "Rollins , we’re excited that you booked a tour with us on TripAdvisor! We cannot wait to have you on board and happy to assist you! 📣 Just to be sure - you booked Premium Shared Boat Tour at 26.11.2024 08:00 for 2 guests. Please don't hesitate to ask any questions ☀️ Regards, Yudha"
+        }
+      ]
+    },
+    "manta_rays": {
+      "label": "Manta Ray Sightings",
+      "description": "Questions about manta ray guarantee, sighting frequency",
+      "priority": "LOW",
+      "example_count_in_data": 0,
+      "examples": []
+    },
+    "sea_sickness": {
+      "label": "Sea Sickness",
+      "description": "Questions about motion sickness, tablets, rough sea advice",
+      "priority": "LOW",
+      "example_count_in_data": 166,
+      "examples": [
+        {
+          "q": "by any chance do you carry SeaSick tablets for my Mrs?",
+          "a": "Birkwood, we’re excited that you booked a tour with us on TripAdvisor! We cannot wait to have you on board and happy to assist you! 📣 Just to be sure - you booked Premium Shared Boat Tour at 05.04.2025 08:30 for 2 guests. Please don't hesitate to ask any questions ☀️ Regards, Hardi"
+        },
+        {
+          "q": "What are the seas like? Are we likely to be seasick?",
+          "a": "🔆 We're so excited to welcome you to Day Trip Bali! Get ready for an unforgettable adventure! 📝 Before we set off, we need a quick favor. Please take a few minutes to register online: https://nusapenida.one/confirm/17639919 This helps us: 🎫 Prepare your boarding pass and insurance 🚤 Finalize your tour details for a smooth start ℹ Share some tips to make your day even better! ⏩ It's quick and easy, and it ensures your tour is absolutely perfect. See you soon!"
+        },
+        {
+          "q": "Sounds good! I do tend to get motion sickness so that would be a good idea to take pills.",
+          "a": "Your transfer has been confirmed! Pick Up : Udaya Resort in Ubud. Drop Off : Udaya Resort in Ubud. 🔹 The car transportation service is non-refundable if guests have already used it and the tour is canceled due to bad weather conditions. 🚗 The driver will get in touch with you via WhatsApp the evening before the tour. ⚠️ Please reach out to us if you haven't heard from the driver after 9 PM. 💵 Payment for the transfer (if any) can be made on the morning of the tour."
+        },
+        {
+          "q": "Hihi! Yes everything was fine, we just returned early because my brother was seasick and wanted to head back and rest But we had a very good time and were satisfied :)",
+          "a": "📅 Itinerary: 9 am – 🛥️ Departure 10 am – 🐳 Swim with Manta Rays (Manta Point) 11 am – 🤿 Crystal Bay 12 pm – 🤿 Gamat Bay 1 pm – 🍽️ Lunch (included at Khamara) 3 pm - 🤿 Wall Point 4 pm –🤿 Mangrove Point 4:30 pm – Return to Bali ✅ All-Inclusive Package: 🔹 Private Boat 🔹 Professional Guide 🔹 Underwater GoPro Footage 🔹 Snorkeling Equipment 🔹 All Entrance Tickets 🔹 Drinking Water 🔹 Towels ⚠️ The itinerary can be changed depending on the weather conditions."
+        },
+        {
+          "q": "Thank you what is the name of the seasick medicine that you recommend",
+          "a": "For self-drive, meet us at our office in Serangan at 7:30AM 📍 https://maps.app.goo.gl/epP2DNF6ayrZJEL1A Address: Jl. Tukad Punggawa No.238, Serangan. ⚠️ Since the boat will depart at 8AM, we kindly ask our guests to arrive on time, as we won't be able to wait for late arrivals. 📣 We recommend booking our pickup and drop-off services for a smooth boarding process and punctual arrival."
+        },
+        {
+          "q": "Hello. Yes that is true. Everything is fine. We just get seasick. But the guide and the captains took good care of us ☺️",
+          "a": "Hello, this is the manager of the Day Trip Bali boat tour company. We were informed that you’ve decided to return to Bali earlier than planned. Please let me know if everything is going well and if you need any assistance. Thank you!"
+        },
+        {
+          "q": "Thank you so much for your kindness, I’m looking forward to the trip. Do you have any sea sickness tablets just incase? Can I get a bit of assistance on the vertical ladder to help me up into the boat. I’m mobile but my right knee is just a bit weak so need a push up",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. We have received your booking on Klook and are happy to assist you here. Please let us know if you would have any questions. Thanks! Day Trip Bali Team"
+        },
+        {
+          "q": "Do you provide a seasickness tablets?",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. Just wanted to reach out and check if you were still interested in booking a tour with us or need further information regarding what we offer. Please feel free to reach out anytime. Me and my team will be happy to assist. Thank you!"
+        },
+        {
+          "q": "Ok sounds good and definitely an amazing trip Minus motion sickness",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. Just wanted to reach out and check if you were still interested in booking a tour with us or need further information regarding what we offer. Please feel free to reach out anytime. Me and my team will be happy to assist. Thank you!"
+        },
+        {
+          "q": "Is the boat very rocky and will be get sea sick?",
+          "a": "Hello. It's Hardi here. Our guide will reach you out later today to arrange meeting location. It's usually at Yellow bridge or Rocky beach. Please let us know if by 8.00 PM you haven't got any update from our guide."
+        },
+        {
+          "q": "And also im quite sea sick so what do you suggest",
+          "a": "Hello! Thanks for reaching out to us! Kindly note that our office is closed on March 10, 11 and 12 due to the Balinese holiday of Nyepi. Please leave your requests, and we'll attend to them promptly on March 13. For urgent matters, please reply with the word \"emergency,\" and we'll respond as soon as possible. Thank you! Day Trip Bali team🐠"
+        },
+        {
+          "q": "I get really motion sick. Is the boat ride over really choppy?",
+          "a": "on very very rare occasions there are some jellyfish in certain spots, but our guides will make sure that it's all clear for you and your kids before you jump in, if not we can take you to another spot."
+        },
+        {
+          "q": "I think we are all set for now! Do you have any medication for sea sickness just in case? That’s the only other thing I can think of. Thanks again!",
+          "a": "Your transfer has been confirmed! Pick Up : 6.30AM - The bohemian bali, Jl. Pantai Batu Bolong No.21, Canggu, Kuta Utara, Badung Regency, Bali 80351 Drop Off : Same location for pick up and drop off 🔹 The car transportation service is non-refundable if guests have already used it and the tour is canceled due to bad weather conditions. 🚗 The driver will get in touch with you via WhatsApp the evening before the tour. ⚠️ Please reach out to us if you haven't heard from the driver after 9 PM. 💵 Payment for the transfer can be made on the morning of the tour."
+        },
+        {
+          "q": "Do you also provide anti nausea medication?",
+          "a": "Sure, no problem. We will note down for our guides that you would like to do fishing as well. We will need your email address to generate a deposit payment link for you, we will need a 50% deposit (+3% Bank fees) to secure your booking."
+        },
+        {
+          "q": "Is there an easy way to get Dramamine or motion sickness medication in Bali. My brothers fiance turns out get sick on boats",
+          "a": "Your transfer has been confirmed! Pick Up : 6.30AM - The Laguna in Nusa Dua Drop Off : Same as pick up location 🔹 The car transportation service is non-refundable if guests have already used it and the tour is canceled due to bad weather conditions. 🚗 The driver will get in touch with you via WhatsApp the evening before the tour. ⚠️ Please reach out to us if you haven't heard from the driver after 9 PM. 💵 Payment for the transfer can be made on the morning of the tour."
+        }
+      ]
+    },
+    "departure_time": {
+      "label": "Departure Time",
+      "description": "Questions about what time the boat leaves, tour start time",
+      "priority": "LOW",
+      "example_count_in_data": 172,
+      "examples": [
+        {
+          "q": "The departure time is at 8?",
+          "a": "Your transfer has been confirmed! Pick Up : Fairfield by Marriott Bali Legian, Jalan Sri Rama, Legian, Badung Regency, Bali, Indonesia Drop Off : Fairfield by Marriott Bali Legian, Jalan Sri Rama, Legian, Badung Regency, Bali, Indonesia 🔹 The car transportation service is non-refundable if guests have already used it and the tour is canceled due to bad weather conditions. 🚗 The driver will get in touch with you via WhatsApp the evening before the tour. ⚠️ Please reach out to us if you haven't heard from the driver after 9 PM."
+        },
+        {
+          "q": "I mean do we see anything of the islands from the boat. Sorry for asking but it is the first time in Bali and I would like to know exactly so as to sell it to the clients.",
+          "a": "Your transfer has been confirmed! Pick Up : Sienna Villa, Jl. Raya Seminyak Gg. Keraton No.5, Seminyak, Kec. Kuta, Kabupaten Badung, Bali 80361. Drop Off : - 🔹 The car transportation service is non-refundable if guests have already used it and the tour is canceled due to bad weather conditions. 🚗 The driver will get in touch with you via WhatsApp the evening before the tour. ⚠️ Please reach out to us if you haven't heard from the driver after 9 PM. 💵 Payment for the transfer (if any) can be made on the morning of the tour."
+        },
+        {
+          "q": "We have so much thunder looks scary 😨 let’s see u 👋 See u later but we decided on the boat depends of the conditions on that time",
+          "a": "Hello! We’ve just sent you an email with an online check-in form for your tour tomorrow. Completing it will help us prepare your documents and insurance, speed up the boarding process, and save you from waiting in line for registration. 😊 If you don’t see the email, please check your spam folder. If it’s not there, let us know, and we’ll send you the link here on WhatsApp. Thank you!"
+        },
+        {
+          "q": "we are just going to get boat from harbour ourselves. Maybe next time we visit we can do tour with you ☺️",
+          "a": "🔆 We're so excited to welcome you to Day Trip Bali! Get ready for an unforgettable adventure! 📝 Before we set off, we need a quick favor. Please take a few minutes to register online: https://nusapenida.one/confirm/17962111 This helps us: 🎫 Prepare your boarding pass and insurance 🚤 Finalize your tour details for a smooth start ℹ Share some tips to make your day even better! ⏩ It's quick and easy, and it ensures your tour is absolutely perfect. See you soon!"
+        },
+        {
+          "q": "Sorry just one more question, All the stopoffs do we get out of the boat onto the island or do we stay on the boat the whole time? ￼",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. Just wanted to reach out and check if you were still interested in booking a tour with us or need further information regarding what we offer. Please feel free to reach out anytime. Me and my team will be happy to assist. Thank you!"
+        },
+        {
+          "q": "If I have the whole boat, I can decide the time to go out to sea, right? For example, 10 am or 11am, and then 8 hours based on this",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. Just wanted to reach out and check if you were still interested in booking a tour with us or need further information regarding what we offer. Please feel free to reach out anytime. Me and my team will be happy to assist. Thank you!"
+        },
+        {
+          "q": "Hiii good day!! What's the time of the boat departure? Still 0900 or another time",
+          "a": "Full Day Tour Nusa Penida Shared tour itinerary: 06:30 am – Pick-up (+300k IDR) 07:30 am – Meeting and briefing 08:00 am – 🛥️ Departure 08:30 am – 🤿 Bali Hai 09:30 am – 🤿 SD Point 10:30 am – 🤿 Wall Point 11:30 am – 🍽️ Lunch (included) 01:00 pm – 🚗 Kelingking Cliff 02:30 pm – 🤿 Crystal Bay 03:30 pm – 🤿 Swim with Manta Rays 04:30 pm – 🛥️ Return to Bali 05:00 pm – Drop-off (+300k IDR) ✅ All-Inclusive Package: 🔹 Land Tour 🔹 Professional Guide 🔹 Underwater GoPro Footage 🔹 Snorkeling Equipment 🔹 All Entrance Tickets 🔹 Drinking Water 🔹 Towels ⚠️ The itinerary can be changed depending on the weather conditions."
+        },
+        {
+          "q": "Thanks for sharing the policy. I think we are better not taking the boat tour this time.",
+          "a": "Your transfer has been confirmed! Pick Up : Villa Semana Resort & Spa Ubud, Banjar Semana, Singakerta, Ubud, Gianyar Regency, Bali 80571 Drop Off : Villa Semana Resort & Spa Ubud, Banjar Semana, Singakerta, Ubud, Gianyar Regency, Bali 80571 🔹 The car transportation service is non-refundable if guests have already used it and the tour is canceled due to bad weather conditions. 🚗 The driver will get in touch with you via WhatsApp the evening before the tour. ⚠️ Please reach out to us if you haven't heard from the driver after 9 PM. 💵 Payment for the transfer (if any) can be made on the morning of the tour."
+        },
+        {
+          "q": "What would be the departure time ?",
+          "a": "Your transfer has been confirmed! Pick Up : Hotel Santika Nusa Dua (Nick +14042171076) Drop Off : Ngurah rai Airport (Nick +14042171076) 🔹 The car transportation service is non-refundable if guests have already used it and the tour is canceled due to bad weather conditions. 🚗 The driver will get in touch with you via WhatsApp the evening before the tour. ⚠️ Please reach out to us if you haven't heard from the driver after 9 PM. 💵 Payment for the transfer (if any) can be made on the morning of the tour."
+        },
+        {
+          "q": "Would the boat same as I had last time?",
+          "a": "🔆 We're so excited to welcome you to Day Trip Bali! Get ready for an unforgettable adventure! 📝 Before we set off, we need a quick favor. Please take a few minutes to register online: https://nusapenida.one/confirm/16694451 This helps us: 🎫 Prepare your boarding pass and insurance 🚤 Finalize your tour details for a smooth start ℹ Share some tips to make your day even better! ⏩ It's quick and easy, and it ensures your tour is absolutely perfect. See you soon!"
+        },
+        {
+          "q": "I talked with Edward in advance. I'd like to check again about departure time. Can we Departure 6:00am~6:30am?",
+          "a": "📅 Itinerary: 7:30 am – Meeting and briefing 8 am – 🛥️ Departure 9 am – 🤿 Manta Rays 10 am – 🤿 Crystal Bay 11 am – 🤿 Gamat Bay 12 pm – 🍽️ Lunch (included) 1 pm – 🚗 Kelingking Cliff 4 pm –🤿 Mangrove Point 4:30 pm – Return to Bali ✅ All-Inclusive Package: 🔹 Land Tour 🔹 Professional Guide 🔹 Underwater GoPro Footage 🔹 Snorkeling Equipment 🔹 All Entrance Tickets 🔹 Drinking Water 🔹 Towels ⚠️ The itinerary can be changed depending on the weather conditions."
+        },
+        {
+          "q": "Are all the boats ( of all different companies) are leaving at the same time and go to the same places? My husband doesn’t like it if it gets too touristy. Is there a chance that we can leave a little earlier than the rest to be a little ahead?",
+          "a": "Your transfer has been confirmed! Pick Up : The Komu Canggu Drop Off : The Komu Canggu 🔹 The car transportation service is non-refundable if guests have already used it and the tour is canceled due to bad weather conditions. 🚗 The driver will get in touch with you via WhatsApp the evening before the tour. ⚠️ Please reach out to us if you haven't heard from the driver after 9 PM. 💵 Payment for the transfer can be made on the morning of the tour."
+        },
+        {
+          "q": "Lovely. See you tomorrow! When are you here? Would it be ok to leave 8.30-9.00? So we have time for breakfast",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. We have received your booking on Airbnb and are happy to assist you here. Please let us know if you would have any questions. Thanks! Day Trip Bali Team"
+        },
+        {
+          "q": "When should we be there tomorrow? Except we leave at 09 and that we should be there some time prior to that",
+          "a": "Hey there! I'm Mario, the manager at Day Trip Bali 👋 Just wanted to let you know that we've got your request and I'm here to help you with your booking. Please type \"manager\" to stop the bot chat and get my assistance."
+        },
+        {
+          "q": "I would just like to say today was amazing. Your crew on the boat were unbelievably kind and generous with their time and assistance. Thankyou so much. Amazing memories",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. We have received your booking on Klook and are happy to assist you here. Please let us know if you would have any questions. Thanks! Day Trip Bali Team"
+        }
+      ]
+    },
+    "driver_contact": {
+      "label": "Driver Contact",
+      "description": "Questions about when driver will contact, driver WhatsApp",
+      "priority": "MEDIUM",
+      "example_count_in_data": 5,
+      "examples": [
+        {
+          "q": "Thank you because he hasn’t contact me",
+          "a": "Hello, this is the manager from Day Trip Bali boat tour company. We have received your booking on Klook and are happy to assist you here. Please let us know if you would have any questions. Thanks! Day Trip Bali Team"
+        },
+        {
+          "q": "Ok. He still hasn't contacted me",
+          "a": "are you Kadian McIntosh ? This is Yudha from Day Trip Bali, we are happy to hear you're still interested in a tour with us, is there anything we can assist you regarding your inquiry so we can help you decide on booking the best tour option for your group?"
+        },
+        {
+          "q": "Hello. The taxi hasnt contact them yet",
+          "a": "Good morning Tom! It's Mario from Day Trip Bali team. May I ask what's your email so I can check your previous conversation with Edward before?"
+        }
+      ]
+    }
+  },
+  "pricing_module": {
+    "_status": "PENDING — Excel price list not yet loaded",
+    "_instruction": "This section will be populated from the official price list Excel file.",
+    "_bot_behavior": "Never quote any price. Always send guest to the website link below.",
+    "_price_check_url": "https://bluuu.tours/nusa-penida/private-tours/premium-private-tour-nusa-penida",
+    "_bot_reply_template": "Great question! Our pricing depends on your group size, tour type, and date — and we update it regularly to give you the best deal 😊 You can check live availability and current prices for your exact date right here: https://bluuu.tours/nusa-penida/private-tours/premium-private-tour-nusa-penida"
+  }
+}

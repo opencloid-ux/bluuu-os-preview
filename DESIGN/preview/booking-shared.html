@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Book Shared Tour — Bluuu Tours</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#F7F9FA;--bg2:#EEF2F6;--sf:#ffffff;
+  --bdr:rgba(0,0,0,.08);--bdr2:rgba(0,0,0,.14);
+  --p:#0077e6;--pd:#005bb5;--p-glow:rgba(0,119,230,.1);
+  --ok:#28A745;--warn:#FFC107;--err:#dc3545;
+  --txt:#1a2332;--txt2:#4a5568;--txt3:#8896a8;
+  --radius:12px;--radius-sm:8px;
+}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);line-height:1.5;min-height:100vh;}
+
+/* NAV */
+.nav{background:#fff;border-bottom:1px solid var(--bdr);padding:0 24px;height:58px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:50;}
+.nav-logo{font-size:18px;font-weight:900;color:var(--p);text-decoration:none;letter-spacing:-1px;}
+.nav-back{font-size:13px;color:var(--txt3);text-decoration:none;display:flex;align-items:center;gap:4px;}
+.nav-back:hover{color:var(--txt);}
+.nav-title{font-size:14px;font-weight:600;color:var(--txt);flex:1;text-align:center;}
+
+/* PROGRESS BAR */
+.progress-wrap{background:#fff;border-bottom:1px solid var(--bdr);padding:16px 24px;}
+.progress-steps{display:flex;align-items:center;max-width:600px;margin:0 auto;}
+.step{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;position:relative;}
+.step:not(:last-child)::after{content:'';position:absolute;top:14px;left:50%;width:100%;height:2px;background:var(--bdr2);z-index:0;}
+.step.done:not(:last-child)::after{background:var(--ok);}
+.step.active:not(:last-child)::after{background:linear-gradient(to right,var(--p) 0%,var(--bdr2) 100%);}
+.step-dot{width:28px;height:28px;border-radius:50%;border:2px solid var(--bdr2);background:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--txt3);position:relative;z-index:1;transition:all .2s;}
+.step.done .step-dot{background:var(--ok);border-color:var(--ok);color:#fff;}
+.step.active .step-dot{background:var(--p);border-color:var(--p);color:#fff;}
+.step-label{font-size:11px;font-weight:500;color:var(--txt3);white-space:nowrap;}
+.step.active .step-label{color:var(--p);font-weight:700;}
+.step.done .step-label{color:var(--ok);}
+
+/* LAYOUT */
+.layout{display:grid;grid-template-columns:1fr 340px;gap:24px;max-width:1000px;margin:0 auto;padding:24px;}
+@media(max-width:800px){.layout{grid-template-columns:1fr;}.summary-sticky{display:none;}}
+
+/* MAIN PANEL */
+.panel{background:#fff;border-radius:16px;border:1px solid var(--bdr);overflow:hidden;}
+.panel-head{padding:20px 24px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:12px;}
+.panel-step-num{width:32px;height:32px;border-radius:50%;background:var(--p);color:#fff;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.panel-title{font-size:17px;font-weight:700;color:var(--txt);}
+.panel-sub{font-size:13px;color:var(--txt3);}
+.panel-body{padding:24px;}
+
+/* STEP 1 — DATE */
+.calendar-strip{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:20px;}
+.cal-day{min-width:64px;border-radius:var(--radius-sm);border:2px solid var(--bdr);padding:10px 6px;text-align:center;cursor:pointer;transition:all .15s;flex-shrink:0;}
+.cal-day:hover{border-color:var(--p);background:var(--p-glow);}
+.cal-day.selected{border-color:var(--p);background:var(--p);color:#fff;}
+.cal-day.full{opacity:.4;cursor:not-allowed;pointer-events:none;}
+.cal-day.urgent{border-color:var(--warn);}
+.cal-day .day-name{font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;opacity:.7;}
+.cal-day .day-num{font-size:20px;font-weight:800;line-height:1;margin:2px 0;}
+.cal-day .day-spots{font-size:10px;font-weight:600;}
+.cal-day.selected .day-spots{opacity:.8;}
+.cal-day:not(.selected) .day-spots{color:var(--ok);}
+.cal-day.urgent:not(.selected) .day-spots{color:var(--warn);}
+.cal-day.full .day-spots{color:var(--txt3);}
+
+.guests-row{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:20px;}
+.guest-ctrl{display:flex;align-items:center;gap:0;border:1px solid var(--bdr2);border-radius:var(--radius-sm);overflow:hidden;}
+.guest-label{font-size:14px;font-weight:500;color:var(--txt);flex:1;}
+.guest-sub{font-size:12px;color:var(--txt3);}
+.gc-btn{width:36px;height:36px;border:none;background:var(--bg2);cursor:pointer;font-size:18px;color:var(--txt2);transition:background .1s;}
+.gc-btn:hover{background:var(--p-glow);color:var(--p);}
+.gc-val{width:40px;height:36px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:var(--txt);background:#fff;}
+
+.date-confirm{padding:12px 20px;background:var(--p);color:#fff;border:none;border-radius:var(--radius-sm);font-size:14px;font-weight:700;cursor:pointer;width:100%;transition:background .15s;}
+.date-confirm:hover{background:var(--pd);}
+.date-confirm:disabled{background:var(--txt3);cursor:not-allowed;}
+
+/* STEP 2 — TIER */
+.tier-cards{display:flex;flex-direction:column;gap:12px;}
+.tier-opt{border:2px solid var(--bdr);border-radius:16px;padding:20px;cursor:pointer;transition:all .2s;position:relative;}
+.tier-opt:hover{border-color:var(--p);box-shadow:0 4px 16px var(--p-glow);}
+.tier-opt.selected{border-color:var(--p);background:rgba(0,119,230,.03);}
+.tier-opt .rec-badge{position:absolute;top:-10px;left:20px;background:var(--p);color:#fff;font-size:11px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:.04em;}
+.tier-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;}
+.tier-name{font-size:16px;font-weight:800;color:var(--txt);}
+.tier-boat{font-size:12px;color:var(--txt3);margin-top:2px;}
+.tier-price-big{font-size:22px;font-weight:900;color:var(--p);font-family:'Roboto Mono',monospace;}
+.tier-price-sub{font-size:11px;color:var(--txt3);text-align:right;}
+.tier-features{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.feat{font-size:12px;color:var(--txt2);background:var(--bg2);padding:3px 9px;border-radius:20px;display:flex;align-items:center;gap:4px;}
+.feat.highlight{background:rgba(0,119,230,.08);color:var(--p);}
+.tier-radio{width:20px;height:20px;border-radius:50%;border:2px solid var(--bdr2);flex-shrink:0;margin-top:2px;transition:all .15s;position:relative;}
+.tier-opt.selected .tier-radio{border-color:var(--p);background:var(--p);}
+.tier-opt.selected .tier-radio::after{content:'';position:absolute;inset:4px;border-radius:50%;background:#fff;}
+
+/* STEP 3 — EXTRAS */
+.extras-section{margin-bottom:24px;}
+.extras-title{font-size:14px;font-weight:700;color:var(--txt);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.extras-badge{font-size:11px;font-weight:600;color:var(--txt3);background:var(--bg2);padding:2px 8px;border-radius:20px;}
+.extra-opt{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid var(--bdr);border-radius:var(--radius-sm);cursor:pointer;margin-bottom:8px;transition:all .15s;}
+.extra-opt:hover{border-color:var(--p);background:var(--p-glow);}
+.extra-opt.selected{border-color:var(--p);background:rgba(0,119,230,.04);}
+.extra-icon{font-size:22px;flex-shrink:0;}
+.extra-info{flex:1;}
+.extra-name{font-size:14px;font-weight:600;color:var(--txt);}
+.extra-desc{font-size:12px;color:var(--txt3);}
+.extra-price{font-size:14px;font-weight:700;color:var(--txt);font-family:'Roboto Mono',monospace;}
+.extra-price.free{color:var(--ok);}
+.extra-check{width:20px;height:20px;border-radius:4px;border:2px solid var(--bdr2);flex-shrink:0;transition:all .15s;display:flex;align-items:center;justify-content:center;}
+.extra-opt.selected .extra-check{background:var(--p);border-color:var(--p);color:#fff;font-size:12px;}
+
+/* STEP 4 — CHECKOUT */
+.checkout-trust{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;padding:12px 16px;background:rgba(40,167,69,.06);border:1px solid rgba(40,167,69,.2);border-radius:var(--radius-sm);}
+.trust-item{font-size:12px;font-weight:600;color:#1a6e2e;display:flex;align-items:center;gap:5px;}
+.payment-opts{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+.pay-opt{display:flex;align-items:center;gap:14px;padding:16px;border:2px solid var(--bdr);border-radius:var(--radius-sm);cursor:pointer;transition:all .15s;}
+.pay-opt:hover{border-color:var(--p);}
+.pay-opt.selected{border-color:var(--p);background:rgba(0,119,230,.03);}
+.pay-opt-info{flex:1;}
+.pay-opt-title{font-size:15px;font-weight:700;color:var(--txt);}
+.pay-opt-desc{font-size:12px;color:var(--txt3);}
+.pay-opt-price{font-size:18px;font-weight:900;color:var(--txt);font-family:'Roboto Mono',monospace;}
+.pay-opt-sub{font-size:11px;color:var(--txt3);}
+.pay-methods{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+.pay-method{display:flex;align-items:center;gap:14px;padding:14px 16px;border:2px solid var(--bdr);border-radius:var(--radius-sm);cursor:pointer;transition:all .15s;}
+.pay-method:hover{border-color:var(--p);}
+.pay-method.selected{border-color:var(--p);background:rgba(0,119,230,.03);}
+.method-logos{display:flex;gap:6px;align-items:center;}
+.method-logo{height:22px;padding:2px 6px;background:var(--bg2);border-radius:4px;font-size:11px;font-weight:700;color:var(--txt2);}
+.pay-notice{font-size:12px;color:var(--txt3);background:var(--bg2);padding:8px 12px;border-radius:var(--radius-sm);margin-top:-4px;margin-bottom:10px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+@media(max-width:500px){.form-row{grid-template-columns:1fr;}}
+.form-group{display:flex;flex-direction:column;gap:5px;}
+.form-label{font-size:13px;font-weight:600;color:var(--txt);}
+.form-input{padding:10px 12px;border:1px solid var(--bdr2);border-radius:var(--radius-sm);font-size:14px;color:var(--txt);background:#fff;outline:none;transition:border .15s;font-family:inherit;}
+.form-input:focus{border-color:var(--p);}
+.form-group.full{grid-column:1/-1;}
+textarea.form-input{resize:vertical;min-height:70px;}
+.terms-check{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;font-size:13px;color:var(--txt2);}
+.terms-check input{margin-top:2px;accent-color:var(--p);}
+.terms-check a{color:var(--p);text-decoration:none;}
+
+/* BTN NEXT */
+.btn-next{width:100%;padding:14px;background:var(--p);color:#fff;border:none;border-radius:var(--radius-sm);font-size:15px;font-weight:700;cursor:pointer;transition:background .15s;margin-top:8px;}
+.btn-next:hover{background:var(--pd);}
+.btn-back{background:none;border:none;color:var(--txt3);font-size:13px;cursor:pointer;padding:8px;margin-top:4px;width:100%;text-align:center;}
+.btn-back:hover{color:var(--txt);}
+
+/* STICKY SUMMARY */
+.summary-sticky{position:sticky;top:80px;}
+.summary-card{background:#fff;border-radius:16px;border:1px solid var(--bdr);overflow:hidden;}
+.summary-head{padding:14px 16px;background:var(--p);color:#fff;}
+.summary-title{font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;opacity:.85;}
+.summary-body{padding:16px;}
+.sum-row{display:flex;justify-content:space-between;align-items:baseline;padding:6px 0;border-bottom:1px solid var(--bdr);}
+.sum-row:last-child{border-bottom:none;}
+.sum-label{font-size:13px;color:var(--txt2);}
+.sum-val{font-size:13px;font-weight:600;color:var(--txt);}
+.sum-total{display:flex;justify-content:space-between;align-items:baseline;padding:14px 16px;background:var(--bg2);border-top:2px solid var(--bdr);}
+.sum-total-label{font-size:14px;font-weight:700;color:var(--txt);}
+.sum-total-val{font-size:22px;font-weight:900;color:var(--p);font-family:'Roboto Mono',monospace;}
+.sum-empty{font-size:13px;color:var(--txt3);text-align:center;padding:16px 0;}
+.sum-trust{padding:12px 16px;display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--bdr);}
+.sum-trust-item{font-size:12px;color:var(--txt3);display:flex;align-items:center;gap:6px;}
+
+/* SUCCESS */
+.success-screen{display:none;text-align:center;padding:48px 24px;max-width:480px;margin:0 auto;}
+.success-icon{font-size:64px;margin-bottom:16px;}
+.success-title{font-size:26px;font-weight:800;color:var(--txt);margin-bottom:8px;}
+.success-sub{font-size:15px;color:var(--txt2);margin-bottom:24px;}
+.success-details{background:#fff;border-radius:16px;border:1px solid var(--bdr);padding:20px;text-align:left;margin-bottom:24px;}
+.btn-wa{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:#25d366;color:#fff;border-radius:var(--radius-sm);font-size:14px;font-weight:700;text-decoration:none;}
+
+/* STEPS HIDDEN */
+.step-screen{display:none;}
+.step-screen.active{display:block;}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-logo" href="site-home.html">BLUUU</a>
+  <span style="color:var(--bdr2);font-size:18px;">›</span>
+  <span class="nav-title">Shared Tour to Nusa Penida</span>
+</nav>
+
+<div class="progress-wrap">
+  <div class="progress-steps" id="progress">
+    <div class="step active" id="ps1"><div class="step-dot">1</div><div class="step-label">Date</div></div>
+    <div class="step" id="ps2"><div class="step-dot">2</div><div class="step-label">Tour tier</div></div>
+    <div class="step" id="ps3"><div class="step-dot">3</div><div class="step-label">Extras</div></div>
+    <div class="step" id="ps4"><div class="step-dot">4</div><div class="step-label">Payment</div></div>
+  </div>
+</div>
+
+<div class="layout" id="main-layout">
+
+  <!-- MAIN -->
+  <div>
+
+    <!-- STEP 1: DATE -->
+    <div class="step-screen active" id="screen1">
+      <div class="panel">
+        <div class="panel-head">
+          <div class="panel-step-num">1</div>
+          <div><div class="panel-title">Pick your date</div><div class="panel-sub">Select date and number of guests</div></div>
+        </div>
+        <div class="panel-body">
+          <div style="font-size:13px;font-weight:600;color:var(--txt);margin-bottom:10px;">April 2026 — available dates</div>
+          <div class="calendar-strip" id="cal-strip">
+            <div class="cal-day" data-date="Apr 3"><div class="day-name">Thu</div><div class="day-num">3</div><div class="day-spots">8 left</div></div>
+            <div class="cal-day urgent" data-date="Apr 4"><div class="day-name">Fri</div><div class="day-num">4</div><div class="day-spots">2 left</div></div>
+            <div class="cal-day" data-date="Apr 5"><div class="day-name">Sat</div><div class="day-num">5</div><div class="day-spots">10 left</div></div>
+            <div class="cal-day full" data-date="Apr 6"><div class="day-name">Sun</div><div class="day-num">6</div><div class="day-spots">Full</div></div>
+            <div class="cal-day urgent" data-date="Apr 7"><div class="day-name">Mon</div><div class="day-num">7</div><div class="day-spots">3 left</div></div>
+            <div class="cal-day" data-date="Apr 8"><div class="day-name">Tue</div><div class="day-num">8</div><div class="day-spots">10 left</div></div>
+            <div class="cal-day" data-date="Apr 9"><div class="day-name">Wed</div><div class="day-num">9</div><div class="day-spots">7 left</div></div>
+            <div class="cal-day" data-date="Apr 10"><div class="day-name">Thu</div><div class="day-num">10</div><div class="day-spots">10 left</div></div>
+            <div class="cal-day" data-date="Apr 11"><div class="day-name">Fri</div><div class="day-num">11</div><div class="day-spots">9 left</div></div>
+          </div>
+          <div style="margin-bottom:20px;">
+            <div style="font-size:13px;font-weight:600;color:var(--txt);margin-bottom:12px;">Number of guests</div>
+            <div class="guests-row">
+              <div style="flex:1;"><div class="guest-label">Adults</div><div class="guest-sub">Age 13+</div></div>
+              <div class="guest-ctrl">
+                <button class="gc-btn" onclick="changeGuest('adults',-1)">−</button>
+                <div class="gc-val" id="adults-val">2</div>
+                <button class="gc-btn" onclick="changeGuest('adults',1)">+</button>
+              </div>
+            </div>
+            <div class="guests-row" style="margin-top:8px;">
+              <div style="flex:1;"><div class="guest-label">Children</div><div class="guest-sub">Age 5–12 · $10 off</div></div>
+              <div class="guest-ctrl">
+                <button class="gc-btn" onclick="changeGuest('children',-1)">−</button>
+                <div class="gc-val" id="children-val">0</div>
+                <button class="gc-btn" onclick="changeGuest('children',1)">+</button>
+              </div>
+            </div>
+          </div>
+          <button class="date-confirm" id="date-btn" onclick="goTo(2)" disabled>Select date to continue →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: TIER -->
+    <div class="step-screen" id="screen2">
+      <div class="panel">
+        <div class="panel-head">
+          <div class="panel-step-num">2</div>
+          <div><div class="panel-title">Choose your tier</div><div class="panel-sub">Same route — different comfort level</div></div>
+        </div>
+        <div class="panel-body">
+          <div class="tier-cards">
+            <div class="tier-opt" id="tier-classic" onclick="selectTier('classic',99)">
+              <div style="display:flex;gap:12px;align-items:flex-start;">
+                <div class="tier-radio" id="tr-classic"></div>
+                <div style="flex:1;">
+                  <div class="tier-header">
+                    <div><div class="tier-name">Classic</div><div class="tier-boat">Speedboat 12m · Max 13 guests</div></div>
+                    <div style="text-align:right;"><div class="tier-price-big">$99</div><div class="tier-price-sub">per person</div></div>
+                  </div>
+                  <div class="tier-features">
+                    <span class="feat">⛵ Partial shade</span>
+                    <span class="feat">🍽️ Cliff restaurant</span>
+                    <span class="feat">📷 Guide photos</span>
+                    <span class="feat">✓ Certified guide</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tier-opt" id="tier-premium" onclick="selectTier('premium',129)">
+              <div class="rec-badge">★ Best for most travelers</div>
+              <div style="display:flex;gap:12px;align-items:flex-start;margin-top:6px;">
+                <div class="tier-radio" id="tr-premium"></div>
+                <div style="flex:1;">
+                  <div class="tier-header">
+                    <div><div class="tier-name">Premium</div><div class="tier-boat">Premium Speedboat 13m · 2024–2025</div></div>
+                    <div style="text-align:right;"><div class="tier-price-big">$129</div><div class="tier-price-sub">per person</div></div>
+                  </div>
+                  <div class="tier-features">
+                    <span class="feat highlight">🏖️ Shaded lounge</span>
+                    <span class="feat highlight">📸 Photographer 20–30 photos</span>
+                    <span class="feat highlight">⏱️ +1 hour on water</span>
+                    <span class="feat highlight">🥂 Sunset prosecco</span>
+                    <span class="feat">🍽️ La Rossa beach club</span>
+                    <span class="feat">✓ Certified guide</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tier-opt" id="tier-elite" onclick="selectTier('elite',149)">
+              <div style="display:flex;gap:12px;align-items:flex-start;">
+                <div class="tier-radio" id="tr-elite"></div>
+                <div style="flex:1;">
+                  <div class="tier-header">
+                    <div><div class="tier-name">Elite</div><div class="tier-boat">Eldorado Yacht 13m · 2026 build</div></div>
+                    <div style="text-align:right;"><div class="tier-price-big">$149</div><div class="tier-price-sub">per person</div></div>
+                  </div>
+                  <div class="tier-features">
+                    <span class="feat highlight">🛥️ Full shade + bow lounge</span>
+                    <span class="feat highlight">🚁 Drone video</span>
+                    <span class="feat highlight">📸 Photographer 20–30 photos</span>
+                    <span class="feat highlight">⏱️ +1 hour on water</span>
+                    <span class="feat">🍽️ Luxury restaurant</span>
+                    <span class="feat">🥂 Sunset prosecco</span>
+                    <span class="feat">👨‍✈️ Senior guide 3yr+</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="btn-next" id="tier-btn" onclick="goTo(3)" disabled style="margin-top:16px;">Select a tier to continue →</button>
+          <button class="btn-back" onclick="goTo(1)">← Back to date</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3: EXTRAS -->
+    <div class="step-screen" id="screen3">
+      <div class="panel">
+        <div class="panel-head">
+          <div class="panel-step-num">3</div>
+          <div><div class="panel-title">Add extras</div><div class="panel-sub">Optional — skip if not needed</div></div>
+        </div>
+        <div class="panel-body">
+          <div class="extras-section">
+            <div class="extras-title">Transfer <span class="extras-badge">Optional</span></div>
+            <div class="extra-opt selected" id="ex-self" onclick="selectTransfer('self',0)">
+              <div class="extra-icon">🚶</div>
+              <div class="extra-info"><div class="extra-name">Self-arrival</div><div class="extra-desc">Meet us at Sanur port · JL. Hang Tuah, 08:00</div></div>
+              <div class="extra-price free">Free</div>
+              <div class="extra-check" id="ec-self">✓</div>
+            </div>
+            <div class="extra-opt" id="ex-shuttle" onclick="selectTransfer('shuttle',0)">
+              <div class="extra-icon">🚌</div>
+              <div class="extra-info"><div class="extra-name">Free shuttle bus</div><div class="extra-desc">Shared bus from Kuta / Seminyak / Ubud areas</div></div>
+              <div class="extra-price free">Free</div>
+              <div class="extra-check" id="ec-shuttle"></div>
+            </div>
+            <div class="extra-opt" id="ex-private" onclick="selectTransfer('private',25)">
+              <div class="extra-icon">🚗</div>
+              <div class="extra-info"><div class="extra-name">Private pick-up</div><div class="extra-desc">Door-to-port · Any Bali address · Private vehicle</div></div>
+              <div class="extra-price">+$25<span style="font-size:11px;font-weight:400;color:var(--txt3)">/person</span></div>
+              <div class="extra-check" id="ec-private"></div>
+            </div>
+            <div class="extra-opt" id="ex-roundtrip" onclick="selectTransfer('roundtrip',40)">
+              <div class="extra-icon">🔄</div>
+              <div class="extra-info"><div class="extra-name">Private pick-up & drop-off</div><div class="extra-desc">Round-trip private vehicle · Both ways</div></div>
+              <div class="extra-price">+$40<span style="font-size:11px;font-weight:400;color:var(--txt3)">/person</span></div>
+              <div class="extra-check" id="ec-roundtrip"></div>
+            </div>
+          </div>
+          <div class="extras-section">
+            <div class="extras-title">Cancellation protection <span class="extras-badge">Optional</span></div>
+            <div class="extra-opt selected" id="ex-flex" onclick="selectInsurance('flex',0)">
+              <div class="extra-icon">✅</div>
+              <div class="extra-info"><div class="extra-name">Fully Flexible</div><div class="extra-desc">Free cancellation up to 48h before · Full refund guaranteed</div></div>
+              <div class="extra-price free">Free</div>
+              <div class="extra-check" id="ec-flex">✓</div>
+            </div>
+            <div class="extra-opt" id="ex-premium-ins" onclick="selectInsurance('premium-ins',15)">
+              <div class="extra-icon">🛡️</div>
+              <div class="extra-info"><div class="extra-name">Premium coverage</div><div class="extra-desc">Cancel any time · Full refund including last minute</div></div>
+              <div class="extra-price">+$15<span style="font-size:11px;font-weight:400;color:var(--txt3)">/person</span></div>
+              <div class="extra-check" id="ec-premium-ins"></div>
+            </div>
+          </div>
+          <button class="btn-next" onclick="goTo(4)">Continue to payment →</button>
+          <button class="btn-back" onclick="goTo(2)">← Back to tier</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4: PAYMENT -->
+    <div class="step-screen" id="screen4">
+      <div class="panel">
+        <div class="panel-head">
+          <div class="panel-step-num">4</div>
+          <div><div class="panel-title">Payment</div><div class="panel-sub">Secure checkout · Instant confirmation</div></div>
+        </div>
+        <div class="panel-body">
+          <div class="checkout-trust">
+            <span class="trust-item">🔒 SSL secured</span>
+            <span class="trust-item">✓ Free cancellation 48h</span>
+            <span class="trust-item">⚡ Instant confirmation</span>
+            <span class="trust-item">★ 4.9 · 10,660 reviews</span>
+          </div>
+
+          <div style="font-size:14px;font-weight:700;color:var(--txt);margin-bottom:12px;">Payment amount</div>
+          <div class="payment-opts">
+            <div class="pay-opt selected" id="po-full" onclick="selectPayOpt('full')">
+              <div style="width:20px;height:20px;border-radius:50%;border:2px solid var(--p);background:var(--p);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><div style="width:8px;height:8px;border-radius:50%;background:#fff;"></div></div>
+              <div class="pay-opt-info">
+                <div class="pay-opt-title">Pay in full</div>
+                <div class="pay-opt-desc">Most popular · No extra steps later</div>
+              </div>
+              <div><div class="pay-opt-price" id="price-full">$258</div><div class="pay-opt-sub">total</div></div>
+            </div>
+            <div class="pay-opt" id="po-deposit" onclick="selectPayOpt('deposit')">
+              <div style="width:20px;height:20px;border-radius:50%;border:2px solid var(--bdr2);flex-shrink:0;" id="po-deposit-dot"></div>
+              <div class="pay-opt-info">
+                <div class="pay-opt-title">50% deposit now</div>
+                <div class="pay-opt-desc">Pay the rest 48h before the tour</div>
+              </div>
+              <div><div class="pay-opt-price" id="price-deposit">$129</div><div class="pay-opt-sub">today</div></div>
+            </div>
+          </div>
+
+          <div style="font-size:14px;font-weight:700;color:var(--txt);margin-bottom:12px;">Payment method</div>
+          <div class="pay-methods">
+            <div class="pay-method selected" id="pm-card" onclick="selectPayMethod('card')">
+              <div style="width:20px;height:20px;border-radius:50%;border:2px solid var(--p);background:var(--p);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><div style="width:8px;height:8px;border-radius:50%;background:#fff;"></div></div>
+              <div style="flex:1;font-size:14px;font-weight:600;color:var(--txt);">Card payment</div>
+              <div class="method-logos">
+                <div class="method-logo">VISA</div>
+                <div class="method-logo">MC</div>
+                <div class="method-logo">AMEX</div>
+              </div>
+              <div style="font-size:12px;color:var(--txt3);">No fee</div>
+            </div>
+            <div class="pay-method" id="pm-paypal" onclick="selectPayMethod('paypal')">
+              <div style="width:20px;height:20px;border-radius:50%;border:2px solid var(--bdr2);flex-shrink:0;" id="pm-paypal-dot"></div>
+              <div style="flex:1;font-size:14px;font-weight:600;color:var(--txt);">PayPal</div>
+              <div class="method-logos"><div class="method-logo" style="color:#003087;">PayPal</div></div>
+              <div style="font-size:12px;color:var(--warn);font-weight:600;">+5% fee</div>
+            </div>
+          </div>
+          <div class="pay-notice" id="pay-notice">💳 Card payment: no extra fees. Best value option.</div>
+
+          <div style="font-size:14px;font-weight:700;color:var(--txt);margin:20px 0 12px;">Your details</div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">First name *</label><input class="form-input" placeholder="John"/></div>
+            <div class="form-group"><label class="form-label">Last name *</label><input class="form-input" placeholder="Smith"/></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Email *</label><input class="form-input" type="email" placeholder="john@example.com"/></div>
+            <div class="form-group"><label class="form-label">WhatsApp *</label><input class="form-input" placeholder="+1 234 567 8900"/></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group full"><label class="form-label">Special requests <span style="color:var(--txt3);font-weight:400;">(optional)</span></label><textarea class="form-input" placeholder="Allergies, accessibility needs, celebrations..."></textarea></div>
+          </div>
+          <div class="terms-check"><input type="checkbox" id="tc1"/><label for="tc1">I agree to the <a href="#">Terms & Conditions</a> and <a href="#">Cancellation Policy</a></label></div>
+          <div class="terms-check"><input type="checkbox" id="tc2"/><label for="tc2">I understand the <a href="#">Health & Safety</a> requirements</label></div>
+
+          <button class="btn-next" onclick="completeBooking()" style="background:#28A745;font-size:16px;padding:16px;">🎉 Complete booking · <span id="final-btn-price">$258</span></button>
+          <button class="btn-back" onclick="goTo(3)">← Back to extras</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end main -->
+
+  <!-- STICKY SUMMARY -->
+  <div class="summary-sticky">
+    <div class="summary-card">
+      <div class="summary-head"><div class="summary-title">Your booking</div></div>
+      <div class="summary-body" id="summary-body">
+        <div class="sum-empty" id="sum-empty">Select date &amp; guests to start</div>
+        <div id="sum-rows" style="display:none;">
+          <div class="sum-row"><span class="sum-label">📅 Date</span><span class="sum-val" id="s-date">—</span></div>
+          <div class="sum-row"><span class="sum-label">👥 Guests</span><span class="sum-val" id="s-guests">—</span></div>
+          <div class="sum-row"><span class="sum-label">🌊 Tour tier</span><span class="sum-val" id="s-tier">—</span></div>
+          <div class="sum-row"><span class="sum-label">🚗 Transfer</span><span class="sum-val" id="s-transfer">Self-arrival</span></div>
+          <div class="sum-row"><span class="sum-label">🛡️ Protection</span><span class="sum-val" id="s-insurance">Fully flexible</span></div>
+        </div>
+      </div>
+      <div class="sum-total" id="sum-total" style="display:none;">
+        <div class="sum-total-label">Total</div>
+        <div class="sum-total-val" id="s-total">$0</div>
+      </div>
+      <div class="sum-trust">
+        <div class="sum-trust-item">🔒 Secure payment</div>
+        <div class="sum-trust-item">✓ Free cancellation 48h</div>
+        <div class="sum-trust-item">⚡ Instant confirmation by email</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end layout -->
+
+<!-- SUCCESS -->
+<div class="success-screen" id="success-screen">
+  <div class="success-icon">🎉</div>
+  <div class="success-title">Booking confirmed!</div>
+  <div class="success-sub">Check your email for full details. We'll send a WhatsApp reminder the day before.</div>
+  <div class="success-details">
+    <div class="sum-row"><span class="sum-label">📅 Date</span><span class="sum-val" id="ss-date"></span></div>
+    <div class="sum-row"><span class="sum-label">👥 Guests</span><span class="sum-val" id="ss-guests"></span></div>
+    <div class="sum-row"><span class="sum-label">🌊 Tier</span><span class="sum-val" id="ss-tier"></span></div>
+    <div class="sum-row"><span class="sum-label">💳 Total paid</span><span class="sum-val" id="ss-total"></span></div>
+  </div>
+  <a href="https://wa.me/6281370262777" class="btn-wa">💬 Chat with us on WhatsApp</a>
+  <div style="margin-top:12px;font-size:13px;color:var(--txt3);">Questions? info@bluuu.tours</div>
+</div>
+
+<script>
+var state = {
+  date: null, adults: 2, children: 0,
+  tier: null, tierPrice: 0,
+  transfer: 'self', transferPrice: 0,
+  insurance: 'flex', insurancePrice: 0,
+  payOpt: 'full', payMethod: 'card'
+};
+
+// Calendar
+document.querySelectorAll('.cal-day:not(.full)').forEach(function(d){
+  d.addEventListener('click', function(){
+    document.querySelectorAll('.cal-day').forEach(function(x){x.classList.remove('selected');});
+    this.classList.add('selected');
+    state.date = this.dataset.date;
+    var btn = document.getElementById('date-btn');
+    btn.disabled = false;
+    btn.textContent = 'Continue with ' + state.date + ' →';
+    updateSummary();
+  });
+});
+
+// Guests
+function changeGuest(type, delta){
+  if(type==='adults'){state.adults=Math.max(1,state.adults+delta);}
+  else{state.children=Math.max(0,state.children+delta);}
+  document.getElementById('adults-val').textContent=state.adults;
+  document.getElementById('children-val').textContent=state.children;
+  updateSummary();
+  updatePrices();
+}
+
+// Tier
+function selectTier(name, price){
+  state.tier=name; state.tierPrice=price;
+  ['classic','premium','elite'].forEach(function(t){
+    document.getElementById('tier-'+t).classList.remove('selected');
+    document.getElementById('tr-'+t).style.background='';
+  });
+  document.getElementById('tier-'+name).classList.add('selected');
+  var btn=document.getElementById('tier-btn');
+  btn.disabled=false;
+  btn.textContent='Continue with '+name.charAt(0).toUpperCase()+name.slice(1)+' ($'+price+'/person) →';
+  updateSummary();
+  updatePrices();
+}
+
+// Transfer
+function selectTransfer(key, price){
+  state.transfer=key; state.transferPrice=price;
+  ['self','shuttle','private','roundtrip'].forEach(function(k){
+    document.getElementById('ex-'+k).classList.remove('selected');
+    document.getElementById('ec-'+k).textContent='';
+  });
+  document.getElementById('ex-'+key).classList.add('selected');
+  document.getElementById('ec-'+key).textContent='✓';
+  updateSummary(); updatePrices();
+}
+
+// Insurance
+function selectInsurance(key, price){
+  state.insurance=key; state.insurancePrice=price;
+  ['flex','premium-ins'].forEach(function(k){
+    document.getElementById('ex-'+k).classList.remove('selected');
+    document.getElementById('ec-'+k).textContent='';
+  });
+  document.getElementById('ex-'+key).classList.add('selected');
+  document.getElementById('ec-'+key).textContent='✓';
+  updateSummary(); updatePrices();
+}
+
+// Pay opt
+function selectPayOpt(opt){
+  state.payOpt=opt;
+  var pFull=document.getElementById('po-full');
+  var pDep=document.getElementById('po-deposit');
+  var dot=document.getElementById('po-deposit-dot');
+  if(opt==='full'){
+    pFull.classList.add('selected');pDep.classList.remove('selected');
+    dot.style.background=''; dot.style.borderColor='';
+  } else {
+    pDep.classList.add('selected');pFull.classList.remove('selected');
+    dot.style.background='var(--p)'; dot.style.borderColor='var(--p)';
+  }
+  updatePrices();
+}
+
+// Pay method
+function selectPayMethod(m){
+  state.payMethod=m;
+  var pCard=document.getElementById('pm-card');
+  var pPP=document.getElementById('pm-paypal');
+  var dot=document.getElementById('pm-paypal-dot');
+  var notice=document.getElementById('pay-notice');
+  if(m==='card'){
+    pCard.classList.add('selected');pPP.classList.remove('selected');
+    dot.style.background=''; dot.style.borderColor='';
+    notice.textContent='💳 Card payment: no extra fees. Best value option.';
+  } else {
+    pPP.classList.add('selected');pCard.classList.remove('selected');
+    dot.style.background='var(--p)'; dot.style.borderColor='var(--p)';
+    notice.textContent='⚠️ PayPal adds a 5% processing fee. Card payment saves you money.';
+    notice.style.background='rgba(255,193,7,.1)'; notice.style.borderLeft='3px solid var(--warn)';
+  }
+  updatePrices();
+}
+
+function calcTotal(){
+  var total=(state.tierPrice+state.transferPrice+state.insurancePrice)*state.adults;
+  total+=(state.tierPrice+state.transferPrice+state.insurancePrice-10)*state.children;
+  if(state.payMethod==='paypal') total=Math.round(total*1.05);
+  return total;
+}
+
+function updatePrices(){
+  var total=calcTotal();
+  var half=Math.round(total/2);
+  document.getElementById('price-full').textContent='$'+total;
+  document.getElementById('price-deposit').textContent='$'+half;
+  document.getElementById('final-btn-price').textContent='$'+(state.payOpt==='full'?total:half);
+  document.getElementById('s-total').textContent='$'+total;
+}
+
+function updateSummary(){
+  var hasDate=state.date!==null;
+  var hasAll=hasDate && state.tier;
+  document.getElementById('sum-empty').style.display=hasDate?'none':'block';
+  document.getElementById('sum-rows').style.display=hasDate?'block':'none';
+  document.getElementById('sum-total').style.display=hasAll?'flex':'none';
+  if(hasDate){
+    document.getElementById('s-date').textContent=state.date;
+    document.getElementById('s-guests').textContent=state.adults+' adult'+(state.adults>1?'s':'')+(state.children?' + '+state.children+' child':'');
+    document.getElementById('s-tier').textContent=state.tier?state.tier.charAt(0).toUpperCase()+state.tier.slice(1)+' · $'+state.tierPrice+'/p':'—';
+    var tMap={'self':'Self-arrival','shuttle':'Free shuttle','private':'Private pickup +$25','roundtrip':'Round-trip +$40'};
+    document.getElementById('s-transfer').textContent=tMap[state.transfer]||'Self-arrival';
+    document.getElementById('s-insurance').textContent=state.insurance==='flex'?'Fully flexible':'Premium cover +$15/p';
+  }
+  updatePrices();
+}
+
+// Navigation
+function goTo(step){
+  document.querySelectorAll('.step-screen').forEach(function(s){s.classList.remove('active');});
+  document.getElementById('screen'+step).classList.add('active');
+  // progress
+  ['ps1','ps2','ps3','ps4'].forEach(function(id,i){
+    var el=document.getElementById(id);
+    el.classList.remove('active','done');
+    if(i+1<step) el.classList.add('done');
+    if(i+1===step) el.classList.add('active');
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function completeBooking(){
+  var total=calcTotal();
+  document.getElementById('ss-date').textContent=state.date;
+  document.getElementById('ss-guests').textContent=state.adults+' adult'+(state.adults>1?'s':'');
+  document.getElementById('ss-tier').textContent=state.tier?state.tier.charAt(0).toUpperCase()+state.tier.slice(1):'—';
+  document.getElementById('ss-total').textContent='$'+(state.payOpt==='full'?total:Math.round(total/2))+' '+(state.payOpt==='deposit'?'(50% deposit)':'');
+  document.getElementById('main-layout').style.display='none';
+  document.getElementById('success-screen').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+updateSummary();
+</script>
+</body>
+</html>

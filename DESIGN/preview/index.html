@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<title>BLUUU OS — Alex CEO</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<style>
+/* ── DARK THEME ── */
+:root {
+  --bg:#080e14; --sf:#0d1520; --sf2:#111d2c;
+  --bdr:rgba(255,255,255,.06); --bdr2:rgba(255,255,255,.1);
+  --p:#14b8c8; --pd:#0e8a97; --p-glow:rgba(20,184,200,.15);
+  --sec:#ffb35f;
+  --ok:#10d984; --ok-bg:rgba(16,217,132,.1);
+  --warn:#f6c244; --warn-bg:rgba(246,194,68,.1);
+  --err:#f24a4a; --err-bg:rgba(242,74,74,.1);
+  --info:#3b82f6; --info-bg:rgba(59,130,246,.1);
+  --txt:#e8f0f8; --txt2:#6b8094; --txt3:#3d5166;
+  --glass:rgba(255,255,255,.03); --glass-bdr:rgba(255,255,255,.07);
+  --radius:14px; --radius-sm:8px;
+  --shadow:0 4px 24px rgba(0,0,0,.4),0 1px 0 rgba(255,255,255,.04) inset;
+}
+/* ── LIGHT THEME ── */
+[data-theme="light"] {
+  --bg:#f0f4f8; --sf:#ffffff; --sf2:#f8fafc;
+  --bdr:rgba(0,0,0,.08); --bdr2:rgba(0,0,0,.14);
+  --p:#0ea5e9; --pd:#0284c7; --p-glow:rgba(14,165,233,.12);
+  --ok:#059669; --ok-bg:rgba(5,150,105,.08);
+  --warn:#d97706; --warn-bg:rgba(217,119,6,.08);
+  --err:#dc2626; --err-bg:rgba(220,38,38,.08);
+  --info:#2563eb; --info-bg:rgba(37,99,235,.08);
+  --txt:#0f172a; --txt2:#64748b; --txt3:#94a3b8;
+  --glass:rgba(255,255,255,.6); --glass-bdr:rgba(0,0,0,.08);
+  --shadow:0 2px 12px rgba(0,0,0,.08),0 1px 0 rgba(255,255,255,.8) inset;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s;}
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;background:rgba(8,14,20,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr);z-index:100;display:flex;align-items:center;height:52px;transition:background .3s;}
+[data-theme="light"] .nav{background:rgba(255,255,255,.92);}
+.nav-logo{padding:0 18px;font-weight:800;font-size:15px;color:var(--p);border-right:1px solid var(--bdr);height:100%;display:flex;align-items:center;flex-shrink:0;letter-spacing:-.3px;}
+.nav-logo sup{color:var(--txt3);font-weight:400;font-size:9px;margin-left:4px;letter-spacing:.5px;text-transform:uppercase;}
+.nav-tabs{display:flex;height:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.nav-tabs::-webkit-scrollbar{display:none;}
+.ntab{display:flex;align-items:center;padding:0 14px;font-size:12px;font-weight:500;color:var(--txt2);text-decoration:none;white-space:nowrap;border-bottom:1px solid transparent;height:100%;flex-shrink:0;transition:all .15s;letter-spacing:.01em;}
+.ntab:hover{color:var(--txt);background:var(--glass);}
+.ntab.active{color:var(--p);border-bottom-color:var(--p);font-weight:600;}
+.nav-r{margin-left:auto;display:flex;align-items:center;gap:8px;padding:0 16px;flex-shrink:0;}
+.theme-btn{width:28px;height:28px;border-radius:var(--radius-sm);background:var(--sf2);border:1px solid var(--bdr2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;transition:all .2s;flex-shrink:0;}
+.theme-btn:hover{border-color:var(--p);background:var(--p-glow);}
+.clk{font-size:11px;color:var(--txt3);font-family:'Roboto Mono',monospace;}
+.ava{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--pd));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;color:#fff;flex-shrink:0;}
+/* PAGE */
+.page{padding:68px 24px 48px;max-width:1440px;margin:0 auto;}
+/* CARDS */
+.card{background:var(--sf);border:1px solid var(--bdr);border-radius:var(--radius);box-shadow:var(--shadow);position:relative;overflow:hidden;transition:border-color .2s,box-shadow .2s;}
+.card:hover{border-color:var(--bdr2);}
+.card-accent::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--p) 50%,transparent);opacity:.5;}
+/* SECTION LABEL */
+.sec-label{font-size:11px;font-weight:600;color:var(--txt3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px;}
+/* KPI */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px;}
+@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:500px){.kpi-grid{grid-template-columns:1fr;}}
+.kpi-card{padding:20px;display:flex;flex-direction:column;gap:6px;}
+.kpi-top{display:flex;align-items:center;justify-content:space-between;}
+.kpi-lbl{font-size:11px;font-weight:600;color:var(--txt3);text-transform:uppercase;letter-spacing:.08em;}
+.kpi-val{font-size:30px;font-weight:800;font-family:'Roboto Mono',monospace;color:var(--txt);line-height:1;}
+.kpi-sub{font-size:12px;color:var(--txt2);}
+.badge{display:inline-flex;align-items:center;gap:3px;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap;}
+.badge-ok{background:var(--ok-bg);color:var(--ok);}
+.badge-warn{background:var(--warn-bg);color:var(--warn);}
+.badge-err{background:var(--err-bg);color:var(--err);}
+.badge-info{background:var(--info-bg);color:var(--info);}
+.badge-muted{background:var(--sf2);color:var(--txt2);}
+/* DELTA */
+.delta{font-size:12px;font-weight:500;}
+.delta-up{color:var(--ok);}
+.delta-down{color:var(--err);}
+/* PROGRESS */
+.pbar-wrap{height:4px;background:var(--sf2);border-radius:2px;overflow:hidden;margin-top:6px;}
+.pbar{height:100%;border-radius:2px;background:var(--p);box-shadow:0 0 8px var(--p);}
+/* MAP */
+.map-card{border-radius:var(--radius);overflow:hidden;border:1px solid var(--bdr);box-shadow:var(--shadow);margin-bottom:16px;}
+.map-header{background:var(--sf);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--bdr);flex-wrap:wrap;gap:8px;}
+#fleet-map{height:360px;}
+/* CHART */
+.chart-bars{display:flex;align-items:flex-end;gap:4px;height:120px;padding:0 4px;}
+.bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;}
+.bar{width:100%;border-radius:3px 3px 0 0;background:var(--sf2);transition:all .2s;min-width:6px;}
+.bar-wrap:hover .bar{background:var(--p);box-shadow:0 0 12px var(--p-glow);}
+.bar-wrap.peak .bar{background:var(--p);box-shadow:0 0 16px var(--p-glow);}
+.bar-lbl{font-size:9px;color:var(--txt3);font-family:'Roboto Mono',monospace;}
+/* GRID LAYOUTS */
+.grid-2{display:grid;grid-template-columns:60% 1fr;gap:12px;margin-bottom:16px;}
+.grid-2b{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+@media(max-width:900px){.grid-2,.grid-2b{grid-template-columns:1fr;}}
+/* OTA */
+.ota-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--bdr);}
+.ota-row:last-child{border-bottom:none;}
+.ota-stars{color:var(--warn);font-size:13px;}
+/* TEAM */
+.team-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--bdr);}
+.team-row:last-child{border-bottom:none;}
+.team-ava{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;color:#fff;flex-shrink:0;}
+/* FEED */
+.feed-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--bdr);}
+.feed-item:last-child{border-bottom:none;}
+.feed-dot{width:3px;border-radius:2px;flex-shrink:0;margin-top:3px;}
+/* HERO */
+.hero{display:flex;align-items:flex-start;justify-content:space-between;padding:20px 0 16px;flex-wrap:wrap;gap:8px;}
+.cb-btn{position:fixed;bottom:24px;right:24px;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--pd));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 20px rgba(20,184,200,.4);z-index:1000;transition:transform .2s,box-shadow .2s;}
+.cb-btn:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(20,184,200,.6);}
+.cb-btn .cb-dot{position:absolute;top:2px;right:2px;width:12px;height:12px;background:var(--ok);border-radius:50%;border:2px solid var(--bg);animation:cbpulse 2s infinite;}
+@keyframes cbpulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.7;transform:scale(1.2);}}
+.cb-window{position:fixed;bottom:88px;right:24px;width:360px;height:520px;background:var(--sf);border:1px solid var(--glass-bdr);border-radius:var(--radius);box-shadow:0 20px 60px rgba(0,0,0,.5);z-index:999;display:flex;flex-direction:column;overflow:hidden;opacity:0;transform:translateY(20px) scale(.95);transition:opacity .25s,transform .25s;pointer-events:none;}
+.cb-window.open{opacity:1;transform:translateY(0) scale(1);pointer-events:all;}
+.cb-head{padding:16px 18px;background:var(--sf2);border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:12px;flex-shrink:0;}
+.cb-ava{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--pd));display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.cb-head-info{flex:1;}.cb-head-name{font-size:14px;font-weight:700;color:var(--txt);}.cb-head-status{font-size:11px;color:var(--ok);margin-top:1px;}
+.cb-close{width:28px;height:28px;border-radius:50%;background:var(--glass);border:1px solid var(--bdr);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--txt2);transition:background .15s;}
+.cb-close:hover{background:var(--sf2);}
+.cb-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth;}
+.cb-msgs::-webkit-scrollbar{width:4px;}.cb-msgs::-webkit-scrollbar-track{background:transparent;}.cb-msgs::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:2px;}
+.cb-msg{display:flex;gap:8px;animation:msgIn .2s ease;}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.cb-msg.user{flex-direction:row-reverse;}
+.cb-bubble{max-width:80%;padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.5;}
+.cb-msg.bot .cb-bubble{background:var(--sf2);border:1px solid var(--bdr);color:var(--txt);border-bottom-left-radius:4px;}
+.cb-msg.user .cb-bubble{background:var(--p);color:#fff;border-bottom-right-radius:4px;}
+.cb-msg-ava{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;margin-top:auto;}
+.cb-msg.bot .cb-msg-ava{background:linear-gradient(135deg,var(--p),var(--pd));color:#fff;font-weight:700;}
+.cb-msg.user .cb-msg-ava{background:var(--sf2);border:1px solid var(--bdr);}
+.cb-typing{display:flex;gap:4px;padding:10px 14px;background:var(--sf2);border:1px solid var(--bdr);border-radius:14px;border-bottom-left-radius:4px;width:fit-content;}
+.cb-typing span{width:6px;height:6px;background:var(--txt3);border-radius:50%;animation:cbdot 1.2s infinite;}
+.cb-typing span:nth-child(2){animation-delay:.2s;}.cb-typing span:nth-child(3){animation-delay:.4s;}
+@keyframes cbdot{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-6px);}}
+.cb-suggestions{padding:8px 16px;display:flex;gap:6px;flex-wrap:wrap;flex-shrink:0;border-top:1px solid var(--bdr);}
+.cb-chip{padding:5px 11px;background:var(--sf2);border:1px solid var(--bdr);border-radius:20px;font-size:11px;color:var(--txt2);cursor:pointer;transition:all .15s;white-space:nowrap;}
+.cb-chip:hover{background:var(--p-glow);border-color:var(--p);color:var(--p);}
+.cb-input-wrap{padding:12px 16px;border-top:1px solid var(--bdr);display:flex;gap:8px;flex-shrink:0;background:var(--sf2);}
+.cb-input{flex:1;background:var(--sf);border:1px solid var(--bdr);border-radius:var(--radius-sm);padding:9px 13px;font-size:13px;color:var(--txt);outline:none;font-family:inherit;transition:border-color .15s;}
+.cb-input:focus{border-color:var(--p);}
+.cb-send{width:36px;height:36px;border-radius:var(--radius-sm);background:var(--p);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:background .15s;flex-shrink:0;}
+.cb-send:hover{background:var(--pd);}
+@media(max-width:480px){.cb-window{width:calc(100vw - 20px);right:10px;bottom:76px;height:480px;}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">BLUUU<sup>OS</sup></div>
+  <div class="nav-tabs">
+    <a class="ntab active" href="index.html">Alex CEO</a>
+    <a class="ntab" href="karim.html">Карим</a>
+    <a class="ntab" href="widia.html">Widia</a>
+    <a class="ntab" href="dima.html">Дима</a>
+    <a class="ntab" href="geebran.html">Geebran</a>
+    <a class="ntab" href="david.html">David</a>
+    <a class="ntab" href="finance.html">Finance</a>
+    <a class="ntab" href="booking.html">Booking</a>
+    <a class="ntab" href="guide.html">Гид</a>
+    <a class="ntab" href="driver.html">Водитель</a>
+    <a class="ntab" href="drivers-manager.html">Диспетчер</a>
+  </div>
+  <div class="nav-r">
+    <span class="clk" id="clk">00:00</span>
+    <div class="theme-btn" id="theme-btn" title="Тема">☀️</div>
+    <div class="ava">A</div>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div>
+      <div style="font-size:26px;font-weight:800;letter-spacing:-.5px;">Добро пожаловать, Alex</div>
+      <div style="font-size:13px;color:var(--txt2);margin-top:4px;">BLUUU Tours · <span id="dateStr">...</span></div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <span class="badge badge-ok">● Все системы работают</span>
+      <span class="badge badge-warn">● 8 задач требуют внимания</span>
+    </div>
+  </div>
+
+  <!-- KPI -->
+  <div class="kpi-grid" style="margin-bottom:16px;">
+    <div class="card card-accent kpi-card">
+      <div class="kpi-top">
+        <span class="kpi-lbl">Выручка сегодня</span>
+        <span class="badge badge-ok">94% плана</span>
+      </div>
+      <div class="kpi-val" style="color:var(--p);">47.2M</div>
+      <div class="kpi-sub" style="color:var(--txt3);">IDR</div>
+      <div class="delta delta-up">↑ +12% vs вчера</div>
+      <div class="pbar-wrap"><div class="pbar" style="width:94%;"></div></div>
+    </div>
+    <div class="card card-accent kpi-card">
+      <div class="kpi-top">
+        <span class="kpi-lbl">Туров активно</span>
+        <span class="badge badge-muted">из 9 план.</span>
+      </div>
+      <div class="kpi-val">6</div>
+      <div class="kpi-sub">3 лодки на ТО</div>
+      <div class="delta delta-up">↑ +1 vs вчера</div>
+      <div class="pbar-wrap"><div class="pbar" style="width:67%;"></div></div>
+    </div>
+    <div class="card card-accent kpi-card">
+      <div class="kpi-top">
+        <span class="kpi-lbl">Гостей сегодня</span>
+        <span class="badge badge-ok">96% загр.</span>
+      </div>
+      <div class="kpi-val">84</div>
+      <div class="kpi-sub">из 88 мест</div>
+      <div class="delta delta-up">↑ +8 vs вчера</div>
+      <div class="pbar-wrap"><div class="pbar" style="width:96%;"></div></div>
+    </div>
+    <div class="card card-accent kpi-card">
+      <div class="kpi-top">
+        <span class="kpi-lbl">Pending задач</span>
+        <span class="badge badge-warn">3 срочных</span>
+      </div>
+      <div class="kpi-val" style="color:var(--warn);">8</div>
+      <div class="kpi-sub">требуют внимания</div>
+      <div class="delta" style="color:var(--txt3);">— без изменений</div>
+    </div>
+  </div>
+
+  <!-- Chart + OTA -->
+  <div class="grid-2">
+    <div class="card" style="padding:20px;">
+      <div class="sec-label">Выручка — 30 дней</div>
+      <div class="chart-bars" id="chartBars"></div>
+      <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:10px;color:var(--txt3);">
+        <span>1 апр</span><span>15 апр</span><span>2 апр</span>
+      </div>
+    </div>
+    <div class="card" style="padding:20px;">
+      <div class="sec-label">OTA рейтинги</div>
+      <div class="ota-row">
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:600;">Viator</div>
+          <div style="font-size:11px;color:var(--txt2);">2,341 отзывов</div>
+        </div>
+        <div style="text-align:right;min-width:80px;">
+          <div class="ota-stars">★★★★★</div>
+          <div style="font-size:12px;font-family:'Roboto Mono',monospace;color:var(--p);">4.8</div>
+        </div>
+        <div style="width:60px;"><div class="pbar-wrap"><div class="pbar" style="width:96%;"></div></div></div>
+      </div>
+      <div class="ota-row">
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:600;">TripAdvisor</div>
+          <div style="font-size:11px;color:var(--txt2);">1,872 отзыва</div>
+        </div>
+        <div style="text-align:right;min-width:80px;">
+          <div class="ota-stars">★★★★★</div>
+          <div style="font-size:12px;font-family:'Roboto Mono',monospace;color:var(--p);">4.9</div>
+        </div>
+        <div style="width:60px;"><div class="pbar-wrap"><div class="pbar" style="width:98%;"></div></div></div>
+      </div>
+      <div class="ota-row">
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:600;">Klook</div>
+          <div style="font-size:11px;color:var(--txt2);">892 отзыва</div>
+        </div>
+        <div style="text-align:right;min-width:80px;">
+          <div class="ota-stars">★★★★☆</div>
+          <div style="font-size:12px;font-family:'Roboto Mono',monospace;color:var(--p);">4.7</div>
+        </div>
+        <div style="width:60px;"><div class="pbar-wrap"><div class="pbar" style="width:94%;"></div></div></div>
+      </div>
+      <div class="ota-row">
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:600;">GetYourGuide</div>
+          <div style="font-size:11px;color:var(--txt2);">441 отзыв</div>
+        </div>
+        <div style="text-align:right;min-width:80px;">
+          <div class="ota-stars">★★★★☆</div>
+          <div style="font-size:12px;font-family:'Roboto Mono',monospace;color:var(--p);">4.6</div>
+        </div>
+        <div style="width:60px;"><div class="pbar-wrap"><div class="pbar" style="width:92%;"></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Team + Feed -->
+  <div class="grid-2b">
+    <div class="card" style="padding:20px;">
+      <div class="sec-label">Команда</div>
+      <div class="team-row">
+        <div class="team-ava" style="background:linear-gradient(135deg,#14b8c8,#0e8a97);">KR</div>
+        <div style="flex:1;"><div style="font-size:13px;font-weight:600;">Карим</div><div style="font-size:11px;color:var(--txt2);">Operations Director</div></div>
+        <span class="badge badge-ok">● Активен</span>
+      </div>
+      <div class="team-row">
+        <div class="team-ava" style="background:linear-gradient(135deg,#3b82f6,#2563eb);">DM</div>
+        <div style="flex:1;"><div style="font-size:13px;font-weight:600;">Дима</div><div style="font-size:11px;color:var(--txt2);">Guest Relations</div></div>
+        <span class="badge badge-ok">● Активен</span>
+      </div>
+      <div class="team-row">
+        <div class="team-ava" style="background:linear-gradient(135deg,#10d984,#059669);">WD</div>
+        <div style="flex:1;"><div style="font-size:13px;font-weight:600;">Widia</div><div style="font-size:11px;color:var(--txt2);">Lounge Manager</div></div>
+        <span class="badge badge-ok">● На посту</span>
+      </div>
+      <div class="team-row">
+        <div class="team-ava" style="background:linear-gradient(135deg,#f6c244,#d97706);">GB</div>
+        <div style="flex:1;"><div style="font-size:13px;font-weight:600;">Geebran</div><div style="font-size:11px;color:var(--txt2);">Head of Guides</div></div>
+        <span class="badge badge-ok">● В туре</span>
+      </div>
+      <div class="team-row">
+        <div class="team-ava" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);">DV</div>
+        <div style="flex:1;"><div style="font-size:13px;font-weight:600;">David</div><div style="font-size:11px;color:var(--txt2);">Head of Fleet</div></div>
+        <span class="badge badge-ok">● Активен</span>
+      </div>
+      <div class="team-row">
+        <div class="team-ava" style="background:linear-gradient(135deg,#f24a4a,#b91c1c);">AL</div>
+        <div style="flex:1;"><div style="font-size:13px;font-weight:600;">Aline</div><div style="font-size:11px;color:var(--txt2);">OTA Manager</div></div>
+        <span class="badge badge-warn">● OTA слоты</span>
+      </div>
+    </div>
+    <div class="card" style="padding:20px;">
+      <div class="sec-label">События</div>
+      <div class="feed-item">
+        <div class="feed-dot" style="background:var(--ok);height:36px;"></div>
+        <div>
+          <div style="font-size:13px;font-weight:500;">Lady Manta вышла в рейс</div>
+          <div style="font-size:11px;color:var(--txt2);">12 гостей · Nusa Penida Full Day</div>
+          <div style="font-size:10px;color:var(--txt3);margin-top:2px;">08:30</div>
+        </div>
+      </div>
+      <div class="feed-item">
+        <div class="feed-dot" style="background:var(--p);height:36px;"></div>
+        <div>
+          <div style="font-size:13px;font-weight:500;">Новое бронирование — Viator</div>
+          <div style="font-size:11px;color:var(--txt2);">Private Charter · 4 гостя · Rp 4.2M</div>
+          <div style="font-size:10px;color:var(--txt3);margin-top:2px;">08:14</div>
+        </div>
+      </div>
+      <div class="feed-item">
+        <div class="feed-dot" style="background:var(--warn);height:36px;"></div>
+        <div>
+          <div style="font-size:13px;font-weight:500;">Coral Drift — поломка двигателя</div>
+          <div style="font-size:11px;color:var(--txt2);">Передана на ТО · David уведомлён</div>
+          <div style="font-size:10px;color:var(--txt3);margin-top:2px;">07:52</div>
+        </div>
+      </div>
+      <div class="feed-item">
+        <div class="feed-dot" style="background:var(--ok);height:36px;"></div>
+        <div>
+          <div style="font-size:13px;font-weight:500;">5 новых отзывов — TripAdvisor</div>
+          <div style="font-size:11px;color:var(--txt2);">Средняя оценка ★ 4.9</div>
+          <div style="font-size:10px;color:var(--txt3);margin-top:2px;">07:30</div>
+        </div>
+      </div>
+      <div class="feed-item">
+        <div class="feed-dot" style="background:var(--info);height:36px;"></div>
+        <div>
+          <div style="font-size:13px;font-weight:500;">Погода подтверждена — GO</div>
+          <div style="font-size:11px;color:var(--txt2);">Волны 0.8м · Ветер 12 уз · David 05:45</div>
+          <div style="font-size:10px;color:var(--txt3);margin-top:2px;">05:45</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fleet Map -->
+  <div class="map-card" style="margin-bottom:16px;">
+    <div class="map-header">
+      <div>
+        <div class="sec-label" style="margin:0 0 2px;">Флот — реальное время</div>
+        <div style="font-size:12px;color:var(--txt2);">GPS позиции · 17 лодок</div>
+      </div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;">
+        <span style="font-size:12px;color:var(--ok);">● В туре (6)</span>
+        <span style="font-size:12px;color:var(--warn);">● На ТО (3)</span>
+        <span style="font-size:12px;color:var(--txt3);">● В порту (7)</span>
+        <span style="font-size:12px;color:var(--err);">● Поломка (1)</span>
+      </div>
+    </div>
+    <div id="fleet-map"></div>
+  </div>
+
+
+
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+// Clock + date
+function tick(){
+  var n=new Date();
+  var h=String(n.getHours()).padStart(2,'0'),m=String(n.getMinutes()).padStart(2,'0'),s=String(n.getSeconds()).padStart(2,'0');
+  var clk=document.getElementById('clk');
+  if(clk) clk.textContent=h+':'+m+':'+s;
+  var days=['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'];
+  var months=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+  var ds=document.getElementById('dateStr');
+  if(ds) ds.textContent=days[n.getDay()]+', '+n.getDate()+' '+months[n.getMonth()]+' '+n.getFullYear();
+}
+tick(); setInterval(tick,1000);
+
+// Theme
+(function(){
+  var saved=localStorage.getItem('bluuu-theme')||'dark';
+  if(saved==='light') document.documentElement.setAttribute('data-theme','light');
+  var btn=document.getElementById('theme-btn');
+  if(btn) btn.textContent=saved==='light'?'🌙':'☀️';
+  if(btn) btn.addEventListener('click',function(){
+    var cur=document.documentElement.getAttribute('data-theme');
+    if(cur==='light'){
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('bluuu-theme','dark');
+      btn.textContent='☀️';
+    } else {
+      document.documentElement.setAttribute('data-theme','light');
+      localStorage.setItem('bluuu-theme','light');
+      btn.textContent='🌙';
+    }
+  });
+})();
+
+// Chart bars
+(function(){
+  var vals=[38,42,51,45,60,48,55,62,58,47,70,65,72,68,59,63,75,71,66,80,74,69,77,83,72,65,79,85,47,91];  var max=Math.max.apply(null,vals);
+  var container=document.getElementById('chartBars');
+  if(container){
+    vals.forEach(function(v,i){
+      var wrap=document.createElement('div');
+      wrap.className='bar-wrap'+(i===vals.length-1?' peak':'');
+      var bar=document.createElement('div');
+      bar.className='bar';
+      bar.style.height=(v/max*100)+'%';
+      bar.title='Rp '+v+'M';
+      wrap.appendChild(bar);
+      container.appendChild(wrap);
+    });
+  }
+})();
+
+// Fleet Map
+(function(){
+  var el=document.getElementById('fleet-map');
+  if(!el||el._mi)return; el._mi=true;
+  var map=L.map(el,{center:[-8.72,115.25],zoom:11,zoomControl:true,attributionControl:false});
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:18}).addTo(map);
+  var boats=[
+    {name:'Lady Manta',  lat:-8.641,lng:115.449,s:'tour', g:12,t:'Nusa Penida Full Day'},
+    {name:'Blue Wave',   lat:-8.690,lng:115.460,s:'tour', g:8, t:'Snorkeling Premium'},
+    {name:'Sea Spirit',  lat:-8.730,lng:115.510,s:'tour', g:4, t:'Private Charter'},
+    {name:'Coral Queen', lat:-8.715,lng:115.390,s:'tour', g:10,t:'Manta Ray Tour'},
+    {name:'Manta King',  lat:-8.700,lng:115.430,s:'tour', g:14,t:'Nusa Penida Full Day'},
+    {name:'Ocean Dream', lat:-8.650,lng:115.470,s:'tour', g:16,t:'Snorkeling Essential'},
+    {name:'Sunset Star', lat:-8.726,lng:115.180,s:'port', g:0, t:''},
+    {name:'Pearl Diver', lat:-8.722,lng:115.177,s:'port', g:0, t:''},
+    {name:'Bali Breeze', lat:-8.724,lng:115.182,s:'port', g:0, t:''},
+    {name:'Nusa Express',lat:-8.728,lng:115.175,s:'port', g:0, t:''},
+    {name:'Deep Blue',   lat:-8.720,lng:115.185,s:'port', g:0, t:''},
+    {name:'Silver Fin',  lat:-8.730,lng:115.179,s:'maint',g:0, t:'Плановое ТО'},
+    {name:'Wave Rider',  lat:-8.718,lng:115.183,s:'maint',g:0, t:'Замена двигателя'},
+    {name:'Storm Chaser',lat:-8.725,lng:115.188,s:'maint',g:0, t:'Проверка корпуса'},
+    {name:'Sea Phoenix', lat:-8.723,lng:115.174,s:'port', g:0, t:''},
+    {name:'Coral Drift', lat:-8.727,lng:115.176,s:'broken',g:0,t:'Поломка двигателя'},
+    {name:'Blue Horizon',lat:-8.722,lng:115.190,s:'port', g:0, t:''},
+  ];
+  var c={tour:'#10d984',port:'#3d5166',maint:'#f6c244',broken:'#f24a4a'};
+  var lb={tour:'В туре',port:'В порту',maint:'На ТО',broken:'Поломка'};
+  boats.forEach(function(b){
+    var col=c[b.s];
+    var icon=L.divIcon({className:'',
+      html:'<div style="width:12px;height:12px;border-radius:50%;background:'+col+';border:1.5px solid rgba(255,255,255,.3);box-shadow:0 0 10px '+col+'80;"></div>',
+      iconSize:[12,12],iconAnchor:[6,6]});
+    var pop='<div style="font-family:Inter,sans-serif;min-width:160px;font-size:12px;"><b>'+b.name+'</b><br><span style="color:'+col+';">'+lb[b.s]+'</span>';
+    if(b.t) pop+='<br><span style="color:#aaa;">'+b.t+'</span>';
+    if(b.g) pop+='<br><span style="color:#aaa;">'+b.g+' гостей</span>';
+    pop+='</div>';
+    L.marker([b.lat,b.lng],{icon:icon}).addTo(map).bindPopup(pop);
+  });
+  L.marker([-8.726,115.181],{icon:L.divIcon({className:'',
+    html:'<div style="background:rgba(13,21,32,.9);border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:3px 8px;font-size:10px;color:#6b8094;white-space:nowrap;font-family:Inter,sans-serif;">Порт Санур</div>',
+    iconSize:[90,18],iconAnchor:[45,9]})}).addTo(map);
+})();
+</script>
+
+<button class="cb-btn" id="cbBtn">✦<span class="cb-dot"></span></button>
+<div class="cb-window" id="cbWin">
+  <div class="cb-head">
+    <div class="cb-ava">🤖</div>
+    <div class="cb-head-info">
+      <div class="cb-head-name">BLUUU AI</div>
+      <div class="cb-head-status">● онлайн · знает данные страницы</div>
+    </div>
+    <div class="cb-close" id="cbClose">✕</div>
+  </div>
+  <div class="cb-msgs" id="cbMsgs"></div>
+  <div class="cb-suggestions"><button class="cb-chip">Выручка сегодня</button><button class="cb-chip">GO/NO-GO статус</button><button class="cb-chip">Активные лодки</button><button class="cb-chip">Топ канал</button></div>
+  <div class="cb-input-wrap">
+    <input class="cb-input" id="cbInput" placeholder="Спроси что-нибудь..." autocomplete="off"/>
+    <button class="cb-send" id="cbSend">➤</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  var BTN=document.getElementById('cbBtn'),WIN=document.getElementById('cbWin'),MSGS=document.getElementById('cbMsgs'),INPUT=document.getElementById('cbInput');
+  var qa={'выручка': 'Выручка сегодня: Rp 47,250,000 (+12% vs вчера). Прогресс плана: 94%. Топ канал — Viator: 43%.', 'туры': 'Сегодня 14 туров — все GO. 12 активных, 2 завершены, отмен нет.', 'гости': 'На воде: 87 гостей. Всего сегодня: 142 чел. Возвращаются к 15:00.', 'лодки': 'Флот: 6 в туре, 7 в порту, 3 на ТО, 1 поломка (Coral Drift).', 'погода': 'Ясно, ветер 12 уз, волна 0.7м. Статус: GO ✅', 'go': 'GO ✅ Ветер 12 уз (<20), волна 0.7м (<1.5м). Все параметры в норме.', 'viator': 'Viator: 43% выручки (Rp 532M/мес). Klook 19%, Direct 16%, GYG 12%, WA 9%.', 'команда': 'На работе: Карим, Дима, David, Widia, Geebran. Все на связи.'},chips=['Выручка сегодня', 'GO/NO-GO статус', 'Активные лодки', 'Топ канал'],greet='Привет, Alex! Сегодня всё по плану. Выручка Rp 47.25M, 14 туров в GO, 87 гостей на воде. Что хочешь узнать?',isOpen=false,isBusy=false;
+  function toggle(){isOpen=!isOpen;WIN.classList.toggle('open',isOpen);BTN.style.fontSize=isOpen?'18px':'22px';BTN.firstChild.textContent=isOpen?'✕':'✦';if(isOpen&&MSGS.children.length===0){setTimeout(function(){addMsg(greet,'bot');},400);}}
+  BTN.addEventListener('click',toggle);
+  document.getElementById('cbClose').addEventListener('click',function(){isOpen=false;WIN.classList.remove('open');BTN.style.fontSize='22px';BTN.firstChild.textContent='✦';});
+  function addMsg(t,r){var w=document.createElement('div');w.className='cb-msg '+r;var a=document.createElement('div');a.className='cb-msg-ava';a.textContent=r==='bot'?'AI':'You';var b=document.createElement('div');b.className='cb-bubble';b.innerHTML=t.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');w.appendChild(r==='bot'?a:b);w.appendChild(r==='bot'?b:a);MSGS.appendChild(w);MSGS.scrollTop=MSGS.scrollHeight;}
+  function showTyping(){var t=document.createElement('div');t.className='cb-msg bot';t.id='cbt';var a=document.createElement('div');a.className='cb-msg-ava';a.textContent='AI';var b=document.createElement('div');b.className='cb-typing';b.innerHTML='<span></span><span></span><span></span>';t.appendChild(a);t.appendChild(b);MSGS.appendChild(t);MSGS.scrollTop=MSGS.scrollHeight;return t;}
+  function reply(msg){var m=msg.toLowerCase();for(var k in qa){if(m.indexOf(k)!==-1)return qa[k];}if(/привет|hello|hi/.test(m))return 'Привет! Чем помочь?';if(/спасибо|thanks/.test(m))return 'Пожалуйста! Ещё вопросы?';return 'Попробуй спросить о: '+chips.slice(0,3).join(', ')+'.';}
+  function send(){var msg=INPUT.value.trim();if(!msg||isBusy)return;addMsg(msg,'user');INPUT.value='';isBusy=true;var t=showTyping();setTimeout(function(){t.remove();addMsg(reply(msg),'bot');isBusy=false;},600+Math.random()*700);}
+  document.getElementById('cbSend').addEventListener('click',send);
+  INPUT.addEventListener('keydown',function(e){if(e.key==='Enter')send();});
+  document.querySelectorAll('.cb-chip').forEach(function(c){c.addEventListener('click',function(){INPUT.value=c.textContent;send();});});
+})();</script>
+</body>
+</html>

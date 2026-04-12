@@ -1,0 +1,861 @@
+﻿Bluuu Tours — Complete Q&A Knowledge Base
+________________
+Comprehensive Q&A for Bluuu Tours (Day Trip Bali) AI chatbot. Based on official documentation, FAQs, and over 536,000 real guest messages from Kommo CRM. Updated April 2026.
+Table of Contents: 1. Booking & Availability 2. Payment & Pricing 3. Cancellations, Refunds & Modifications 4. Itinerary & Activities 5. Private vs Shared Tours 6. Transportation & Transfers 7. Meeting Point & Departure 8. Food & Beverage 9. Snorkeling & Water Activities 10. Wildlife & Marine Life 11. Location-Specific (Nusa Penida & Islands) 12. Safety & Requirements 13. Equipment & Amenities 14. Photography & Media 15. Children & Age Restrictions 16. Weather & Conditions 17. Special Requests & Customization 18. Accommodation 19. Company Information 20. What to Bring 21. Sea Sickness 22. Real Guest Questions (from CRM Dialogues)
+1. Booking & Availability
+Q: How can I book a tour with Bluuu Tours?
+A: You can book any tour directly on our website. The process is quick and easy — just choose your tour, select the date, and complete the payment. You can pay a 50% deposit to confirm, and settle the remainder at our office before the trip.
+Q: Can I book via WhatsApp, email, or phone?
+A: Yes, you can reach us on WhatsApp, by email, or directly through our website. You can find our contact details on the website. We recommend booking directly on the website to avoid any extra fees.
+Q: Do I need to book in advance?
+A: Yes, advance booking is required with a 50% deposit to confirm your spot. You can book any time up until 8:30 PM the evening before the tour, as long as there is availability.
+Q: Can I book last-minute or for tomorrow?
+A: Yes! You can book a tour for the next day as long as you do so before 8:30 PM Bali time and spots are still available.
+Q: Can I book through TripAdvisor, Klook, or other platforms?
+A: Yes! Our tours are available on most major booking platforms including TripAdvisor, Klook, Viator, GetYourGuide, and Airbnb. However, booking directly on our website is recommended to avoid extra commissions or fees.
+Q: How far in advance must I book?
+A: You can book up until 8:30 PM the day before the tour, as long as there is availability. For popular dates, we recommend booking earlier.
+Q: What information do I need to provide when booking?
+A: You'll need to complete our online web check-in, providing the full name, age, and nationality of each guest. These are mandatory requirements from the harbor master for every trip.
+Q: Is there a minimum number of guests required to book?
+A: The minimum is just one guest for shared tours. Private tours are priced per boat, so you can book for just your group. However, shared tours may be cancelled if the minimum number of travelers is not met, in which case we'll offer an alternative date or full refund.
+Q: Can I hold a reservation without paying?
+A: Unfortunately, we cannot confirm a booking without a deposit. A minimum 50% deposit is required to secure your date.
+Q: Can I add more people to my booking after it's confirmed?
+A: Yes, you can modify the number of guests in your personal account, up to 24 hours before the tour departure. For shared tours, additions are subject to availability.
+Q: Can I book a private tour just for my group?
+A: Absolutely! We have a wide selection of private boats exclusively for your group. Visit our website to see available options and pricing.
+Q: Is it better to book on your website or on a third-party platform?
+A: It's always better to book directly on our website to avoid additional or hidden fees charged by online booking platforms.
+Q: Do you operate tours every day?
+A: Our tours run every day without breaks, except on major Balinese ceremonies and Indonesian public holidays. Availability for those dates is blocked in advance.
+Q: What are your business/working hours?
+A: We operate every day from 9 AM to 6 PM Bali time (GMT+8).
+Q: How do I get booking confirmation?
+A: You will receive a booking confirmation email as soon as your payment is processed, within just a few minutes. If you don't receive it, please check your spam folder or contact us immediately.
+Q: Can I view boat photos or documents before booking?
+A: You can view high-quality photos of all our boats on our website. Unfortunately, we cannot provide official boat documents for security reasons, and boats may be out on tours daily.
+Q: Can I book a driver for hotel transfers separately?
+A: You can add hotel transfers during the tour booking process on our website. We don't offer standalone transfer bookings at this time.
+Q: Is booking online secure?
+A: Yes, 100% secure. All payments are processed through our secure payment platform.
+Q: What are the next steps after booking?
+A: You'll receive a confirmation email and a link to register your personal account. Your guide will message you the day before the trip. 
+Q: Is there an availability check for specific dates?
+A: Yes — you can check availability and pricing for any date directly on our website by entering your date and group size.
+Q: Can I book from Nusa Penida rather than Bali?
+A: If you'd like to join a tour starting from Nusa Penida rather than Bali, only private tour options are available. Our shared tours depart from Bali only.
+Q: Can I book only specific services like photography or drone filming?
+A: You can book available add-ons (photographer, drone pilot, transfers, etc.) during the tour booking process or later through your personal account on our website.
+2. Payment & Pricing
+Q: What payment methods do you accept?
+A: Online (website): Visa, MasterCard, American Express, and PayPal. At our office: cash (IDR only) and Visa/MasterCard/American Express.
+Q: Can I pay cash?
+A: Yes, you can pay the remaining balance in cash (Indonesian Rupiah only) at our office on the day of the tour. We do not accept USD, EUR, or other currencies in cash.
+Q: Do you accept credit cards?
+A: Yes — Visa, MasterCard, and American Express for online payments. At our office, we accept Visa, MasterCard and American Express as well.
+Q: Do you accept PayPal?
+A: Yes, PayPal is accepted for online payments on our website.
+Q: Do you accept cryptocurrency?
+A: At the moment, we do not accept cryptocurrency. We're working on adding it soon.
+Q: Can I pay via bank transfer?
+A: Yes, local bank transfer is possible, but we recommend paying by card online for faster confirmation.
+Q: Is a deposit required?
+A: Yes, a minimum 50% deposit is required to confirm your booking. You can also pay in full if you prefer.
+Q: How much is the deposit?
+A: The minimum deposit is 50% of the total tour cost. You may also pay 100% in advance.
+Q: When is the remaining balance due?
+A: The remaining balance can be paid in cash or by card at our office on the morning of the tour, before departure.
+Q: Is the price per person or per boat?
+A: Shared tours are priced per person. Private tours are priced per boat (not per person).
+Q: Are there any hidden fees or extra charges?
+A: No, all our prices include taxes and fees. There are no hidden charges. The only additional costs would be optional add-ons like transfers, alcohol, or a photographer.
+Q: Are entrance fees included?
+A: Yes, all tickets and required admission fees are included in our tour price.
+Q: Is there a card processing fee?
+A: There are no hidden fees for standard card payments through our website. Please note that card payments at the office may be subject to a 3% processing fee for some private tour packages.
+Q: Why is the price different on third-party platforms?
+A: Online platforms charge commissions from both operators and customers, so prices may appear higher. Booking directly on our website is always the most cost-effective option.
+Q: What currency are prices listed in?
+A: Prices are listed in Indonesian Rupiah (IDR). You can also view them in USD (or other currencies) on our website using the currency toggle. Exchange rates may differ slightly from your bank's rate.
+Q: Can I split payment across multiple cards?
+A: Online payments cannot be split. However, if paying the remaining balance at our office, multiple transactions are possible.
+Q: Can I pay the driver directly?
+A: Drivers do not accept payments. Transfer fees can be paid at our office in cash or by card, or online during booking.
+Q: What happens if my payment fails?
+A: This may be due to a poor internet connection or a temporary issue with the payment system. Try connecting to a stable network or retry in a few minutes. You can also try PayPal as an alternative.
+Q: How do I get an invoice?
+A: We don't issue formal invoices — all payment details are displayed before checkout. The booking confirmation email serves as your receipt.
+Q: Do you offer agent or affiliate rates?
+A: Please contact our manager for details.
+Q: Why did the price change when I returned to the booking page?
+A: We use dynamic pricing, so prices may vary over time. Once you complete payment, the price is locked in.
+Q: Do you accept Wise or Venmo?
+A: Currently, we accept Visa, MasterCard, American Express, and PayPal online, and cash (IDR) or Visa, Mastercard and American Express at the office.
+3. Cancellations, Refunds & Modifications
+Q: What is your cancellation policy?
+A: You can cancel and receive a full refund if you cancel at least 24 hours before the tour's scheduled start time. Cancellations made less than 24 hours before departure are non-refundable, regardless of the reason (illness, wrong booking date, etc.).
+Q: Can I get a full refund?
+A: Yes, a full refund is available if you cancel at least 24 hours before the tour. Refunds are processed minus any fees charged by the payment platform.
+Q: Can I reschedule my booking?
+A: Yes, you can change your tour date up to 24 hours before departure, subject to availability and cancellation policy. Changes can be made in your personal account on our website, too.
+Q: What happens if I cancel less than 24 hours before the tour?
+A: No refund or rescheduling is possible for cancellations made less than 24 hours before departure, for any reason — including illness, incorrect booking date, or inability to attend.
+Q: Can I get a refund if I'm ill?
+A: Illness-related cancellations are only eligible for a refund if the cancellation is made at least 24 hours before departure. If you cancel within 24 hours due to illness, no refund is possible.
+Q: What if the tour is cancelled due to bad weather?
+A: If the Port Authority or harbor master cancels the tour due to unfavorable conditions (high waves, strong winds), we will offer you a full refund or a free reschedule to another date.
+Q: How do I cancel my booking?
+A: If you booked on our website, you can cancel through your personal account at least 24 hours before the tour. For bookings through third-party platforms, please contact that platform's support team directly.
+Q: How long does a refund take?
+A: We process refunds immediately upon cancellation. It may take a few days for funds to appear in your account, depending on your bank.
+Q: How will my refund be processed?
+A: Refunds are issued through the same payment method used for booking (card, PayPal, etc.). We will notify you once the refund has been initiated.
+Q: Is the transfer (pickup/drop-off) refundable if the tour is cancelled?
+A: The car transfer service is non-refundable if you have already used it and the tour is subsequently cancelled due to weather or other reasons.
+Q: What if I decide to leave the tour early?
+A: If you leave a shared tour early, our guide will help you arrange a public speedboat back to Bali (at your own expense). For private tours, the boat can return at your request. No refund is possible for early departure.
+Q: Can I change the number of guests in my booking?
+A: Yes, you can change the guest count in your personal account up to 24 hours before departure. Changes within 24 hours cannot be guaranteed.
+Q: What is the policy if the minimum number of travelers is not met?
+A: If a shared tour is cancelled due to insufficient travelers, we'll offer you an alternative date or a full refund.
+Q: Is the deposit refundable?
+A: Yes, the deposit is fully refundable if you cancel at least 24 hours before the tour start time.
+Q: Can I transfer my booking to someone else?
+A: Please contact us to discuss any changes to guest names or transferring a booking.
+Q: Will I get a confirmation email after cancellation?
+A: We will notify you as soon as the refund and cancellation have been processed.
+Q: What if I booked through TripAdvisor and need to cancel?
+A: For bookings made through third-party platforms (TripAdvisor, Klook, Viator, Airbnb, etc.), all changes and cancellations must be managed through that platform's customer support.
+Q: Can I cancel if there are no manta rays sighted?
+A: Manta ray sightings are not guaranteed as they are wild animals. No refund is provided if mantas are not seen, as this is beyond our control. We always visit the best spots and make every effort to find them.
+4. Itinerary & Activities
+Q: What is the standard tour itinerary?
+A: For classic shared tours, our itinerary includes: approximate 6:30 AM hotel pickup (optional), 7:30 AM briefing at our office, 8:00 AM boat departure, snorkeling at Bali Hai, SD Point, and Wall Point, lunch at a restaurant on Nusa Penida, Kelingking Cliff land tour, snorkeling with Manta Rays (Manta Point or Manta Bay), 4:00–4:30 PM return to Bali, approximate 5:30-6:00 PM hotel drop-off (optional). For premium shared tours, our itinerary includes: approximate 7:00 AM hotel pickup (optional), 8:00 AM briefing at our office, 8:30 AM boat departure, snorkeling at Bali Hai, SD Point, and Wall Point, lunch at a restaurant on Nusa Penida, Kelingking Cliff land tour, snorkeling with Manta Rays (Manta Point or Manta Bay), 5:30 PM return to Bali, approximate 6:30 PM hotel drop-off (optional). For private tours, our itinerary includes: approximate 7:30 AM hotel pickup (optional), 8:30 AM briefing at our office, 9:00-9:30 AM boat departure, snorkeling at Bali Hai, SD Point, and Wall Point, lunch at a restaurant on Nusa Penida/Lembongan, Kelingking Cliff land tour, snorkeling with Manta Rays (Manta Point or Manta Bay), 5:00-5:30 PM return to Bali, approximate 6:00-06:30 PM hotel drop-off (optional). 
+Q: How long is the tour?
+A: The tour is approximately 8–9 hours long, depending on the tour type you choose.
+Q: What time does the boat depart?
+A: Shared tours depart at 8:00 AM, premium shared tours at 8:30 AM, and private tours typically depart between 9:00–10:00 AM depending on the boat. Check specific itineraries on our website.
+Q: What time do we return?
+A: Shared tours return to Serangan Harbor around 4:30–5:30 PM, with hotel drop-off approximately by 5:30-6:30 PM. Return times for private tours depend on the chosen itinerary.
+Q: Can the itinerary be customized?
+A: On shared tours, the itinerary is fixed and cannot be changed. On private tours, you can make some adjustments — such as adding/removing stops, changing timing, or skipping the land tour. Choose your best itinerary during the booking process or contact us to discuss your preferences.
+Q: Can we start later than the standard departure time?
+A: On private tours, a later departure is possible (11:30 AM as latest), but it may mean visiting fewer snorkeling spots, as all boats must return to Bali by 6:00 PM. Shared tours have fixed departure times.
+Q: Is there a sunset or evening tour available?
+A: We do not offer sunset or evening tours, as all boats must return to the port no later than 6:00 PM. Evening tours are not allowed due to safety regulations.
+Q: Is an early morning departure available?
+A: Early morning departures earlier than 8:00 AM are not possible due to port operating hours.
+Q: Is there a land tour included?
+A: On shared tours, a land tour (Kelingking Cliff by car) is included. On private tours, you can choose an itinerary with or without a land tour, or opt for a full day land tour around Nusa Penida.
+Q: Can we do the tour without snorkeling?
+A: On private tours, you can skip snorkeling and opt for a full land tour around Nusa Penida instead. Please check available itinerary options on our website.
+Q: Can we visit both east and west Nusa Penida?
+A: Yes! We offer a full-day land tour of both east and west Nusa Penida. Note that snorkeling is not included in this tour due to time constraints.
+Q: Is it possible to extend the tour duration?
+A: On private tours, you can add an optional one-hour extension to relax on the boat near the harbor. Major extensions may not be possible due to port curfew.
+Q: What happens if it rains on the day of the tour?
+A: If the harbor master does not allow departure due to heavy rain or unsafe conditions, we'll offer a full refund or alternative date. If rain occurs during the tour, the captain may adjust the itinerary for safety, and we'll offer an alternative route — no refund is issued for itinerary changes due to weather.
+Q: Can we add Kelingking Cliff to a private tour?
+A: Yes! You can add a land tour to Kelingking Cliff during the booking process or through your personal account.
+Q: Can we hike down to Kelingking Beach?
+A: Going down to Kelingking Beach is currently not allowed as part of our tours — it is considered dangerous, is not covered by our insurance, and takes too much time.
+Q: Can we visit Diamond Beach?
+A: Yes! Diamond Beach is available on the East Nusa Penida land tour option. Choose this itinerary during booking.
+Q: Can we visit Broken Beach and Angel Billabong?
+A: Yes! Broken Beach and Angel Billabong are included in some private tour itineraries. You can add these stops during booking.
+Q: How many snorkeling spots are included?
+A: The standard tour includes 4 snorkeling spots: Bali Hai, SD Point, Wall Point, and either Manta Bay or Manta Point (whichever has a higher chance of manta sightings that day).
+Q: How long do we spend at each snorkeling spot?
+A: We spend approximately 30 minutes at each snorkeling spot.
+Q: What is Manta Bay vs Manta Point — which is better?
+A: Both are excellent spots for swimming with manta rays. We visit Manta Bay first — if mantas aren't there, we head to Manta Point. The choice depends on where manta rays are most likely to appear on the day.
+Q: What other activities besides snorkeling are available?
+A: Besides snorkeling, we offer land tours (Kelingking Cliff, Diamond Beach, Broken Beach, Tree Houses), scuba diving tours, and relaxing cruises on the boat.
+Q: Is canoeing, kayaking, or paddleboarding available?
+A: Yes, you can add a canoe, banana boat or donut, flying fish or sea walker as an add-on for your private tour, during the booking process.
+Q: Is there a half-day tour option?
+A: We do not offer traditional half-day tours to Nusa Penida due to travel time. All our tours are approximately 8–9 hours to ensure you experience everything Nusa Penida has to offer.
+Q: Can we propose on the boat? Can you set up a special surprise?
+A: Absolutely! A boat trip is a perfect setting for a proposal. Let us know what you need and we'll help make it unforgettable — special setup, timing, or added surprises.
+Q: Can we have more time at lunch?
+A: On private tours, you can spend more time at the restaurant, but this will reduce the number of snorkeling spots visited. On shared tours, the lunch duration is fixed at approximately one hour.
+Q: What is the land tour like?
+A: Our driver picks you up by car and takes you to several stunning viewpoints on Nusa Penida. The exact stops depend on your chosen itinerary — typically including Kelingking Cliff, and optionally Diamond Beach, Broken Beach, Angel Billabong, and Tree Houses.
+Q: Is there walking involved in the tour?
+A: On the standard itinerary, there's a short walk from the parking area at Kelingking Cliff. Full land tours involve short walks at each attraction.
+Q: What is the condition of the roads on Nusa Penida?
+A: Road conditions vary and some areas are rough. However, we can reach almost every point on the island comfortably in our cars.
+5. Private vs Shared Tours
+Q: What is the difference between a private and shared tour?
+A: On a shared tour, you share the boat with other groups (maximum 14 guests total). On a private tour, the entire boat is reserved exclusively for your group, and you have more flexibility to adjust the itinerary, bring alcohol, add extras, and customize the experience.
+Q: How many people are on a shared boat?
+A: The maximum number of guests on a shared tour is 14 people.
+Q: What is the maximum capacity for private tours?
+A: The capacity for private tours depends on the boat you choose. Options range from 8-person boats up to large yachts for 25+ guests. Check boat options on our website.
+Q: Can I upgrade from shared to private?
+A: Yes, you can upgrade through your personal account or by contacting our team. Upgrades are subject to availability.
+Q: What is a Premium Shared Tour?
+A: Our premium shared tours feature higher-class boats, a professional photographer on board, complimentary prosecco (3 bottles per boat), welcome drinks, hoodie towels, and a secret spot.
+Q: What is the difference between Standard Shared and Premium Shared?
+A: The classic shared tour is on a classic speedboat with up to 14 guests and standard inclusions, such as underwater GoPro footage, drinking water, snorkeling equipment, towels, certified guides, lunch at Amarta Penida restaurant, land tour and health insurance; while The Premium Shared additionally features a higher-class boat, professional photographer, prosecco, lunch at La Rossa restaurant, hoodie towels, and an extra secret spot.
+Q: Is a private tour just for our group?
+A: Yes, on a private tour the boat is reserved exclusively for your group — no other guests.
+Q: Can a private tour accommodate a large group?
+A: Yes! We have boats suitable for groups of all sizes. Please contact us to discuss the best boat for your group size.
+Q: What is the Classic Speedboat?
+A: This is our 12-meter boat accommodating up to 14 guests — perfect for family and friends trips.
+Q: What is the "Small Sweetheart" boat?
+A: A beautiful 10-meter boat accommodating up to 8 guests, ideal for small groups.
+Q: Can I request a specific boat?
+A: Yes, you can select your preferred boat during the booking process on our website. Each boat has photos and descriptions to help you choose.
+6. Transportation & Transfers
+Q: Do you offer hotel pickup and drop-off?
+A: Yes! You can add car transfers to and from your accommodation during the booking process. 
+Q: How much does the transfer cost?
+A: Transfers cost IDR 300,000 per car one way, for up to 5 people. Prices may vary for distant locations.
+Q: Is the transfer fee per person or per car?
+A: The transfer price is per car (up to 5 people), not per person.
+Q: Which areas do you cover for pickup?
+A: We cover most Bali areas including Seminyak, Kuta, Legian, Canggu, Ubud, Nusa Dua, Jimbaran, Sanur, Uluwatu, and more.
+Q: What time will the driver pick me up?
+A: Pickup time depends on your location and the itinerary you chose. For classic shared tours approximate pickup time is 6:30 AM, for premium shared tour approximate pickup time is 7:00 AM, for private tour options approximate pickup time is 7:30-8:00 AM. You will get a notification about specific pickup time.
+Q: When will the driver contact me?
+A: The driver will contact you via WhatsApp by 9:00 PM the evening before the tour. If you haven't heard from the driver by 9 PM, contact us immediately.
+Q: What if the driver doesn't contact me by 9 PM?
+A: If your driver hasn't contacted you by 9 PM the night before, please contact us immediately so we can assist you.
+Q: What type of vehicle will be used for pickup?
+A: Transfers are in a Toyota Avanza or Suzuki APV, which fits up to 5 people comfortably.
+Q: Can the driver pick us up from our villa or Airbnb?
+A: Yes! Enter your pickup address when booking on our website.
+Q: Can we be picked up from and dropped off at different locations?
+A: Yes! Your pickup and drop-off addresses can be different — just provide both locations during booking.
+Q: Can I adjust the pickup time?
+A: On shared tours, pickup time is fixed to ensure you arrive on time for departure. On private tours, slight adjustments may be possible.
+Q: Is there parking available at the harbor?
+A: Yes, there is public parking near our office available for an additional fee. You can park your car or scooter there.
+Q: How many cars do we need for a large group?
+A: Each car fits up to 5 people. For groups of 6–10, you'll need 2 cars; for 11–15 people, 3 cars, etc.
+Q: Can I use Grab or Gojek to get to the port?
+A: You can use Grab or Gojek for your morning pickup to our office. However, online taxis are not allowed in the Serangan area for drop-off after the tour due to local regulations. We recommend booking our transfer service for the return journey.
+Q: Do you offer airport transfers?
+A: We provide transfers to our office before the tour and drop-off to your accommodation after. We do not offer standalone airport-to-accommodation transfers at this time.
+Q: Do your drivers speak English?
+A: Yes, all our drivers speak both Indonesian and English.
+Q: Can I pay for the transfer in cash?
+A: Yes, transfer fees can be paid in cash (IDR) at our office, or you can pay online during booking.
+Q: Will the boat wait if we're late?
+A: For shared tours, the boat departs on schedule and cannot wait for late arrivals. For private tours, the boat will wait for your group, please note that the latest departure of private tours is 11:30 AM.
+Q: Is the car transfer safe?
+A: Yes, all our transfers are absolutely safe. Our drivers are experienced and know the roads well, all our cars are well maintained.
+7. Meeting Point & Departure
+Q: Where do we meet before the tour?
+A: All tours depart from our Bluuu Lounge near Serangan Harbor. Address: Jl. Tukad Punggawa No.238, Serangan. Google Maps: https://maps.app.goo.gl/LCPWDTZYs2WNGPdcA
+Q: Is the departure port Sanur?
+A: No, our boats depart from Serangan Harbor, not Sanur port.
+Q: Where does the boat return after the tour?
+A: Boats return to the same location of Serangan Harbor at the end of the tour.
+Q: How do I recognize the meeting point?
+A: You'll see our office with "Bluuu" signs leading to it. Follow the Google Maps link sent in your booking confirmation.
+Q: What time should I arrive at the office?
+A: Please arrive at least 30 minutes before your boat's departure time. For classic shared tours, arrive by 7:30; for premium shared tours, arrive by 8:00; for private tours, check your specific itinerary.
+Q: Can I store luggage at the office?
+A: You can bring your bags on the boat (space is limited). For large luggage, please let us know size and weight in advance. You may also store bags at our office during the tour.
+Q: Can I change my meeting point?
+A: Unfortunately, the meeting point cannot be changed. All tours depart from our Bluuu Lounge at Serangan Harbor.
+Q: What are the changing facilities at the port?
+A: You're welcome to use the shower and changing facilities at our office before and after the tour.
+Q: Is there a toilet at the office?
+A: Yes, our office has full facilities including toilets and showers.
+Q: Can I arrive on my scooter?
+A: Yes! You can park your scooter at the public parking area near our office for an additional fee.
+Q: Can the boat pick me up from my resort's private beach?
+A: Unfortunately, the boat cannot pick you up from your accommodation. All boats depart only from Serangan Harbor.
+Q: Is there a briefing before departure?
+A: Yes! A safety and tour briefing takes place at our office approximately 30 minutes before departure, so please make sure to arrive on time.
+8. Food & Beverage
+Q: Is lunch included in the tour?
+A: Yes! Lunch at a restaurant on Nusa Penida or Lembongan (depending on your tour type) is included in all our tours.
+Q: Where is lunch served?
+A: Lunch is served at a restaurant on Nusa Penida or Lembongan, depending on the tour type you choose.
+Q: Is lunch buffet, à la carte, or set menu?
+A: It depends on the restaurant. Some offer a buffet, others have a set menu created specifically for our guests. You can view restaurant details on our website.
+Q: Can I see the lunch menu in advance?
+A: Yes, you can check the lunch menu during the booking process.
+Q: Can we skip the included lunch?
+A: On private tours, you can skip visiting the lunch place, but we recommend bringing snacks as the tour is ~8 hours and snorkeling requires energy. On shared tours, unfortunately, we can’t skip visiting restaurants, however you still can skip the lunch itself. 
+Q: Is drinking water included?
+A: Yes, bottled drinking water is available on all boats throughout the tour.
+Q: Is alcohol included?
+A: Alcoholic drinks are not included in the tour, but can be added as an add-on during booking. Prosecco (3 bottles per boat) is included in premium shared and premium private tours. Please note that alcoholic beverages (except for beers) are not allowed on any of the shared tour options.
+Q: Can we bring our own alcohol?
+A: On private tours, you can bring any type of alcohol. On shared tours, only beer and non-alcoholic beverages are permitted. Hard alcohol (whiskey, vodka, etc.) is only allowed on private tours.
+Q: Are there vegetarian options?
+A: Yes, vegetarian options are available at all restaurants. Please let us know during booking or in advance.
+Q: Are there vegan options?
+A: Vegan options may be available — please notify us in advance so we can check with the restaurant.
+Q: Are there halal food options?
+A: Most of our partner restaurants are halal-certified. Please inform us if you require strictly halal meals so we can confirm arrangements.
+Q: Can you accommodate food allergies?
+A: Yes, please inform us of any allergies at booking or before the tour so we can notify the restaurant.
+Q: Can I request a gluten-free meal?
+A: Gluten-free options may be available — please let us know in advance so we can check with the restaurant.
+Q: Is pescatarian food available?
+A: Please inform us in advance and we'll check with the restaurant if pescatarian meals can be arranged.
+Q: Can we choose the lunch restaurant?
+A: On shared tours, the restaurant is pre-selected. On private tours, you can request a preferred restaurant — subject to itinerary and inclusion terms.
+Q: Do the restaurants accept credit cards?
+A: Most restaurants accept cards, but bringing cash IDR is highly recommended just in case of any technical issues.
+Q: Can we bring our own food or snacks?
+A: Yes, you're welcome to bring your own food and snacks. Remember that lunch is included in all tours!
+Q: What food is provided on the boat (between snorkeling spots)?
+A: Fresh fruit and drinking water are available on the boat between activities.
+Q: Are wine glasses or ice available?
+A: Ice boxes are available on all boats. Glasses can be provided upon request — just let us know in advance.
+Q: Are cups/glasses provided?
+A: Yes, cups are provided on all boats.
+Q: Is breakfast available near the departure point?
+A: Yes! You can order breakfast at our Bluuu Lounge, and we offer complimentary tea or coffee.
+Q: Can I add a birthday cake?
+A: Yes, you can add a cake to your booking on our website during checkout or through your personal account. You're also welcome to bring your own cake.
+Q: Is prosecco included in premium tours?
+A: Yes! Premium tours include 3 bottles of prosecco per boat, plus welcome drinks and juices.
+Q: Can I add alcohol as an extra?
+A: Yes, you can add alcoholic beverages as an add-on during booking or through your personal account. Please note that alcoholic beverages (except for beers) are not allowed on any of the shared tour options.
+9. Snorkeling & Water Activities
+Q: Is snorkeling included in the tour?
+A: Yes! Snorkeling is our core activity. The standard tour includes 4 snorkeling spots: Bali Hai, SD Point, Wall Point, and Manta Bay or Manta Point.
+Q: Can non-swimmers snorkel?
+A: Absolutely! Non-swimmers are very welcome. Our guides will stay beside you in the water and provide assistance. Life jackets are available to help you float.
+Q: Is snorkeling safe?
+A: Yes, snorkeling is safe and amazing! We provide high-quality equipment, our guides are certified, and they stay close to all guests in the water at all times.
+Q: Is snorkeling safe for kids?
+A: Snorkeling is absolutely safe for children! Our guides keep a close eye on younger guests, and child-sized life jackets are available.
+Q: Are currents strong at the snorkeling spots?
+A: Underwater currents can be strong at some spots, but our guides are always with you and the boat stays nearby. We only snorkel at spots deemed safe by our crew.
+Q: What snorkeling equipment is provided?
+A: We provide full snorkeling equipment including mask, fins, and life vest/jacket for every guest.
+Q: Are full-face snorkel masks available?
+A: Yes! Full-face snorkeling masks can be added during the booking process or through your personal account.
+Q: Is the snorkeling equipment sanitized?
+A: Yes, all equipment is sanitized before and after each trip and is in good condition.
+Q: Can I bring my own snorkeling gear?
+A: Yes, you're welcome to bring your own snorkeling equipment on any tour.
+Q: Is there a safety briefing before snorkeling?
+A: Yes, our guides provide a safety briefing before the trip and additional briefings before each snorkeling spot.
+Q: What are the snorkeling spots on the tour?
+A: The main spots are: Bali Hai, SD Point (a stunning spot off the Nusa Penida coast), Wall Point, and either Manta Bay or Manta Point for manta ray swimming.
+Q: Can I scuba dive instead of snorkeling?
+A: Yes! We offer scuba diving tours in addition to private snorkeling tours. Visit our website to book a diving tour with certified guides and full equipment. Please note that scuba diving is not available on any of the shared tour options.
+Q: Do you offer fishing?
+A: We don't currently offer dedicated fishing tours, but you can add fishing rods as add-on during the booking process, for some fun fishing during the day.
+Q: Can we keep the fish we catch?
+A: Yes, you can keep any fish you catch.
+Q: Are there inflatables, paddle boards, or jet skis?
+A: Currently, we do not offer paddle boards, or jet skis, but you can add a canoe, banana boat or donut, flying fish or sea walker as an add-on for your private tour, during the booking process.
+Q: What is Bali Hai snorkeling spot?
+A: Bali Hai is one of our featured snorkeling spots near Nusa Lembongan, known for beautiful coral reefs and diverse marine life.
+Q: What is SD Point?
+A: SD Point is a stunning snorkeling spot off the coast of Nusa Penida, known for crystal-clear water and abundant marine life.
+Q: What is Wall Point?
+A: Wall Point is a dramatic underwater wall snorkeling site near Nusa Penida with spectacular coral formations and fish.
+Q: Is training provided for beginner snorkelers?
+A: We don't offer formal snorkeling training, but our guides give thorough briefings and stay with beginners throughout. For private diving tours, we offer full training with certified instructors.
+10. Wildlife & Marine Life
+Q: Will we see manta rays?
+A: There is a very high chance of seeing manta rays — Nusa Penida is one of the world's best spots for manta encounters. However, as wild animals, their appearance cannot be 100% guaranteed.
+Q: Is manta ray sighting guaranteed?
+A: Manta ray sightings are not guaranteed as they are wild animals with unpredictable behavior. We visit the best spots and see them on the vast majority of days.
+Q: When is the best time to see manta rays?
+A: We visit the manta spots in the afternoon when tourist crowds are gone but mantas are still present. They appear year-round with no specific season.
+Q: Is there a manta ray season?
+A: Manta rays are present year-round at Nusa Penida. There is no specific "manta season."
+Q: Can we touch or feed the manta rays?
+A: Absolutely not. Manta rays (and all marine creatures) must never be touched or fed. We follow strict responsible snorkeling practices to protect the ocean and its inhabitants.
+Q: Is swimming with manta rays safe?
+A: Yes, completely safe! Manta rays are harmless to humans — they are gentle, curious creatures. Swimming near them is an unforgettable experience.
+Q: What if there are no manta rays at Manta Bay?
+A: If no mantas are at Manta Bay, we'll head to Manta Point. If still absent, our guides will explore nearby alternative spots to maximize your chances.
+Q: Will we see sea turtles?
+A: We see turtles almost every day, as many live around Nusa Penida and Lembongan. However, their appearance cannot be guaranteed on any specific day.
+Q: What other marine life can we expect to see?
+A: Besides manta rays and turtles, you may see colorful fish, dolphins and beautiful coral reefs.
+Q: Are there sharks? Is it dangerous?
+A: The chances of encountering a shark are extremely low. The sharks occasionally seen near Nusa Penida are reef sharks — harmless and not aggressive to humans. Our snorkeling spots are safe areas.
+Q: Are there jellyfish?
+A: The appearance of jellyfish is unpredictable and depends on currents. If jellyfish are spotted at a location, we'll skip that spot and head to a safe alternative.
+Q: Are there any dangerous marine creatures?
+A: We don't encounter any marine creatures that are dangerous to humans during our trips.
+Q: Can we see dolphins?
+A: Dolphin sightings are possible but not guaranteed, as they are wild animals.
+11. Location-Specific (Nusa Penida & Islands)
+Q: Where does the tour go?
+A: Our tours go to Nusa Penida and the surrounding area, including snorkeling spots near Nusa Lembongan. 
+Q: Is Kelingking Cliff on the west or east side of Nusa Penida?
+A: Kelingking is located on the western (southwestern) coast of Nusa Penida.
+Q: Is Manta Point crowded?
+A: Manta Point can be crowded in the morning. That's why we visit in the afternoon to avoid tourist crowds and provide a more personal experience.
+Q: How long is the boat ride from Bali to Nusa Penida?
+A: The crossing typically takes around 45 minutes, depending on weather and sea conditions.
+Q: Is the land tour worth doing?
+A: Definitely! The land tour lets you explore the stunning sights of Nusa Penida beyond the water, including iconic viewpoints and beaches (depending on the itinerary) that make for incredible photos.
+Q: Just how crowded is the land tour?
+A: It can vary — Nusa Penida is a popular destination and crowds are hard to predict. We do our best to time visits for optimal experience.
+Q: Can we swim at the beaches on Nusa Penida?
+A: Our boats cannot dock directly at beaches. We can arrange a land tour where a driver takes you to beach viewpoints. Diamond Beach (East Nusa Penida) is accessible via our land tour and you can go down to the beach there.
+Q: Can we be dropped off at Nusa Lembongan?
+A: We can potentially drop you off at Nusa Penida, from where you can take a local public boat to Lembongan. Drop-off at Lembongan directly may not be possible due to low tide conditions.
+Q: Do you offer tours from Nusa Penida island?
+A: If you're already on Nusa Penida, only private tour options departing from Nusa Penida are available. Our shared tours depart from Bali only.
+Q: What islands can be visited near Bali?
+A: Our tours currently focus on snorkeling near Nusa Penida and the Nusa Lembongan area. For land tours, only Nusa Penida is currently available to arrange by car.
+12. Safety & Requirements
+Q: Is the tour safe?
+A: All our tours are absolutely safe. We have certified crew, licensed boats, first aid equipment, and comprehensive insurance coverage.
+Q: Is insurance included?
+A: Yes! Insurance is included for all guests aged 8 to 75 years, with coverage up to IDR 200,000,000. Guests outside this age range or those with personal insurance are welcome to use their own coverage.
+Q: Do I need personal travel insurance?
+A: Our tour insurance is included for guests aged 8–75. However, you're welcome to arrange additional personal travel insurance if you prefer.
+Q: What are the age restrictions?
+A: Shared tours: guests aged 8 to 70 years. Private tours: guests of 1 to 75 years.
+Q: Can elderly people (70+) join the tour?
+A: The maximum age for shared tours is 70 years. Private tours accept guests up to 75 years.
+Q: Can a 75-year-old join the tour?
+A: A 75-year-old can join a private tour.
+Q: Are there restrictions for pregnant women?
+A: Pregnant women are welcome up to 32 weeks of pregnancy. We do not recommend the tour for guests who are 32+ weeks pregnant for safety reasons.
+Q: Can guests with back problems join?
+A: We strongly advise against joining the tour if you have back problems, as snorkeling and boat travel involve physical activity that could worsen the condition.
+Q: Can guests with limited mobility join?
+A: Unfortunately, due to safety regulations, we are unable to accommodate guests with significant mobility limitations.
+Q: Are life jackets provided?
+A: Yes, life jackets are provided for all guests. We always carry extra jackets as well.
+Q: Are life jackets mandatory?
+A: Life jackets are available for all guests. For non-swimmers, we strongly recommend wearing one during snorkeling.
+Q: What safety equipment is on the boat?
+A: Each boat is equipped with life jackets, lifebuoys, and first aid kits. Our guides are certified in first aid.
+Q: Are the crew and captain certified?
+A: Yes, all captains and crew have professional certifications from the Indonesian Ministry of Transportation and are trained in diving, snorkeling, and first aid.
+Q: How experienced are the captains?
+A: Our captains have many years of experience and hold all necessary certifications — they are true professionals.
+Q: How long has Bluuu Tours been operating?
+A: We've been operating since 2018.
+Q: Are the boats licensed?
+A: Yes, all our boats are fully licensed and certified by the Indonesian Ministry of Transportation.
+Q: Are the boats in good condition?
+A: All our boats are in excellent condition and undergo regular maintenance. They look exactly like their photos on our website.
+Q: What happens in a medical emergency?
+A: Our team will provide immediate first aid. In case of a severe emergency, we'll transport you to the nearest hospital. Every guest aged 8–75 is insured up to IDR 200,000,000.
+Q: What happens if someone gets sick during the tour?
+A: We have a first aid kit with basic medications. If a shared tour guest cannot continue, we'll help arrange a public speedboat back to Bali. On private tours, the boat can return at your request at any time.
+Q: Is there smoking allowed on the boat?
+A: Smoking on the boat is strictly prohibited.
+Q: Is the tour suitable for guests with children?
+A: Yes! Our guides keep a close eye on younger guests. We provide child-sized life jackets and snorkeling equipment. We still recommend that parents actively watch their children during the trip. However, only kids aged 8+ are allowed on shared tours, while on private tours you can take children aged 1+.
+13. Equipment & Amenities
+Q: Does the boat have a toilet?
+A: Yes, each boat is equipped with a small toilet.
+Q: Is there air conditioning on the boat?
+A: Most boats have an open cabin without air conditioning. If you require air conditioning, we recommend booking a higher-class yacht such as the AR55, JA20, AZ50, or RZ50. Check options on our website.
+Q: Is there a shower on the boat?
+A: The boats are not equipped with showers, but shower facilities are available at our Bluuu Lounge in Serangan.
+Q: Are there tables on the boat?
+A: Most boats have a small table for snacks or drinks. Check boat photos on our website before booking.
+Q: Are there bean bags on the boat?
+A: Yes, bean bags are available on our boats — you can use them on board or even float on them in the water!
+Q: Is there a speaker or music system on the boat?
+A: Yes! All boats are equipped with portable JBL speakers.
+Q: Are towels provided?
+A: Yes, towels are provided on all boats. Premium tours include hoodie towels.
+Q: Is there an ice box on the boat?
+A: Yes, ice boxes are available on all our boats to keep your drinks cold.
+Q: Are there power outlets for charging devices?
+A: Most boats do not have power outlets. If you need charging facilities (e.g., for DJ equipment), please contact us about yachts that have this feature.
+Q: Is seasickness medicine available on board?
+A: Yes! Seasickness medication (Antimo or similar) is available on every boat. Our guides will offer it before the trip or at any time during the tour if needed.
+Q: Is sunscreen provided?
+A: Sunscreen is not included, but you can bring your own or purchase it at our lounge before the trip. Please use reef-safe sunscreen to protect the ocean.
+Q: Can I decorate the boat for a special occasion?
+A: Yes! We can help with decorations for birthdays, proposals, etc. Let us know what you need and we'll assist with arrangements.
+Q: Can I rent a GoPro?
+A: An underwater GoPro is already included in all tours — our guides take photos and videos for you! You don't need to rent one separately.
+Q: Can I bring a drone on the boat?
+A: Drones are allowed on private tours. You can also book our drone pilot service — this is more convenient and safer due to the challenging weather and wind conditions around Nusa Penida.
+Q: Are there shaded seats on the boat?
+A: Yes, shaded seating is available on all our boats.
+Q: Can we bring musical instruments or a DJ setup?
+A: Musical instruments are welcome on private tours, but DJ setups requiring power are only possible on certain yachts. Contact us to find the right boat for your needs.
+Q: Is there a first aid kit on the boat?
+A: Yes, every boat is equipped with a first aid kit, and our guides are certified in first aid.
+14. Photography & Media
+Q: Is photography included in the tour?
+A: Underwater GoPro footage is included in all our tours. A professional photographer is included in premium tours only. Standard private tours can add a photographer or drone pilot as add-on during the booking process or in your personal account on our website.
+Q: Is underwater GoPro footage included?
+A: Yes! Underwater GoPro footage is included in all tours at no extra charge.
+Q: When will I receive my photos and videos?
+A: You will receive your content within 3 days after the tour.
+Q: How will I receive my photos?
+A: You'll receive a Google Drive link within 3 days after the trip.
+Q: Can I download the photos?
+A: Yes, you can download all photos and videos from the Google Drive link we send.
+Q: I haven't received my photos — what should I do?
+A: If you haven't received your content link within 3 days, please contact us and our manager will assist you.
+Q: Is there a professional photographer on board?
+A: A professional photographer is included in premium tours only. Standard private tours can add a photographer or drone pilot as add-on during the booking process or in your personal account on our website. Standard shared tours only include the underwater GoPro.
+Q: Can I book a drone pilot?
+A: Yes! You can book a drone pilot as an add-on for private tours. We recommend this service as it's safer and more convenient than bringing your own drone, especially with the challenging wind conditions around Nusa Penida.
+Q: Can I bring my own camera?
+A: Yes, you're welcome to bring your own camera or action cam on any tour.
+Q: What are the rules for personal filming during snorkeling?
+A: There's no specific filming policy — just make sure your camera is 100% waterproof and avoid getting too close to marine life.
+Q: Where should I store my phone while snorkeling?
+A: You can leave your phone and valuables on the boat during snorkeling. They will be safe with the crew.
+Q: Is there an extra cost for photos?
+A: Underwater GoPro footage is free (included). For a professional boat photographer, this is an optional add-on for standard tours and included in premium tours.
+15. Children & Age Restrictions
+Q: What is the minimum age for children on shared tours?
+A: Children aged 8 and above can join our shared tours.
+Q: What is the minimum age for children on private tours?
+A: Children from 1 year old are welcome on private tours.
+Q: Can I bring an infant or baby?
+A: Infants aged 1+ are allowed on private tours only. They are not permitted on shared tours. Note that insurance coverage applies only to guests aged 8 and above.
+Q: Is it suitable for a 5-year-old?
+A: A 5-year-old can join on a private tour. Shared tours require guests to be at least 8 years old. 
+Q: Is the tour suitable for very young children?
+A: Children from 1 year old are welcome on private tours. Shared tours require guests to be at least 8 years old. Life jackets and child-sized snorkeling equipment are available. 
+Q: Do children pay full price?
+A: On private tours, children under 5 are free of charge. Children aged 6 and above are priced at the adult rate. On shared tours, the standard per-person price applies to all guests 8 and above.
+Q: Are there child-sized life jackets and snorkeling gear?
+A: Yes! We provide child-sized life jackets and snorkeling equipment for young guests.
+Q: Can elderly guests join?
+A: Guests up to 70 years old can join shared tours; up to 75 on private tours.
+Q: Is the tour safe for kids?
+A: Yes, our guides keep a close watch on younger guests, but parents should also actively supervise their children during the trip.
+Q: My child can't swim — can they still snorkel?
+A: Yes! Life jackets will help keep them afloat, and our guides stay beside them in the water. Non-swimmers of all ages can enjoy snorkeling safely.
+16. Weather & Conditions
+Q: How does rain affect the tour?
+A: Light rain typically does not affect the tour. However, if conditions are unsafe (heavy rain, strong waves), the harbor master may cancel the departure. We'll offer a full refund or alternative date in such cases.
+Q: What happens if the tour is cancelled due to weather?
+A: If the Port Authority cancels the tour, we'll offer a full refund or a free reschedule to your preferred date. "Poor weather" means the Port Authority did not grant permission due to adverse conditions.
+Q: How often are tours cancelled because of weather?
+A: Cancellations due to weather are very rare. The weather in Bali can be unpredictable, but the harbor master typically only cancels for genuinely dangerous conditions.
+Q: Is the boat ride rough?
+A: It depends on weather conditions on the day of the tour. The ride may occasionally be bumpy, but is always safe. We monitor conditions and may adjust the itinerary for your comfort.
+Q: What is the weather like in Bali/Nusa Penida?
+A: Bali's weather changes quickly and is best checked on the day of your trip. There's a dry season (April–October) and a wet season (November–March), but rain and sunshine can happen in any month.
+Q: Are high waves common at snorkeling sites?
+A: Sea conditions vary by location and day. We select snorkeling spots based on real-time conditions and always prioritize your safety.
+Q: Is snorkeling visibility good?
+A: Water visibility around Nusa Penida and Lembongan is generally excellent — it's one of the world's top diving and snorkeling destinations.
+Q: Is the water warm?
+A: Water temperature is generally comfortable for snorkeling. It may be slightly cooler at some spots due to upwellings, but overall it's a pleasant temperature.
+Q: What if the weather changes during the tour?
+A: If weather changes during the tour, the captain may adjust the itinerary for safety. Our crew constantly monitors conditions and will always make decisions with guest safety first.
+Q: Can I reschedule if the weather looks bad?
+A: You can only reschedule if the cancellation meets the policy requirements (24+ hours before departure). We cannot reschedule based on weather forecasts alone — only the harbor master's decision on the day of the tour triggers a policy-covered reschedule.
+Q: Is the forecast reliable for Bali?
+A: Short-term forecasts (1–2 days) are reasonably reliable. Longer forecasts are less predictable due to Bali's dynamic weather patterns. We recommend checking the forecast the night before your tour.
+Q: Will I be notified if the tour is cancelled?
+A: Yes, we will contact you as early as possible if the tour is cancelled due to weather. We monitor conditions from the early morning.
+17. Special Requests & Customization
+Q: Can we celebrate a birthday on the boat?
+A: Absolutely! You can book add-ons for your special day on our website during the booking — decorations, cake, and more. Or you can add them later in your personal account on our website.
+Q: Can we propose on the boat?
+A: Yes! A boat trip is a perfect setting for a proposal. Let us know what you need, and our team will help make it unforgettable.
+Q: Can we get flowers on the boat?
+A: Yes, flower arrangements can be organized for an additional fee. You can book decorations as add-on during the booking process, or add them later in your personal account on our website.
+Q: Can we bring pets on the tour?
+A: Pets are only allowed on private tours. Please let us know the type and size of your pet before booking so we can confirm if it's possible.
+Q: Can we cook on the boat?
+A: Unfortunately, cooking on board is not possible as our boats are not equipped with kitchens.
+Q: Can we play our own music?
+A: Yes! JBL speakers are provided and you can connect your device via Bluetooth to play your own music.
+Q: Can we bring large suitcases?
+A: Small to medium-sized bags can be brought along. Please let us know in advance if you have large suitcases so we can prepare storage space in our Bluuu lounge.
+Q: Can we request a specific pickup time?
+A: For shared tours, pickup time is fixed. For private tours, you can discuss a slightly different timing. Let us know your preferences.
+Q: Can we book a tour for a corporate event or group?
+A: Yes! We accommodate corporate groups, team building events, and large parties. Contact us to discuss custom arrangements.
+Q: Do you offer wedding packages on the boat?
+A: While we don't have a formal wedding package, we have Premium Private Tour for couples, which is perfect for honeymoon trips.
+Q: Can we exclude the land tour and do only snorkeling?
+A: Snorkeling-only itineraries are only available for private tours. Check available options when booking on our website.
+18. Accommodation
+Q: Do you offer accommodation?
+A: As a boat tour operator, we do not offer accommodation.
+Q: Is there accommodation near the departure harbor?
+A: There are accommodation options around the Serangan area, which are close to our Bluuu lounge. We recommend checking online accommodation booking sources to find your best option.
+Q: Can I store my luggage at your office if I'm changing hotels?
+A: Yes, you can store your luggage at our lounge during the tour.
+Q: Are there showers at the office for after the tour?
+A: Yes! Shower and changing facilities are available at our lounge after the tour.
+19. Company Information
+Q: What is your company name?
+A: Our name is Bluuu. Nice to meet you!
+Q: Are you a direct operator or travel agency?
+A: We are the direct tour operator — not an agent.
+Q: Are you certified and licensed?
+A: Yes, we have all necessary certificates and licenses. All our boats are certified by the Indonesian Ministry of Transportation.
+Q: What is your TripAdvisor/platform name?
+A: Our name on all online platforms is "Bluuu Tours".
+Q: Can I visit your office?
+A: Of course! You're welcome to visit us at Jl. Tukad Punggawa No.238, Serangan, Bali, between 9 AM and 6 PM.
+Q: Are you eco-friendly?
+A: Yes, we are committed to protecting the environment. We follow responsible snorkeling guidelines, support conservation of marine life, and do our best to minimize environmental impact.
+Q: What are your contact details?
+A: You can call us at +62 813 7026 2777 (voice calls only) or send a WhatsApp message to +62 821 4273 3874.
+Q: Can I speak to a manager or a real person?
+A: Yes! Our managers are available on WhatsApp and by phone from 9 AM to 6 PM Bali time (GMT+8).
+Q: Can you call me?
+A: Please leave your phone number and the best time to call, and our manager will reach out during business hours. You can also call us directly at +62 813 7026 2777.
+20. What to Bring
+Q: What should I bring on the tour?
+A: We recommend bringing: swimwear (wear under your clothes), reef-safe sunscreen, change of clothes, flip-flops or comfortable sandals, sunglasses and a hat, waterproof phone case or camera, cash IDR for optional extras.
+Q: Do I need to bring a passport?
+A: No, you do not need your passport with you. We do require your full name, age, and nationality for harbor registration, which you provide during online check-in.
+Q: Do I need to bring my own towel?
+A: No, towels are provided on all our boats. Premium tours include hoodie towels.
+Q: Do I need to bring cash?
+A: We recommend bringing some cash IDR for optional extra payments at the restaurant, or at land tour stops. Most restaurants accept cards but cash is a useful backup.
+Q: Do I need to bring water?
+A: No need — drinking water is included on the boat, at our office, and at the restaurant. You're welcome to bring extra if you prefer.
+Q: What footwear should I wear?
+A: Comfortable flip-flops, sandals, or casual shoes are ideal. You'll remove footwear to snorkel, so easy slip-on shoes are recommended.
+Q: Should I wear sunscreen?
+A: Yes! Please use reef-safe sunscreen (chemical-free, mineral-based) to protect both your skin and the coral reef. Regular sunscreen chemicals are harmful to marine life.
+Q: Should I take seasickness tablets?
+A: If you're prone to motion sickness, we strongly recommend taking Antimo or Dramamine tablets 30–60 minutes before boarding. We also have tablets available on the boat.
+Q: Do I need to bring snorkeling equipment?
+A: No, we provide full snorkeling equipment for all guests. You're welcome to bring your own if you prefer.
+Q: What clothing is appropriate for the tour?
+A: Wear or bring your swimwear, plus light casual clothing for land tour portions. A light jacket or rash guard is useful for wind protection on the boat.
+21. Sea Sickness
+Q: Is the boat ride likely to cause seasickness?
+A: The ride depends on weather and sea conditions on the day. It may be bumpy in rough conditions. Seasickness medication is available on all our boats. Our guides will offer it before departure and at any time during the tour.
+Q: Do you have seasickness tablets on the boat?
+A: Yes! Seasickness medication is available on all our boats. Our guides will offer it before departure and at any time during the tour.
+Q: What seasickness medicine do you recommend?
+A: We recommend Antimo (widely available in Bali pharmacies) or international brands like Dramamine. Our guides will offer it before departure and at any time during the tour.
+Q: Where can I buy seasickness medication in Bali?
+A: Antimo and Dramamine are available at pharmacies (Apotek) throughout Bali, including at supermarkets. You can also ask at our office before departure. Our guides will offer it before departure and at any time during the tour.
+Q: What if I get seasick during the tour?
+A: Let your guide know immediately. We'll provide medication, help you rest on the boat, and can adjust the route if possible.
+22. Real Guest Questions (from CRM Dialogues)
+Q: What time is the pickup from our hotel?
+A: Pickup time depends on your hotel location and on the tour you booked. For shared tours, approximate pickup time is 6:30 AM; for premium shared tours, approximate pickup time is 7:00 AM; for private tours, approximate pickup time is 7:30-8:00 AM. You’ll get your specific pickup time in advance.
+Q: Hi, can we arrange pickup and drop off for our booking?
+A: Absolutely! You can add car transfers during the booking on our website, or in your personal account on our website. The cost is IDR 300,000 per car (up to 5 people) one way.
+Q: The driver hasn't contacted us yet — what should we do?
+A: If you haven't heard from your driver by 9 PM the evening before your tour, please contact us immediately via WhatsApp so we can follow up and ensure you're connected with the driver.
+Q: What happens if it rains heavily on the day of our tour?
+A: Heavy rain alone doesn't necessarily cancel the tour. The final decision is made by the Port Authority/harbor master. If they don't allow departure, we'll offer a full refund or free reschedule.
+Q: How is the weather at sea? We're nervous with the kids.
+A: We monitor sea conditions carefully and only depart when it's safe. Our boats are sturdy, the crew is experienced, and children are welcome and well looked-after.
+Q: I saw on your website/platform that prices are different. Which is correct?
+A: Our website always has the most accurate pricing. Third-party platforms may show higher prices due to their commission fees. We recommend booking directly on our website for the best price.
+Q: We have 22 people — how many cars do we need?
+A: For 22 people, you'd need 5 cars (each fits up to 5 people). You can add car transfers during the booking on our website, or in your personal account on our website. The cost is IDR 300,000 per car one way.
+Q: Can we organize scooters for the group instead of cars?
+A: Unfortunately, we can't coordinate scooter transport for tour transfers — we need to ensure everyone arrives on time and returns safely before dark. Our car transfer service is the reliable option.
+Q: Can we start our manta ray snorkeling earlier in the day?
+A: We visit manta spots in the afternoon, as this is when mantas are most reliably present and tourist crowds are at their lowest. We can adjust the order of activities on a private tour, just let us know in advance.
+Q: What time is the tour briefing, and where?
+A: The briefing is at our Bluuu Lounge near Serangan Harbor, 30 minutes before boat departure. 
+Q: Do boats from other companies go to the same places?
+A: Many companies visit similar spots around Nusa Penida. Our advantage is our afternoon manta visits (fewer crowds), experienced certified guides, GoPro footage included, and safety-first approach.
+Q: Can we leave a bit earlier to avoid other tourists?
+A: On shared tours, departure time is fixed. On private tours, we can adjust the order of activities on a private tour, just let us know in advance.
+Q: We booked through TripAdvisor/Klook/GYG — what happens next?
+A: Congratulations on your booking! Our team will contact you to confirm details. Please provide your WhatsApp number so our guide can reach you the day before the tour. You can also complete the online check-in through the link we send.
+Q: I haven't received my booking confirmation email — what should I do?
+A: First, check your spam/junk folder. If it's not there, contact us with your name and booking details, and we'll resend the confirmation.
+Q: Can I complete the online check-in later?
+A: Please complete it as soon as possible. The check-in helps us prepare your boarding documents, insurance, and a smoother start to your trip.
+Q: I'm comparing you with other boat companies — why should I choose you?
+A: Great question! We've been operating since 2018, have excellent reviews on all major platforms, provide GoPro footage for free, use only certified and experienced crew, have comprehensive insurance, and visit manta spots in the afternoon for the best experience with fewer crowds. We're also direct operators with no middlemen.
+Q: I found a cheaper option on Klook — can you match the price?
+A: We'd be happy to discuss! Note that online booking platforms often add their fees on top, so the actual comparison may be closer than it appears. Booking directly on our website usually gives the best price.
+Q: When is the best time of year to visit Nusa Penida?
+A: Nusa Penida is a great destination all year round. The dry season (April–October) usually brings calm seas and clear skies—perfect for a smooth and scenic trip. July–August is the most popular time, with a lively atmosphere and more travelers around. During the wet season (November–March), you can enjoy a more relaxed and less crowded experience, and many days are still great for exploring the island.
+Q: What is the "online check-in" or registration form?
+A: The online check-in form collects each guest's full name, age, and nationality. This is required by the harbor master and helps us prepare your boarding pass, insurance coverage, and tour documents for a faster, smoother start. Please make sure you complete it as soon as possible.
+Q: What if we're coming to Serangan on our own scooter?
+A: No problem! You can park your scooter at the public parking area near our Bluuu Lounge. 
+Q: Will our boat look the same as the photo on the website?
+A: Yes! All our boats look exactly as shown in the photos on our website.
+Q: We're staying at [hotel name] — can you pick us up?
+A: Yes, we can pick you up from most tourist areas in Bali, such as Kuta, Seminyak, Canggu, Ubud, Uluwatu, Jimbaran and Nusa Dua. Enter your hotel name and address when adding transfers during booking. 
+Q: Is Grab/Gojek a good option to get to Serangan?
+A: Grab or Gojek work fine for the morning trip to our office. However, for the return journey after the tour, our transfer service is a better option, as online taxis are restricted in the Serangan area due to local regulations.
+Q: I need to cancel because of a family emergency. Can I get a refund?
+A: We're very sorry to hear that. Refunds are subject to our cancellation policy: full refund if cancelled 24+ hours before the tour, no refund if less than 24 hours.
+Q: My payment link says I owe the full amount but I already paid the deposit — is that correct?
+A: You paid a 50% deposit, and the remainder is typically paid at our office on the morning of the tour. If you still see the full amount due, let us check everything and clarify your payment status.
+Q: I see the tour on TripAdvisor for a higher price — is it the same tour?
+A: Yes, it's the same tour and same quality. TripAdvisor adds their commission on top, resulting in a higher displayed price. Booking directly on our website gives you the best price.
+Q: Can we request an update on the day of the tour if the weather is uncertain?
+The weather in Bali changes very quickly and can vary depending on the specific area, so we recommend arriving at our Bluuu Lounge at least 30 minutes before departure in any case. Rain does not necessarily mean the tour will be canceled. If the port authority cancels all trips, we will inform you immediately.
+Q: What is the cancellation policy for tours booked through Klook/TripAdvisor?
+A: The same 24-hour cancellation policy applies across all platforms. For bookings through third-party platforms, cancellation must be handled through that platform's customer service.
+Q: We want to dive, not snorkel — do you offer diving?
+A: Yes! We offer private scuba diving tours with certified guides and full equipment. Visit our website to explore diving tour options.
+Q: Do you have a yacht option?
+A: Yes! We have several luxury yacht options including the JA20, AZ50, RZ50, and others. These are available for private charter. Check photos and specs on our website.
+Q: What is the Sanjaya or Honey Milk boat?
+A: These are specific private boat models available for charter on our website. Each has detailed photos, capacity information, and specifications to help you choose the right one for your group.
+Q: We are a group of 33 people — can you accommodate us?
+A: Yes! For large groups of 30+ guests, we can arrange multiple boats or our large-capacity yachts. Contact our team directly for custom group booking arrangements.
+Q: My girlfriend/wife gets very seasick — what would you recommend?
+A: We recommend taking Antimo or Dramamine 30–60 minutes before boarding. Seasickness medication is also available on the boat. 
+Q: Do all boats have toilets?
+A: Yes! All our boats are equipped with a toilet on board.
+Q: My child is 7 years old — can they join the shared tour?
+A: Unfortunately, shared tours require guests to be at least 8 years old. Your 7-year-old is very welcome on a private tour!
+Q: Is there coral reef snorkeling, or just open ocean?
+A: Both! Our snorkeling spots include vibrant coral reef areas (Bali Hai, SD Point, Wall Point) as well as open water areas for manta ray encounters.
+Q: Is Crystal Bay included in the tour?
+A: Crystal Bay is currently not included in the tour, but we chose other amazing spots for our tours, such as Bali Hai, Wall Point and SD Point. However, if you want to add Crystal Bay, you can book a private tour option and let us know about adjustments in advance.
+Q: Can we see Angel Billabong and Broken Beach?
+A: Yes! These are available on West Nusa Penida land tour itineraries. Just choose this itinerary during booking on our website..
+Q: Can we go to the Tree Houses on Nusa Penida?
+A: Tree Houses are currently not included in any of our tours.
+Q: Can we change the restaurant where we have lunch?
+A: On shared tours, the restaurant is pre-selected. On private tours, you can choose one of several options, depending on the itinerary, during the booking process.
+Q: We have a very strict halal requirement — can you guarantee the food is halal?
+A: Most of our partner restaurants are halal-certified. Please let us know in advance and we'll confirm the specific arrangements for your tour.
+Q: Is there air conditioning in the car during transfer?
+A: Yes, our transfer vehicles have air conditioning for your comfort.
+Q: What if we miss the boat departure?
+A: For shared tours, the boat cannot wait for late arrivals. If you miss the departure, we unfortunately cannot provide a refund. Please ensure you arrive at least 30 minutes before departure.
+Q: Can we wear GoPro mounts during snorkeling?
+A: You're welcome to wear a GoPro mask or mount. Our guides will also be filming with their GoPro — so you'll have footage covered either way!
+Q: Do you offer a "snorkeling only" tour with no land tour?
+A: Yes! Snorkeling-only itineraries are available for private tour options. Select this option during booking on our website.
+Q: What is included in the premium tour?
+A: Premium tours include: premium boat, professional photographer, complimentary prosecco (3 bottles), welcome drinks, fruit juices, hoodie towels, all standard inclusions (guide, snorkeling gear, GoPro footage, lunch, entrance tickets, water), and a secret spot extra hour.
+Q: Is tipping expected?
+A: Tips are not obligatory but are always appreciated by our crew. If you enjoyed the tour, feel free to leave a tip — it means a lot to our guides and crew!
+Q: What is the "secret spot" on the premium tour?
+A: The secret spot is a stunning hidden location we visit on premium tours near Serangan during the extra hour. It's a beautiful sunset viewing location that we like to keep as a surprise!
+Q: Can we extend our tour by an hour?
+A: Yes! On private tours, you can add an optional one-hour extension to cruise near the harbor and enjoy the sunset views. This is available as an add-on for a fee.
+Q: Can we pay by mobile payment (Apple Pay, Google Pay)?
+A: Currently, we accept Visa, MasterCard, Amex, and PayPal online. Mobile payment options depend on your card's support through the payment platform.
+Q: When should I take seasickness tablets?
+A: Take them 30–60 minutes before boarding the boat for the best effect.
+Q: What is the "cruise permit registration" mentioned in the booking?
+A: This is the permit required for each vessel to depart from and return to the harbor. It's handled by our team — no action needed from guests.
+Q: Do you offer a half-day cruise around Bali (not Nusa Penida)?
+A: Yes! For guests who prefer a shorter cruise, we offer a 4-hour cruise around the Serangan/Nusa Dua area in Bali on selected luxury yachts like JA20.
+Q: Why is nationality required when booking?
+A: Full name, age, and nationality are mandatory requirements from the harbor master for all passengers on every trip. This is for official documentation and insurance purposes.
+Q: Can I see the boat before booking?
+A: Our boats are typically out on tours every day. We cannot arrange viewings in advance, but high-quality photos are available on our website for all boats.
+Q: Is there WiFi on the boat?
+A: Our boats do not have onboard WiFi. Mobile data may work in some areas around Nusa Penida (4G/5G signal). Please download anything you need offline before the tour.
+Q: Is free time on the island possible during the private tour?
+A: Yes! On private tours, you can customize the schedule including free time at the beach or island.
+Q: How do I find your office when I arrive at Serangan?
+A: Look for the "Bluuu" signs near the harbor. Alternatively, use this Google Maps link: https://maps.app.goo.gl/epP2DNF6ayrZJEL1A — Address: Jl. Tukad Punggawa No.238, Serangan, Bali.
+Q: Can we check in to the tour online before the day?
+A: Yes! We'll send you an online check-in link before the tour. Please complete it as soon as possible, as it helps us prepare your boarding pass, insurance coverage, and ensures a smooth start.
+Q: What if we have more than 5 people per car?
+A: You'll need an additional car. Each car holds a maximum of 5 people. We'll calculate the number of cars needed based on your group size at booking.
+Q: I'm arriving from a long flight the night before — is the 8 AM departure manageable?
+A: Many guests do this! If you're concerned, book a private tour with a later departure (9:00–10:00 AM). Make sure to add a car transfer so you don't need to worry about logistics in the morning.
+Q: What if we are running late to the harbor on the morning of the tour?
+A: For shared tours, please call or message us immediately. The boat cannot wait, but our team will do their best to assist. For private tours, we'll wait for you, but please note that latest private tour departure is at 11:30 AM.
+Q: Is crystal clear water guaranteed at all snorkeling spots?
+A: Water visibility is generally excellent around Nusa Penida. Occasional rain or currents can temporarily affect visibility, but it's almost always great for snorkeling.
+Q: Can we request specific spots not on the standard itinerary?
+A: On private tours, you can request custom stops, and we'll do our best to accommodate based on time and safety. Contact our team to discuss before booking.
+Q: What should we do if we want to leave a review?
+A: We'd love your feedback! After the tour, we will share a link for reviews. You can leave reviews on TripAdvisor, Google, Klook, GetYourGuide, or whichever platform you used to book.
+Q: Is there a loyalty program or repeat customer discount?
+A: If you're a returning guest, use code: WELCOMEBACK to get your discount. Combined with any tour type.
+Q: Can we contact the guide directly before the tour?
+A: Your guide will contact you via WhatsApp the day before the tour. If you have questions before that, please reach us through our main WhatsApp number.
+Q: I have a disability — can I still join the tour?
+A: Unfortunately, guests with significant mobility limitations may not be able to participate due to safety requirements.
+Q: Can we request a vegetarian/vegan set menu?
+A: Yes! Mention your dietary preference at booking and we'll inform the restaurant. We'll do our best to ensure suitable meals are available for you.
+Q: Are there life rings on the boat?
+A: Yes, each boat is equipped with life rings, life jackets, and other safety equipment.
+Q: What is the refund process timeline?
+A: Once we initiate the refund, it typically takes a few business days to appear in your account, depending on your bank or payment platform.
+Q: We're nervous about the boat capsizing — how safe is the crossing?
+A: Your safety is our absolute top priority. Our boats are regularly maintained, captains are certified and experienced, and we only sail when the harbor master grants permission. We have not had any capsizing incidents.
+Q: What is Gamat Bay?
+A: Gamat Bay is a beautiful snorkeling spot on the eastern side of Nusa Penida, known for diverse marine life and coral gardens.
+Q: What is Mangrove Point?
+A: Mangrove Point is a snorkeling spot near the mangrove forests of Nusa Lembongan, famous for sea turtles and diverse fish species.
+Q: Can we bring sunscreen on board?
+A: Yes — please bring reef-safe, mineral-based sunscreen. Regular sunscreen chemicals are harmful to coral reefs and marine life around Nusa Penida.
+Q: I want to do scuba diving instead of snorkeling — do I need a certification?
+A: Yes, Open Water Diver PADI certification (or equivalent) is required for our standard diving tours. If you're a beginner, we also offer beginner diving packages with a certified instructor.
+Q: Can I pay the remaining balance before the tour day?
+A: Yes, you can pay the full amount in advance online. If you've paid 50%, the rest is collected at our office on the morning of the tour, or you can pay it in your personal account on our website.
+Q: My Russian card is not working for online payment — what should I do?
+A: If your card doesn't work, you can try PayPal or come to our office to pay in cash (IDR).
+Q: We are 16 people — would we have our own private boat?
+A: Yes! A group of 16 would definitely be on a private boat. We have vessels accommodating groups of this size. 
+Q: Do you offer tours to other islands besides Nusa Penida?
+A: Currently, our tours focus exclusively on the Nusa Penida area. We don't offer tours to other islands (Lombok, Gili Islands, etc.) at this time.
+Q: What is a "shared boat" exactly — is it like a public ferry?
+A: No, it's not a public ferry. Our shared boats are speedboats for our tours, carrying a maximum of 14 guests. They are comfortable, have guides, and are entirely different from public ferries to Nusa Penida.
+Q: Do you offer tours during Nyepi (Bali's Day of Silence)?
+A: Tours are not operated during Nyepi and major Balinese ceremonies. Availability for these dates is blocked in our system in advance.
+Q: Can we get a receipt or official invoice for our corporate booking?
+A: Please contact our team directly for corporate invoicing requirements. We'll do our best to accommodate your needs.
+Q: My group has varying swimming abilities — is that okay?
+A: Absolutely! Our guides are experienced with groups of mixed abilities. Non-swimmers wear life jackets, strong swimmers can explore freely, and everyone enjoys the experience at their own pace.
+Q: Can we bring a birthday cake on the boat?
+A: Yes! You can bring your own cake or book it as an add-on during the booking process, or later in your personal account on our website. 
+Q: Is there a minimum booking notice (e.g., must book 48h in advance)?
+A: You can book right up until 8:30 PM the evening before the tour (as long as spots are available). No minimum advance notice beyond that, but we recommend booking early for popular dates.
+Q: What happens if our tour group gets separated at a snorkeling spot?
+A: Our guides maintain visual contact with all guests in the water. Guests are briefed to stay near the boat and guide. In the unlikely event anyone drifts, our guide and boat crew will quickly retrieve them.
+Q: Can I bring an underwater camera?
+A: Yes! Underwater cameras and waterproof housing for phones or cameras are welcome. Just ensure it's fully waterproof before your tour.
+Q: What makes Bluuu Tours different from other companies?
+A: Key differentiators: operating since 2018, zero accident records, consistently top-rated on all platforms, GoPro footage free for all guests, manta visits in the afternoon (fewer crowds, better experience), direct operator (no middlemen), fully licensed and insured, experienced certified crew, and excellent customer service from inquiry to post-tour.
+20. REAL GUEST QUESTIONS (from 536,000+ Kommo messages)
+Q: Is jet skiing available?
+A: Jet skiing is currently unavailable on our tours.
+Q: Do you have availability for [date]?
+A: Please check it directly on our website — it shows real-time availability for all tour types. If you can't find what you need, please message us.
+Q: We are [X] people — what do you recommend?
+A: For groups of 1–6 people, our Classic Shared or Premium Shared tour offers great value. For groups wanting privacy and flexibility, a private boat tour is ideal. Tell us your group size and preferences and we'll suggest the best option.
+Q: Is that possible? / Is it possible?
+A: Happy to help! Please share what you'd like to arrange and we'll let you know if we can accommodate it.
+Q: How much? / What is the price? / Price?
+A: Our prices are dynamic and depend on the tour type and date. Please check current pricing on our website for the most accurate rates.
+Q: Can I get more info on this?
+A: Of course! What would you like to know? We're happy to answer any questions about our tours, pricing, inclusions, or logistics.
+Q: Pick up and drop off — is that included?
+A: Hotel transfer is an optional add-on at IDR 300,000 per car (up to 5 people), one way. Add it during booking or later in your personal account on our website. 
+Q: Do you have availability for tomorrow?
+A: Please check it directly on our website — it shows real-time availability for all tour types. If you can't find what you need, please message us.
+Q: What is the difference between private and shared?
+A: Shared tours: fixed itinerary, up to 14 guests, more affordable, great for solo travelers and couples. Private tours: entire boat for your group only, flexible itinerary, custom add-ons, ideal for families and groups who want full control of their day.
+Q: Can we confirm the booking?
+A: Once you complete the booking on our website with a 50% deposit, you'll receive an email confirmation.
+Q: Can we do a private tour for 2 people?
+A: Yes! Private tours are available for any group size from 2 people. The boat is exclusively yours. Check private tour options and pricing at bluuu.tours.
+Q: What's included in the private tour?
+A: Private tours include everything in shared tours (snorkeling gear, GoPro footage, lunch, guides, water and fruits, insurance, towels) plus: your own boat and crew, flexible itinerary, ability to add extras (photographer, drone, alcohol packages, cake, etc.).
+Q: Can we add extras to our booking?
+A: Yes! You can add extras during booking checkout or later via your personal account on our website. 
+Q: Can the driver pick us up at 6 AM?
+A: Pickup times are based on your location to ensure everyone arrives at the harbor 30 minutes before departure. Very early pickups (before 06:30) are unusual and depend on your location. We will confirm the exact time in advance.
+Q: My driver hasn't contacted me yet — it's the evening before the tour.
+A: If you haven't heard from your driver by 9:00 PM the evening before, please contact us immediately via WhatsApp. We'll sort it out right away.
+Q: Can we book a yacht for 16 people for a sunset?
+A: Most of our boats must return to Bali by 6:00 PM, but we recommend checking luxury yacht options, such as JA20, which is available for a 4-hours sunset cruise. 
+Q: Is the GoPro footage good quality?
+A: Yes — our guides are trained in underwater filming. You'll receive HD footage delivered via Google Drive within 3 days after your tour.
+Q: The weather looks bad — will the tour run?
+A: The final decision is made by the harbour master on the morning of the tour (by 06:00). We monitor the weather closely. If the tour is cancelled for safety reasons, you get a full refund or free reschedule. We'll notify you as early as possible.
+Q: Can we book directly instead of through Viator/Klook?
+A: Yes! Booking directly on bluuu.tours gives you the best price with easier modification options and direct customer support.

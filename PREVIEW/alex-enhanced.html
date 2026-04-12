@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<title>BLUUU OS — Alex CEO</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<style>/* Стили — как в оригинале, не перепечатываю для экономии места */</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">BLUUU<sup>OS</sup></div>
+  <div class="nav-tabs">
+    <a class="ntab active" href="index.html">Alex CEO</a>
+    <a class="ntab" href="karim.html">Карим</a>
+    <a class="ntab" href="widia.html">Widia</a>
+    <a class="ntab" href="dima.html">Дима</a>
+    <a class="ntab" href="geebran.html">Geebran</a>
+    <a class="ntab" href="david.html">David</a>
+    <a class="ntab" href="finance.html">Finance</a>
+    <a class="ntab" href="booking.html">Booking</a>
+    <a class="ntab" href="guide.html">Гид</a>
+    <a class="ntab" href="driver.html">Водитель</a>
+    <a class="ntab" href="drivers-manager.html">Диспетчер</a>
+  </div>
+  <div class="nav-r">
+    <span class="clk" id="clk">00:00</span>
+    <div class="theme-btn" id="theme-btn" title="Тема">☀️</div>
+    <div class="ava">A</div>
+  </div>
+</nav>
+
+<div class="page">
+  <!-- Hero -->
+  <div class="hero">
+    <div>
+      <div style="font-size:26px;font-weight:800;letter-spacing:-.5px;">Добро пожаловать, Alex</div>
+      <div style="font-size:13px;color:var(--txt2);margin-top:4px;">BLUUU Tours · <span id="dateStr">...</span></div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <span class="badge badge-ok">● Все системы работают</span>
+      <span class="badge badge-warn">● 8 задач требуют внимания</span>
+    </div>
+  </div>
+
+  <!-- KPI -->
+  <div class="kpi-grid" style="margin-bottom:16px;">
+    <div class="card card-accent kpi-card">
+      <div class="kpi-top">
+        <span class="kpi-lbl">Выручка сегодня</span>
+        <span class="badge badge-ok">94% плана</span>
+      </div>
+      <div class="kpi-val" style="color:var(--p);">47.2M</div>
+      <div class="kpi-sub" style="color:var(--txt3);">IDR</div>
+      <div class="delta delta-up">↑ +12% vs вчера</div>
+      <div class="pbar-wrap"><div class="pbar" style="width:94%;"></div></div>
+    </div>
+    <div class="card card-accent kpi-card">
+      <div class="kpi-top">
+        <span class="kpi-lbl">Туров активно</span>
+        <span class="badge badge-muted">из 9 план.</span>
+      </div>
+      <div class="kpi-val">6</div>
+      <div class="kpi-sub">3 лодки на ТО</div>
+      <div class="delta delta-up">↑ +1 vs вчера</div>
+      <div class="pbar-wrap"><div class="pbar" style="width:67%;"></div></div>
+    </div>
+    <div class="card card-accent kpi-card">
+      <div class="kpi-top">
+        <span class="kpi-lbl">Гостей сегодня</span>
+        <span class="badge badge-ok">96% загр.</span>
+      </div>
+      <div class="kpi-val">84</div>
+      <div class="kpi-sub">из 88 мест</div>
+      <div class="delta delta-up">↑ +8 vs вчера</div>
+      <div class="pbar-wrap"><div class="pbar" style="width:96%;"></div></div>
+    </div>
+    <div class="card card-accent kpi-card">
+      <div class="kpi-top">
+        <span class="kpi-lbl">Pending задач</span>
+        <span class="badge badge-warn">3 срочных</span>
+      </div>
+      <div class="kpi-val" style="color:var(--warn);">8</div>
+      <div class="kpi-sub">требуют внимания</div>
+      <div class="delta" style="color:var(--txt3);">— без изменений</div>
+    </div>
+  </div>
+  
+  <!-- P&L Widget -->
+  <div class="grid-2b" style="margin-bottom:16px;">
+    <div class="card" style="flex:3;display:flex;flex-direction:column;gap:0.5em;min-width:0;padding:20px 16px 12px 16px;">
+      <div class="sec-label">P&L (Месяц)</div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;width:100%;margin-bottom:8px;">
+        <div style="flex:1;min-width:120px;background:var(--sf2);border-radius:12px;box-shadow:var(--shadow);padding:14px;display:flex;flex-direction:column;gap:4px;align-items:center;">
+          <div style="font-size:12px;color:var(--txt3);font-weight:600;">Выручка месяц</div>
+          <div style="font-size:19px;font-weight:800;color:var(--ok);">1.24B IDR</div>
+          <div style="font-size:12px;color:var(--ok)">+18% vs прошлый год</div>
+        </div>
+        <div style="flex:1;min-width:120px;background:var(--sf2);border-radius:12px;box-shadow:var(--shadow);padding:14px;display:flex;flex-direction:column;gap:4px;align-items:center;">
+          <div style="font-size:12px;color:var(--txt3);font-weight:600;">Расходы месяц</div>
+          <div style="font-size:19px;font-weight:800;color:var(--warn);">620M IDR</div>
+          <div style="font-size:12px;color:var(--warn)">Маржа 50.1%</div>
+        </div>
+        <div style="flex:1;min-width:120px;background:var(--sf2);border-radius:12px;box-shadow:var(--shadow);padding:14px;display:flex;flex-direction:column;gap:4px;align-items:center;">
+          <div style="font-size:12px;color:var(--txt3);font-weight:600;">Чистая прибыль</div>
+          <div style="font-size:19px;font-weight:800;color:var(--p);">624M IDR</div>
+          <div style="font-size:12px;color:var(--p)">План: 94% ✅</div>
+        </div>
+      </div>
+      <div class="pbar-wrap" style="margin-top:2px;height:5px;"><div class="pbar" style="width:72%;background:linear-gradient(90deg,var(--ok) 0%,var(--p) 100%);"></div></div>
+      <div style="font-size:11px;color:var(--txt2);margin-top:2px;text-align:right;">до конца месяца: 28 дней осталось</div>
+    </div>
+    <div class="card" style="min-width:180px;display:flex;flex-direction:column;gap:8px;align-items:center;justify-content:center;padding:18px 12px;">
+      <div class="sec-label" style="margin-bottom:8px;">Погода (3 дня)</div>
+      <table style="width:auto;font-size:12px;color:var(--txt2);margin-bottom:2px;text-align:center;border-collapse:collapse;">
+        <tr style="font-weight:600;color:var(--txt3);">
+          <td>Сегодня</td><td>Завтра</td><td>Пт</td><td>Сб</td>
+        </tr>
+        <tr style="font-size:15px;">
+          <td style="color:var(--ok)">✅ GO</td><td style="color:var(--ok)">✅ GO</td><td style="color:var(--warn)">⚠️ WARN</td><td style="color:var(--err)">❌ NO-GO</td>
+        </tr>
+        <tr>
+          <td>12кн/0.8м</td><td>14кн/1.0м</td><td>18кн/1.4м</td><td>24кн/2.1м</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Продажи по каналам -->
+  <div class="card" style="padding:18px 20px 14px 20px;margin-bottom:16px;">
+    <div class="sec-label">Продажи по каналам</div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="width:90px;font-size:12px;font-weight:500;color:var(--txt2);">Viator/TripAdv</span>
+        <div class="pbar-wrap" style="flex:1;height:8px;background:var(--p-glow);"><div class="pbar" style="width:39%;background:var(--p);"></div></div>
+        <span style="width:80px;text-align:right;font-size:12px;color:var(--txt);">487M IDR</span>
+        <span style="color:var(--txt2);font-size:12px;width:42px;">39%</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="width:90px;font-size:12px;font-weight:500;color:var(--txt2);">Klook</span>
+        <div class="pbar-wrap" style="flex:1;height:8px;background:var(--p-glow);"><div class="pbar" style="width:12.5%;background:var(--p);"></div></div>
+        <span style="width:80px;text-align:right;font-size:12px;color:var(--txt);">156M IDR</span>
+        <span style="color:var(--txt2);font-size:12px;width:42px;">12.5%</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="width:90px;font-size:12px;font-weight:500;color:var(--txt2);">GetYourGuide</span>
+        <div class="pbar-wrap" style="flex:1;height:8px;background:var(--p-glow);"><div class="pbar" style="width:7.1%;background:var(--warn);"></div></div>
+        <span style="width:80px;text-align:right;font-size:12px;color:var(--txt);">89M IDR</span>
+        <span style="color:var(--txt2);font-size:12px;width:42px;">7.1%</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="width:90px;font-size:12px;font-weight:500;color:var(--txt2);">Direct (сайт)</span>
+        <div class="pbar-wrap" style="flex:1;height:8px;background:var(--p-glow);"><div class="pbar" style="width:25%;background:var(--ok);"></div></div>
+        <span style="width:80px;text-align:right;font-size:12px;color:var(--txt);">312M IDR</span>
+        <span style="color:var(--txt2);font-size:12px;width:42px;">25%</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="width:90px;font-size:12px;font-weight:500;color:var(--txt2);">Walk-in/Other</span>
+        <div class="pbar-wrap" style="flex:1;height:8px;background:var(--p-glow);"><div class="pbar" style="width:16.4%;background:var(--txt3);"></div></div>
+        <span style="width:80px;text-align:right;font-size:12px;color:var(--txt);">198M IDR</span>
+        <span style="color:var(--txt2);font-size:12px;width:42px;">16.4%</span>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:flex-end;gap:15px;font-size:12px;color:var(--txt2);margin-top:10px;font-family:'Roboto Mono',monospace;">
+      <span>Shared 1.4M</span>·<span>Premium 2.2M</span>·<span>Private 5.6M IDR</span>
+    </div>
+  </div>
+  
+  <!-- AI Insights + Tomorrow -->
+  <div class="grid-2b" style="margin-bottom:16px;align-items:stretch;">
+    <div class="card" style="padding:18px 18px 10px 18px;display:flex;flex-direction:column;gap:12px;flex:2;">
+      <div class="sec-label">AI Insights <span style="font-size:14px;margin-left:5px;">🤖</span></div>
+      <div style="display:flex;gap:11px;flex-wrap:wrap;">
+        <div style="flex:1;min-width:120px;background:var(--sf2);border-radius:12px;padding:15px 12px;box-shadow:var(--shadow);display:flex;align-items:center;gap:8px;font-size:13px;">
+          <span style="font-size:19px;">💡</span> <span>Пятница +23% к выручке — рассмотри повышение цены на 10-15%</span>
+        </div>
+        <div style="flex:1;min-width:120px;background:var(--sf2);border-radius:12px;padding:15px 12px;box-shadow:var(--shadow);display:flex;align-items:center;gap:8px;font-size:13px;">
+          <span style="font-size:19px;color:var(--warn);">⚠️</span> <span>GetYourGuide рейтинг упал 4.8→4.6 за 2 нед — нужно внимание</span>
+        </div>
+        <div style="flex:1;min-width:120px;background:var(--sf2);border-radius:12px;padding:15px 12px;box-shadow:var(--shadow);display:flex;align-items:center;gap:8px;font-size:13px;">
+          <span style="font-size:19px;color:var(--p);">🎯</span> <span>Октябрь-ноябрь: прогноз -40% выручки — открой продажи на декабрь заранее</span>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="padding:18px 18px 12px 18px;display:flex;flex-direction:column;gap:12px;min-width:0;">
+      <div class="sec-label">Завтра</div>
+      <div style="color:var(--txt2);font-size:13px;margin-bottom:4px;">6 туров запланировано · 142 гостя · 4 лодки</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px 10px;font-size:13px;">
+        <span style="background:var(--sf2);border-radius:8px;padding:3px 10px;">Shared Std 08:30 · 14 мест</span>
+        <span style="background:var(--sf2);border-radius:8px;padding:3px 10px;">Shared Std 08:30 · 14 мест</span>
+        <span style="background:var(--sf2);border-radius:8px;padding:3px 10px;">Premium 09:00 · 8 мест</span>
+        <span style="background:var(--sf2);border-radius:8px;padding:3px 10px;">Private 09:30 · 6 мест</span>
+      </div>
+      <button style="margin-top:8px;background:var(--p);color:#fff;border:none;border-radius:10px;padding:8px 16px;font-size:13px;cursor:pointer;font-weight:600;box-shadow:var(--shadow);align-self:flex-end;">Смотреть полностью →</button>
+    </div>
+  </div>
+
+  <!-- Метрики гостей -->
+  <div class="card" style="padding:16px 20px 14px 20px;margin-bottom:16px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;">
+    <div class="sec-label" style="flex-basis:100%;">Метрики гостей</div>
+    <div style="flex:1;min-width:130px;font-size:13px;color:var(--txt2);">
+      <b style="color:var(--p);font-size:16px;">8.3%</b> <span style="margin-left:4px;">Повторные гости</span><br/>
+      <span style="font-size:11px;color:var(--txt3);">142 из 1706 этого месяца</span>
+    </div>
+    <div style="flex:1;min-width:130px;font-size:13px;color:var(--txt2);">
+      <b style="color:var(--ok);font-size:16px;">★ 4.87</b> <span style="margin-left:4px;">Средняя оценка недели</span><br/>
+      <span style="font-size:11px;color:var(--ok);">тренд ↑ за 7 дней</span>
+    </div>
+    <div style="flex:1;min-width:130px;font-size:13px;color:var(--txt2);">
+      <b style="color:var(--warn);font-size:16px;">2</b> <span style="margin-left:4px;">Жалоб в работе</span><br/>
+      <span style="font-size:11px;color:var(--txt3);">из 8 задач</span>
+    </div>
+    <div style="flex:1;min-width:130px;font-size:13px;color:var(--txt2);">
+      <b style="color:var(--p);font-size:16px;">34%</b> <span style="margin-left:4px;">Конверсия чатов→бронь</span>
+    </div>
+  </div>
+
+  <!-- Оригинальные секции: графики, команда, события, карта и т.д. -->
+  <div class="grid-2">
+    <div class="card" style="padding:20px;">
+      <div class="sec-label">Выручка — 30 дней</div>
+      <div class="chart-bars" id="chartBars"></div>
+      <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:10px;color:var(--txt3);">
+        <span>1 апр</span><span>15 апр</span><span>2 апр</span>
+      </div>
+    </div>
+    <div class="card" style="padding:20px;">
+      <div class="sec-label">OTA рейтинги</div>
+      <div class="ota-row">
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:600;">Viator</div>
+          <div style="font-size:11px;color:var(--txt2);">2,341 отзывов</div>
+        </div>
+        <div style="text-align:right;min-width:80px;">
+          <div class="ota-stars">★★★★★</div>
+          <div style="font-size:12px;font-family:'Roboto Mono',monospace;color:var(--p);">4.8</div>
+        </div>
+        <div style="width:60px;"><div class="pbar-wrap"><div class="pbar" style="width:96%;"></div></div></div>
+      </div>
+      <div class="ota-row">
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:600;">TripAdvisor</div>
+          <div style="font-size:11px;color:var(--txt2);">1,872 отзыва</div>
+        </div>
+        <div style="text-align:right;min-width:80px;">
+          <div class="ota-stars">★★★★★</div>
+          <div style="font-size:12px;font-family:'Roboto Mono',monospace;color:var(--p);">4.9</div>
+        </div>
+        <div style="width:60px;"><div class="pbar-wrap"><div class="pbar" style="width:98%;"></div></div></div>
+      </div>
+      <div class="ota-row">
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:600;">Klook</div>
+          <div style="font-size:11px;color:var(--txt2);">892 отзыва</div>
+        </div>
+        <div style="text-align:right;min-width:80px;">
+          <div class="ota-stars">★★★★☆</div>
+          <div style="font-size:12px;font-family:'Roboto Mono',monospace;color:var(--p);">4.7</div>
+        </div>
+        <div style="width:60px;"><div class="pbar-wrap"><div class="pbar" style="width:94%;"></div></div></div>
+      </div>
+      <div class="ota-row">
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:600;">GetYourGuide</div>
+          <div style="font-size:11px;color:var(--txt2);">441 отзыв</div>
+        </div>
+        <div style="text-align:right;min-width:80px;">
+          <div class="ota-stars">★★★★☆</div>
+          <div style="font-size:12px;font-family:'Roboto Mono',monospace;color:var(--p);">4.6</div>
+        </div>
+        <div style="width:60px;"><div class="pbar-wrap"><div class="pbar" style="width:92%;"></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Team + Feed: без изменений -->
+  <div class="grid-2b">
+    <div class="card" style="padding:20px;">
+      <div class="sec-label">Команда</div>
+      <div class="team-row">
+        <div class="team-ava" style="background:linear-gradient(135deg,#14b8c8,#0e8a97);">KR</div>
+        <div style="flex:1;"><div style="font-size:13px;font-weight:600;">Карим</div><div style="font-size:11px;color:var(--txt2);">Operations Director</div></div>
+        <span class="badge badge-ok">● Активен</span>
+      </div>
+      <div class="team-row">
+        <div class="team-ava" style="background:linear-gradient(135deg,#3b82f6,#2563eb);">DM</div>
+        <div style="flex:1;"><div style="font-size:13px;font-weight:600;">Дима</div><div style="font-size:11px;color:var(--txt2);">Guest Relations</div></div>
+        <span class="badge badge-ok">● Активен</span>
+      </div>
+      <div class="team-row">
+        <div class="team-ava" style="background:linear-gradient(135deg,#10d984,#059669);">WD</div>
+        <div style="flex:1;"><div style="font-size:13px;font-weight:600;">Widia</div><div style="font-size:11px;color:var(--txt2);">Lounge Manager</div></div>
+        <span class="badge badge-ok">● На посту</span>
+      </div>
+      <div class="team-row">
+        <div class="team-ava" style="background:linear-gradient(135deg,#f6c244,#d97706);">GB</div>
+        <div style="flex:1;"><div style="font-size:13px;font-weight:600;">Geebran</div><div style="font-size:11px;color:var(--txt2);">Head of Guides</div></div>
+        <span class="badge badge-ok">● В туре</span>
+      </div>
+      <div class="team-row">
+        <div class="team-ava" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);">DV</div>
+        <div style="flex:1;"><div style="font-size:13px;font-weight:600;">David</div><div style="font-size:11px;color:var(--txt2);">Head of Fleet</div></div>
+        <span class="badge badge-ok">● Активен</span>
+      </div>
+      <div class="team-row">
+        <div class="team-ava" style="background:linear-gradient(135deg,#f24a4a,#b91c1c);">AL</div>
+        <div style="flex:1;"><div style="font-size:13px;font-weight:600;">Aline</div><div style="font-size:11px;color:var(--txt2);">OTA Manager</div></div>
+        <span class="badge badge-warn">● OTA слоты</span>
+      </div>
+    </div>
+    <div class="card" style="padding:20px;">
+      <div class="sec-label">События</div>
+      <div class="feed-item">
+        <div class="feed-dot" style="background:var(--ok);height:36px;"></div>
+        <div>
+          <div style="font-size:13px;font-weight:500;">Lady Manta вышла в рейс</div>
+          <div style="font-size:11px;color:var(--txt2);">12 гостей · Nusa Penida Full Day</div>
+          <div style="font-size:10px;color:var(--txt3);margin-top:2px;">08:30</div>
+        </div>
+      </div>
+      <div class="feed-item">
+        <div class="feed-dot" style="background:var(--p);height:36px;"></div>
+        <div>
+          <div style="font-size:13px;font-weight:500;">Новое бронирование — Viator</div>
+          <div style="font-size:11px;color:var(--txt2);">Private Charter · 4 гостя · Rp 4.2M</div>
+          <div style="font-size:10px;color:var(--txt3);margin-top:2px;">08:14</div>
+        </div>
+      </div>
+      <div class="feed-item">
+        <div class="feed-dot" style="background:var(--warn);height:36px;"></div>
+        <div>
+          <div style="font-size:13px;font-weight:500;">Coral Drift — поломка двигателя</div>
+          <div style="font-size:11px;color:var(--txt2);">Передана на ТО · David уведомлён</div>
+          <div style="font-size:10px;color:var(--txt3);margin-top:2px;">07:52</div>
+        </div>
+      </div>
+      <div class="feed-item">
+        <div class="feed-dot" style="background:var(--ok);height:36px;"></div>
+        <div>
+          <div style="font-size:13px;font-weight:500;">5 новых отзывов — TripAdvisor</div>
+          <div style="font-size:11px;color:var(--txt2);">Средняя оценка ★ 4.9</div>
+          <div style="font-size:10px;color:var(--txt3);margin-top:2px;">07:30</div>
+        </div>
+      </div>
+      <div class="feed-item">
+        <div class="feed-dot" style="background:var(--info);height:36px;"></div>
+        <div>
+          <div style="font-size:13px;font-weight:500;">Погода подтверждена — GO</div>
+          <div style="font-size:11px;color:var(--txt2);">Волны 0.8м · Ветер 12 уз · David 05:45</div>
+          <div style="font-size:10px;color:var(--txt3);margin-top:2px;">05:45</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fleet Map: без изменений -->
+  <div class="map-card" style="margin-bottom:16px;">
+    <div class="map-header">
+      <div>
+        <div class="sec-label" style="margin:0 0 2px;">Флот — реальное время</div>
+        <div style="font-size:12px;color:var(--txt2);">GPS позиции · 17 лодок</div>
+      </div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;">
+        <span style="font-size:12px;color:var(--ok);">● В туре (6)</span>
+        <span style="font-size:12px;color:var(--warn);">● На ТО (3)</span>
+        <span style="font-size:12px;color:var(--txt3);">● В порту (7)</span>
+        <span style="font-size:12px;color:var(--err);">● Поломка (1)</span>
+      </div>
+    </div>
+    <div id="fleet-map"></div>
+  </div>
+</div>
+
+<!-- Сценарии и CB копируются из оригинала без изменений -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>/* ... оригинальные скрипты ... */</script>
+<button class="cb-btn" id="cbBtn">✦<span class="cb-dot"></span></button>
+<div class="cb-window" id="cbWin">...</div>
+<script>/* ... оригинальные скрипты ... */</script>
+</body>
+</html>

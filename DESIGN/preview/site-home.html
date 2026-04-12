@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Bluuu Tours — Award-winning Nusa Penida Tours from Bali</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#F7F9FA;--bg2:#EEF2F6;--sf:#ffffff;--sf2:#EEF2F6;
+  --bdr:rgba(0,0,0,.08);--bdr2:rgba(0,0,0,.12);
+  --p:#0077e6;--pd:#005bb5;--p-glow:rgba(0,119,230,.1);
+  --ok:#28A745;--warn:#f59e0b;
+  --txt:#1a2332;--txt2:#4a5568;--txt3:#8896a8;
+  --radius:12px;--radius-sm:8px;
+  --hero-bg:#0a1628;
+}
+[data-theme="dark"]{
+  --bg:#080e14;--bg2:#0d1520;--sf:#0d1520;--sf2:#111d2c;
+  --bdr:rgba(255,255,255,.06);--bdr2:rgba(255,255,255,.1);
+  --p:#14b8c8;--pd:#0e8a97;--p-glow:rgba(20,184,200,.15);
+  --txt:#e8f0f8;--txt2:#6b8094;--txt3:#3d5166;
+  --hero-bg:#020810;
+}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 24px;height:64px;display:flex;align-items:center;gap:20px;background:rgba(255,255,255,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr);transition:background .3s;}
+[data-theme="dark"] .nav{background:rgba(8,14,20,.92);}
+.nav-logo{font-size:20px;font-weight:900;color:var(--p);letter-spacing:-1px;text-decoration:none;flex-shrink:0;}
+.nav-logo span{color:var(--txt);font-weight:400;font-size:14px;margin-left:2px;opacity:.5;}
+.nav-links{display:flex;gap:4px;flex:1;justify-content:center;}
+.nav-links a{padding:6px 14px;font-size:14px;font-weight:500;color:var(--txt2);text-decoration:none;border-radius:var(--radius-sm);transition:all .15s;}
+.nav-links a:hover{color:var(--p);background:var(--p-glow);}
+.nav-r{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.btn-book{padding:8px 18px;background:var(--p);color:#fff;border:none;border-radius:var(--radius-sm);font-size:14px;font-weight:600;cursor:pointer;transition:background .15s;}
+.btn-book:hover{background:var(--pd);}
+.theme-btn{width:32px;height:32px;border-radius:50%;background:var(--sf2);border:1px solid var(--bdr);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:100px 24px 60px;background:linear-gradient(160deg,#0a1628 0%,#0c2a50 40%,#0a3d70 70%,#0055a0 100%);position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 80%,rgba(14,165,233,.2) 0%,transparent 60%);}
+.hero-waves{position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(to top,var(--bg) 0%,transparent 100%);}
+.hero-content{position:relative;z-index:1;max-width:760px;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(14,165,233,.15);border:1px solid rgba(14,165,233,.3);border-radius:20px;font-size:12px;font-weight:600;color:#7dd3fc;letter-spacing:.06em;text-transform:uppercase;margin-bottom:24px;}
+.hero h1{font-size:clamp(36px,6vw,64px);font-weight:900;color:#fff;line-height:1.1;letter-spacing:-2px;margin-bottom:16px;}
+.hero h1 span{color:#38bdf8;}
+.hero-sub{font-size:18px;color:rgba(255,255,255,.7);margin-bottom:32px;font-weight:400;}
+.hero-trust{display:flex;align-items:center;justify-content:center;gap:20px;margin-bottom:36px;flex-wrap:wrap;}
+.trust-item{display:flex;align-items:center;gap:6px;font-size:13px;color:rgba(255,255,255,.8);}
+.trust-stars{color:#fbbf24;font-size:15px;}
+.trust-sep{width:1px;height:20px;background:rgba(255,255,255,.2);}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.btn-primary{padding:14px 28px;background:var(--p);color:#fff;border:none;border-radius:var(--radius-sm);font-size:16px;font-weight:700;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block;}
+.btn-primary:hover{background:var(--pd);transform:translateY(-1px);box-shadow:0 8px 24px rgba(14,165,233,.4);}
+.btn-outline-white{padding:14px 28px;background:transparent;color:#fff;border:2px solid rgba(255,255,255,.4);border-radius:var(--radius-sm);font-size:16px;font-weight:600;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block;}
+.btn-outline-white:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.7);}
+
+/* SECTIONS */
+section{padding:80px 24px;}
+.container{max-width:1100px;margin:0 auto;}
+.sec-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--p);margin-bottom:10px;}
+.sec-title{font-size:clamp(26px,4vw,40px);font-weight:800;color:var(--txt);letter-spacing:-1px;margin-bottom:12px;line-height:1.2;}
+.sec-sub{font-size:16px;color:var(--txt2);max-width:560px;}
+.sec-head{margin-bottom:48px;}
+.sec-head.center{text-align:center;display:flex;flex-direction:column;align-items:center;}
+.bg-alt{background:var(--bg2);}
+
+/* TOUR TYPE CARDS */
+.tour-types{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+@media(max-width:768px){.tour-types{grid-template-columns:1fr;}}
+.tour-card{border-radius:16px;border:none;overflow:hidden;transition:transform .2s,box-shadow .2s;background:var(--sf);box-shadow:0 4px 10px rgba(0,0,0,.08);}
+.tour-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.1);}
+.tour-card-img{height:200px;background:linear-gradient(135deg,#0369a1,#0ea5e9,#38bdf8);position:relative;display:flex;align-items:flex-end;padding:16px;}
+.tour-card-img.private{background:linear-gradient(135deg,#1e3a5f,#1d4ed8,#3b82f6);}
+.tour-badge{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;}
+.badge-green{background:#d1fae5;color:#065f46;}
+.badge-blue{background:#dbeafe;color:#1e40af;}
+.badge-sky{background:rgba(14,165,233,.15);border:1px solid rgba(14,165,233,.3);color:var(--p);}
+.badge-amber{background:#fef3c7;color:#92400e;}
+.badge-purple{background:#ede9fe;color:#5b21b6;}
+[data-theme="dark"] .badge-green{background:rgba(16,185,129,.15);color:#34d399;}
+[data-theme="dark"] .badge-blue{background:rgba(59,130,246,.15);color:#60a5fa;}
+[data-theme="dark"] .badge-amber{background:rgba(245,158,11,.15);color:#fbbf24;}
+[data-theme="dark"] .badge-purple{background:rgba(139,92,246,.15);color:#a78bfa;}
+.tour-card-body{padding:24px;}
+.tour-card-title{font-size:20px;font-weight:800;color:var(--txt);margin-bottom:4px;}
+.tour-card-sub{font-size:14px;color:var(--txt2);margin-bottom:16px;}
+.tour-specs{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;}
+.spec{font-size:12px;color:var(--txt3);display:flex;align-items:center;gap:4px;}
+.tour-includes{list-style:none;margin-bottom:20px;}
+.tour-includes li{font-size:13px;color:var(--txt2);padding:4px 0;display:flex;align-items:center;gap:8px;}
+.tour-includes li::before{content:'✓';color:var(--ok);font-weight:700;flex-shrink:0;}
+.tour-price{font-size:22px;font-weight:800;color:var(--txt);margin-bottom:16px;}
+.tour-price span{font-size:14px;font-weight:400;color:var(--txt3);}
+.btn-outline{padding:10px 20px;background:transparent;color:var(--p);border:2px solid var(--p);border-radius:var(--radius-sm);font-size:14px;font-weight:600;cursor:pointer;transition:all .15s;text-decoration:none;display:inline-block;}
+.btn-outline:hover{background:var(--p);color:#fff;}
+.btn-filled{padding:10px 20px;background:var(--p);color:#fff;border:none;border-radius:var(--radius-sm);font-size:14px;font-weight:600;cursor:pointer;transition:all .15s;text-decoration:none;display:inline-block;}
+.btn-filled:hover{background:var(--pd);}
+
+/* TIER CARDS */
+.tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+@media(max-width:900px){.tier-grid{grid-template-columns:1fr;}}
+.tier-card{border-radius:16px;border:1px solid var(--bdr);box-shadow:0 4px 12px rgba(0,0,0,.07);padding:28px;background:var(--sf);transition:transform .2s,box-shadow .2s;position:relative;}
+.tier-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.1);}
+.tier-card.featured{border-color:var(--p);box-shadow:0 0 0 1px var(--p),0 8px 32px var(--p-glow);}
+.tier-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;}
+.tier-name{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--txt3);}
+.tier-boat{font-size:12px;color:var(--txt3);margin-bottom:6px;}
+.tier-desc{font-size:14px;color:var(--txt2);margin-bottom:20px;}
+.tier-specs{display:flex;flex-direction:column;gap:6px;margin-bottom:20px;padding:16px;background:var(--bg2);border-radius:var(--radius-sm);}
+.tier-spec{font-size:12px;color:var(--txt2);display:flex;align-items:center;gap:6px;}
+.tier-price{font-size:32px;font-weight:900;color:var(--txt);margin-bottom:4px;font-family:'Roboto Mono',monospace;}
+.tier-price-sub{font-size:12px;color:var(--txt3);margin-bottom:20px;}
+
+/* COMPARISON TABLE */
+.compare-table{width:100%;border-collapse:collapse;font-size:14px;}
+.compare-table th{padding:14px 16px;text-align:center;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--txt3);border-bottom:2px solid var(--bdr);}
+.compare-table th:first-child{text-align:left;}
+.compare-table td{padding:12px 16px;text-align:center;border-bottom:1px solid var(--bdr);color:var(--txt2);}
+.compare-table td:first-child{text-align:left;font-weight:500;color:var(--txt);}
+.compare-table .col-hl{background:rgba(14,165,233,.04);}
+[data-theme="dark"] .compare-table .col-hl{background:rgba(14,165,233,.08);}
+.compare-table tr:hover td{background:var(--bg2);}
+.check{color:var(--ok);font-weight:700;}
+.dash{color:var(--txt3);}
+
+/* ROUTES */
+.routes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+@media(max-width:900px){.routes-grid{grid-template-columns:1fr;}}
+.route-card{border-radius:16px;overflow:hidden;border:1px solid var(--bdr);background:var(--sf);transition:transform .2s,box-shadow .2s;}
+.route-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.1);}
+.route-img{height:160px;display:flex;align-items:flex-end;padding:12px;}
+.route-img.r1{background:linear-gradient(135deg,#064e80,#0369a1,#0891b2);}
+.route-img.r2{background:linear-gradient(135deg,#065f46,#059669,#34d399);}
+.route-img.r3{background:linear-gradient(135deg,#7c3aed,#8b5cf6,#a78bfa);}
+.route-body{padding:20px;}
+.route-title{font-size:17px;font-weight:700;color:var(--txt);margin-bottom:6px;}
+.route-desc{font-size:13px;color:var(--txt2);margin-bottom:14px;}
+.route-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
+.tag{padding:3px 9px;background:var(--bg2);border:1px solid var(--bdr);border-radius:20px;font-size:11px;color:var(--txt3);}
+
+/* DAY PLAN */
+.day-plan{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;}
+@media(max-width:768px){.day-plan{grid-template-columns:1fr;}}
+.timeline{display:flex;flex-direction:column;gap:0;}
+.tl-item{display:flex;gap:16px;padding-bottom:28px;position:relative;}
+.tl-item::before{content:'';position:absolute;left:15px;top:32px;bottom:0;width:2px;background:var(--bdr);}
+.tl-item:last-child::before{display:none;}
+.tl-dot{width:32px;height:32px;border-radius:50%;background:var(--p-glow);border:2px solid var(--p);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;position:relative;z-index:1;}
+.tl-content{}
+.tl-time{font-size:11px;font-weight:600;color:var(--p);font-family:'Roboto Mono',monospace;text-transform:uppercase;letter-spacing:.06em;}
+.tl-title{font-size:16px;font-weight:700;color:var(--txt);margin:2px 0 4px;}
+.tl-desc{font-size:13px;color:var(--txt2);}
+.map-placeholder{background:linear-gradient(160deg,#0c4a6e,#0369a1,#0891b2);border-radius:16px;height:400px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.map-placeholder::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 60% 40%,rgba(255,255,255,.05) 0%,transparent 60%);}
+.map-dots{position:absolute;inset:0;}
+.map-dot{position:absolute;width:10px;height:10px;border-radius:50%;background:#38bdf8;box-shadow:0 0 12px rgba(56,189,248,.6);}
+.map-dot::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:2px solid rgba(56,189,248,.4);animation:dotpulse 2s infinite;}
+@keyframes dotpulse{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.5);opacity:.4;}}
+.map-label{position:absolute;background:rgba(0,0,0,.6);color:#fff;font-size:10px;padding:2px 6px;border-radius:4px;white-space:nowrap;font-weight:500;}
+
+/* REVIEWS */
+.reviews-meta{display:flex;align-items:center;gap:32px;margin-bottom:40px;flex-wrap:wrap;}
+.rating-big{display:flex;align-items:center;gap:12px;}
+.rating-num{font-size:56px;font-weight:900;color:var(--txt);font-family:'Roboto Mono',monospace;line-height:1;}
+.rating-info .stars{color:#fbbf24;font-size:22px;}
+.rating-info .count{font-size:13px;color:var(--txt3);}
+.platform-ratings{display:flex;gap:16px;flex-wrap:wrap;}
+.platform{display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:var(--radius-sm);border:1px solid var(--bdr);background:var(--sf);}
+.platform-name{font-size:13px;font-weight:600;color:var(--txt);}
+.platform-score{font-size:13px;font-weight:700;color:var(--ok);}
+.reviews-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+@media(max-width:1000px){.reviews-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:640px){.reviews-grid{grid-template-columns:1fr;}}
+.review-card{padding:20px;border-radius:var(--radius);border:1px solid var(--bdr);background:var(--sf);}
+.review-header{display:flex;justify-content:space-between;margin-bottom:8px;}
+.reviewer-name{font-size:14px;font-weight:600;color:var(--txt);}
+.review-date{font-size:11px;color:var(--txt3);}
+.review-stars{color:#fbbf24;font-size:13px;margin-bottom:8px;}
+.review-text{font-size:13px;color:var(--txt2);line-height:1.5;}
+
+/* FAQ */
+.faq-list{display:flex;flex-direction:column;gap:0;border:1px solid var(--bdr);border-radius:16px;overflow:hidden;margin-bottom:32px;}
+.faq-item{border-bottom:1px solid var(--bdr);}
+.faq-item:last-child{border-bottom:none;}
+.faq-q{padding:18px 20px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-size:15px;font-weight:600;color:var(--txt);transition:background .15s;}
+.faq-q:hover{background:var(--bg2);}
+.faq-icon{font-size:18px;color:var(--txt3);transition:transform .25s;flex-shrink:0;}
+.faq-a{padding:0 20px;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s;}
+.faq-a.open{max-height:300px;padding:0 20px 18px;}
+.faq-a p{font-size:14px;color:var(--txt2);line-height:1.6;}
+.faq-item.active .faq-icon{transform:rotate(45deg);}
+.ask-expert{display:flex;align-items:center;gap:24px;padding:24px;background:var(--bg2);border-radius:16px;border:1px solid var(--bdr);flex-wrap:wrap;}
+.ask-expert-info{flex:1;}
+.ask-title{font-size:16px;font-weight:700;color:var(--txt);margin-bottom:4px;}
+.ask-sub{font-size:14px;color:var(--txt2);}
+.ask-contacts{display:flex;gap:12px;flex-wrap:wrap;}
+.contact-btn{padding:9px 16px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:6px;}
+.contact-wa{background:#25d366;color:#fff;}
+.contact-mail{background:var(--sf);border:1px solid var(--bdr);color:var(--txt2);}
+
+/* FOOTER */
+footer{background:var(--hero-bg);color:rgba(255,255,255,.7);padding:60px 24px 32px;}
+[data-theme="dark"] footer{background:#020810;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;max-width:1100px;margin:0 auto 40px;}
+@media(max-width:768px){.footer-grid{grid-template-columns:1fr;}}
+.footer-brand .logo{font-size:22px;font-weight:900;color:var(--p);margin-bottom:12px;}
+.footer-brand p{font-size:13px;line-height:1.6;margin-bottom:16px;opacity:.7;}
+.footer-contact{font-size:13px;opacity:.7;}
+.footer-contact a{color:inherit;text-decoration:none;}
+.footer-col h4{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:14px;}
+.footer-col a{display:block;font-size:13px;color:rgba(255,255,255,.6);text-decoration:none;margin-bottom:8px;transition:color .15s;}
+.footer-col a:hover{color:#fff;}
+.footer-bottom{max-width:1100px;margin:0 auto;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center;flex-wrap:gap;}
+.footer-copy{font-size:12px;opacity:.4;}
+.social-links{display:flex;gap:12px;}
+.social-links a{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.6);text-decoration:none;font-size:14px;transition:background .15s;}
+.social-links a:hover{background:rgba(255,255,255,.15);color:#fff;}
+
+@media(max-width:768px){
+  .nav-links{display:none;}
+  .hero h1{font-size:32px;}
+  .hero-trust{gap:12px;}
+  .trust-sep{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a class="nav-logo" href="#">BLUUU<span>tours</span></a>
+  <div class="nav-links">
+    <a href="#tours">Tours</a>
+    <a href="#boats">Boats</a>
+    <a href="#routes">Routes</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#faq">FAQ</a>
+  </div>
+  <div class="nav-r">
+    <div class="theme-btn" id="theme-btn" title="Toggle theme">☀️</div>
+    <a href="#tours" class="btn-book">Book Now</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">🏆 Award-winning · 9,000+ tours completed</div>
+    <h1>Tours to <span>Nusa Penida</span><br/>from Bali</h1>
+    <p class="hero-sub">Full-day snorkeling, manta rays &amp; island highlights — shared &amp; private</p>
+    <div class="hero-trust">
+      <div class="trust-item"><span class="trust-stars">★★★★★</span> <strong style="color:#fff;">4.9</strong> <span>Google</span></div>
+      <div class="trust-sep"></div>
+      <div class="trust-item"><span class="trust-stars">★★★★★</span> <strong style="color:#fff;">4.9</strong> <span>Tripadvisor</span></div>
+      <div class="trust-sep"></div>
+      <div class="trust-item"><span class="trust-stars">★★★★★</span> <strong style="color:#fff;">4.9</strong> <span>Airbnb</span></div>
+      <div class="trust-sep"></div>
+      <div class="trust-item" style="color:rgba(255,255,255,.6);">10,660+ reviews</div>
+    </div>
+    <div class="hero-btns">
+      <a href="#tours" class="btn-primary">Book Now</a>
+      <a href="#tiers" class="btn-outline-white">See tour options</a>
+    </div>
+  </div>
+  <div class="hero-waves"></div>
+</section>
+
+<!-- TOUR TYPES -->
+<section id="tours">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-label">Choose your experience</div>
+      <h2 class="sec-title">Shared or Private?</h2>
+      <p class="sec-sub">Both include the same stunning locations — it's about who you share the boat with.</p>
+    </div>
+    <div class="tour-types">
+      <div class="tour-card">
+        <div class="tour-card-img" style="align-items:flex-start;padding-top:16px;">
+          <span class="tour-badge badge-green">Best Value</span>
+        </div>
+        <div class="tour-card-body">
+          <div class="tour-card-title">Shared Tour</div>
+          <div class="tour-card-sub">Explore Nusa Penida with fellow travellers</div>
+          <div class="tour-specs">
+            <span class="spec">👥 Up to 10 guests</span>
+            <span class="spec">🕗 Fixed departure</span>
+            <span class="spec">✅ All inclusive</span>
+          </div>
+          <ul class="tour-includes">
+            <li>Cliff restaurant lunch included</li>
+            <li>Snorkeling with manta rays</li>
+            <li>Certified guide &amp; crew</li>
+            <li>Land highlights &amp; viewpoints</li>
+          </ul>
+          <div class="tour-price">From $76 <span>/ person</span></div>
+          <a href="#" class="btn-outline">See tour details</a>
+        </div>
+      </div>
+      <div class="tour-card">
+        <div class="tour-card-img private" style="align-items:flex-start;padding-top:16px;">
+          <span class="tour-badge badge-blue">Most Popular</span>
+        </div>
+        <div class="tour-card-body">
+          <div class="tour-card-title">Private Charter</div>
+          <div class="tour-card-sub">The entire boat is yours</div>
+          <div class="tour-specs">
+            <span class="spec">🚤 20+ boats</span>
+            <span class="spec">👥 2–45 guests</span>
+            <span class="spec">🗺️ Custom route</span>
+          </div>
+          <ul class="tour-includes">
+            <li>Full boat exclusively for your group</li>
+            <li>Flexible departure &amp; custom schedule</li>
+            <li>Perfect for families, birthdays &amp; groups</li>
+            <li>Manta ray snorkeling included</li>
+          </ul>
+          <div class="tour-price">From $852 <span>/ boat · ~$107/person</span></div>
+          <a href="#" class="btn-filled">Browse 20+ boats</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIERS -->
+<section id="tiers" class="bg-alt">
+  <div class="container">
+    <div class="sec-head center">
+      <div class="sec-label">Shared tour tiers</div>
+      <h2 class="sec-title">Pick your comfort level</h2>
+      <p class="sec-sub">Same stunning route, different boats and extras.</p>
+    </div>
+    <div class="tier-grid">
+      <div class="tier-card">
+        <div class="tier-top">
+          <div>
+            <div class="tier-name">Classic</div>
+            <div class="tier-boat">Speedboat 12m · Max 13 guests</div>
+          </div>
+        </div>
+        <div class="tier-desc">The essentials, done right.</div>
+        <div class="tier-specs">
+          <div class="tier-spec">⛵ Partial shade · open deck</div>
+          <div class="tier-spec">🍽️ Cliff restaurant lunch</div>
+          <div class="tier-spec">📷 GoPro by guides</div>
+          <div class="tier-spec">👨‍✈️ Certified guide</div>
+        </div>
+        <div class="tier-price">$99</div>
+        <div class="tier-price-sub">per person · all inclusive</div>
+        <a href="#" class="btn-outline" style="width:100%;text-align:center;display:block;">Select Classic</a>
+      </div>
+      <div class="tier-card featured">
+        <div class="tier-top">
+          <div>
+            <div class="tier-name">Premium</div>
+            <div class="tier-boat">Premium Speedboat 13m · 2024–2025</div>
+          </div>
+          <span class="tour-badge badge-sky">Best Seller</span>
+        </div>
+        <div class="tier-desc">More space, more time, more fun.</div>
+        <div class="tier-specs">
+          <div class="tier-spec">🏖️ Shaded lounge + extra deck</div>
+          <div class="tier-spec">🍽️ La Rossa beach club lunch</div>
+          <div class="tier-spec">📸 Photographer 20–30 photos</div>
+          <div class="tier-spec">⏱️ +1 hour extra on water</div>
+          <div class="tier-spec">🥂 Sunset prosecco</div>
+          <div class="tier-spec">👨‍✈️ Certified guide</div>
+        </div>
+        <div class="tier-price">$129</div>
+        <div class="tier-price-sub">per person · +$30 upgrade from Classic</div>
+        <a href="#" class="btn-filled" style="width:100%;text-align:center;display:block;">Select Premium</a>
+      </div>
+      <div class="tier-card">
+        <div class="tier-top">
+          <div>
+            <div class="tier-name">Elite</div>
+            <div class="tier-boat">Eldorado Yacht 13m · 2026</div>
+          </div>
+          <span class="tour-badge badge-amber">Top Tier</span>
+        </div>
+        <div class="tier-desc">The best we offer.</div>
+        <div class="tier-specs">
+          <div class="tier-spec">🛥️ Full shade + bow lounge with sofas</div>
+          <div class="tier-spec">🍽️ Luxury restaurant lunch</div>
+          <div class="tier-spec">📸 Photographer + drone video</div>
+          <div class="tier-spec">⏱️ +1 hour extra on water</div>
+          <div class="tier-spec">🥂 Sunset prosecco</div>
+          <div class="tier-spec">👨‍✈️ Senior guide 3yr+</div>
+        </div>
+        <div class="tier-price">$149</div>
+        <div class="tier-price-sub">per person · all inclusive</div>
+        <a href="#" class="btn-outline" style="width:100%;text-align:center;display:block;">Select Elite</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON TABLE -->
+<section>
+  <div class="container">
+    <div class="sec-head center">
+      <div class="sec-label">Side by side</div>
+      <h2 class="sec-title">Quick Comparison</h2>
+    </div>
+    <div style="overflow-x:auto;border-radius:16px;border:1px solid var(--bdr);">
+      <table class="compare-table" style="background:var(--sf);">
+        <thead>
+          <tr>
+            <th style="width:200px;"></th>
+            <th>Classic</th>
+            <th class="col-hl">Premium</th>
+            <th class="col-hl">Elite</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Boat</td><td>Speedboat 12m</td><td class="col-hl">Premium 13m</td><td class="col-hl">Eldorado 13m</td></tr>
+          <tr><td>Year</td><td>Mixed fleet</td><td class="col-hl">2024–2025</td><td class="col-hl">2026</td></tr>
+          <tr><td>Shade</td><td>Partial</td><td class="col-hl">Shaded lounge</td><td class="col-hl">Full + bow lounge</td></tr>
+          <tr><td>Snorkeling spots</td><td><span class="check">✓</span> 4 spots</td><td class="col-hl"><span class="check">✓</span> 4 spots</td><td class="col-hl"><span class="check">✓</span> 4 spots</td></tr>
+          <tr><td>Manta rays</td><td><span class="check">✓</span></td><td class="col-hl"><span class="check">✓</span></td><td class="col-hl"><span class="check">✓</span></td></tr>
+          <tr><td>Extra time</td><td><span class="dash">—</span></td><td class="col-hl"><span class="check">+1 hour</span></td><td class="col-hl"><span class="check">+1 hour</span></td></tr>
+          <tr><td>Lunch</td><td>Cliff restaurant</td><td class="col-hl">La Rossa beach club</td><td class="col-hl">Luxury restaurant</td></tr>
+          <tr><td>Photographer</td><td><span class="dash">—</span></td><td class="col-hl"><span class="check">✓</span> 20–30 photos</td><td class="col-hl"><span class="check">✓</span> 20–30 photos</td></tr>
+          <tr><td>Drone</td><td><span class="dash">—</span></td><td class="col-hl"><span class="dash">—</span></td><td class="col-hl"><span class="check">✓</span></td></tr>
+          <tr><td>Sunset prosecco</td><td><span class="dash">—</span></td><td class="col-hl"><span class="check">✓</span></td><td class="col-hl"><span class="check">✓</span></td></tr>
+          <tr><td>Guide level</td><td>Certified</td><td class="col-hl">Certified</td><td class="col-hl">Senior 3yr+</td></tr>
+          <tr>
+            <td style="font-weight:700;">Price / person</td>
+            <td style="font-weight:800;font-family:'Roboto Mono',monospace;">$99</td>
+            <td class="col-hl" style="font-weight:800;font-family:'Roboto Mono',monospace;color:var(--p);">$129</td>
+            <td class="col-hl" style="font-weight:800;font-family:'Roboto Mono',monospace;">$149</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ROUTES -->
+<section id="routes" class="bg-alt">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-label">Private tour routes</div>
+      <h2 class="sec-title">Pick your route</h2>
+      <p class="sec-sub">Every private charter follows one of these itineraries — fully customisable.</p>
+    </div>
+    <div class="routes-grid">
+      <div class="route-card">
+        <div class="route-img r1"><span class="tour-badge badge-blue">Most booked</span></div>
+        <div class="route-body">
+          <div class="route-title">Classic route</div>
+          <div class="route-desc">The best of Nusa Penida in one comfortable full-day trip.</div>
+          <div class="route-tags"><span class="tag">Manta rays</span><span class="tag">Kelingking cliff</span><span class="tag">Snorkeling</span><span class="tag">Lagoon walk</span></div>
+          <a href="#" class="btn-outline" style="font-size:13px;padding:8px 16px;">See itinerary</a>
+        </div>
+      </div>
+      <div class="route-card">
+        <div class="route-img r2"></div>
+        <div class="route-body">
+          <div class="route-title">Chill &amp; relax</div>
+          <div class="route-desc">Snorkel, swim, and sip prosecco — your day, your rules.</div>
+          <div class="route-tags"><span class="tag">Lagoon pontoon</span><span class="tag">Calm bays</span><span class="tag">Scenic cruise</span></div>
+          <a href="#" class="btn-outline" style="font-size:13px;padding:8px 16px;">See itinerary</a>
+        </div>
+      </div>
+      <div class="route-card">
+        <div class="route-img r3"></div>
+        <div class="route-body">
+          <div class="route-title">Family-first day</div>
+          <div class="route-desc">Fewer stops, more time at each — perfect pace for kids.</div>
+          <div class="route-tags"><span class="tag">Kid-friendly</span><span class="tag">Calm bays</span><span class="tag">Flexible schedule</span></div>
+          <a href="#" class="btn-outline" style="font-size:13px;padding:8px 16px;">See itinerary</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DAY PLAN -->
+<section>
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-label">What to expect</div>
+      <h2 class="sec-title">Your day plan</h2>
+      <p class="sec-sub">A smooth full-day flow with snorkeling, lunch, land highlights, and manta time.</p>
+    </div>
+    <div class="day-plan">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot">🌅</div>
+          <div class="tl-content">
+            <div class="tl-time">Morning · 08:30</div>
+            <div class="tl-title">Cruise &amp; snorkel</div>
+            <div class="tl-desc">Board the boat and visit curated snorkel spots with calm, clear water.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">🍽️</div>
+          <div class="tl-content">
+            <div class="tl-time">Midday · 12:00</div>
+            <div class="tl-title">Lunch &amp; relax</div>
+            <div class="tl-desc">Lunch with ocean views and time to refresh before the second half.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">🏔️</div>
+          <div class="tl-content">
+            <div class="tl-time">Afternoon · 13:30</div>
+            <div class="tl-title">Land highlights</div>
+            <div class="tl-desc">Short land stops for viewpoints and photo moments at Kelingking cliff.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">🐟</div>
+          <div class="tl-content">
+            <div class="tl-time">Afternoon · 15:00</div>
+            <div class="tl-title">Swim with mantas</div>
+            <div class="tl-desc">Manta ray swim at Manta Point (conditions permitting), guided by crew.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">🏠</div>
+          <div class="tl-content">
+            <div class="tl-time">Evening · 17:00</div>
+            <div class="tl-title">Back to Bali</div>
+            <div class="tl-desc">Return crossing and wrap-up at the lounge in Sanur.</div>
+          </div>
+        </div>
+      </div>
+      <div class="map-placeholder">
+        <div class="map-dots">
+          <div class="map-dot" style="top:20%;left:50%;"><div class="map-label" style="top:-22px;left:14px;">Sanur Port</div></div>
+          <div class="map-dot" style="top:40%;left:30%;"><div class="map-label" style="top:-22px;left:14px;">Crystal Bay</div></div>
+          <div class="map-dot" style="top:55%;left:25%;"><div class="map-label" style="top:14px;left:14px;">Manta Point</div></div>
+          <div class="map-dot" style="top:70%;left:35%;"><div class="map-label" style="top:-22px;left:14px;">Kelingking</div></div>
+          <div class="map-dot" style="top:45%;left:60%;"><div class="map-label" style="top:-22px;left:14px;">Hai Lagoon</div></div>
+          <div class="map-dot" style="top:35%;left:70%;"><div class="map-label" style="top:-22px;left:14px;">La Bianca</div></div>
+        </div>
+        <div style="position:relative;z-index:1;text-align:center;color:rgba(255,255,255,.5);font-size:13px;padding:20px;">
+          <div style="font-size:32px;margin-bottom:8px;">🗺️</div>
+          Nusa Penida route map
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews" class="bg-alt">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-label">Trusted by travelers</div>
+      <h2 class="sec-title">What guests say</h2>
+    </div>
+    <div class="reviews-meta">
+      <div class="rating-big">
+        <div class="rating-num">4.9</div>
+        <div class="rating-info">
+          <div class="stars">★★★★★</div>
+          <div class="count">10,660+ reviews</div>
+        </div>
+      </div>
+      <div class="platform-ratings">
+        <div class="platform"><div class="platform-name">Google</div><div class="platform-score">4.9 ★</div></div>
+        <div class="platform"><div class="platform-name">Tripadvisor</div><div class="platform-score">4.9 ★</div></div>
+        <div class="platform"><div class="platform-name">Airbnb</div><div class="platform-score">4.9 ★</div></div>
+      </div>
+      <a href="#" class="btn-outline">Write a Review</a>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-header"><span class="reviewer-name">Martina T.</span><span class="review-date">6 days ago</span></div>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">"Amazing experience — great organisation, comfortable yacht and a wonderful restaurant for lunch."</div>
+      </div>
+      <div class="review-card">
+        <div class="review-header"><span class="reviewer-name">Eleftheria K.</span><span class="review-date">6 days ago</span></div>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">"Great snorkeling experience — everything was well-organised, friendly staff and crystal clear water."</div>
+      </div>
+      <div class="review-card">
+        <div class="review-header"><span class="reviewer-name">Lewis S.</span><span class="review-date">6 days ago</span></div>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">"Best experience in Bali. Superb service from start to finish — highly recommend to anyone visiting."</div>
+      </div>
+      <div class="review-card">
+        <div class="review-header"><span class="reviewer-name">Go55514139917</span><span class="review-date">6 days ago</span></div>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">"Very friendly and supportive team throughout the whole day. Will definitely come back to Bali for this."</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container" style="max-width:720px;">
+    <div class="sec-head center">
+      <div class="sec-label">FAQ</div>
+      <h2 class="sec-title">Frequently Asked Questions</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">How to book your Nusa Penida tour?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><p>Choose your tour type, select your date and group size, then complete the booking form. You'll receive a confirmation email with all details including pickup time and meeting point at Sanur port.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Why are we more expensive than other companies?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><p>We invest in newer boats (2024–2026 fleet), professional guides with 3+ years experience, and include all-inclusive meals and snorkeling equipment. Our 4.9 rating across 10,660 reviews speaks for the quality difference.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Manta Bay or Manta Point?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><p>Both are great — Manta Bay (Nusa Penida north side) is calmer and better for beginners. Manta Point (south side) has larger mantas but stronger currents. Your guide will recommend based on conditions that day.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Private or group Nusa Penida tour?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><p>Groups of 6+ usually save money with a private charter. Shared tours are great for solo travelers and couples. Private gives you a custom schedule and the whole boat to yourselves.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How far is Nusa Penida from Bali?<span class="faq-icon">+</span></div>
+        <div class="faq-a"><p>About 45 minutes by speedboat from Sanur port in Bali. We depart at 08:30 and return around 17:00 — a full day on the water.</p></div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-bottom:32px;"><a href="#" style="color:var(--p);font-size:14px;font-weight:600;text-decoration:none;">See all questions →</a></div>
+    <div class="ask-expert">
+      <div class="ask-expert-info">
+        <div class="ask-title">Ask an expert</div>
+        <div class="ask-sub">Our team is ready to help you plan the perfect trip.</div>
+      </div>
+      <div class="ask-contacts">
+        <a href="https://wa.me/6281370262777" class="contact-btn contact-wa">💬 WhatsApp</a>
+        <a href="mailto:info@bluuu.tours" class="contact-btn contact-mail">✉️ Email us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo">BLUUU tours</div>
+      <p>Award-winning Nusa Penida day tours from Bali. Snorkeling, manta rays &amp; island highlights since 2015.</p>
+      <div class="footer-contact">
+        📧 <a href="mailto:info@bluuu.tours">info@bluuu.tours</a><br/>
+        📍 JL. Tukad Punggawa No.238, Serangan, Denpasar, Bali 80228
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Tours</h4>
+      <a href="#">Private tour</a>
+      <a href="#">Shared tour</a>
+      <a href="#">Gallery</a>
+      <a href="#">Reviews</a>
+    </div>
+    <div class="footer-col">
+      <h4>Info</h4>
+      <a href="#">FAQ</a>
+      <a href="#">About</a>
+      <a href="#">Blog</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Cancellation Policy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Bluuu Inc. All rights reserved.</div>
+    <div class="social-links">
+      <a href="#" title="Instagram">📸</a>
+      <a href="#" title="WhatsApp">💬</a>
+      <a href="#" title="YouTube">▶️</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Theme
+(function(){
+  var btn=document.getElementById('theme-btn');
+  var saved=localStorage.getItem('bluuu-site-theme');
+  if(saved==='dark'){document.documentElement.setAttribute('data-theme','dark');btn.textContent='🌙';}
+  btn.addEventListener('click',function(){
+    var isDark=document.documentElement.getAttribute('data-theme')==='dark';
+    if(isDark){document.documentElement.removeAttribute('data-theme');localStorage.setItem('bluuu-site-theme','light');btn.textContent='☀️';}
+    else{document.documentElement.setAttribute('data-theme','dark');localStorage.setItem('bluuu-site-theme','dark');btn.textContent='🌙';}
+  });
+})();
+
+// FAQ accordion
+document.querySelectorAll('.faq-q').forEach(function(q){
+  q.addEventListener('click',function(){
+    var item=this.closest('.faq-item');
+    var ans=item.querySelector('.faq-a');
+    var isOpen=ans.classList.contains('open');
+    document.querySelectorAll('.faq-a').forEach(function(a){a.classList.remove('open');});
+    document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('active');});
+    if(!isOpen){ans.classList.add('open');item.classList.add('active');}
+  });
+});
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click',function(e){
+    var id=this.getAttribute('href');
+    if(id==='#')return;
+    var el=document.querySelector(id);
+    if(el){e.preventDefault();el.scrollIntoView({behavior:'smooth',block:'start'});}
+  });
+});
+
+// Nav scroll effect
+window.addEventListener('scroll',function(){
+  var nav=document.querySelector('.nav');
+  if(window.scrollY>60){nav.style.boxShadow='0 2px 20px rgba(0,0,0,.1)';}
+  else{nav.style.boxShadow='none';}
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+YUDHA — GR Manager Interview Transcript (audio → Whisper transcription)
+Date: 2026-04-09
+Language: English
+
+So here are my submissions for the Bluu OS Q&A. So how I describe my job for question one is that I'm responsible for handling all incoming inquiries for our trips to Nusa Penida, either answer guest questions, provide information and pricing about the tours we offer, and selling to the guests and hope they enjoy our tour.
+
+For number two, usually it just depends on the shift I'm on. So if it's morning shift, it's usually double checking if there's any emergency questions. If either guest got sick, have to cancel, driver hasn't picked up, just so we can handle it properly and make the day run smoother. After that, usually it's inputting any OTA bookings so we can update the calendar with the proper number of people per boat or close any boats that are already booked, just so we don't have any headaches for overbooking or double bookings on boats, as we just want a smooth day and month without any hassle of trying to juggle around overbooked boats or stuff like that. After that, it's just basic answering questions from guests that are looking to book a tour, following up any ongoing guests that are still deciding to book or reminding them that they should pay as soon as possible because spots and boats are limited and we're not able to hold the boats. And then after that, it's just basically replying the guests and hopefully we provide the best information for them to make the decision. In the afternoon, it's basically the same. If I do afternoon shift, double check any tasks, answer questions guests may have, process bookings, and just double checking what the other teams in blue like suppliers, if they have that photographer all booked up yet, or any last minute add-ons like drinks, food, and stuff like that.
+
+What percentage of your day is spent on certain systems for question three? I'd say 60% is usually on WhatsApp and the rest is divided either from Airbnb messages, double checking calendar, double checking website for boats available, or any prices that have been updated throughout the week. And other tours is probably OTA sites, just double checking if we have all the proper bookings and done and all that.
+
+For question four, when a new guest inquiry comes in, usually it depends like if it's OTA, we or website direct booking, we just fill out the information correctly and make sure everything's all correct. And then we greet them, send them their confirmation and just double check if they just double check or they had the correct booking and date. If it's a new WhatsApp inquiry, we usually ask them for what date they may be looking to book, how many people there are in their group. And if they're looking for either a shared tour or private tour, then based on that information, we check the website and offer what is available and the correct pricing based on their inquiry. But usually for like shared tour, it's just simple. They either will book or still looking. And then if they do decide to book, we send the booking link from the system and they hopefully, we actually hope they pay as soon as possible.
+
+For private tours, it's usually more like we provide them maybe like two to three boats that are available during the requested date just so they can have different options to look at. And then we also refer them that our website is available for them to check out and they can check from there, ask any questions that they may have. Usually most of the generic, what's for lunch, what kind of fish or manta we'll see and how is the itinerary look and stuff like that.
+
+For number five, top five questions. Well, this one is a good one because there's so many questions that guests do ask. Biggest one is usually are we able to get a discounted rate for less amount of hours on a private tour? Because some guests do assume that if they want less time on the tour, they should be paying less. But that's not how our system is implemented. Another question that I've gotten is in regards to Manta. Some people do ask if they're able to get a refund because they don't see the Manta during the trip. Another good question that people do ask a lot is, is there a cheaper price for kids that are in their group? Because they do assume that we have kids rates as well, but usually kids are actually not usually it's all the time kids and adults pay the same. Another common question is if people with kitas or local Indonesian that want to book, do they get a local price? Another common question is when agents contact us to book a tour for their guests, they always ask if we provide commission. Another common question we usually get is if we offer Gili or Lombok tours, and we don't.
+
+For question number six, are there any hard questions that we don't have quick information? It's usually like if guests want an alternative itinerary or they want a shorter itinerary, because we only have the basic eight-hour itinerary on our template, so we have to go and ask Geebran if he can make up an example of what their day would look like.
+
+For number seven, how long does it take to check availability? Usually guests will provide us the date they want to book and how many people in their group. I usually ask them if they can wait for a minute so I can double check on the website and calendar and try to get back to them within less than 10 minutes.
+
+For question number eight, how long does it usually take from the first guest message to confirm booking? It is undetermined sometimes. Either they can book within maybe the first 30 minutes, or usually if it's for a date next month or two months from now, it'll maybe take a day or two, maybe weeks. For large groups, sometimes it may take a few weeks.
+
+For question 9, from the moment the guests say I want to book, we put all the data in the system and send them the correct booking link so they can process the payment as soon as possible.
+
+For question 10, the information that we need from our guests is usually the date they want to book, what tour they want to book (shared/private/specific boat), the correct number of people, and their email for manual bookings.
+
+For number 11, to send the booking confirmation, if it's a direct booking from the Blue website, the email is automatically sent to the guest. If not, we send it manually from the email template and also send a WhatsApp confirmation.
+
+For question 12, if guests don't pay on time, we shoot them a quick reminder. If they don't pay within a day, we follow them up again the following day.
+
+For number 13, if guests book through OTA and then contact us directly, we ask for their booking reference number to verify, then answer their questions.
+
+For number 14, most common complaints before their trip: guests asking why they can't get a discount, why pick up and drop off isn't included. Most complaints happen during the trip — cloudy sky, wind, boat looking older than photos.
+
+For 15, when do we escalate to Dima? Usually if it's a situation we have to repeat to the guest multiple times and they don't get the details — like no-show wanting refund or reschedule against our policy.
+
+For question 16, have I ever made a mistake with booking? Yes — wrong date or wrong boat, usually due to being overwhelmed. Always inform Dima and find a solution.
+
+For number 17, most stressful: high season when 3 managers on same shift responding to 30+ chats overflowing. Also big complaints requiring patience while waiting for resolution from Dima/Karim.
+
+For question 18, how to handle cancellations: direct booking — confirm cancellation, send booking details to accountant for refund processing, send invoice to guest. OTA — use template to confirm cancellation intention, move lead to cancellation in system.
+
+For question 19, date change requests: check new date availability, reconfirm with guest, amend lead in system, send new confirmation.
+
+For 21, who tells who when a tour is cancelled: usually from Dima if day before, or from Dima/Karim/Alex whoever gets info from port authority fastest on the day.
+
+For 22, we have weather cancel templates (tomorrow and today versions). Most guests want refund; reschedule requests require constant calendar checking.
+
+For question 23, we notify everyone — even if guests already arrived at office and were informed in person.
+
+For question 24, what do I copy-paste every day: pricing and itinerary — saved on clipboard.
+
+For 25, information wished had automatically: high season discount parameters — in low season had spreadsheet, high season need to check with Karim/Dima each time for discounts.
+
+For number 26, if one thing could be automated: automated OTA booking input so we just need to assign boats. Also automated boat closure for shared tour when max pax reached.
+
+For question 27, what would make job easier: smarter guests who read our messages properly. And the above automations.

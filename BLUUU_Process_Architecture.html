@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLUUU TOURS — Архитектура процессов</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; background: #F3F4F6; color: #111827; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState } = React;
+
+const DEPARTMENTS = [
+  {
+    id: "gr", name: "Guest Relations", owner: "Дима", color: "#2563EB", priority: 1, osModule: "Модули 1, 2, 6",
+    processes: [
+      { name: "Обработка нового лида", desc: "Лид приходит с OTA/сайта/WhatsApp → квалификация → первый контакт → отправка предложения", status: "manual", automatable: 95, escalations: "Цена нестандартная → Карим", frequency: "50-100/день", painPoints: ["Дублирование лидов в Kommo", "Неправильные номера телефонов (0 после кода)", "Менеджеры не успевают отвечать быстро"] },
+      { name: "Бронирование и подтверждение", desc: "Выбор даты → проверка доступности лодок → создание бронирования → отправка инвойса → получение оплаты", status: "partial", automatable: 90, escalations: "Спецзапросы (DJ, торт, фотограф) → Дима", frequency: "30-60/день", painPoints: ["Ручная проверка доступности лодок", "Платёжные ссылки не работают (EDC)", "Двойные бронирования"] },
+      { name: "Управление OTA-слотами", desc: "Открытие/закрытие availability на Viator, Klook, Airbnb, GYG в зависимости от загрузки лодок", status: "manual", automatable: 95, escalations: "Нет — Aline делает сама", frequency: "Несколько раз/день", painPoints: ["Полностью ручное", "Риск overbooking", "Нет синхронизации между платформами"] },
+      { name: "Pre-tour коммуникация", desc: "За 24ч: подтверждение, время пикапа, место встречи, что взять. Утром: водитель звонит", status: "partial", automatable: 85, escalations: "Гость не отвечает → повторный контакт", frequency: "30-60/день", painPoints: ["Гости не отвечают на сообщения", "Неправильные адреса для трансфера", "Забывают подтвердить"] },
+      { name: "Отмены и возвраты", desc: "Гость хочет отменить → проверка политики (14 дней) → решение о возврате → обработка", status: "manual", automatable: 90, escalations: "3,592 упоминания в чате. Каждый случай → Карим", frequency: "5-15/день", painPoints: ["Каждый случай эскалируется наверх", "Нет чёткого decision tree", "Гости торгуются"] },
+      { name: "Ценообразование и скидки", desc: "Запрос нестандартной цены → согласование → применение", status: "manual", automatable: 80, escalations: "759 упоминаний скидок. Каждая → @Карим", frequency: "10-20/день", painPoints: ["Менеджеры не могут сами решить", "2,842 вопроса типа 'what price?' к Диме"] },
+      { name: "Управление отзывами", desc: "Мониторинг отзывов → контакт с недовольным гостем → компенсация → запрос на удаление", status: "partial", automatable: 85, escalations: "Негатив ниже 3★ → MOD → Дима", frequency: "840+ отзывов/мес", painPoints: ["Ручной мониторинг 6+ платформ", "Медленная реакция на негатив", "Нет автоответов"] },
+      { name: "Post-tour follow-up", desc: "Отправка GoPro видео → запрос отзыва → upsell повторного тура", status: "partial", automatable: 90, escalations: "Задержка видео >3 дней → Gee", frequency: "30-60/день", painPoints: ["Видео часто задерживается", "Нет системного upsell", "Потеря данных на Google Drive"] },
+      { name: "Координация трансферов", desc: "Расчёт времени пикапа → назначение водителя → подтверждение гостю", status: "manual", automatable: 85, escalations: "Дальние расстояния → допцена", frequency: "20-40/день", painPoints: ["1,121 упоминание в чате", "Ручной расчёт времени", "Гости путают локацию"] }
+    ]
+  },
+  {
+    id: "ops", name: "Operations (День тура)", owner: "Gee + David", color: "#059669", priority: 2, osModule: "Модуль 3",
+    processes: [
+      { name: "Манифест дня", desc: "Формирование списка гостей по лодкам, назначение гидов, проверка оплат", status: "partial", automatable: 80, frequency: "Ежедневно 6:00", painPoints: ["Ручная компиляция из нескольких систем"] },
+      { name: "Погодный мониторинг", desc: "Проверка Windy App → решение go/no-go → уведомление гостей при отмене", status: "manual", automatable: 85, frequency: "Ежедневно 5:30-6:00", painPoints: ["507 упоминаний погоды", "Субъективное решение"] },
+      { name: "Check-in гостей", desc: "Встреча в офисе Серанган → QR-верификация → welcome drink → брифинг → посадка", status: "partial", automatable: 60, frequency: "Ежедневно 7:00-8:30", painPoints: ["Гости не записаны в листе", "Путаница shared/private"] },
+      { name: "Распределение гидов", desc: "Назначение гидов на лодки по уровню, языку, нагрузке", status: "manual", automatable: 85, frequency: "Ежедневно", painPoints: ["Ручное планирование", "Нет учёта языков и нагрузки"] },
+      { name: "QC чек-листы лодок", desc: "Проверка оборудования, безопасности, чистоты перед отправлением", status: "partial", automatable: 50, frequency: "На каждую лодку", painPoints: ["Не всегда выполняется", "Нет фото-доказательств"] },
+      { name: "Управление инцидентами", desc: "Медицинский случай / поломка / жалоба → протокол → эскалация → компенсация", status: "manual", automatable: 60, frequency: "2-5/день (высокий сезон)", painPoints: ["Нет чёткого протокола", "Ad-hoc решения"] },
+      { name: "Timely Reports", desc: "После тура: какие споты посетили, пропущенные, инциденты, манты", status: "partial", automatable: 70, frequency: "После каждого тура", painPoints: ["Гиды забывают отправлять"] }
+    ]
+  },
+  {
+    id: "fleet", name: "Fleet Management", owner: "David", color: "#7C3AED", priority: 3, osModule: "Модуль 8",
+    processes: [
+      { name: "Доступность флота", desc: "Статус каждой лодки (работает/ТО/церемония), 25-дневное обязательство", status: "partial", automatable: 80, frequency: "Ежедневно", painPoints: ["12,778 упоминаний лодок в чате"] },
+      { name: "Плановое ТО", desc: "100-часовой сервис, капитальный ремонт, замена деталей", status: "manual", automatable: 70, frequency: "Ежемесячно", painPoints: ["Нет автоматических напоминаний"] },
+      { name: "GPS-мониторинг", desc: "Отслеживание местоположения лодок в реальном времени", status: "partial", automatable: 90, frequency: "Непрерывно", painPoints: ["GPS не всегда заряжен"] },
+      { name: "Управление экипажами", desc: "Контракты капитанов, документы, лицензирование", status: "manual", automatable: 50, frequency: "Еженедельно", painPoints: ["Нехватка капитанов"] }
+    ]
+  },
+  {
+    id: "fb", name: "F&B Operations", owner: "Ibu Rhiry", color: "#DC2626", priority: 4, osModule: "Модуль 3 (часть)",
+    processes: [
+      { name: "Закупки и поставки", desc: "Ежедневный заказ фруктов, напитков, выпечки", status: "partial", automatable: 70, frequency: "Ежедневно к 6:00", painPoints: ["Порча продуктов", "Проблемы с холодильниками"] },
+      { name: "Комплектация лодок", desc: "Сборка наборов по типу тура", status: "manual", automatable: 60, frequency: "Ежедневно к 7:30", painPoints: ["Нет стандартных чек-листов"] },
+      { name: "Розничные продажи PoS", desc: "Продажа в офисе Серанган (кокосы, пиво, мерч)", status: "partial", automatable: 70, frequency: "Непрерывно", painPoints: ["Потери 24.3M IDR за 2 мес"] },
+      { name: "Управление запасами", desc: "Инвентаризация, заказ пополнения, контроль сроков", status: "manual", automatable: 75, frequency: "Еженедельно", painPoints: ["Потери оборудования"] }
+    ]
+  },
+  {
+    id: "finance", name: "Finance & Revenue", owner: "Карим / Shenny", color: "#EA580C", priority: 5, osModule: "Модуль 5",
+    processes: [
+      { name: "Обработка платежей", desc: "Xendit, EDC, банковские переводы. Сверка по каналам", status: "partial", automatable: 80, frequency: "Ежедневно", painPoints: ["EDC зависают на 10+ дней"] },
+      { name: "OTA-комиссии", desc: "Расчёт комиссий Viator 20%, Klook 25%, Airbnb, GYG", status: "manual", automatable: 90, frequency: "Ежемесячно", painPoints: ["Ручной расчёт"] },
+      { name: "Payroll и бонусы", desc: "Зарплаты, бонусы менеджерам, Guide Race выплаты", status: "manual", automatable: 75, frequency: "Ежемесячно", painPoints: ["Ручной подсчёт"] },
+      { name: "P&L и отчётность", desc: "Доход по каналам, расходы, маржинальность", status: "manual", automatable: 85, frequency: "Ежемесячно", painPoints: ["Данные разбросаны"] }
+    ]
+  },
+  {
+    id: "lounge", name: "Lounge & Front-line", owner: "Widya", color: "#0891B2", priority: 6, osModule: "Модуль 3 (часть)",
+    processes: [
+      { name: "Встреча и обслуживание гостей", desc: "Welcome drinks, check-in, брифинг, решение проблем", status: "manual", automatable: 40, frequency: "Ежедневно 6:30-9:30 и 16:30-19:30", painPoints: ["Требует постоянного присутствия"] },
+      { name: "Кофе-станция", desc: "Бесплатный кофе/чай, поддержание запасов", status: "manual", automatable: 20, frequency: "Непрерывно", painPoints: ["Нет стандарта"] }
+    ]
+  }
+];
+
+const statusLabels = { manual: "Ручной", partial: "Частично", automated: "Авто" };
+const statusColors = { manual: "#FEE2E2", partial: "#FEF3C7", automated: "#D1FAE5" };
+const statusText = { manual: "#991B1B", partial: "#92400E", automated: "#065F46" };
+
+function ProcessCard({ process, expanded, onClick }) {
+  return React.createElement("div", { onClick, style: { background: "#fff", border: "1px solid #E5E7EB", borderRadius: 8, padding: "12px 16px", cursor: "pointer", transition: "all 0.2s", boxShadow: expanded ? "0 4px 12px rgba(0,0,0,0.1)" : "none" } },
+    React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8, flexWrap: "wrap" } },
+      React.createElement("span", { style: { fontWeight: 600, fontSize: 14, flex: 1, minWidth: 200 } }, process.name),
+      React.createElement("span", { style: { background: statusColors[process.status], color: statusText[process.status], padding: "2px 8px", borderRadius: 12, fontSize: 11, fontWeight: 600, whiteSpace: "nowrap" } }, statusLabels[process.status]),
+      React.createElement("span", { style: { background: "#EEF2FF", color: "#4338CA", padding: "2px 8px", borderRadius: 12, fontSize: 11, fontWeight: 600, whiteSpace: "nowrap" } }, `AI ${process.automatable}%`)
+    ),
+    expanded && React.createElement("div", { style: { marginTop: 12, fontSize: 13, color: "#374151" } },
+      React.createElement("p", { style: { margin: "0 0 8px", lineHeight: 1.5 } }, process.desc),
+      process.frequency && React.createElement("div", { style: { display: "flex", gap: 4, marginBottom: 6 } },
+        React.createElement("span", { style: { color: "#6B7280", minWidth: 80 } }, "Частота:"),
+        React.createElement("span", null, process.frequency)
+      ),
+      process.escalations && React.createElement("div", { style: { display: "flex", gap: 4, marginBottom: 6 } },
+        React.createElement("span", { style: { color: "#6B7280", minWidth: 80 } }, "Эскалация:"),
+        React.createElement("span", null, process.escalations)
+      ),
+      process.painPoints && React.createElement("div", { style: { marginTop: 8 } },
+        React.createElement("span", { style: { color: "#DC2626", fontWeight: 600, fontSize: 12 } }, "Болевые точки:"),
+        React.createElement("ul", { style: { margin: "4px 0 0", paddingLeft: 16 } },
+          process.painPoints.map((p, i) => React.createElement("li", { key: i, style: { fontSize: 12, color: "#6B7280", marginBottom: 2 } }, p))
+        )
+      )
+    )
+  );
+}
+
+function App() {
+  const [expandedProcesses, setExpandedProcesses] = useState(new Set());
+  const [filter, setFilter] = useState("all");
+
+  const toggleProcess = (id) => {
+    setExpandedProcesses(prev => {
+      const next = new Set(prev);
+      next.has(id) ? next.delete(id) : next.add(id);
+      return next;
+    });
+  };
+
+  const expandAll = () => {
+    const all = new Set();
+    DEPARTMENTS.forEach(d => d.processes.forEach((_, i) => all.add(`${d.id}-${i}`)));
+    setExpandedProcesses(all);
+  };
+
+  const collapseAll = () => setExpandedProcesses(new Set());
+
+  const allProcesses = DEPARTMENTS.flatMap(d => d.processes);
+  const totalManual = allProcesses.filter(p => p.status === "manual").length;
+  const totalPartial = allProcesses.filter(p => p.status === "partial").length;
+  const avgAutomation = Math.round(allProcesses.reduce((s, p) => s + p.automatable, 0) / allProcesses.length);
+
+  const filtered = filter === "all" ? DEPARTMENTS : DEPARTMENTS.map(d => ({ ...d, processes: d.processes.filter(p => p.status === filter) })).filter(d => d.processes.length > 0);
+
+  return React.createElement("div", { style: { maxWidth: 900, margin: "0 auto", padding: 20 } },
+    React.createElement("div", { style: { marginBottom: 24 } },
+      React.createElement("h1", { style: { fontSize: 26, fontWeight: 800, color: "#111827", margin: "0 0 4px" } }, "BLUUU TOURS — Архитектура процессов"),
+      React.createElement("p", { style: { color: "#6B7280", margin: 0, fontSize: 14 } }, "Карта всех операционных процессов · Фундамент для стандартизации → SOP → BLUUU OS")
+    ),
+    React.createElement("div", { style: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12, marginBottom: 20 } },
+      [
+        { label: "Всего процессов", value: allProcesses.length, color: "#111827" },
+        { label: "Ручных", value: totalManual, color: "#DC2626" },
+        { label: "Частично авто", value: totalPartial, color: "#D97706" },
+        { label: "Средний AI потенциал", value: `${avgAutomation}%`, color: "#4338CA" },
+      ].map((s, i) => React.createElement("div", { key: i, style: { background: "#fff", borderRadius: 8, padding: "12px 16px", textAlign: "center", boxShadow: "0 1px 3px rgba(0,0,0,0.08)" } },
+        React.createElement("div", { style: { fontSize: 26, fontWeight: 800, color: s.color } }, s.value),
+        React.createElement("div", { style: { fontSize: 11, color: "#6B7280", marginTop: 2 } }, s.label)
+      ))
+    ),
+    React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16, flexWrap: "wrap", gap: 8 } },
+      React.createElement("div", { style: { display: "flex", gap: 6 } },
+        [{ key: "all", label: "Все" }, { key: "manual", label: "Ручные" }, { key: "partial", label: "Частично" }].map(f =>
+          React.createElement("button", { key: f.key, onClick: () => setFilter(f.key), style: { padding: "6px 14px", borderRadius: 6, border: "1px solid #D1D5DB", background: filter === f.key ? "#111827" : "#fff", color: filter === f.key ? "#fff" : "#374151", fontSize: 13, cursor: "pointer", fontWeight: filter === f.key ? 600 : 400 } }, f.label)
+        )
+      ),
+      React.createElement("div", { style: { display: "flex", gap: 6 } },
+        React.createElement("button", { onClick: expandAll, style: { padding: "6px 12px", borderRadius: 6, border: "1px solid #D1D5DB", background: "#fff", fontSize: 12, cursor: "pointer" } }, "Раскрыть все"),
+        React.createElement("button", { onClick: collapseAll, style: { padding: "6px 12px", borderRadius: 6, border: "1px solid #D1D5DB", background: "#fff", fontSize: 12, cursor: "pointer" } }, "Свернуть")
+      )
+    ),
+    filtered.map(dept => {
+      const totalP = dept.processes.length;
+      const manualC = dept.processes.filter(p => p.status === "manual").length;
+      const avgA = Math.round(dept.processes.reduce((s, p) => s + p.automatable, 0) / totalP);
+      return React.createElement("div", { key: dept.id, style: { border: `2px solid ${dept.color}20`, borderRadius: 12, overflow: "hidden", marginBottom: 16, background: "#fff" } },
+        React.createElement("div", { style: { background: `${dept.color}08`, padding: "14px 20px", borderBottom: `1px solid ${dept.color}20`, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 8 } },
+          React.createElement("div", { style: { display: "flex", alignItems: "center", gap: 10 } },
+            React.createElement("div", { style: { background: dept.color, color: "#fff", width: 28, height: 28, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 700 } }, dept.priority),
+            React.createElement("span", { style: { fontWeight: 700, fontSize: 16, color: dept.color } }, dept.name),
+            React.createElement("span", { style: { color: "#6B7280", fontSize: 13 } }, `Owner: ${dept.owner}`)
+          ),
+          React.createElement("div", { style: { display: "flex", gap: 12, fontSize: 12 } },
+            React.createElement("span", { style: { color: "#6B7280" } }, `${totalP} процессов`),
+            React.createElement("span", { style: { color: "#991B1B" } }, `${manualC} ручных`),
+            React.createElement("span", { style: { color: "#4338CA" } }, `AI: ${avgA}%`),
+            React.createElement("span", { style: { color: "#6B7280" } }, dept.osModule)
+          )
+        ),
+        React.createElement("div", { style: { padding: 12, display: "flex", flexDirection: "column", gap: 8 } },
+          dept.processes.map((proc, i) =>
+            React.createElement(ProcessCard, { key: i, process: proc, expanded: expandedProcesses.has(`${dept.id}-${i}`), onClick: () => toggleProcess(`${dept.id}-${i}`) })
+          )
+        )
+      );
+    }),
+    React.createElement("div", { style: { background: "#F0FDF4", border: "1px solid #BBF7D0", borderRadius: 12, padding: 20, marginTop: 8 } },
+      React.createElement("h3", { style: { margin: "0 0 12px", fontSize: 16, color: "#065F46" } }, "Путь: Процессы → SOP → BLUUU OS"),
+      React.createElement("div", { style: { display: "flex", gap: 12, flexWrap: "wrap" } },
+        [
+          { step: "1", title: "Архитектура", desc: "Карта процессов", done: true },
+          { step: "2", title: "SOP Guest Relations", desc: "9 процессов → decision trees", done: false },
+          { step: "3", title: "SOP Operations", desc: "7 процессов + чек-листы", done: false },
+          { step: "4", title: "SOP остальное", desc: "Fleet, F&B, Finance", done: false },
+          { step: "5", title: "BLUUU OS MVP", desc: "SOP → AI-модули", done: false },
+        ].map((s, i) => React.createElement("div", { key: i, style: { flex: "1 1 140px", background: s.done ? "#065F46" : "#fff", color: s.done ? "#fff" : "#374151", borderRadius: 8, padding: "10px 12px", border: s.done ? "none" : "1px solid #D1D5DB" } },
+          React.createElement("div", { style: { fontSize: 11, opacity: 0.7 } }, `Шаг ${s.step}`),
+          React.createElement("div", { style: { fontWeight: 700, fontSize: 13 } }, s.title),
+          React.createElement("div", { style: { fontSize: 11, marginTop: 2, opacity: 0.8 } }, s.desc)
+        ))
+      )
+    ),
+    React.createElement("div", { style: { textAlign: "center", marginTop: 24, padding: 12, color: "#9CA3AF", fontSize: 12 } }, "BLUUU TOURS © 2026 · Документ создан для внутреннего использования")
+  );
+}
+
+ReactDOM.render(React.createElement(App), document.getElementById("root"));
+</script>
+</body>
+</html>

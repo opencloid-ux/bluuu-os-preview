@@ -1,0 +1,260 @@
+# ----------------------------------------
+# Сводка отчетов
+# Аккаунт: BLUUU
+# Ресурс: Bluuu.tours
+# ----------------------------------------
+#  
+# Дата начала: 20260101
+# Дата окончания: 20260222
+Активные пользователи,Новые пользователи,Среднее время взаимодействия на активного пользователя,Сеансы
+11073,10369,132.96604352930552,18089
+
+#  
+# Дата начала: 20260101
+# Дата окончания: 20260222
+Источник/канал сеанса,Сеансы,Ключевые события,Общий доход
+(direct) / (none),6930,617,169670.168188
+google / organic,4932,388,44545.861358
+google / cpc,2649,132,12201.521729
+instagram / cpc,946,9,520.931521
+baliboattours.kommo.com / referral,817,1,0
+l.instagram.com / referral,361,16,538.418308
+chatgpt.com / (not set),170,14,0
+nusapenida.one / referral,143,0,0
+l.facebook.com / referral,89,2,80.634968
+m.facebook.com / referral,79,0,0
+bing / organic,66,8,1194.845024
+youtube.com / referral,58,1,0
+facebook.com / referral,56,0,0
+localhost:5173 / referral,40,0,0
+paypal.com / referral,38,15,4661.903602
+thehoneycombers.com / referral,36,6,575.258988
+yandex.ru / referral,36,1,0
+tagassistant.google.com / referral,34,0,0
+(data not available),28,2,122.15253
+checkout.xendit.co / referral,24,0,0
+tripadvisor.com / referral,17,2,0
+mail.google.com / referral,14,2,0
+ig / social,12,0,0
+madswop.com / referral,12,0,0
+yahoo / organic,10,3,472.280527
+chatgpt.com / referral,8,2,0
+lm.facebook.com / referral,8,3,1302.05885
+m.cafe.naver.com / referral,7,0,0
+statics.teams.cdn.office.net / referral,7,4,278.297262
+wanderlog.com / referral,7,2,1231.573713
+yandex / organic,7,0,0
+ecosia.org / organic,6,2,80.44191
+id.search.yahoo.com / referral,5,0,0
+yandex.kz / referral,5,0,0
+au.search.yahoo.com / referral,4,0,0
+gemini.google.com / referral,4,0,0
+link.edgepilot.com / referral,4,2,0
+linkedin.com / referral,4,2,1185.554759
+naver / organic,4,0,0
+tripadvisor.co.uk / referral,4,0,0
+wx.mail.qq.com / referral,4,0,0
+e.mail.ru / referral,3,0,0
+es.search.yahoo.com / referral,3,0,0
+perplexity / (not set),3,1,0
+reddit.com / referral,3,0,0
+tripadvisor.co.id / referral,3,0,0
+app.asana.com / referral,2,0,0
+avg / organic,2,0,0
+balifamilyvillas.com / referral,2,0,0
+bluuu-tours.translate.goog / referral,2,0,0
+duckduckgo / organic,2,0,0
+kommo.cc / referral,2,0,0
+naver.com / referral,2,0,0
+tripadvisor.com.au / referral,2,0,0
+114.114.114.114:9421 / referral,1,0,0
+amo.to / referral,1,0,0
+baliboat.tours / referral,1,0,0
+bit.ly / referral,1,0,0
+cn.bing.com / referral,1,0,0
+deref-web.de / referral,1,0,0
+ecofreek.com / referral,1,0,0
+fb / paid,1,0,0
+gstatic.com / referral,1,0,0
+ig_text_feed_timeline / referral,1,0,0
+infoindonesia.id / referral,1,0,0
+m.search.naver.com / referral,1,0,0
+oceanhero.today / referral,1,0,0
+perplexity.ai / referral,1,0,0
+teacher.blocksi.net / referral,1,0,0
+tiktok.com / referral,1,0,0
+tripadvisor.es / referral,1,0,0
+tripadvisor.ru / referral,1,0,0
+wink.com / referral,1,0,0
+ya.ru / referral,1,0,0
+yandex.by / referral,1,0,0
+
+#  
+# Дата начала: 20260101
+# Дата окончания: 20260222
+"Источник или канал, связанный с первым взаимодействием пользователя",Активные пользователи
+(direct) / (none),5235
+google / organic,2445
+google / cpc,1611
+instagram / cpc,876
+l.instagram.com / referral,300
+chatgpt.com / (not set),134
+m.facebook.com / referral,73
+l.facebook.com / referral,68
+facebook.com / referral,56
+bing / organic,44
+youtube.com / referral,31
+(data not available),30
+thehoneycombers.com / referral,24
+yandex.ru / referral,21
+paypal.com / referral,13
+nusapenida.one / referral,10
+ig / social,9
+tripadvisor.com / referral,8
+statics.teams.cdn.office.net / referral,7
+chatgpt.com / referral,6
+m.cafe.naver.com / referral,6
+yahoo / organic,6
+lm.facebook.com / referral,5
+madswop.com / referral,5
+yandex.kz / referral,5
+au.search.yahoo.com / referral,4
+ecosia.org / organic,4
+mail.google.com / referral,4
+naver / organic,4
+wanderlog.com / referral,4
+id.search.yahoo.com / referral,3
+linkedin.com / referral,3
+perplexity / (not set),3
+balifamilyvillas.com / referral,2
+bluuu-tours.translate.goog / referral,2
+duckduckgo / organic,2
+es.search.yahoo.com / referral,2
+gemini.google.com / referral,2
+naver.com / referral,2
+reddit.com / referral,2
+tripadvisor.co.uk / referral,2
+114.114.114.114:9421 / referral,1
+amo.to / referral,1
+app.asana.com / referral,1
+avg / organic,1
+baliboat.tours / referral,1
+baliboattours.kommo.com / referral,1
+bit.ly / referral,1
+checkout.xendit.co / referral,1
+cn.bing.com / referral,1
+cnbcindonesia.com / referral,1
+deref-web.de / referral,1
+ecofreek.com / referral,1
+fb / paid,1
+geeksmob.com / referral,1
+gstatic.com / referral,1
+ig_text_feed_timeline / referral,1
+infoindonesia.id / referral,1
+keep.google.com / referral,1
+kommo.cc / referral,1
+link.edgepilot.com / referral,1
+m.search.naver.com / referral,1
+oceanhero.today / referral,1
+perplexity.ai / referral,1
+teacher.blocksi.net / referral,1
+tripadvisor.com.au / referral,1
+tripadvisor.es / referral,1
+tripadvisor.ru / referral,1
+wink.com / referral,1
+ya.ru / referral,1
+yandex.by / referral,1
+
+#  
+# Дата начала: 20260101
+# Дата окончания: 20260222
+Источник/канал сеанса,Сеансы
+(direct) / (none),6930
+google / organic,4932
+google / cpc,2649
+instagram / cpc,946
+baliboattours.kommo.com / referral,817
+l.instagram.com / referral,361
+chatgpt.com / (not set),170
+nusapenida.one / referral,143
+l.facebook.com / referral,89
+m.facebook.com / referral,79
+bing / organic,66
+youtube.com / referral,58
+facebook.com / referral,56
+localhost:5173 / referral,40
+paypal.com / referral,38
+thehoneycombers.com / referral,36
+yandex.ru / referral,36
+tagassistant.google.com / referral,34
+(data not available),28
+checkout.xendit.co / referral,24
+tripadvisor.com / referral,17
+mail.google.com / referral,14
+ig / social,12
+madswop.com / referral,12
+yahoo / organic,10
+chatgpt.com / referral,8
+lm.facebook.com / referral,8
+m.cafe.naver.com / referral,7
+statics.teams.cdn.office.net / referral,7
+wanderlog.com / referral,7
+yandex / organic,7
+ecosia.org / organic,6
+id.search.yahoo.com / referral,5
+yandex.kz / referral,5
+au.search.yahoo.com / referral,4
+gemini.google.com / referral,4
+link.edgepilot.com / referral,4
+linkedin.com / referral,4
+naver / organic,4
+tripadvisor.co.uk / referral,4
+wx.mail.qq.com / referral,4
+e.mail.ru / referral,3
+es.search.yahoo.com / referral,3
+perplexity / (not set),3
+reddit.com / referral,3
+tripadvisor.co.id / referral,3
+app.asana.com / referral,2
+avg / organic,2
+balifamilyvillas.com / referral,2
+bluuu-tours.translate.goog / referral,2
+duckduckgo / organic,2
+kommo.cc / referral,2
+naver.com / referral,2
+tripadvisor.com.au / referral,2
+114.114.114.114:9421 / referral,1
+amo.to / referral,1
+baliboat.tours / referral,1
+bit.ly / referral,1
+cn.bing.com / referral,1
+deref-web.de / referral,1
+ecofreek.com / referral,1
+fb / paid,1
+gstatic.com / referral,1
+ig_text_feed_timeline / referral,1
+infoindonesia.id / referral,1
+m.search.naver.com / referral,1
+oceanhero.today / referral,1
+perplexity.ai / referral,1
+teacher.blocksi.net / referral,1
+tiktok.com / referral,1
+tripadvisor.es / referral,1
+tripadvisor.ru / referral,1
+wink.com / referral,1
+ya.ru / referral,1
+yandex.by / referral,1
+
+#  
+# Дата начала: 20260101
+# Дата окончания: 20260222
+"Кампания Google Рекламы, связанная с сеансом",Сеансы
+(G)_NUSA PENIDA TOUR,786
+Remarketing,764
+Brand,315
+(G)_BOAT RENT,312
+BOAT CHARTER,181
+AUSTRALIA,139
+NUSA PENIDA TOUR_priority,36
+BOAT RENT_priority,25
+NUSA PENIDA TOUR [World],12

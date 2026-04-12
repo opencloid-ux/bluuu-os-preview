@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bluuu Tours — Tour Comparison</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #f0f4f8;
+    color: #1a2b3c;
+    padding: 40px 20px;
+  }
+
+  .container { max-width: 1200px; margin: 0 auto; }
+
+  h1 {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    color: #0a1628;
+  }
+
+  .subtitle {
+    text-align: center;
+    color: #64748b;
+    font-size: 16px;
+    margin-bottom: 40px;
+  }
+
+  /* Toggle */
+  .toggle-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 32px;
+  }
+
+  .toggle {
+    display: flex;
+    background: #e2e8f0;
+    border-radius: 12px;
+    padding: 4px;
+    gap: 4px;
+  }
+
+  .toggle-btn {
+    padding: 12px 32px;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: transparent;
+    color: #64748b;
+  }
+
+  .toggle-btn.active {
+    background: #fff;
+    color: #0a1628;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  /* Cards grid */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    align-items: start;
+  }
+
+  .card {
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .card:hover {
+    box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+    transform: translateY(-4px);
+  }
+
+  .card.popular {
+    border-color: #2563eb;
+    box-shadow: 0 4px 20px rgba(37,99,235,0.15);
+  }
+
+  .card.popular:hover {
+    box-shadow: 0 12px 40px rgba(37,99,235,0.25);
+  }
+
+  .card.elite {
+    border-color: #d4a053;
+    background: linear-gradient(180deg, #fffcf5 0%, #fff 30%);
+  }
+
+  .card.elite:hover {
+    box-shadow: 0 12px 40px rgba(212,160,83,0.25);
+  }
+
+  /* Badge */
+  .badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 2;
+  }
+
+  .badge-value { background: #dbeafe; color: #2563eb; }
+  .badge-popular { background: #2563eb; color: #fff; }
+  .badge-elite { background: linear-gradient(135deg, #d4a053, #f0c674); color: #5c3d0a; }
+
+  /* Image */
+  .card-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .card-body { padding: 24px; }
+
+  /* Tier name */
+  .tier-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .tier-standard .tier-label { color: #64748b; }
+  .tier-premium .tier-label { color: #2563eb; }
+  .tier-elite .tier-label { color: #b8860b; }
+
+  .card-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .card-subtitle {
+    font-size: 13px;
+    color: #94a3b8;
+    margin-bottom: 20px;
+  }
+
+  /* Price */
+  .price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    margin-bottom: 4px;
+  }
+
+  .price-from { font-size: 13px; color: #94a3b8; }
+
+  .price {
+    font-size: 36px;
+    font-weight: 800;
+  }
+
+  .tier-standard .price { color: #1a2b3c; }
+  .tier-premium .price { color: #2563eb; }
+  .tier-elite .price { color: #b8860b; }
+
+  .price-unit { font-size: 14px; color: #94a3b8; }
+  .price-note { font-size: 12px; color: #94a3b8; margin-bottom: 20px; }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: #f1f5f9;
+    margin: 20px 0;
+  }
+
+  /* Feature list */
+  .features { list-style: none; }
+
+  .features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #334155;
+    border-bottom: 1px solid #f8fafc;
+  }
+
+  .features li:last-child { border-bottom: none; }
+
+  .features .icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    margin-top: 1px;
+  }
+
+  .icon-yes { background: #dcfce7; color: #16a34a; }
+  .icon-no { background: #f1f5f9; color: #94a3b8; }
+  .icon-upgrade { background: #dbeafe; color: #2563eb; }
+  .icon-gold { background: #fef3c7; color: #b8860b; }
+
+  .feat-label { flex: 1; }
+  .feat-value { font-weight: 600; color: #0a1628; white-space: nowrap; }
+  .feat-highlight { color: #2563eb; font-weight: 600; }
+  .feat-gold { color: #b8860b; font-weight: 600; }
+
+  /* Section header in features */
+  .feat-section {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #94a3b8;
+    padding: 14px 0 6px;
+    border-bottom: none !important;
+  }
+
+  /* CTA */
+  .cta-btn {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 24px;
+    transition: all 0.2s ease;
+    text-decoration: none;
+  }
+
+  .cta-standard {
+    background: #f1f5f9;
+    color: #334155;
+  }
+  .cta-standard:hover { background: #e2e8f0; }
+
+  .cta-premium {
+    background: #2563eb;
+    color: #fff;
+  }
+  .cta-premium:hover { background: #1d4ed8; }
+
+  .cta-elite {
+    background: linear-gradient(135deg, #d4a053, #e8b96a);
+    color: #fff;
+  }
+  .cta-elite:hover { background: linear-gradient(135deg, #c4903f, #d4a053); }
+
+  /* Quick comparison table */
+  .comparison-section {
+    margin-top: 48px;
+    background: #fff;
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+
+  .comparison-section h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
+
+  .comp-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .comp-table th {
+    padding: 14px 16px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 15px;
+    border-bottom: 2px solid #e2e8f0;
+  }
+
+  .comp-table th:first-child { text-align: left; }
+  .comp-table th.col-premium { color: #2563eb; }
+  .comp-table th.col-elite { color: #b8860b; }
+
+  .comp-table td {
+    padding: 12px 16px;
+    text-align: center;
+    font-size: 14px;
+    border-bottom: 1px solid #f1f5f9;
+  }
+
+  .comp-table td:first-child {
+    text-align: left;
+    color: #64748b;
+    font-weight: 500;
+  }
+
+  .comp-table tr:last-child td { border-bottom: none; }
+
+  .comp-table .row-price td {
+    font-size: 20px;
+    font-weight: 800;
+    padding: 18px 16px;
+    border-top: 2px solid #e2e8f0;
+  }
+
+  .comp-table .row-price td:nth-child(2) { color: #1a2b3c; }
+  .comp-table .row-price td:nth-child(3) { color: #2563eb; }
+  .comp-table .row-price td:nth-child(4) { color: #b8860b; }
+
+  .check { color: #16a34a; font-weight: 700; }
+  .dash { color: #cbd5e1; }
+  .highlight-blue { color: #2563eb; font-weight: 600; }
+  .highlight-gold { color: #b8860b; font-weight: 600; }
+
+  .comp-table .section-row td {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #94a3b8;
+    padding: 18px 16px 8px;
+    border-bottom: none;
+    background: #fafbfc;
+  }
+
+  /* Elite proposals */
+  .elite-section {
+    margin-top: 48px;
+    background: linear-gradient(135deg, #fffcf5, #fff8eb);
+    border-radius: 20px;
+    padding: 32px;
+    border: 2px solid #f0ddb8;
+  }
+
+  .elite-section h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #8b6914;
+    margin-bottom: 8px;
+  }
+
+  .elite-section .elite-subtitle {
+    color: #a08040;
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+
+  .elite-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .elite-idea {
+    background: #fff;
+    border-radius: 14px;
+    padding: 20px;
+    border: 1px solid #f0ddb8;
+  }
+
+  .elite-idea-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #5c3d0a;
+  }
+
+  .elite-idea-desc {
+    font-size: 13px;
+    color: #64748b;
+    line-height: 1.5;
+  }
+
+  .elite-idea-cost {
+    font-size: 12px;
+    color: #b8860b;
+    font-weight: 600;
+    margin-top: 8px;
+  }
+
+  /* Tabs content */
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .cards { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+    .elite-grid { grid-template-columns: 1fr; }
+    .comp-table { font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Choose Your Nusa Penida Experience</h1>
+  <p class="subtitle">Same stunning island. Three levels of comfort. Pick what fits you.</p>
+
+  <!-- Toggle -->
+  <div class="toggle-container">
+    <div class="toggle">
+      <button class="toggle-btn active" onclick="switchTab('shared')">Shared Tour <span style="font-size:12px;color:#94a3b8">(per person)</span></button>
+      <button class="toggle-btn" onclick="switchTab('private')">Private Charter <span style="font-size:12px;color:#94a3b8">(whole boat)</span></button>
+    </div>
+  </div>
+
+  <!-- ============ SHARED TOURS ============ -->
+  <div id="tab-shared" class="tab-content active">
+    <div class="cards">
+
+      <!-- STANDARD -->
+      <div class="card tier-standard">
+        <span class="badge badge-value">Best Value</span>
+        <div class="card-body">
+          <div class="tier-label">Standard</div>
+          <div class="card-title">Classic Adventure</div>
+          <div class="card-subtitle">Everything you need, nothing you don't</div>
+
+          <div class="price-row">
+            <span class="price-from">from</span>
+            <span class="price">$87</span>
+          </div>
+          <div class="price-note">per person &middot; ~IDR 1,390,000</div>
+
+          <div class="divider"></div>
+
+          <ul class="features">
+            <li class="feat-section">The Boat</li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">Speedboat 12m</span></li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">Partial shade cover</span></li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">Up to 20 guests on board</span></li>
+
+            <li class="feat-section">Snorkeling & Sightseeing</li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">4 snorkeling spots</span></li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">Swim with manta rays</span></li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">Kelingking Cliff viewpoint</span></li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">Crystal Bay &amp; Angel Billabong</span></li>
+
+            <li class="feat-section">On Board</li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">Snorkeling gear included</span></li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">Standard lunch (ocean view)</span></li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">Water &amp; soft drinks</span></li>
+            <li><span class="icon icon-no">&mdash;</span><span class="feat-label" style="color:#94a3b8">No sound system</span></li>
+            <li><span class="icon icon-no">&mdash;</span><span class="feat-label" style="color:#94a3b8">No prosecco</span></li>
+
+            <li class="feat-section">Service</li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">Hotel pickup &amp; drop-off</span></li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">English-speaking guide</span></li>
+            <li><span class="icon icon-no">&mdash;</span><span class="feat-label" style="color:#94a3b8">No extra time on route</span></li>
+            <li><span class="icon icon-no">&mdash;</span><span class="feat-label" style="color:#94a3b8">No VIP host</span></li>
+          </ul>
+
+          <a href="https://bluuu.tours/new/shared" class="cta-btn cta-standard">See Tour Details &rarr;</a>
+        </div>
+      </div>
+
+      <!-- PREMIUM -->
+      <div class="card popular tier-premium">
+        <span class="badge badge-popular">Most Popular</span>
+        <div class="card-body">
+          <div class="tier-label">Premium &#10038;</div>
+          <div class="card-title">Premium Experience</div>
+          <div class="card-subtitle">Better boat, more time, sunset prosecco</div>
+
+          <div class="price-row">
+            <span class="price-from">from</span>
+            <span class="price">$129</span>
+          </div>
+          <div class="price-note">per person &middot; ~IDR 2,050,000</div>
+
+          <div class="divider"></div>
+
+          <ul class="features">
+            <li class="feat-section">The Boat</li>
+            <li><span class="icon icon-upgrade">&#9650;</span><span class="feat-label">Motor yacht 13m <span class="feat-highlight">(upgrade)</span></span></li>
+            <li><span class="icon icon-upgrade">&#9650;</span><span class="feat-label">Full shaded lounge</span></li>
+            <li><span class="icon icon-upgrade">&#9650;</span><span class="feat-label">Up to 12 guests <span class="feat-highlight">(smaller group)</span></span></li>
+
+            <li class="feat-section">Snorkeling & Sightseeing</li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">4 snorkeling spots</span></li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">Swim with manta rays</span></li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">Kelingking Cliff viewpoint</span></li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">Crystal Bay &amp; Angel Billabong</span></li>
+
+            <li class="feat-section">On Board</li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">Snorkeling gear included</span></li>
+            <li><span class="icon icon-upgrade">&#9650;</span><span class="feat-label">Upgraded lunch <span class="feat-highlight">(better menu)</span></span></li>
+            <li><span class="icon icon-upgrade">&#9650;</span><span class="feat-label">Water, soft drinks &amp; fresh juice</span></li>
+            <li><span class="icon icon-upgrade">&#9650;</span><span class="feat-label">Bluetooth sound system</span></li>
+            <li><span class="icon icon-upgrade">&#9650;</span><span class="feat-label">Sunset prosecco on return</span></li>
+
+            <li class="feat-section">Service</li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">Hotel pickup &amp; drop-off</span></li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">English-speaking guide</span></li>
+            <li><span class="icon icon-upgrade">&#9650;</span><span class="feat-label"><span class="feat-highlight">+1 hour</span> extra time on the water</span></li>
+            <li><span class="icon icon-no">&mdash;</span><span class="feat-label" style="color:#94a3b8">No VIP host</span></li>
+          </ul>
+
+          <a href="https://bluuu.tours/new/shared" class="cta-btn cta-premium">Book Premium &rarr;</a>
+        </div>
+      </div>
+
+      <!-- FIRST CLASS / ELITE -->
+      <div class="card elite tier-elite">
+        <span class="badge badge-elite">First Class</span>
+        <div class="card-body">
+          <div class="tier-label">First Class</div>
+          <div class="card-title">Elite on Eldorado</div>
+          <div class="card-subtitle">Brand-new yacht. VIP host. The best we offer.</div>
+
+          <div class="price-row">
+            <span class="price-from">from</span>
+            <span class="price">$149</span>
+          </div>
+          <div class="price-note">per person &middot; ~IDR 2,380,000</div>
+
+          <div class="divider"></div>
+
+          <ul class="features">
+            <li class="feat-section">The Boat</li>
+            <li><span class="icon icon-gold">&#9733;</span><span class="feat-label"><span class="feat-gold">Eldorado yacht 13m (brand new 2026)</span></span></li>
+            <li><span class="icon icon-gold">&#9733;</span><span class="feat-label"><span class="feat-gold">Full cabin + sun deck</span></span></li>
+            <li><span class="icon icon-gold">&#9733;</span><span class="feat-label"><span class="feat-gold">Max 8 guests</span> (most intimate)</span></li>
+
+            <li class="feat-section">Snorkeling & Sightseeing</li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">4 snorkeling spots</span></li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">Swim with manta rays</span></li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">Kelingking Cliff viewpoint</span></li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">Crystal Bay &amp; Angel Billabong</span></li>
+
+            <li class="feat-section">On Board</li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">Snorkeling gear included</span></li>
+            <li><span class="icon icon-gold">&#9733;</span><span class="feat-label"><span class="feat-gold">Premium lunch</span> (restaurant quality)</span></li>
+            <li><span class="icon icon-gold">&#9733;</span><span class="feat-label">Unlimited drinks + fresh coconut</span></li>
+            <li><span class="icon icon-gold">&#9733;</span><span class="feat-label">JBL sound system + your playlist</span></li>
+            <li><span class="icon icon-gold">&#9733;</span><span class="feat-label">Prosecco + fruit platter at sunset</span></li>
+
+            <li class="feat-section">Service</li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">Hotel pickup &amp; drop-off</span></li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">English-speaking guide</span></li>
+            <li><span class="icon icon-gold">&#9733;</span><span class="feat-label"><span class="feat-gold">+1 hour</span> extra time on the water</span></li>
+            <li><span class="icon icon-gold">&#9733;</span><span class="feat-label"><span class="feat-gold">Dedicated VIP host</span></span></li>
+            <li><span class="icon icon-gold">&#9733;</span><span class="feat-label"><span class="feat-gold">Drone video of your trip</span> (sent same day)</span></li>
+            <li><span class="icon icon-gold">&#9733;</span><span class="feat-label"><span class="feat-gold">Waterproof phone pouch</span> (yours to keep)</span></li>
+          </ul>
+
+          <a href="https://bluuu.tours/new/shared" class="cta-btn cta-elite">Book First Class &rarr;</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Comparison Table -->
+    <div class="comparison-section">
+      <h2>Quick Comparison — Shared Tours</h2>
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Standard</th>
+            <th class="col-premium">Premium &#10038;</th>
+            <th class="col-elite">First Class</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="section-row"><td colspan="4">The Boat</td></tr>
+          <tr><td>Boat type</td><td>Speedboat 12m</td><td>Motor yacht 13m</td><td class="highlight-gold">Eldorado yacht 13m</td></tr>
+          <tr><td>Year</td><td>Mixed fleet</td><td>2024-2025</td><td class="highlight-gold">2026 (brand new)</td></tr>
+          <tr><td>Max guests</td><td>20</td><td class="highlight-blue">12</td><td class="highlight-gold">8</td></tr>
+          <tr><td>Shade</td><td>Partial</td><td>Shaded lounge</td><td class="highlight-gold">Full cabin + sun deck</td></tr>
+          <tr><td>Sound system</td><td class="dash">&mdash;</td><td class="check">&#10003;</td><td class="check">&#10003; JBL</td></tr>
+
+          <tr class="section-row"><td colspan="4">Experience</td></tr>
+          <tr><td>Snorkeling spots</td><td class="check">4 spots</td><td class="check">4 spots</td><td class="check">4 spots</td></tr>
+          <tr><td>Manta rays</td><td class="check">&#10003;</td><td class="check">&#10003;</td><td class="check">&#10003;</td></tr>
+          <tr><td>Kelingking viewpoint</td><td class="check">&#10003;</td><td class="check">&#10003;</td><td class="check">&#10003;</td></tr>
+          <tr><td>Extra time on water</td><td class="dash">&mdash;</td><td class="highlight-blue">+1 hour</td><td class="highlight-gold">+1 hour</td></tr>
+
+          <tr class="section-row"><td colspan="4">Food & Drinks</td></tr>
+          <tr><td>Lunch</td><td>Standard</td><td class="highlight-blue">Upgraded</td><td class="highlight-gold">Premium</td></tr>
+          <tr><td>Drinks</td><td>Water + soft</td><td>+ Fresh juice</td><td class="highlight-gold">Unlimited + coconut</td></tr>
+          <tr><td>Sunset prosecco</td><td class="dash">&mdash;</td><td class="check">&#10003;</td><td class="check">&#10003; + fruit platter</td></tr>
+
+          <tr class="section-row"><td colspan="4">Service & Extras</td></tr>
+          <tr><td>Hotel pickup</td><td class="check">&#10003;</td><td class="check">&#10003;</td><td class="check">&#10003;</td></tr>
+          <tr><td>English guide</td><td class="check">&#10003;</td><td class="check">&#10003;</td><td class="check">&#10003;</td></tr>
+          <tr><td>VIP host</td><td class="dash">&mdash;</td><td class="dash">&mdash;</td><td class="highlight-gold">&#10003; Dedicated</td></tr>
+          <tr><td>Drone video</td><td class="dash">&mdash;</td><td class="dash">&mdash;</td><td class="highlight-gold">&#10003; Same day</td></tr>
+          <tr><td>Souvenir</td><td class="dash">&mdash;</td><td class="dash">&mdash;</td><td class="highlight-gold">Phone pouch</td></tr>
+
+          <tr class="row-price"><td style="font-size:14px;font-weight:600">Price / person</td><td>$87</td><td>$129</td><td>$149</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ============ PRIVATE TOURS ============ -->
+  <div id="tab-private" class="tab-content">
+    <div class="cards">
+
+      <!-- PRIVATE STANDARD -->
+      <div class="card tier-standard">
+        <span class="badge badge-value">Best Value</span>
+        <div class="card-body">
+          <div class="tier-label">Standard</div>
+          <div class="card-title">Private Classic</div>
+          <div class="card-subtitle">Your own boat, your own pace</div>
+
+          <div class="price-row">
+            <span class="price-from">from</span>
+            <span class="price">$769</span>
+          </div>
+          <div class="price-note">per boat &middot; up to 20 guests</div>
+
+          <div class="divider"></div>
+
+          <ul class="features">
+            <li class="feat-section">The Boat</li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">Speedboat 12m — just your group</span></li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">Partial shade cover</span></li>
+
+            <li class="feat-section">Your Route</li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">Flexible itinerary</span></li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">4 snorkeling spots + manta rays</span></li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">Kelingking &amp; land tour</span></li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">Choose your schedule</span></li>
+
+            <li class="feat-section">Included</li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">Snorkeling gear</span></li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">Standard lunch</span></li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">Hotel pickup &amp; drop-off</span></li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">English-speaking guide</span></li>
+            <li><span class="icon icon-no">&mdash;</span><span class="feat-label" style="color:#94a3b8">No drone photos</span></li>
+          </ul>
+
+          <a href="https://bluuu.tours/new/private" class="cta-btn cta-standard">See Details &rarr;</a>
+        </div>
+      </div>
+
+      <!-- PRIVATE PREMIUM -->
+      <div class="card popular tier-premium">
+        <span class="badge badge-popular">Most Popular</span>
+        <div class="card-body">
+          <div class="tier-label">Premium</div>
+          <div class="card-title">Private Premium</div>
+          <div class="card-subtitle">Yacht experience for your group</div>
+
+          <div class="price-row">
+            <span class="price-from">from</span>
+            <span class="price">$969</span>
+          </div>
+          <div class="price-note">per boat &middot; up to 12 guests</div>
+
+          <div class="divider"></div>
+
+          <ul class="features">
+            <li class="feat-section">The Boat</li>
+            <li><span class="icon icon-upgrade">&#9650;</span><span class="feat-label">Motor yacht 13m <span class="feat-highlight">(upgrade)</span></span></li>
+            <li><span class="icon icon-upgrade">&#9650;</span><span class="feat-label">Full shaded lounge + cushions</span></li>
+
+            <li class="feat-section">Your Route</li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">Fully customizable itinerary</span></li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">4 snorkeling spots + manta rays</span></li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">Kelingking &amp; land tour</span></li>
+            <li><span class="icon icon-upgrade">&#9650;</span><span class="feat-label"><span class="feat-highlight">+1 hour</span> extra on the water</span></li>
+
+            <li class="feat-section">Included</li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">Snorkeling gear</span></li>
+            <li><span class="icon icon-upgrade">&#9650;</span><span class="feat-label">Upgraded lunch + fresh juice</span></li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">Hotel pickup &amp; drop-off</span></li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">English-speaking guide</span></li>
+            <li><span class="icon icon-upgrade">&#9650;</span><span class="feat-label">Sound system + sunset prosecco</span></li>
+            <li><span class="icon icon-upgrade">&#9650;</span><span class="feat-label">Add drone photos <span class="feat-highlight">(+$49)</span></span></li>
+          </ul>
+
+          <a href="https://bluuu.tours/new/private" class="cta-btn cta-premium">Book Premium &rarr;</a>
+        </div>
+      </div>
+
+      <!-- PRIVATE FIRST CLASS -->
+      <div class="card elite tier-elite">
+        <span class="badge badge-elite">First Class</span>
+        <div class="card-body">
+          <div class="tier-label">First Class</div>
+          <div class="card-title">Private Eldorado</div>
+          <div class="card-subtitle">The ultimate Nusa Penida experience</div>
+
+          <div class="price-row">
+            <span class="price-from">from</span>
+            <span class="price">$1,569</span>
+          </div>
+          <div class="price-note">per boat &middot; up to 8 guests</div>
+
+          <div class="divider"></div>
+
+          <ul class="features">
+            <li class="feat-section">The Boat</li>
+            <li><span class="icon icon-gold">&#9733;</span><span class="feat-label"><span class="feat-gold">Eldorado yacht 13m (2026)</span></span></li>
+            <li><span class="icon icon-gold">&#9733;</span><span class="feat-label"><span class="feat-gold">Full cabin + sun deck + bean bags</span></span></li>
+
+            <li class="feat-section">Your Route</li>
+            <li><span class="icon icon-gold">&#9733;</span><span class="feat-label"><span class="feat-gold">100% custom route</span> — go anywhere</span></li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">4+ snorkeling spots + manta rays</span></li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">Kelingking &amp; land tour</span></li>
+            <li><span class="icon icon-gold">&#9733;</span><span class="feat-label"><span class="feat-gold">+1 hour</span> extra on the water</span></li>
+
+            <li class="feat-section">All Inclusive</li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">Snorkeling gear</span></li>
+            <li><span class="icon icon-gold">&#9733;</span><span class="feat-label"><span class="feat-gold">Premium lunch + unlimited drinks</span></span></li>
+            <li><span class="icon icon-yes">&#10003;</span><span class="feat-label">Hotel pickup &amp; drop-off</span></li>
+            <li><span class="icon icon-gold">&#9733;</span><span class="feat-label"><span class="feat-gold">VIP host + English guide</span></span></li>
+            <li><span class="icon icon-gold">&#9733;</span><span class="feat-label"><span class="feat-gold">JBL system + prosecco + fruit platter</span></span></li>
+            <li><span class="icon icon-gold">&#9733;</span><span class="feat-label"><span class="feat-gold">Drone video included</span></span></li>
+            <li><span class="icon icon-gold">&#9733;</span><span class="feat-label"><span class="feat-gold">GoPro rental + phone pouch</span></span></li>
+          </ul>
+
+          <a href="https://bluuu.tours/new/private" class="cta-btn cta-elite">Book First Class &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ ELITE UPGRADE IDEAS ============ -->
+  <div class="elite-section">
+    <h2>&#9733; Ideas to Make First Class Truly Elite</h2>
+    <p class="elite-subtitle">Proposed upgrades to differentiate First Class from Premium and justify the price gap</p>
+
+    <div class="elite-grid">
+      <div class="elite-idea">
+        <div class="elite-idea-title">&#127909; Drone Video Package</div>
+        <div class="elite-idea-desc">30-second cinematic drone video of the yacht + guests + ocean. Edited and sent to WhatsApp same day. Guests will 100% post this on Instagram/TikTok.</div>
+        <div class="elite-idea-cost">Cost: ~$15/trip (drone operator already on boat)</div>
+      </div>
+      <div class="elite-idea">
+        <div class="elite-idea-title">&#127943; GoPro Rental</div>
+        <div class="elite-idea-desc">Waterproof GoPro available for the day. All underwater manta footage goes home with the guest. Branded Bluuu memory card sleeve.</div>
+        <div class="elite-idea-cost">Cost: ~$5/trip (already own GoPros)</div>
+      </div>
+      <div class="elite-idea">
+        <div class="elite-idea-title">&#127860; Premium Picnic Box</div>
+        <div class="elite-idea-desc">Instead of standard lunch, a curated picnic box with Balinese wraps, tropical fruit, cold brew coffee, homemade cookies. Presented beautifully = more photos.</div>
+        <div class="elite-idea-cost">Cost: ~$8-12/person extra vs standard lunch</div>
+      </div>
+      <div class="elite-idea">
+        <div class="elite-idea-title">&#128171; Branded Welcome Kit</div>
+        <div class="elite-idea-desc">Waterproof phone pouch + Bluuu bracelet with Nusa Penida coordinates + reef-safe sunscreen sample. Guests keep it all = walking advertising.</div>
+        <div class="elite-idea-cost">Cost: ~$3-5/person (bulk order from Alibaba)</div>
+      </div>
+      <div class="elite-idea">
+        <div class="elite-idea-title">&#127878; Sunset Prosecco Ceremony</div>
+        <div class="elite-idea-desc">Not just "a glass of prosecco" — a proper ceremony: captain slows the boat, music changes to chill playlist, crew pours prosecco with a fruit platter. Make it a moment.</div>
+        <div class="elite-idea-cost">Cost: ~$3/person extra (presentation, not product)</div>
+      </div>
+      <div class="elite-idea">
+        <div class="elite-idea-title">&#128247; Photo Stop at Secret Spot</div>
+        <div class="elite-idea-desc">First Class only: 10-minute stop at a photogenic cliff/cave that other boats skip. Exclusive to Eldorado = "you can't get this anywhere else."</div>
+        <div class="elite-idea-cost">Cost: $0 (just route adjustment + fuel)</div>
+      </div>
+      <div class="elite-idea">
+        <div class="elite-idea-title">&#127925; Captain's Playlist</div>
+        <div class="elite-idea-desc">JBL speaker on Eldorado. Before the trip, ask guests for their Spotify playlist link. Personal touch that costs nothing but feels premium.</div>
+        <div class="elite-idea-cost">Cost: $0</div>
+      </div>
+      <div class="elite-idea">
+        <div class="elite-idea-title">&#128140; Bean Bags on Sun Deck</div>
+        <div class="elite-idea-desc">Waterproof bean bags on the Eldorado sun deck. Guests lounge while cruising. No other operator has this. Extremely Instagrammable.</div>
+        <div class="elite-idea-cost">Cost: ~$50-80 one-time (marine-grade bean bags)</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function switchTab(tab) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.toggle-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>
