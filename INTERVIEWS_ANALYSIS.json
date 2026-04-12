@@ -1,0 +1,426 @@
+{
+  "metadata": {
+    "generated": "2026-04-12T15:32:16.203747",
+    "total_guides": 13,
+    "analyzed_guides": [
+      "Roby",
+      "Budi",
+      "Jena",
+      "Nemo"
+    ],
+    "source": "Guide interview transcriptions",
+    "analysis_type": "Operational & Process Analysis"
+  },
+  "cross_guide_themes": {
+    "Operations": [
+      "Daily schedule checking critical success factor",
+      "Guest briefing at harbor improves satisfaction",
+      "Safety equipment explanation mandatory",
+      "Day-before planning essential",
+      "MOD/Gibran communication loop required",
+      "Post-trip daily reporting standardized"
+    ],
+    "Guest_Management": [
+      "Swimming level assessment needed upfront",
+      "Dietary/allergy information incomplete",
+      "Physical limitations not always communicated",
+      "Non-swimmers require extra support",
+      "Language barriers common (especially international guests)",
+      "Guest expectations vs reality (Manta rays, wildlife visibility)"
+    ],
+    "Safety": [
+      "Pre-departure safety briefing mandatory",
+      "Medical emergencies = direct to clinic protocol",
+      "Life jackets/rings for non-swimmers",
+      "Weather-dependent route changes",
+      "Current/tide assessment critical",
+      "Captain-guide alignment on safety decisions"
+    ],
+    "Emotional_Intelligence": [
+      "Handling demanding guests (cultural differences noted)",
+      "Managing guest disappointment (uncontrollable factors)",
+      "Team support culture important",
+      "Recognition (reviews, mentions) motivates guides",
+      "Stress from equipment failures during tours",
+      "Communication chain reduces guide autonomy stress"
+    ]
+  },
+  "critical_pain_points": {
+    "Guest_Information": [
+      "Swimming experience not consistently provided",
+      "Physical limitations not captured",
+      "Dietary/allergy info incomplete",
+      "Pick-up arrangements sometimes unclear"
+    ],
+    "Operations": [
+      "Equipment/motor failures disrupt tours",
+      "Weather-dependent routes create uncertainty",
+      "No-show guests waste resources",
+      "Insufficient office facilities (Jena feedback)"
+    ],
+    "Communication": [
+      "Customer service not equipped for upset guests",
+      "Some guides want more autonomy",
+      "Team communication could be stronger",
+      "Language barriers with international guests"
+    ],
+    "Guest_Experience": [
+      "Expectations management (Manta rays, wildlife sightings)",
+      "Water conditions complaints (salinity, color)",
+      "Rough seas causing discomfort",
+      "Demanding guests (cultural stereotypes noted)"
+    ]
+  },
+  "database_structure": {
+    "guides": {
+      "guide_id": "UUID",
+      "name": "string",
+      "experience_level": "derived from interview",
+      "languages_spoken": "derived from interview",
+      "specializations": [
+        "snorkeling",
+        "safety",
+        "customer_service"
+      ],
+      "verified_skills": [
+        "swimming",
+        "first_aid",
+        "communication"
+      ],
+      "review_satisfaction": "high|medium|low",
+      "team_alignment": "high|medium|low",
+      "notes": "operational insights"
+    },
+    "operations": {
+      "task_id": "UUID",
+      "name": "string",
+      "description": "string",
+      "frequency": "daily|per_trip|pre_trip",
+      "responsible_roles": [
+        "guide",
+        "captain",
+        "MOD"
+      ],
+      "critical_for": "safety|experience|operations",
+      "current_status": "automated|manual|mixed"
+    },
+    "guest_requirements": {
+      "requirement_id": "UUID",
+      "type": "safety|dietary|medical|physical",
+      "capture_method": "form|notification|interview",
+      "critical": "boolean",
+      "guides_trained": "boolean"
+    },
+    "pain_points": {
+      "issue_id": "UUID",
+      "category": "operations|safety|guest|team",
+      "severity": "high|medium|low",
+      "frequency": "rare|occasional|frequent",
+      "solution_proposed": "string",
+      "owner": "string"
+    }
+  },
+  "action_items": [
+    {
+      "priority": "HIGH",
+      "category": "Guest Information",
+      "action": "Enhance guest intake form",
+      "details": [
+        "Add swimming experience level (non-swimmer|beginner|intermediate|advanced|diver)",
+        "Physical limitations/mobility issues",
+        "Medical conditions beyond allergies",
+        "Language preferences",
+        "Previous snorkeling experience"
+      ],
+      "owner": "Operations/Gibran",
+      "impact": "Improves safety, guide preparation, customer satisfaction"
+    },
+    {
+      "priority": "HIGH",
+      "category": "Guest Experience",
+      "action": "Set proper expectations",
+      "details": [
+        "Clear weather/condition disclaimers",
+        "Realistic wildlife visibility probability",
+        "Route selection transparency",
+        "'Best effort' marine life guarantee"
+      ],
+      "owner": "Marketing/Operations",
+      "impact": "Reduces 1-star reviews, improves satisfaction"
+    },
+    {
+      "priority": "HIGH",
+      "category": "Equipment Maintenance",
+      "action": "Proactive equipment reliability",
+      "details": [
+        "Pre-trip mechanical checks",
+        "Backup boat availability",
+        "Equipment failure response plan"
+      ],
+      "owner": "Fleet Manager",
+      "impact": "Reduces operational disruptions"
+    },
+    {
+      "priority": "MEDIUM",
+      "category": "Office Infrastructure",
+      "action": "Expand office facilities",
+      "details": [
+        "Larger reception area",
+        "Better equipment storage",
+        "Guest briefing space",
+        "Staff facilities"
+      ],
+      "owner": "Management",
+      "impact": "Improves guest first impression, staff comfort"
+    },
+    {
+      "priority": "MEDIUM",
+      "category": "Training",
+      "action": "Guide certification program",
+      "details": [
+        "Safety protocols",
+        "Guest communication",
+        "Medical emergency response",
+        "Language/cultural sensitivity"
+      ],
+      "owner": "Training Manager",
+      "impact": "Standardizes service, improves safety"
+    },
+    {
+      "priority": "MEDIUM",
+      "category": "Complaint Handling",
+      "action": "Strengthen customer service response",
+      "details": [
+        "Empower customer service reps",
+        "Quick escalation to MOD",
+        "Guest recovery process",
+        "Follow-up after complaints"
+      ],
+      "owner": "Customer Service Manager",
+      "impact": "Reduces reputation damage, improves retention"
+    }
+  ],
+  "recommendations": {
+    "immediate": [
+      "Review and enhance guest intake form (swimming, physical, medical)",
+      "Create expectation-setting documentation (weather, wildlife)",
+      "Implement pre-trip equipment checklist",
+      "Develop customer service complaint protocol"
+    ],
+    "short_term": [
+      "Guide safety/medical training certification",
+      "Office facilities assessment and expansion plan",
+      "Team communication system upgrade (MOD/Gibran availability)",
+      "GoPro content standardization (Budi feedback)"
+    ],
+    "long_term": [
+      "Predictive weather/sea condition routing system",
+      "Guest satisfaction tracking per guide",
+      "Preventive maintenance program (equipment)",
+      "Guide career development pathways",
+      "Cultural sensitivity training for international markets"
+    ]
+  },
+  "guide_profiles": {
+    "Roby": {
+      "size_kb": 9.1,
+      "themes": [
+        "Harbor operations - arrival times (8am shared, 9am private)",
+        "Guest briefing - facilities (water, fruit, life jackets, gear)",
+        "Ship orientation - decks, toilets, facilities",
+        "Guest experience - snorkeling info, captain/crew intro",
+        "Vessel selection via schedule",
+        "Guest list clarity",
+        "Swimming experience assessment",
+        "Dietary/allergy info from schedule comments",
+        "Common guest questions - weather, water conditions, marine life",
+        "Difficult guests - strict, non-compliant during snorkeling",
+        "Communication chain - Gibran/MOD for issues",
+        "Safety protocols - seasickness (tablets, Fresh Care oil)",
+        "Medical emergencies - direct to Penida clinic",
+        "Dynamic spot selection - weather/current dependent",
+        "Stress management - expectations vs weather",
+        "Daily reporting process",
+        "5-star review satisfaction",
+        "Team support expectations",
+        "Responsive complaint handling",
+        "Guest satisfaction despite external factors"
+      ],
+      "pain_points": [
+        "Strict, non-compliant guests",
+        "Pressure to deliver Manta Ray sightings despite conditions",
+        "Weather-dependent decisions affecting guest satisfaction",
+        "Poor internal complaint handling",
+        "Motor/equipment breakdowns during tours",
+        "Customer service not equipped to handle upset guests",
+        "Low-star reviews from uncontrollable factors"
+      ],
+      "operational_insights": [
+        "Daily schedule checking critical",
+        "Guest briefing directly impacts experience",
+        "Swimming assessment allows for safety adjustments",
+        "Dynamic route planning based on conditions",
+        "Clear communication with MOD/Gibran required",
+        "Formal daily reporting process in place"
+      ],
+      "recommendations": [
+        "Improve response time to guest complaints",
+        "Better internal communication about weather/route changes",
+        "Captain-guide alignment on decision support",
+        "Proactive customer service for disappointed guests"
+      ]
+    },
+    "Budi": {
+      "size_kb": 8.9,
+      "themes": [
+        "Guest welcome protocol at harbor",
+        "Personalized greeting - guide name intro",
+        "Harbor check-in briefing",
+        "Welcome drinks - tea, coffee, juice",
+        "Safety briefing pre-departure",
+        "Vessel/trip type confirmation via website",
+        "Guest list reception day-before check",
+        "Special needs coordination - diet, allergies",
+        "Language barriers - manageable",
+        "Non-swimmer assistance",
+        "Boat introduction - safety equipment, toilets, snorkeling gear",
+        "Boatside welcome procedures",
+        "GoPro footage handoff process",
+        "Lead guide role during snorkeling",
+        "Beginner support - life vests, buddy system",
+        "Medical response - on-board first aid",
+        "Spot selection communication",
+        "Rough sea handling",
+        "Boat breakdowns and equipment switches",
+        "Daily reporting process",
+        "Guest name mentions in reviews - career booster",
+        "Team satisfaction and support"
+      ],
+      "pain_points": [
+        "Language barriers with guests",
+        "Non-swimmers requiring extra attention",
+        "Rough seas causing discomfort",
+        "Boat mechanical failures",
+        "Medical emergencies"
+      ],
+      "operational_insights": [
+        "Website scheduling system working well",
+        "Personal greeting improves guest experience",
+        "Safety briefing before departure critical",
+        "Lead guide designation improves coordination",
+        "GoPro content as guest deliverable",
+        "Daily reporting standardized"
+      ],
+      "recommendations": [
+        "Maintain current operations - team satisfied",
+        "Continue team support culture",
+        "Expand GoPro program"
+      ]
+    },
+    "Jena": {
+      "size_kb": 6.6,
+      "themes": [
+        "Harbor arrival - 9am private trips",
+        "Boat safety briefing",
+        "Facility explanation - decks, toilets, equipment",
+        "Day-before notification checks",
+        "Guest list verification process",
+        "Pick-up vs self-arrival tracking (for readiness)",
+        "Dietary/allergy from notifications",
+        "Gibran/MOD coordination for clarifications",
+        "Common questions - weather, safety equipment, marine life",
+        "Demanding guests - especially Indian nationality (stereotype note)",
+        "Water condition complaints - salinity, color preference",
+        "Communication protocol with office/MOD",
+        "No-show guest handling procedure",
+        "Swimming level assessment",
+        "Life jacket/ring provision for non-swimmers",
+        "Experienced swimmers kept close for safety",
+        "Medical emergency priority - direct to harbor/doctor",
+        "Spot selection by tide and weather",
+        "Current strength evaluation (skip dangerous spots)",
+        "Calm/safe location preference",
+        "Panic attack/emergency response via MOD/Gibran",
+        "Weather-dependent operational decisions",
+        "Daily reporting to team",
+        "Review reading and satisfaction with mentions",
+        "Office facilities expansion need",
+        "Team support and coordination importance",
+        "Professional standards and expectations"
+      ],
+      "pain_points": [
+        "Demanding guests (cultural stereotype flagged)",
+        "Water condition complaints from guests",
+        "Insufficient office facilities",
+        "Weather-dependent route planning",
+        "Panic attacks/medical emergencies at sea",
+        "No-show guests wasting resources"
+      ],
+      "operational_insights": [
+        "Notification system working",
+        "Guest list clarity improving",
+        "Tide/current knowledge critical",
+        "Safety-first spot selection",
+        "Emergency protocols in place",
+        "Daily reporting standardized"
+      ],
+      "recommendations": [
+        "Expand office facilities for high season",
+        "Strengthen Gibran/MOD coordination",
+        "Develop guest expectation management",
+        "Improve no-show prevention"
+      ]
+    },
+    "Nemo": {
+      "size_kb": 6.3,
+      "themes": [
+        "Harbor arrival - timing varies by trip type",
+        "First impression - guest greeting importance",
+        "Facility tour - boats, safety equipment",
+        "Schedule checking day-before",
+        "Guest list clarity",
+        "Information gaps - missing swimming experience",
+        "Dietary restrictions - not always provided",
+        "Common questions - duration, marine life visibility",
+        "Physical limitations of guests",
+        "Non-swimmers requiring support",
+        "Language difficulties",
+        "Safety training before snorkeling",
+        "Weather impact on mood/experience",
+        "Mechanical failures - engine issues",
+        "Emergency medical response",
+        "Decision-making with MOD/Gibran",
+        "Route/spot changes based on conditions",
+        "Communication during operations",
+        "Post-trip reporting",
+        "Review satisfaction",
+        "Team communication needs",
+        "Information flow improvements needed"
+      ],
+      "pain_points": [
+        "Missing swimming experience info",
+        "Incomplete dietary/allergy data",
+        "Physical limitations not communicated",
+        "Non-swimmers causing operational delays",
+        "Weather affecting guest mood",
+        "Equipment failures",
+        "Language barriers"
+      ],
+      "operational_insights": [
+        "Schedule checking critical",
+        "Guest list needs enhancement",
+        "Safety briefing important",
+        "MOD/Gibran decision-making key",
+        "Post-trip reporting routine",
+        "Team communication important"
+      ],
+      "recommendations": [
+        "Enhance guest information form - add swimming level",
+        "Ensure dietary/allergy complete",
+        "Improve information flow pre-trip",
+        "Physical limitations questionnaire",
+        "Better guest preparation messaging"
+      ]
+    }
+  }
+}
